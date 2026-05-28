@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anthony James Trujillo — Resume</title>
+<link rel="icon" type="image/png" href="TonyAI.png" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .resume-header {
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .resume-header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 0.25rem;
+  }
+  .contact {
+    font-size: 0.82rem;
+    color: #8b949e;
+  }
+  .contact a { color: #58a6ff; text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+
+  /* Section headings */
+  h2 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4d8c62;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 0.3rem;
+    margin: 1.8rem 0 0.9rem;
+  }
+
+  /* Summary */
+  .summary {
+    color: #c9d1d9;
+    font-size: 0.88rem;
+  }
+  .summary strong { color: #d0d8e4; }
+
+  /* Portfolio items */
+  .poc {
+    margin-bottom: 0.9rem;
+  }
+  .poc-title {
+    font-weight: 700;
+    color: #79c0ff;
+    font-size: 0.88rem;
+  }
+  .poc-desc {
+    color: #c9d1d9;
+    font-size: 0.85rem;
+  }
+  .poc-stack {
+    color: #5d8a6e;
+    font-size: 0.78rem;
+    margin-top: 0.1rem;
+  }
+  .poc-link a { color: #58a6ff; font-size: 0.8rem; text-decoration: none; }
+  .poc-link a:hover { text-decoration: underline; }
+
+  /* Experience */
+  .job { margin-bottom: 1.4rem; }
+  .job-company {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #79c0ff;
+    margin-bottom: 0.1rem;
+  }
+  .job-title {
+    font-size: 0.82rem;
+    color: #b8b0f0;
+    margin-bottom: 0.5rem;
+  }
+  ul {
+    padding-left: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+  li {
+    font-size: 0.85rem;
+    color: #c9d1d9;
+    margin-bottom: 0.3rem;
+  }
+  li strong { color: #d0d8e4; }
+
+  /* Earlier career table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+  th {
+    text-align: left;
+    color: #8b949e;
+    font-weight: 600;
+    border-bottom: 1px solid #21262d;
+    padding: 0.3rem 0.5rem 0.3rem 0;
+  }
+  td {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    border-bottom: 1px solid #161b22;
+    color: #c9d1d9;
+    vertical-align: top;
+  }
+
+  /* Technical Core */
+  .tech-item { margin-bottom: 0.4rem; font-size: 0.85rem; }
+  .tech-label { color: #d0d8e4; font-weight: 700; }
+
+  /* Books */
+  .book-list { font-size: 0.85rem; }
+  .book-list li { margin-bottom: 0.2rem; }
+
+  /* Education */
+  .edu-list { font-size: 0.85rem; }
+  .edu-list li strong { color: #79c0ff; }
+  .edu-list li { margin-bottom: 0.2rem; }
+
+  /* Back link */
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.82rem;
+    color: #58a6ff;
+    text-decoration: none;
+  }
+  .back:hover { text-decoration: underline; }
+
+  /* IETF inline link */
+  a { color: #58a6ff; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="portfolio.html">← Portfolio</a>
+
+  <div class="resume-header">
+    <h1>Anthony James Trujillo <span style="font-weight:400;color:#8b949e;font-size:1.1rem;">("Tony")</span></h1>
+    <div class="contact">
+      Herriman, UT &nbsp;·&nbsp; 801-652-6242 &nbsp;·&nbsp;
+      <a href="mailto:ajtrujillo68@gmail.com">ajtrujillo68@gmail.com</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+
+  <h2>Professional Summary</h2>
+  <p class="summary">
+    <strong>Principal Software Engineer · AI Force Multiplier · Architecture · Zero Trust · Identity · Compliance</strong><br><br>
+    IETF Internet-Draft author — <em>draft-tonyai-a2a-trust-00</em>, agent-to-agent trust and AI governance — routed to IETF Security working group track on day one. Hands-on Principal Engineer building secure enterprise systems at scale. Known as "TonyAI" for agentic workflows that cut delivery 3× while holding a 0.04% defect rate across 6 years. Deep expertise in Zero Trust security, identity (Auth0, Okta, Entra ID, SAML 2.0, OAuth2), AWS, and microservices. Exceeds Expectations across every role and every company — highest code output engineer across multiple consulting engagements. Volunteered for the highest-stakes assignments, drove feasibility spikes before full commitment, and pushed back on management to protect code quality. The result: zero critical production bugs, zero support calls for login or access failures.
+  </p>
+
+  <h2>Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">(Between roles — running code, live demos)</span></h2>
+
+  <div class="poc">
+    <div class="poc-title">Last Mile Zero Trust PoC</div>
+    <div class="poc-desc">Zero static credentials, no inbound firewall holes, cryptographic audit trail on every AI access to on-prem data. MCP server enforces signed JWT + HMAC; enforcement repeats on-prem and at the DB.</div>
+    <div class="poc-stack">Stack: Python, AWS SQS, HashiCorp Vault, PostgreSQL 16, Redis, ReBAC, Terraform, Docker, JWT RS256, MCP, Claude/Anthropic &nbsp;|&nbsp; SOC2, PCI DSS v4, FIPS 140-3, NIST 800-207</div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">Bedrock Agent + Last Mile Zero Trust PoC — HIPAA AI Access</div>
+    <div class="poc-desc">AWS Bedrock Agent gives an AI assistant secure, auditable access to on-premises patient records without static credentials or inbound firewall rules. PHI never leaves on-prem PostgreSQL; full cryptographic audit trail on every AI-driven access.</div>
+    <div class="poc-stack">Stack: Python, AWS Bedrock, SQS, Lambda, HashiCorp Vault, PostgreSQL, Redis, ReBAC, JWT RS256, MCP &nbsp;|&nbsp; HIPAA, SOC2, FIPS 140-3, NIST 800-207</div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">IETF Internet-Draft: Agent-to-Agent Trust <em style="font-weight:400;">(draft-tonyai-a2a-trust-00)</em></div>
+    <div class="poc-desc">Defined the standard for AI agent identity, message integrity, and audit trails where none existed. Full stack: JWT chains → ReBAC → HMAC → FedRAMP High roadmap; every pattern backed by working PoC code.</div>
+    <div class="poc-link"><a href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">datatracker.ietf.org/doc/draft-tonyai-a2a-trust →</a></div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">Sentinel FIPS — AWS-Native FIPS 140-3 Security Boundary</div>
+    <div class="poc-desc">Dual independent auth checks before any AI action; every decision KMS-signed; audit trail in S3 Object Lock COMPLIANCE mode that root cannot revoke. FedRAMP-ready, live demo available.</div>
+    <div class="poc-stack">Stack: Python, AWS Lambda, API Gateway, KMS, DynamoDB, Amazon Verified Permissions/Cedar, CloudTrail, S3 Object Lock, EventBridge, SAM &nbsp;|&nbsp; FIPS 140-3, FedRAMP Moderate/High, SOC2, NIST 800-53</div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">Sentinel ReBAC PoC — Agentic Authorization</div>
+    <div class="poc-desc">Relationship graph mirrors org structure; revoke one edge, enforcement stops everywhere immediately. AI agents cannot act without a traversable authorization chain — role explosion solved, stale access eliminated.</div>
+    <div class="poc-stack">Stack: Python, Redis, MCP/stdio, Claude Opus 4.7, Kubernetes, Docker &nbsp;|&nbsp; SOC2, OWASP A01/A04</div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">Sentinel MCP PoC — AWS Ops Toolkit</div>
+    <div class="poc-desc">Cut security investigation time from 45 minutes to 60 seconds. Least-privilege read-only access; KMS verification confirms audit records were not tampered; plain-English in, forensically verified answer out.</div>
+    <div class="poc-stack">Stack: Python, FastMCP, boto3, AWS DynamoDB, CloudTrail, CloudWatch, KMS, Lambda, IAM &nbsp;|&nbsp; SOC2, OWASP A05/A09</div>
+  </div>
+
+  <div class="poc">
+    <div class="poc-title">RAG Knowledge Assistant PoC — Enterprise AI Adoption</div>
+    <div class="poc-desc">Local knowledge base answers first; sensitive data never reaches an external API. Daily spend caps with hard blocks, every query tracked. Cost decreases as usage grows.</div>
+    <div class="poc-stack">Stack: TypeScript, Node.js, Anthropic Claude SDK, JSON knowledge store, token budgeting &nbsp;|&nbsp; SOC2, OWASP A01/A09</div>
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="job">
+    <div class="job-company">Henry Schein One — Herriman, UT</div>
+    <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; July 2023 – April 2026</div>
+    <ul>
+      <li><strong>AI Force Multiplier:</strong> Pioneered agentic Cursor/Claude Code workflows that cut delivery 3×; built repeatable playbooks adopted across the team. Set HSO sprint velocity record: <strong>17 story points</strong> — unmatched by any other engineer. Shifted to AI-generated test suites with Claude Code — same rigor, 3× the coverage velocity.</li>
+      <li><strong>AI Evaluation &amp; Adoption:</strong> Selected for company AI evaluation team — assessed Cursor, GitHub Copilot, GitLab Duo, and Claude; recommended Cursor for company-wide rollout. Ranked top 50 company-wide for Cursor usage.</li>
+      <li><strong>6-Year Quality Record:</strong> Sustained 0.04% escaped defect rate across all product cycles and multiple roles. Team recognized by SVP of Engineering and CTO as the highest-performing in the company — highest velocity, highest output, lowest defect rate.</li>
+      <li><strong>Auth0 MFA — Enterprise-Scale User Base:</strong> Sole architect, implementer, and rollout owner for Auth0 login and MFA flows including SCIM provisioning — no Auth0, Okta, or Microsoft professional services engaged. Worked directly with Auth0 engineering teams to resolve complex edge cases. Zero production defects at launch; led team of 5 through custom login UI, adaptive MFA (risk-based), and SMS via Twilio. Platform sustained thousands of concurrent logins 3× daily — app tier scaled horizontally on EKS, Auth0 tenant sized correctly from day one; zero 429 rate-limit errors across the full production lifecycle. Conducted WebAuthn/FIDO2 PoC in React evaluating passwordless authentication paths.</li>
+      <li><strong>M2M &amp; User Identity — Secure 3rd Party Integrations:</strong> Architected and implemented both machine-to-machine (OAuth2 client credentials) and user-delegated identity flows for secure 3rd party integrations — including Worldpay payment processing and partner platform APIs. PCI-DSS compliant by design; every integration inherits the same identity model, scoped access, and audit trail as first-party services.</li>
+      <li><strong>Identity Platform Rollout Leadership:</strong> Owned the full lifecycle for every major identity initiative — architecture, golden path implementation, cross-team enablement, and production rollout. Authored user migration communications, end-user help documentation, and support runbooks ahead of each launch. Led enterprise customer IDP provisioning calls directly — sole technical point of contact for DSO onboarding, no professional services from Auth0, Okta, or Microsoft. Three other HSO product lines adopted the SAML 2.0 golden path independently, converting one engineering investment into a cross-product competitive differentiator.</li>
+      <li><strong>Entra ID SSO — Workforce Identity:</strong> RBAC + JIT provisioning for 200+ internal users; eliminated all manual production DB provisioning — IT could fully provision new hires from day one with zero DB intervention.</li>
+      <li><strong>IdP Federation &amp; DSO Adoption:</strong> Designed Auth0 IdP federation for PMS's largest DSO enterprise customers — proposal accepted by the first DSO on first presentation. Delivered self-service email de-duplication and PIN step-up auth; both became platform standards adopted across all PMS products. Architected with SOC2 as a first-class constraint.</li>
+      <li><strong>Web Threat, Bot Defense &amp; Fraud Prevention:</strong> Neutralized two simultaneous live attacks — a bot-driven DDoS flooding the login endpoint at thousands of requests/sec, exhausting Auth0 resources and causing 504s platform-wide; and a data exfiltration campaign hammering millions of records/sec consuming system resources. Identified root cause in both, stopped both, platform stayed online. Invented Session Kill Switch — neutralized session hijacking and fraudulent session reuse in real time, zero data exposure. SOC2 maintained throughout.</li>
+      <li><strong>Security Guru &amp; Vendor Authority:</strong> Designated primary advisor across InfoSec, Engineering, and Product for all identity and security decisions. Evaluated and selected third-party identity providers and security vendors — Auth0, Okta, Entra ID — owned the recommendation, the integration, and the outcome. Translated compliance requirements into shippable architecture without direct authority; built security as an organizational discipline adopted across all product teams.</li>
+      <li><strong>Full SDLC Ownership:</strong> Owned end-to-end SDLC for all delivered work — architecture, implementation, CI/CD pipelines (GitLab/Harness with Snyk, SpotBugs, JaCoCo, Jest), security gates, deployment, and post-launch support. No handoffs, no gaps in the chain.</li>
+      <li><strong>SDLC Automation &amp; Scaling:</strong> 90% reduction in support tickets via AWS event-driven automation (SES, SQS, SNS); built Email Bounce Engine as a platform service — automated suppression list handling eliminated manual whitelists, adopted across multiple teams and 4 PMS web applications company-wide, empowering user admins to fix and debug email delivery issues themselves; performance scaling and pod health monitoring across Kubernetes/EKS with real-time observability.</li>
+      <li><strong>Proprietary Inventions:</strong> Magic Mint (context-aware token binding), Actions Mapping Engine (DB-driven OBO auth), Session Kill Switch, Email Bounce Engine, PIN Step-Up Auth.</li>
+      <li><strong>Mentorship at Scale:</strong> Onboarded engineers to 90% of the PMS domain; taught the full identity stack so teams could build and operate it independently.</li>
+      <li><strong>System Escalation &amp; DevOps Bridge:</strong> Go-to engineer during production outages — bridged DevOps and PMS internals knowledge to triage fast, minimize customer impact, and land the right fix the first time.</li>
+      <li><strong>Legacy:</strong> Post-departure, HSO stood up a dedicated AppSec team to replace the security work previously owned by one engineer. All Auth0 PMS code in production — still bug-free. Zero support calls reporting login or access failures across the entire enterprise user base.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">KeSTA I.T. — State of Utah — Salt Lake City, UT</div>
+    <div class="job-title">Lead Java Developer &nbsp;|&nbsp; October 2022 – July 2023</div>
+    <ul>
+      <li><strong>Oracle-to-PostgreSQL Migration:</strong> Zero data loss; cut query response from minutes to seconds via targeted indexing and query refactoring. Two senior architects independently said they had never seen that volume and quality from one engineer in that timeframe — unprompted.</li>
+      <li><strong>Stack Modernization:</strong> Java 8 / AngularJS → Java 17 / Spring Boot / Angular in a high-security government environment.</li>
+      <li><strong>CI/CD &amp; API Standards:</strong> GitHub Actions pipelines with automated quality gates; OpenAPI/Swagger specs eliminating cross-team integration friction.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Henry Schein Practice Solutions — Herriman, UT</div>
+    <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; June 2021 – October 2022</div>
+    <ul>
+      <li><strong>Monolith-to-Microservices:</strong> Grails 3 → Java 17 / Spring Boot decomposition cut deployment time from 1.5 hours to 13 minutes.</li>
+      <li><strong>Pen-Test Remediation:</strong> Closed all critical and medium findings in 3 sprints; zero findings against SSO/auth flows — Security-by-Design from day one.</li>
+      <li><strong>Security-by-Design CI/CD:</strong> GitLab/Harness pipelines with Snyk, SpotBugs, CheckStyle, JaCoCo, and Jest — automated quality and security gates on every commit.</li>
+      <li><strong>Infrastructure as Code:</strong> Terraform IaC for the Spring Security gateway — provisioned, versioned, and auditable from first deploy.</li>
+      <li><strong>Team Enablement:</strong> Mentored engineering and QA on Kafka patterns, identity standards, and Event Storming; reduced onboarding time for event-driven service design.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Henry Schein One / Henry Schein Practice Solutions — Herriman, UT</div>
+    <div class="job-title">Full-Stack Staff Engineer / Founding Integration Architect / Team Lead &nbsp;|&nbsp; August 2012 – June 2021</div>
+    <ul>
+      <li><strong>Greenfield Auth Evolution:</strong> Architected the PMS identity layer from scratch; evolved it through the full stack: Basic Auth → OAuth2 → SAML 2.0 → M2M → JWT/Bearer. Every auth paradigm on the platform today traces to this work.</li>
+      <li><strong>SAML 2.0 — Revenue Platform Asset:</strong> Enterprise SAML 2.0 (IdP + SP) with Okta SSO + User Federation (10k users) and Entra ID — enterprise-scale SSO rollout. By 2018, three other HSO products adopted this to win enterprise customers — one engineering investment became cross-product revenue.</li>
+      <li><strong>On-Behalf-Of API Platform:</strong> Greenfield Entra ID OBO flow adopted by multiple internal teams; support tooling built on top is used daily by support techs and managers to resolve customer calls.</li>
+      <li><strong>One-Man Platform Engineering (2012–2019):</strong> No DevOps, no DevEx — owned architecture, technical strategy, code, Scrum, and infrastructure simultaneously until dedicated teams stood up in 2019. At that point, DevOps entrusted full CI/CD pipeline ownership for the entire PMS.</li>
+      <li><strong>Security &amp; Code Quality Ownership:</strong> Owned Snyk and Check Point scans across all code and dependencies. Led first external pen-test — lowest finding count in company history. Zero successful breaches. SOC2 maintained throughout.</li>
+      <li><strong>Web Threat &amp; Bot Defense:</strong> Stopped DDoS attacks previously taking the platform down; invented foundational access control system with DB schema, seed rights, and backend multi-tenancy violation checker.</li>
+      <li><strong>Full-Stack Builder:</strong> AWS ECS → EC2 + Kubernetes, Kafka/DDD, PostgreSQL, Spring Boot, React/Vue.js/Next.js, GitLab CI/CD. Evolved the frontend from jQuery/Backbone to the modern platform it is today.</li>
+      <li><strong>Engineering Standards Authority:</strong> Served on HSO DB schema and standards team; patterns adopted company-wide. Go-to advisor across all product teams on security and database architecture.</li>
+      <li><strong>Platform Reliability:</strong> Engineered real-time update engine, zero-conflict scheduling, and multi-tenancy architecture for enterprise integrations.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Symantec Corporation — Lindon, UT</div>
+    <div class="job-title">Principal Software Engineer &amp; Tech Lead &nbsp;|&nbsp; Oct 2004 – Jun 2010 and Feb 2011 – Aug 2012</div>
+    <ul>
+      <li><strong>Restore Anyware:</strong> Dissimilar-hardware restoration of live Windows OS snapshots to any target machine; independently extended to P2V and V2P across VMware, ESX, Hyper-V, and Linux — full DR for SharePoint, Active Directory, SBS, and MS Project.</li>
+      <li><strong>Symantec Protection Center:</strong> Cloud-hosted CISO security console for enterprise-wide alerting, reporting, and remediation.</li>
+      <li><strong>Active Directory Expert:</strong> Deep internals expertise — Domain Controller migrations, RODC deployments, replication transactions, high/low water marks, SMB/SharePoint/SQL Server integrations. Traveled to Seattle to defend Restore Anyware before Microsoft; Microsoft validated the AD integrity approach and retained full support for Symantec customers.</li>
+      <li><strong>Recognition:</strong> Symantec Star Award and 2× A++ performance awards; filed a software patent.</li>
+    </ul>
+  </div>
+
+  <h2>Earlier Career <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">(See LinkedIn for full detail)</span></h2>
+  <table>
+    <tr><th>Role</th><th>Company</th><th>Dates</th><th>Focus</th></tr>
+    <tr><td>Senior Software Engineer</td><td>Kaseya</td><td>Jun 2010 – Feb 2011</td><td>C++, C#, .NET, Active Directory, LDAP, AWS S3, Windows Volume Shadow Services, COM, Unit Testing (GMOCK, CPPUnit), SQL Server</td></tr>
+    <tr><td>Senior Software Analyst</td><td>Comsys / Flying J</td><td>Jul 2004 – Oct 2004</td><td>C#, .NET, Oracle, PL/SQL, SQL Server, T-SQL, Web Services, XML, ADO.NET, Credit Card Authorization, Data Replication</td></tr>
+    <tr><td>Senior Software Analyst</td><td>Veracity Solutions / Misys Healthcare</td><td>Nov 2002 – Jun 2004</td><td>C#, C++, .NET, Oracle, ODP.NET, NUnit, ATL, STL, MSMQ, Windows Sockets, COM, Healthcare/Pharmacy Systems, PCI-adjacent</td></tr>
+    <tr><td>Programmer Analyst</td><td>Tek Systems / Misys Healthcare</td><td>Nov 2001 – Nov 2002</td><td>C++, COM+, DCOM, Visual Basic, ATL, MFC, XML, ADO, Windows 2000</td></tr>
+    <tr><td>Programmer Analyst</td><td>K-Force / Vanteon</td><td>Mar 2001 – Nov 2001</td><td>Java, C++, MFC, Swing, UNIX, Biometric Encryption, MS Crypto API, Digital Certificates, COM</td></tr>
+    <tr><td>Programmer Analyst / Team Lead</td><td>Alltel Information Services</td><td>Dec 1998 – Mar 2001</td><td>C, C++, MFC, Windows CE, Oracle, PL/SQL, UNIX, TCP/IP, Rational Rose, Team Lead — scheduling, mentoring, source control</td></tr>
+    <tr><td>Programmer Analyst</td><td>Satellite Image Systems</td><td>Oct 1996 – Dec 1998</td><td>Visual C++, Borland C++, Data Entry/Archival Systems, EDI, flat-file databases</td></tr>
+    <tr><td>Computer Operator</td><td>Eduserv Technologies</td><td>Aug 1992 – Oct 1996</td><td>VAX VMS Mainframe, Borland C++, tape backup, printer systems, IT ops</td></tr>
+    <tr><td>Computer / Network Operator</td><td>US Army</td><td>Jan 1991 – Aug 1992</td><td>IBM DPS 8000 Mainframe, JCL, WAN/patch panels, TCP/IP, Top Secret clearance</td></tr>
+    <tr><td>Satellite Systems Operator / Team Lead</td><td>US Army</td><td>Jun 1987 – Jan 1991</td><td>SATCOM, LOS, TCP/IP, RS-232, Team Lead — Honor Student both schools</td></tr>
+  </table>
+
+  <h2>Technical Core</h2>
+  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot), LLMs, Prompt &amp; Context Engineering, MCP, RAG, AI Agent Orchestration, OpenAPI/Swagger. Anthropic Academy: AI Agents, RAG, MCP Servers, Agent Skills <em>(completed)</em>; Claude in Amazon Bedrock <em>(completed)</em>.</div>
+  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Spring Security, SAML 2.0, OAuth2, OIDC, WebAuthn, FIDO2, Auth0, Okta, Entra ID, MFA, RBAC, ReBAC, SCIM, JIT Provisioning, User Federation, JWT, SOC2, PCI-DSS, Worldpay, Snyk, Pen-Test Remediation.</div>
+  <div class="tech-item"><span class="tech-label">Cloud &amp; DevOps / Platform Engineering:</span> AWS EKS, ECS, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager; Azure (Entra ID); Kubernetes, Docker, Terraform, Helm, Ansible, GitHub Actions, Harness, GitLab CI/CD, TeamCity, YAML IaC.</div>
+  <div class="tech-item"><span class="tech-label">Backend:</span> Python, TypeScript, Java 17, Spring Boot, C#, .NET, Groovy/Grails, Node.js, Kafka (DDD/Avro), WebSockets, Microservices, Event-Driven Architecture, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, SOLID, DRY, Agile, Scrum.</div>
+  <div class="tech-item"><span class="tech-label">Frontend (JS Expert):</span> React, Vue.js, Next.js, JavaScript, jQuery, Backbone, CSS, SASS.</div>
+  <div class="tech-item"><span class="tech-label">Data:</span> Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
+  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
+
+  <h2>Books That Shaped the Craft</h2>
+  <ul class="book-list">
+    <li><em>Design Patterns</em> — Gang of Four</li>
+    <li><em>Object-Oriented Programming in C++</em> — Robert LaFore</li>
+    <li><em>Domain-Driven Design Distilled</em> — Vaughn Vernon</li>
+    <li><em>19 Deadly Sins of Software Security</em> — Howard, LeBlanc &amp; Viega</li>
+    <li><em>The Pragmatic Programmer</em> (20th Anniversary Ed.) — Thomas &amp; Hunt</li>
+    <li><em>Refactoring</em> (2nd Ed.) — Martin Fowler</li>
+    <li><em>JavaScript: The Good Parts</em> — Douglas Crockford, O'Reilly</li>
+    <li><em>Beyond Vibe Coding: From Coder to AI-Era Developer</em> — Addy Osmani</li>
+  </ul>
+
+  <h2>Education &amp; Continuous Learning</h2>
+  <ul class="edu-list">
+    <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills <em>(completed)</em>; Claude in Amazon Bedrock <em>(completed)</em></li>
+    <li><strong>Continuous Learning</strong> — YouTube: @theseriouscto <em>(CTO strategy)</em>, @NateBJones <em>(AI)</em>, @IBMTechnology <em>(cloud computing)</em></li>
+    <li>TLS/Digital Certificates, SAML 2.0, OAuth2, OIDC, AppSec — Pluralsight &amp; Udemy</li>
+    <li>Atlantic Computrain — Sun Java 2 Programmer Certificate, 2000</li>
+    <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA, 1996</li>
+    <li>US Army Signal School — Computer Operator Certificate, 1991 <em>(Honor Student)</em></li>
+    <li>US Army Signal School — Satellite Systems Operator Certificate, 1987 <em>(Honor Student)</em></li>
+  </ul>
+
+</div>
+</body>
+</html>
