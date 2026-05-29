@@ -513,9 +513,17 @@
     }
 
     /* ── Demo Preview Tooltip ── */
+    @keyframes badge-shake {
+      0%, 85%, 100% { transform: translateX(0) rotate(0deg); }
+      88%  { transform: translateX(-3px) rotate(-2deg); }
+      91%  { transform: translateX(3px) rotate(2deg); }
+      94%  { transform: translateX(-2px) rotate(-1deg); }
+      97%  { transform: translateX(2px) rotate(1deg); }
+    }
     .badge-demo {
       position: relative;
       cursor: pointer;
+      animation: badge-shake 3s ease-in-out infinite;
     }
 
     .demo-preview {
