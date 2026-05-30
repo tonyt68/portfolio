@@ -193,7 +193,7 @@
   <h2>Professional Summary</h2>
   <p class="summary">
     <strong>Principal Software Engineer · AI Force Multiplier · Architecture · Zero Trust · Identity · Compliance</strong><br><br>
-    IETF Internet-Draft author — <em>draft-tonyai-a2a-trust-00</em>, agent-to-agent trust and AI governance — routed to IETF Security working group track on day one. Hands-on Principal Engineer building secure enterprise systems at scale. Known as "TonyAI" for agentic workflows that cut delivery 3× while holding a 0.04% defect rate across 6 years. Deep expertise in Zero Trust security, identity (Auth0, Okta, Entra ID, SAML 2.0, OAuth2), AWS, and microservices. Exceeds Expectations across every role and every company — highest code output engineer across multiple consulting engagements. Volunteered for the highest-stakes assignments, drove feasibility spikes before full commitment, and pushed back on management to protect code quality. The result: zero critical production bugs, zero support calls for login or access failures.
+    IETF Internet-Draft author — <em>draft-tonyai-a2a-trust-00</em>, agent-to-agent trust and AI governance — routed to IETF Security working group track on day one. Hands-on Principal Engineer building secure enterprise systems at scale. Known as "TonyAI" for agentic workflows that cut delivery time 3× while holding a 0.04% defect rate across 6 years. Deep expertise in Zero Trust security, identity (Auth0, Okta, Entra ID, SAML 2.0, OAuth2), AWS, and microservices. Exceeds Expectations across every role and every company — highest code output engineer across multiple consulting engagements. Volunteered for the highest-stakes assignments, drove feasibility spikes before full commitment, and pushed back on management to protect code quality. The result: zero critical production bugs, zero support calls for login or access failures.
   </p>
 
   <h2 style="display:flex;align-items:baseline;justify-content:space-between;">Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#b8bec4;letter-spacing:0;font-weight:700;background:linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">(Between roles — running code, live demos)</span><span style="font-size:0.7rem;font-weight:400;color:#555;text-transform:none;letter-spacing:0;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;-webkit-text-fill-color:#79c0ff;text-decoration:none;">Claude</a> Code</span></h2>
@@ -201,13 +201,13 @@
   <div class="poc">
     <div class="poc-title">Last Mile Zero Trust PoC</div>
     <div class="poc-desc">Zero static credentials, no inbound firewall holes, cryptographic audit trail on every AI access to on-prem data. MCP server enforces signed JWT + HMAC; enforcement repeats on-prem and at the DB.</div>
-    <div class="poc-stack">Stack: Python, AWS SQS, HashiCorp Vault, PostgreSQL 16, Redis, ReBAC, Terraform, Docker, JWT RS256, MCP, Claude/Anthropic &nbsp;|&nbsp; SOC2, PCI DSS v4, FIPS 140-3, NIST 800-207</div>
+    <div class="poc-stack">Stack: Python, FastAPI, AWS SQS, IAM, HashiCorp Vault, PostgreSQL 16, Redis, ReBAC, Terraform, Docker, JWT RS256, MCP, Claude/Anthropic &nbsp;|&nbsp; SOC2, PCI DSS v4, FIPS 140-3, NIST 800-207</div>
   </div>
 
   <div class="poc">
     <div class="poc-title">Bedrock Agent + Last Mile Zero Trust PoC — HIPAA AI Access</div>
     <div class="poc-desc">AWS Bedrock Agent gives an AI assistant secure, auditable access to on-premises patient records without static credentials or inbound firewall rules. PHI never leaves on-prem PostgreSQL; full cryptographic audit trail on every AI-driven access.</div>
-    <div class="poc-stack">Stack: Python, AWS Bedrock, SQS, Lambda, HashiCorp Vault, PostgreSQL, Redis, ReBAC, JWT RS256, MCP &nbsp;|&nbsp; HIPAA, SOC2, FIPS 140-3, NIST 800-207</div>
+    <div class="poc-stack">Stack: Python, FastAPI, AWS Bedrock, SQS, Lambda, IAM, HashiCorp Vault, PostgreSQL, Redis, ReBAC, JWT RS256, MCP &nbsp;|&nbsp; HIPAA, SOC2, FIPS 140-3, NIST 800-207</div>
   </div>
 
   <div class="poc">
@@ -219,7 +219,7 @@
   <div class="poc">
     <div class="poc-title">Sentinel FIPS — AWS-Native FIPS 140-3 Security Boundary</div>
     <div class="poc-desc">Dual independent auth checks before any AI action; every decision KMS-signed; audit trail in S3 Object Lock COMPLIANCE mode that root cannot revoke. FedRAMP-ready, live demo available.</div>
-    <div class="poc-stack">Stack: Python, AWS Lambda, API Gateway, KMS, DynamoDB, Amazon Verified Permissions/Cedar, CloudTrail, S3 Object Lock, EventBridge, SAM &nbsp;|&nbsp; FIPS 140-3, FedRAMP Moderate/High, SOC2, NIST 800-53</div>
+    <div class="poc-stack">Stack: Python, AWS Lambda, API Gateway, KMS, DynamoDB, Amazon Verified Permissions/Cedar, CloudTrail, S3 Object Lock, EventBridge, SNS, SecretsManager, CloudWatch, SAM &nbsp;|&nbsp; FIPS 140-3, FedRAMP Moderate/High, SOC2, NIST 800-53</div>
   </div>
 
   <div class="poc">
@@ -252,7 +252,7 @@
     <div class="job-company">Henry Schein One — Herriman, UT</div>
     <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; July 2023 – April 2026</div>
     <ul>
-      <li><strong>AI Force Multiplier:</strong> Pioneered agentic Cursor/Claude Code workflows that cut delivery 3×; built repeatable playbooks adopted across the team. Set HSO sprint velocity record: <span style="color:#b8bec4;font-weight:700;">17 story points</span> — unmatched by any other engineer. Shifted to AI-generated test suites with Claude Code — same rigor, 3× the coverage velocity.</li>
+      <li><strong>AI Force Multiplier:</strong> Pioneered agentic Cursor/Claude Code workflows that cut delivery time 3×; built repeatable playbooks adopted across the team. Set HSO sprint velocity record: <span style="color:#b8bec4;font-weight:700;">17 story points</span> — unmatched by any other engineer. Shifted to AI-generated test suites with Claude Code — same rigor, 3× the coverage velocity.</li>
       <li><strong>AI Evaluation &amp; Adoption:</strong> Selected for company AI evaluation team — assessed Cursor, GitHub Copilot, GitLab Duo, and Claude; recommended Cursor for company-wide rollout. Ranked top 50 company-wide for Cursor usage.</li>
       <li><strong>6-Year Quality Record:</strong> Sustained 0.04% escaped defect rate across all product cycles and multiple roles. Team recognized by SVP of Engineering and CTO as the highest-performing in the company — highest velocity, highest output, lowest defect rate.</li>
       <li><strong>Auth0 MFA — Enterprise-Scale User Base:</strong> Sole architect, implementer, and rollout owner for Auth0 login and MFA flows including SCIM provisioning — no Auth0, Okta, or Microsoft professional services engaged. Worked directly with Auth0 engineering teams to resolve complex edge cases. Zero production defects at launch; led team of 5 through custom login UI, adaptive MFA (risk-based), and SMS via Twilio. Platform sustained thousands of concurrent logins 3× daily — app tier scaled horizontally on EKS, Auth0 tenant sized correctly from day one; zero 429 rate-limit errors across the full production lifecycle. Conducted WebAuthn/FIDO2 PoC in React evaluating passwordless authentication paths.</li>
@@ -275,7 +275,7 @@
     <div class="job-company">KeSTA I.T. — State of Utah — Salt Lake City, UT</div>
     <div class="job-title">Lead Java Developer &nbsp;|&nbsp; October 2022 – July 2023</div>
     <ul>
-      <li><strong>Oracle-to-PostgreSQL Migration:</strong> Zero data loss; cut query response from minutes to seconds via targeted indexing and query refactoring. Two senior architects independently said they had never seen that volume and quality from one engineer in that timeframe — unprompted.</li>
+      <li><strong>Oracle-to-PostgreSQL Migration:</strong> Zero data loss; cut query response time from minutes to seconds via targeted indexing and query refactoring. Two senior architects independently said they had never seen that volume and quality from one engineer in that timeframe — unprompted.</li>
       <li><strong>Stack Modernization:</strong> Java 8 / AngularJS → Java 17 / Spring Boot / Angular in a high-security government environment.</li>
       <li><strong>CI/CD &amp; API Standards:</strong> GitHub Actions pipelines with automated quality gates; OpenAPI/Swagger specs eliminating cross-team integration friction.</li>
     </ul>
