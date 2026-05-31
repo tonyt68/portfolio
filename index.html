@@ -227,11 +227,13 @@
 
     @media (max-width: 640px) {
       .demo-preview {
-        width: min(420px, calc(100vw - 32px));
+        position: fixed;
+        width: calc(100vw - 32px);
         height: 220px;
-        left: 0;
-        right: auto;
-        transform: none;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9999;
       }
       .header {
         flex-direction: column;
