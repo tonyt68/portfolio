@@ -360,6 +360,28 @@
       transition: border-color 0.2s, transform 0.2s;
     }
 
+    .card-flagship {
+      border: 1px solid #b8860b;
+      border-left: 4px solid #ffd700;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.12), 0 0 4px rgba(255, 215, 0, 0.08);
+    }
+    .card-flagship:hover {
+      border-color: #ffd700 !important;
+      box-shadow: 0 0 28px rgba(255, 215, 0, 0.22), 0 0 8px rgba(255, 215, 0, 0.12);
+    }
+    .card-title-gold {
+      background: linear-gradient(90deg,
+        #1a0e00 0%, #7a5200 8%, #c89010 18%, #e8a800 27%,
+        #ffd000 35%, #ffe44a 42%, #ffffff 50%,
+        #ffe44a 58%, #ffd000 65%, #e8a800 73%,
+        #c89010 82%, #7a5200 92%, #1a0e00 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.35));
+    }
+
     .card:hover {
       border-color: #58a6ff;
       transform: translateY(-2px);
@@ -951,11 +973,11 @@
       </div>
     </div>
 
-    <!-- Secure RAG -->
-    <div class="card">
+    <!-- Secure RAG — Flagship -->
+    <div class="card card-flagship">
       <div class="card-header">
         <span class="card-icon">🔐</span>
-        <span class="card-title">Secure RAG — Zero Trust Demo</span>
+        <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
       </div>
       <p class="card-question">How do you give an AI agent access to enterprise documents without exposing sensitive data or trusting the AI with access decisions?</p>
       <p class="card-desc-green">Bedrock Knowledge Base + S3 + ReBAC. Minimum necessary access enforced at the retrieval layer. PHI never leaves the trust boundary.</p>
