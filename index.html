@@ -675,6 +675,14 @@
         top: 50%;
         transform: translateY(-50%);
         z-index: 9999;
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.12s ease;
+      }
+      .badge-demo:hover .demo-preview {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
 
