@@ -979,14 +979,18 @@
         <span class="card-icon">🔐</span>
         <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
       </div>
-      <p class="card-question">How do you give an AI agent access to enterprise documents without exposing sensitive data or trusting the AI with access decisions?</p>
-      <p class="card-desc-green">Bedrock Knowledge Base + S3 + ReBAC. Minimum necessary access enforced at the retrieval layer. PHI never leaves the trust boundary.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — same JWT → ReBAC → audit stack, Bedrock KB as the backend.</p>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-top:-4px;margin-bottom:2px;">
+        <span style="font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:4px;background:linear-gradient(135deg,#7a5200,#ffd000,#7a5200);color:#0d1117;letter-spacing:0.05em;">★ FLAGSHIP DEMO</span>
+        <span style="font-size:0.68rem;color:#8b949e;">Most AWS services · Most compliance coverage</span>
+      </div>
+      <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
+      <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before Claude sees a single token. PHI never leaves the trust boundary.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — JWT → ReBAC → Bedrock KB pre-filter → DynamoDB audit. Same stack, swappable backend.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
-          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">AWS Bedrock Knowledge Base</span>
-          <span class="tag">OpenSearch Serverless</span><span class="tag">S3</span><span class="tag">DynamoDB</span>
+          <span class="tag">Python</span><span class="tag">AWS Bedrock Knowledge Base</span>
+          <span class="tag">Pinecone</span><span class="tag">S3</span><span class="tag">DynamoDB</span>
           <span class="tag">CloudWatch</span><span class="tag">SQS</span><span class="tag">IAM</span>
           <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">MCP Resources</span>
           <span class="tag">MCP Prompts</span><span class="tag">Claude Code</span><span class="tag">JWT RS256</span><span class="tag">Terraform</span>
