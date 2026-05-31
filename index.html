@@ -667,6 +667,12 @@
     }
 
     @media (max-width: 640px) {
+      .badge-demo {
+        animation: none !important;
+      }
+      .badge-demo:hover {
+        animation: none !important;
+      }
       .demo-preview {
         position: fixed;
         width: calc(100vw - 32px);
@@ -678,7 +684,7 @@
         display: block;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.12s ease;
+        transition: opacity 0.15s ease;
       }
       .badge-demo:hover .demo-preview {
         opacity: 1;
