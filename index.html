@@ -619,14 +619,15 @@
       transform-origin: 15% center;
     }
 
-    .demo-preview img:nth-child(1) { animation: imgfade 24s infinite 0s  backwards, imgzoom 24s infinite 0s  backwards; object-position: top; }
-    .demo-preview img:nth-child(2) { animation: imgfade 24s infinite 8s  backwards, imgzoom2 24s infinite 8s  backwards; object-position: 25% 85%; }
-    .demo-preview img:nth-child(3) { animation: imgfade 24s infinite 16s backwards, imgzoom3 24s infinite 16s backwards; object-position: 70% 85%; transform-origin: 50% center; }
+    .demo-preview img:nth-child(1) { animation: imgfade 32s infinite 0s  backwards, imgzoom  32s infinite 0s  backwards; object-position: top; }
+    .demo-preview img:nth-child(2) { animation: imgfade 32s infinite 8s  backwards, imgzoom  32s infinite 8s  backwards; object-position: top; }
+    .demo-preview img:nth-child(3) { animation: imgfade 32s infinite 16s backwards, imgzoom2 32s infinite 16s backwards; object-position: 25% 85%; }
+    .demo-preview img:nth-child(4) { animation: imgfade 32s infinite 24s backwards, imgzoom3 32s infinite 24s backwards; object-position: 70% 85%; transform-origin: 50% center; }
 
     @keyframes imgfade {
       0%        { opacity: 0; }
-      4%, 33%   { opacity: 1; }
-      37%, 100% { opacity: 0; }
+      3%, 25%   { opacity: 1; }
+      28%, 100% { opacity: 0; }
     }
 
     @keyframes imgzoom {
@@ -746,6 +747,7 @@
         <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;">
           <span class="badge badge-green badge-demo">Running Demos
             <div class="demo-preview">
+              <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
               <img src="demo.png" alt="TonyAI Portfolio demo menu" />
               <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
               <img src="demo-d.png" alt="Last Mile demo — DENIED" />
