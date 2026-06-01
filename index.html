@@ -577,6 +577,11 @@
     }
 
     /* ── Demo Preview Tooltip ── */
+    @keyframes cert-pulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 4px #ffd000; }
+      50%       { opacity: 0.5; text-shadow: 0 0 10px #ffd000; }
+    }
+
     @keyframes badge-shake {
       0%, 85%, 100% { transform: translateX(0) rotate(0deg); }
       88%  { transform: translateX(-3px) rotate(-2deg); }
@@ -758,6 +763,61 @@
       color: #3fb950;
     }
 
+    /* ── Certifications ── */
+    .certs-section {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+      padding: 1.25rem 2rem;
+      background: linear-gradient(135deg, #13203a, #1a1530);
+      border: 1px solid #5a6acf;
+      border-left: 4px solid #7b8cf0;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .certs-section h3 {
+      margin: 0 0 0.85rem 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .certs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .cert-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.6rem 1rem;
+      width: 260px;
+      background: #0d1117;
+      border: 1px solid #5a6acf;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .cert-badge:hover {
+      border-color: #7b8cf0;
+      box-shadow: 0 0 10px rgba(123,140,240,0.3);
+    }
+    .cert-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #b8bec4;
+    }
+    .cert-meta {
+      font-size: 0.72rem;
+      color: #79c0ff;
+    }
+
     /* ── Footer ── */
     .footer {
       max-width: 1100px;
@@ -787,7 +847,7 @@
               <img src="demo-d.png" alt="Last Mile demo — DENIED" />
             </div>
           </span>
-          <span style="font-size:0.65rem;color:#555;padding-left:0.2rem;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></span>
+          <span style="font-size:0.65rem;color:#555;padding-left:0.2rem;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a> &nbsp;·&nbsp; <a href="#certs" style="text-decoration:none;font-size:0.78rem;background:linear-gradient(90deg,#4a5a6a 0%,#8aaabb 20%,#c8dce8 38%,#ffffff 50%,#c8dce8 62%,#8aaabb 80%,#4a5a6a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎓 Certifications</a><a href="#certs" title="View Certifications" style="text-decoration:none;font-size:0.82rem;color:#ffd000;margin-left:3px;animation:cert-pulse 2.5s ease-in-out infinite;display:inline-block;cursor:pointer;">⬇</a></span>
         </div>
         <span class="badge badge-orange">AWS Bedrock</span>
         <span class="badge badge-red">Zero Trust</span>
@@ -986,6 +1046,25 @@
     </div>
 
 
+  </div>
+
+  <!-- Certifications -->
+  <div class="certs-section" id="certs">
+    <h3>Anthropic Academy Certifications</h3>
+    <div class="certs-list">
+      <a class="cert-badge" href="https://verify.skilljar.com/c/mpyqgci4jcc6" target="_blank" rel="noopener noreferrer">
+        <span class="cert-name">Introduction to Model Context Protocol</span>
+        <span class="cert-meta">Anthropic &nbsp;·&nbsp; Apr 2026 &nbsp;·&nbsp; Verify ↗</span>
+      </a>
+      <a class="cert-badge" href="https://verify.skilljar.com/c/cxuaxz6gi34u" target="_blank" rel="noopener noreferrer">
+        <span class="cert-name">Model Context Protocol: Advanced Topics</span>
+        <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+      </a>
+      <a class="cert-badge" href="https://verify.skilljar.com/c/aqp2mxpwvftt" target="_blank" rel="noopener noreferrer">
+        <span class="cert-name">Claude in Amazon Bedrock</span>
+        <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+      </a>
+    </div>
   </div>
 
   <!-- Production Proof -->
