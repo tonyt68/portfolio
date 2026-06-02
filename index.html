@@ -881,6 +881,7 @@
       <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
       <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before Claude sees a single token. PHI never leaves the trust boundary.</p>
       <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — JWT → ReBAC → Bedrock KB pre-filter → DynamoDB audit. Same stack, swappable backend.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:4px;font-style:italic;color:#cdd5dc;">Every request carries a <strong>correlation ID</strong> from JWT validation through ReBAC, retrieval, and response — traceable end-to-end in CloudWatch. Full observability built in, not bolted on.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
