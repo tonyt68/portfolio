@@ -673,6 +673,9 @@
     }
 
     @media (max-width: 640px) {
+      .cost-card { flex-direction: column; }
+      .cost-card-img { width: 100% !important; max-width: 100% !important; }
+      .cost-card-text { padding: 1rem 1rem !important; }
       .badge-demo {
         animation: none !important;
       }
@@ -881,9 +884,9 @@
   </div>
 
   <!-- AI Cost Optimization Card -->
-  <div style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#0d1f0d,#0d1117);border:1px solid #2ea043;border-left:4px solid #2ea043;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
-    <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
-    <div style="padding:1.5rem 2rem;flex:1;">
+  <div class="cost-card" style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#0d1f0d,#0d1117);border:1px solid #2ea043;border-left:4px solid #2ea043;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
+    <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" class="cost-card-img" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
+    <div class="cost-card-text" style="padding:1.5rem 2rem;flex:1;">
       <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:linear-gradient(90deg,#8aaabb 0%,#c8dce8 25%,#ffffff 50%,#c8dce8 75%,#8aaabb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
       <div style="font-size:0.82rem;color:#b8bec4;line-height:1.9;">
         <span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed<br>
