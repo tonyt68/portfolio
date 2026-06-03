@@ -764,6 +764,20 @@
       color: #3fb950;
     }
 
+    /* ── Cost Savings Tag ── */
+    .cost-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #2ea043;
+      border: 1px solid #2ea043;
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+
     /* ── Certifications ── */
     .certs-section {
       width: 100%;
@@ -866,6 +880,21 @@
     </div>
   </div>
 
+  <!-- AI Cost Optimization Card -->
+  <div style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#0d1f0d,#0d1117);border:1px solid #2ea043;border-left:4px solid #2ea043;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
+    <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
+    <div style="padding:1.5rem 2rem;flex:1;">
+      <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:linear-gradient(90deg,#8aaabb 0%,#c8dce8 25%,#ffffff 50%,#c8dce8 75%,#8aaabb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
+      <div style="font-size:0.82rem;color:#b8bec4;line-height:1.9;">
+        <span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed<br>
+        <span style="color:#2ea043;font-weight:700;">▸</span> Prompt caching — stop paying for repeated context<br>
+        <span style="color:#2ea043;font-weight:700;">▸</span> Spend caps — hard limits, no surprise bills<br>
+        <span style="color:#2ea043;font-weight:700;">▸</span> Model tiering — Haiku for simple tasks, Opus for hard ones<br>
+        <span style="color:#2ea043;font-weight:700;">▸</span> Context budgeting — 2k tokens, not 100k
+      </div>
+    </div>
+  </div>
+
   <!-- PoC Grid -->
   <div class="grid">
 
@@ -874,6 +903,7 @@
       <div class="card-header">
         <span class="card-icon">🔐</span>
         <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
+        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <div style="display:flex;align-items:center;gap:0.5rem;margin-top:-4px;margin-bottom:2px;">
         <span style="font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:4px;background:linear-gradient(135deg,#7a5200,#ffd000,#7a5200);color:#0d1117;letter-spacing:0.05em;">★ FLAGSHIP DEMO</span>
@@ -971,6 +1001,7 @@
       <div class="card-header">
         <span class="card-icon">⚡</span>
         <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
+        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">How do you cut security investigation time from 45 minutes to 60 seconds?</p>
       <p class="card-desc-green">Plain-English in, forensically verified answer out. Conversational DevOps — CloudTrail, CloudWatch, DynamoDB, and KMS through natural language with full audit trail.</p>
@@ -1001,6 +1032,7 @@
       <div class="card-header">
         <span class="card-icon">🧠</span>
         <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
+        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">How do you roll out enterprise AI safely — and onboard into a new role faster without sensitive data leaving the org?</p>
       <p class="card-desc-green">Hard spend caps. Local-first retrieval. Sensitive data never reaches an external API. Onboarding accelerator — ingest docs, ADRs, runbooks. Ramp fast, stay secure.</p>
