@@ -125,7 +125,12 @@
     color: #b8bec4;
     margin-bottom: 0.3rem;
   }
-  li strong { color: #6b8cae; }
+  li strong {
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   /* Earlier career table */
   table {
@@ -147,10 +152,23 @@
     color: #b8bec4;
     vertical-align: top;
   }
+  td:first-child, td:nth-child(2) {
+    background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
 
   /* Technical Core */
   .tech-item { margin-bottom: 0.4rem; font-size: 0.85rem; }
-  .tech-label { color: #6b8cae; font-weight: 700; }
+  .tech-label {
+    font-weight: 700;
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   /* Books */
   .book-list { font-size: 0.85rem; }
@@ -158,7 +176,12 @@
 
   /* Education */
   .edu-list { font-size: 0.85rem; }
-  .edu-list li strong { color: #6b8cae; }
+  .edu-list li strong {
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .edu-list li { margin-bottom: 0.2rem; }
 
   /* Back link */
@@ -166,7 +189,10 @@
     display: inline-block;
     margin-bottom: 1.5rem;
     font-size: 0.82rem;
-    color: #6b8cae;
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-decoration: none;
   }
   .back:hover { text-decoration: underline; }
@@ -188,14 +214,23 @@
       <a href="mailto:ajtrujillo68@gmail.com">ajtrujillo68@gmail.com</a> &nbsp;·&nbsp;
       <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
-    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate &nbsp;·&nbsp; 6+ Years</div>
+    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate &nbsp;·&nbsp; 10+ Years</div>
   </div>
 
   <h2>Professional Summary</h2>
   <p class="summary">
     <strong>Principal Software Engineer · AI Force Multiplier · Architecture · Zero Trust · Identity · Compliance</strong><br><br>
-    IETF Internet-Draft author — <em>draft-tonyai-a2a-trust-00</em>, agent-to-agent trust and AI governance — routed to IETF Security working group track on day one. Hands-on Principal Engineer building secure enterprise systems at scale. Known as "TonyAI" for agentic workflows that cut delivery time 3× while holding a 0.04% defect rate across 6 years. Deep expertise in Zero Trust security, identity (Auth0, Okta, Entra ID, SAML 2.0, OAuth2), AWS, and microservices. Exceeds Expectations across every role and every company — highest code output engineer across multiple consulting engagements. Volunteered for the highest-stakes assignments, drove feasibility spikes before full commitment, and pushed back on management to protect code quality. The result: zero critical production bugs, zero support calls for login or access failures.
+    IETF Internet-Draft author — <em>draft-tonyai-a2a-trust-00</em>, agent-to-agent trust and AI governance — routed to IETF Security working group track on day one. Hands-on Principal Engineer building secure enterprise systems at scale. Known as "TonyAI" for agentic workflows that cut delivery time 3× while holding a 0.04% defect rate across 10+ years. Deep expertise in Zero Trust security, identity (Auth0, Okta, Entra ID, SAML 2.0, OAuth2), AWS, and microservices. Exceeds Expectations across every role and every company — highest code output engineer across multiple consulting engagements. Volunteered for the highest-stakes assignments, drove feasibility spikes before full commitment, and pushed back on management to protect code quality. <span style="color:#3fb950;font-weight:700;">The result: zero critical production bugs, zero support calls for login or access failures.</span>
   </p>
+
+  <h2>Technical Core</h2>
+  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot, GitLab Duo), Large Language Models (LLMs), Prompt &amp; Context Engineering, MCP, RAG, AI Agent Orchestration, AI Agents, MCP Servers, Agent Skills, Claude in Amazon Bedrock, OpenAPI/Swagger.</div>
+  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Spring Security, SAML 2.0, OAuth2, OIDC, WebAuthn, FIDO2, Auth0, Okta, Entra ID, JumpCloud, Keycloak, SSO Deployment &amp; Rollout, IdP Provisioning (internal &amp; enterprise DSO), M2M Identity, Customer-Facing SSO Verification, MFA, RBAC, ReBAC, SCIM, JIT Provisioning, User Federation, JWT, SOC2, PCI-DSS, Worldpay, Wireshark, Fiddler, Snyk, Pen-Test Remediation.</div>
+  <div class="tech-item"><span class="tech-label">Cloud &amp; DevOps / Platform Engineering:</span> AWS EKS, ECS, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell; Azure (Entra ID); Kubernetes, Docker, Terraform, Helm, Ansible, GitHub Actions, Harness, GitLab CI/CD, TeamCity, YAML IaC, Bash.</div>
+  <div class="tech-item"><span class="tech-label">Backend (Java/C++/C# Expert):</span> Python, TypeScript, Java 17, Spring Boot, Spring MVC, C, C++, C#, .NET, Go (familiar), Groovy/Grails, Node.js, Kafka (DDD/Avro), RabbitMQ, WebSockets, Microservices, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
+  <div class="tech-item"><span class="tech-label">Frontend (JS Expert):</span> React, Vue.js, Next.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
+  <div class="tech-item"><span class="tech-label">Data:</span> Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
+  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
 
   <h2 style="display:flex;align-items:baseline;justify-content:space-between;">Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#b8bec4;letter-spacing:0;font-weight:700;background:linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">(Between roles — running code, live demos)</span><span style="font-size:0.7rem;font-weight:400;color:#555;text-transform:none;letter-spacing:0;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;-webkit-text-fill-color:#79c0ff;text-decoration:none;">Claude</a> Code</span></h2>
 
@@ -211,7 +246,7 @@
     <ul>
       <li><strong>AI Force Multiplier:</strong> Pioneered agentic Cursor/Claude Code workflows that cut delivery time 3×; built repeatable playbooks adopted across the team. Set HSO sprint velocity record: <span style="color:#b8bec4;font-weight:700;">17 story points</span> — unmatched by any other engineer. Shifted to AI-generated test suites with Claude Code — same rigor, 3× the coverage velocity.</li>
       <li><strong>AI Evaluation &amp; Adoption:</strong> Selected for company AI evaluation team — assessed Cursor, GitHub Copilot, GitLab Duo, and Claude; recommended Cursor for company-wide rollout. Ranked top 50 company-wide for Cursor usage.</li>
-      <li><strong>6-Year Quality Record:</strong> Sustained 0.04% escaped defect rate across all product cycles and multiple roles. Team recognized by SVP of Engineering and CTO as the highest-performing in the company — highest velocity, highest output, lowest defect rate.</li>
+      <li><strong>10+ Year Quality Record:</strong> Sustained 0.04% escaped defect rate across all product cycles and multiple roles. Team recognized by SVP of Engineering and CTO as the highest-performing in the company — highest velocity, highest output, lowest defect rate.</li>
       <li><strong>Auth0 MFA — Enterprise-Scale User Base:</strong> Sole architect, implementer, and rollout owner for Auth0 login and MFA flows including SCIM provisioning — no Auth0, Okta, or Microsoft professional services engaged. Worked directly with Auth0 engineering teams to resolve complex edge cases. Zero production defects at launch; led team of 5 through custom login UI, adaptive MFA (risk-based), and SMS via Twilio. Platform sustained thousands of concurrent logins 3× daily — app tier scaled horizontally on EKS, Auth0 tenant sized correctly from day one; zero 429 rate-limit errors across the full production lifecycle. Conducted WebAuthn/FIDO2 PoC in React evaluating passwordless authentication paths.</li>
       <li><strong>M2M &amp; User Identity — Secure 3rd Party Integrations:</strong> Architected and implemented both machine-to-machine (OAuth2 client credentials) and user-delegated identity flows for secure 3rd party integrations — including Worldpay payment processing and partner platform APIs. PCI-DSS compliant by design; every integration inherits the same identity model, scoped access, and audit trail as first-party services.</li>
       <li><strong>Identity Platform Rollout Leadership:</strong> Owned the full lifecycle for every major identity initiative — architecture, golden path implementation, cross-team enablement, and production rollout. Authored user migration communications, end-user help documentation, and support runbooks ahead of each launch. Led enterprise customer IDP provisioning calls directly — sole technical point of contact for DSO onboarding, no professional services from Auth0, Okta, or Microsoft. Three other HSO product lines adopted the SAML 2.0 golden path independently, converting one engineering investment into a cross-product competitive differentiator.</li>
@@ -291,15 +326,6 @@
     <tr><td>Computer / Network Operator</td><td>US Army</td><td>Jan 1991 – Aug 1992</td><td>IBM DPS 8000 Mainframe, JCL, WAN/patch panels, TCP/IP, Top Secret clearance</td></tr>
     <tr><td>Satellite Systems Operator / Team Lead</td><td>US Army</td><td>Jun 1987 – Jan 1991</td><td>SATCOM, LOS, TCP/IP, RS-232, Team Lead — Honor Student both schools</td></tr>
   </table>
-
-  <h2>Technical Core</h2>
-  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot), Large Language Models (LLMs), Prompt &amp; Context Engineering, MCP, RAG, AI Agent Orchestration, OpenAPI/Swagger. Anthropic Academy: AI Agents, RAG, MCP Servers, Agent Skills <em>(completed)</em>; Claude in Amazon Bedrock <em>(completed)</em>.</div>
-  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Spring Security, SAML 2.0, OAuth2, OIDC, WebAuthn, FIDO2, Auth0, Okta, Entra ID, JumpCloud, Keycloak, MFA, RBAC, ReBAC, SCIM, JIT Provisioning, User Federation, JWT, SOC2, PCI-DSS, Worldpay, Wireshark, Fiddler, Snyk, Pen-Test Remediation.</div>
-  <div class="tech-item"><span class="tech-label">Cloud &amp; DevOps / Platform Engineering:</span> AWS EKS, ECS, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell; Azure (Entra ID); Kubernetes, Docker, Terraform, Helm, Ansible, GitHub Actions, Harness, GitLab CI/CD, TeamCity, YAML IaC, Bash.</div>
-  <div class="tech-item"><span class="tech-label">Backend:</span> Python, TypeScript, Java 17, Spring Boot, Spring MVC, Go (familiar), C#, C++, .NET, Groovy/Grails, Node.js, Kafka (DDD/Avro), RabbitMQ, WebSockets, Microservices, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
-  <div class="tech-item"><span class="tech-label">Frontend (JS Expert):</span> React, Vue.js, Next.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
-  <div class="tech-item"><span class="tech-label">Data:</span> Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
-  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
 
   <h2>Books That Shaped the Craft</h2>
   <ul class="book-list">
