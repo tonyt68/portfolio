@@ -200,51 +200,7 @@
   <h2 style="display:flex;align-items:baseline;justify-content:space-between;">Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#b8bec4;letter-spacing:0;font-weight:700;background:linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">(Between roles — running code, live demos)</span><span style="font-size:0.7rem;font-weight:400;color:#555;text-transform:none;letter-spacing:0;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;-webkit-text-fill-color:#79c0ff;text-decoration:none;">Claude</a> Code</span></h2>
 
   <div class="poc">
-    <div class="poc-title">Last Mile Zero Trust PoC</div>
-    <div class="poc-desc">Zero static credentials, no inbound firewall holes, cryptographic audit trail on every AI access to on-prem data. MCP server enforces signed JWT + HMAC; enforcement repeats on-prem and at the DB.</div>
-    <div class="poc-stack">Stack: Python, FastAPI, AWS SQS, IAM, HashiCorp Vault, PostgreSQL 16, Redis, ReBAC, Terraform, Docker, JWT RS256, MCP, Claude/Anthropic &nbsp;|&nbsp; SOC2, PCI DSS v4, FIPS 140-3, NIST 800-207</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">Bedrock Agent + Last Mile Zero Trust PoC — HIPAA AI Access</div>
-    <div class="poc-desc">AWS Bedrock Agent gives an AI assistant secure, auditable access to on-premises patient records without static credentials or inbound firewall rules. PHI never leaves on-prem PostgreSQL; full cryptographic audit trail on every AI-driven access.</div>
-    <div class="poc-stack">Stack: Python, FastAPI, AWS Bedrock, SQS, Lambda, IAM, HashiCorp Vault, PostgreSQL, Redis, ReBAC, JWT RS256, MCP &nbsp;|&nbsp; HIPAA, SOC2, FIPS 140-3, NIST 800-207</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">IETF Internet-Draft: Agent-to-Agent Trust <em style="font-weight:400;">(draft-tonyai-a2a-trust-00)</em></div>
-    <div class="poc-desc">Defined the standard for AI agent identity, message integrity, and audit trails where none existed. Full stack: JWT chains → ReBAC → HMAC → FedRAMP High roadmap; every pattern backed by working PoC code.</div>
-    <div class="poc-link"><a href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">datatracker.ietf.org/doc/draft-tonyai-a2a-trust →</a></div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">Sentinel FIPS — AWS-Native FIPS 140-3 Security Boundary</div>
-    <div class="poc-desc">Dual independent auth checks before any AI action; every decision KMS-signed; audit trail in S3 Object Lock COMPLIANCE mode that root cannot revoke. FedRAMP-ready, live demo available.</div>
-    <div class="poc-stack">Stack: Python, AWS Lambda, API Gateway, KMS, DynamoDB, Amazon Verified Permissions/Cedar, CloudTrail, S3 Object Lock, EventBridge, SNS, SecretsManager, CloudWatch, SAM &nbsp;|&nbsp; FIPS 140-3, FedRAMP Moderate/High, SOC2, NIST 800-53</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">Sentinel ReBAC PoC — Agentic Authorization</div>
-    <div class="poc-desc">Relationship graph mirrors org structure; revoke one edge, enforcement stops everywhere immediately. AI agents cannot act without a traversable authorization chain — role explosion solved, stale access eliminated.</div>
-    <div class="poc-stack">Stack: Python, Redis, MCP/stdio, Claude Opus 4.7, Kubernetes, Docker &nbsp;|&nbsp; SOC2, OWASP A01/A04</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">Sentinel MCP PoC — AWS Ops Toolkit</div>
-    <div class="poc-desc">Cut security investigation time from 45 minutes to 60 seconds. Least-privilege read-only access; KMS verification confirms audit records were not tampered; plain-English in, forensically verified answer out.</div>
-    <div class="poc-stack">Stack: Python, FastMCP, boto3, AWS DynamoDB, CloudTrail, CloudWatch, KMS, Lambda, IAM &nbsp;|&nbsp; SOC2, OWASP A05/A09</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">Secure RAG PoC — Bedrock Knowledge Base + Zero Trust</div>
-    <div class="poc-desc">Bedrock Knowledge Base + S3 + ReBAC. Minimum necessary access enforced at the retrieval layer. PHI never leaves the trust boundary. Claude Code as MCP client — onboarding accelerator for day-one productivity at any new role. Full audit trail: dual-write CloudWatch + DynamoDB, UUID v7 correlation IDs across every layer.</div>
-    <div class="poc-stack">Stack: Python, AWS Bedrock Knowledge Base, Amazon OpenSearch Serverless, S3, DynamoDB, CloudWatch, SQS, Redis, ReBAC, MCP Resources, MCP Prompts, Claude Code, JWT RS256, Terraform &nbsp;|&nbsp; HIPAA, SOC2, OWASP A01</div>
-  </div>
-
-  <div class="poc">
-    <div class="poc-title">RAG Knowledge Assistant PoC — Enterprise AI Adoption</div>
-    <div class="poc-desc">Local knowledge base answers first; sensitive data never reaches an external API. Daily spend caps with hard blocks, every query tracked. Cost decreases as usage grows.</div>
-    <div class="poc-stack">Stack: TypeScript, Node.js, Anthropic Claude SDK, JSON knowledge store, token budgeting &nbsp;|&nbsp; SOC2, OWASP A01/A09</div>
+    <div class="poc-link"><a href="https://tonyt68.github.io/portfolio" target="_blank" rel="noopener noreferrer">tonyt68.github.io/portfolio</a> — 7 live PoCs, running demos, IETF Draft, Anthropic certifications</div>
   </div>
 
   <h2>Experience</h2>
