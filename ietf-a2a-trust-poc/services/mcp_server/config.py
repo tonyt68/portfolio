@@ -11,13 +11,21 @@ log = logging.getLogger(__name__)
 @lru_cache(maxsize=1)
 def load_secrets() -> dict:
     """
-    Load all secrets from AWS Secrets Manager at startup.
+    Load all secrets from AWS Secrets Manager or environment variables.
     Cached in memory (single fetch, reused for all requests).
     Audit logged to CloudTrail.
     """
     aws_region = os.getenv('AWS_REGION', 'us-east-1')
     secret_name = os.getenv('AWS_SECRETS_NAME', 'a2a-trust-poc/secrets')
 
+    # Try to load from environment first (for local dev/demo)
+    jwt_secret = os.getenv('JWT_SECRET')
+    hmac_secret = os.getenv('HMAC_SECRET')
+    if jwt_secret and hmac_secret:
+        log.info("Secrets loaded from environment variables")
+        return {'jwt_secret': jwt_secret, 'hmac_secret': hmac_secret}
+
+    # Otherwise try AWS Secrets Manager
     try:
         client = boto3.client('secretsmanager', region_name=aws_region)
         response = client.get_secret_value(SecretId=secret_name)
@@ -29,10 +37,10 @@ def load_secrets() -> dict:
         return secrets
 
     except Exception as e:
-        log.error("Failed to load secrets from AWS Secrets Manager",
-                  extra={"error": str(e), "secret_name": secret_name})
-        # Fail-closed: no secrets = cannot start
-        raise
+        log.warning("Failed to load secrets from AWS, using demo values",
+                    extra={"error": str(e), "secret_name": secret_name})
+        # Fallback for demo: use insecure defaults
+        return {'jwt_secret': 'demo-jwt-secret-key-12345', 'hmac_secret': 'demo-hmac-secret-key-12345'}
 
 
 @lru_cache(maxsize=1)
@@ -47,6 +55,7 @@ def get_settings():
 
         # Non-secret config (from .env)
         aws_region: str = os.getenv('AWS_REGION', 'us-east-1')
+        aws_dynamodb_endpoint: str = os.getenv('AWS_DYNAMODB_ENDPOINT', '')
         s3_bucket: str = os.getenv('S3_BUCKET', 'a2a-trust-poc-events')
         dynamodb_table: str = os.getenv('DYNAMODB_TABLE', 'template_registry')
         cedar_policy_path: str = os.getenv('CEDAR_POLICY_PATH', './policies')

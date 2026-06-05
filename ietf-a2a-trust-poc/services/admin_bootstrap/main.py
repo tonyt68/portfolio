@@ -1,8 +1,11 @@
 import os
 import logging
+import boto3
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
+from botocore.exceptions import ClientError
 
 from config import settings
 from cert_generator import CertGenerator
@@ -14,7 +17,47 @@ from crl_manager import CRLManager
 logging.basicConfig(level=settings.log_level)
 log = logging.getLogger(__name__)
 
-app = FastAPI(title="A2A Trust Admin Bootstrap", version="0.1.0")
+
+def _ensure_dynamodb_table():
+    """Create DynamoDB table if it doesn't exist"""
+    dynamodb = boto3.resource('dynamodb', region_name=settings.aws_region)
+    try:
+        table = dynamodb.Table(settings.dynamodb_table)
+        table.load()
+        log.info(f"DynamoDB table '{settings.dynamodb_table}' exists")
+        return True
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'ResourceNotFoundException':
+            log.info(f"Creating DynamoDB table '{settings.dynamodb_table}'...")
+            try:
+                dynamodb.create_table(
+                    TableName=settings.dynamodb_table,
+                    KeySchema=[
+                        {'AttributeName': 'template_id', 'KeyType': 'HASH'}
+                    ],
+                    AttributeDefinitions=[
+                        {'AttributeName': 'template_id', 'AttributeType': 'S'}
+                    ],
+                    BillingMode='PAY_PER_REQUEST'
+                )
+                log.info(f"DynamoDB table '{settings.dynamodb_table}' created")
+                return True
+            except Exception as create_err:
+                log.error(f"Failed to create table: {create_err}")
+                return False
+        else:
+            log.error(f"DynamoDB error: {e}")
+            return False
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Startup: ensure DynamoDB table exists"""
+    _ensure_dynamodb_table()
+    yield
+
+
+app = FastAPI(title="A2A Trust Admin Bootstrap", version="0.1.0", lifespan=lifespan)
 
 # Initialize components
 cert_gen = CertGenerator("/app/ca")

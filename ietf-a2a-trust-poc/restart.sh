@@ -41,6 +41,16 @@ echo "════════════════════════�
 docker compose down 2>&1 | tail -3
 docker compose up -d --build 2>&1 | tail -6
 
+# Create DynamoDB table if it doesn't exist
+sleep 4
+aws dynamodb create-table \
+  --table-name template_registry \
+  --attribute-definitions AttributeName=template_id,AttributeType=S \
+  --key-schema AttributeName=template_id,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --endpoint-url http://localhost:8000 \
+  --region us-east-1 2>&1 | grep -v ResourceInUseException || true
+
 # Wait for services — health check loop instead of fixed sleep
 echo ""
 echo "Waiting for services to be ready..."
