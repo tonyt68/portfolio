@@ -46,21 +46,25 @@ class ReplayPrevention:
     def _cleanup_expired_nonces(self):
         """Remove expired nonces from tracker"""
         try:
-            now = datetime.utcnow()
+            now = datetime.now(timezone.utc)
             cutoff = now - timedelta(seconds=self.nonce_ttl_seconds)
 
             original_count = len(self.tracker["used_nonces"])
 
-            # Keep only recent nonces
+            def is_recent(entry):
+                ts = datetime.fromisoformat(entry["timestamp"])
+                if ts.tzinfo is None:
+                    ts = ts.replace(tzinfo=timezone.utc)
+                return ts > cutoff
+
             self.tracker["used_nonces"] = [
-                nonce_entry for nonce_entry in self.tracker["used_nonces"]
-                if datetime.fromisoformat(nonce_entry["timestamp"]) > cutoff
+                e for e in self.tracker["used_nonces"] if is_recent(e)
             ]
 
             removed = original_count - len(self.tracker["used_nonces"])
             if removed > 0:
                 log.info("Expired nonces cleaned", extra={"removed": removed})
-                self.tracker["last_cleaned"] = datetime.utcnow().isoformat()
+                self.tracker["last_cleaned"] = datetime.now(timezone.utc).isoformat()
                 self._save_tracker()
 
         except Exception as e:
@@ -93,7 +97,7 @@ class ReplayPrevention:
 
             # Acquire exclusive file lock — prevents TOCTOU race between concurrent requests
             lock_path = self.tracker_path.with_suffix('.lock')
-            with open(lock_path, 'w') as lock_file:
+            with open(lock_path, 'a') as lock_file:
                 fcntl.flock(lock_file, fcntl.LOCK_EX)
                 try:
                     # Re-read from disk while holding lock to get latest state

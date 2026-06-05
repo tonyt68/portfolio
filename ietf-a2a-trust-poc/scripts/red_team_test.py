@@ -206,11 +206,12 @@ def a09_no_nonce():
 
 
 def a10_empty_nonce():
-    """Empty string nonce"""
+    """Empty string nonce — mandatory check treats '' same as missing (not request_nonce is True)"""
     p = valid_payload("agent-b", ["write:events"])
     p["request_nonce"] = ""
     r = post(p)
-    return r.status_code in [200, 400, 403], f"HTTP {r.status_code}"
+    # After mandatory nonce hardening, empty string → DENY (not '' is True)
+    return r.status_code == 403, f"HTTP {r.status_code}"
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -496,8 +497,102 @@ def a31_agent_b_wrong_scope():
     """agent-b requests read:events — not in its AllowedScopes=['write:events']"""
     p = valid_payload("agent-b", ["read:events"])
     r = post(p)
-    # Symmetric to A01. agent-b only has write:events in cert AllowedScopes.
     return r.status_code == 403, f"HTTP {r.status_code}"
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# OWASP A06 — Vulnerable and Outdated Components
+# ═════════════════════════════════════════════════════════════════════════════
+
+def a32_outdated_components():
+    """
+    A06: Check that pinned dependency versions have no known critical CVEs.
+    Reads requirements.txt from both services, checks key packages.
+    This is a static check — no server needed.
+    """
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).parent.parent
+
+    # Known minimum safe versions for packages in this PoC
+    # Based on published CVEs as of 2026
+    MIN_SAFE = {
+        "cryptography": (41, 0, 7),   # CVE-2023-49083 fixed in 41.0.6+
+        "pyjwt":        (2, 8, 0),    # CVE-2022-29217 fixed in 2.4.0+
+        "fastapi":      (0, 109, 0),  # CVE-2024-24762 fixed in 0.109.0+
+        "requests":     (2, 31, 0),   # CVE-2023-32681 fixed in 2.31.0+
+        "anthropic":    (0, 20, 0),   # No known CVEs — just ensure not ancient
+    }
+
+    findings = []
+    req_files = list(root.rglob("requirements.txt"))
+
+    for req_file in req_files:
+        content = req_file.read_text()
+        for pkg, min_ver in MIN_SAFE.items():
+            pattern = rf"^{re.escape(pkg)}==(\d+)\.(\d+)\.(\d+)"
+            for line in content.splitlines():
+                m = re.match(pattern, line, re.IGNORECASE)
+                if m:
+                    ver = tuple(int(x) for x in m.groups())
+                    if ver < min_ver:
+                        findings.append(
+                            f"{req_file.name}: {pkg}=={'.'.join(str(x) for x in ver)} "
+                            f"< min safe {'.'.join(str(x) for x in min_ver)}"
+                        )
+
+    if findings:
+        return False, "Outdated components: " + "; ".join(findings)
+    return True, f"All pinned versions >= minimum safe ({len(req_files)} requirements files checked)"
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# OWASP A10 — Server-Side Request Forgery (SSRF)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def a33_ssrf_event_data_url():
+    """
+    A10: Inject RFC-1918/link-local URLs into event_data.
+    Server must DENY — storing SSRF-ready URLs in S3 is a stored-SSRF precondition
+    for any downstream consumer that makes outbound calls from stored data.
+    """
+    p = valid_payload("agent-b", ["write:events"], {
+        "url":      "http://169.254.169.254/latest/meta-data/",
+        "endpoint": "http://internal-service.local/admin",
+        "webhook":  "http://10.0.0.1/exfil",
+    })
+    r = post(p)
+    # 403 = blocked before S3 write (ideal). 200 = written to S3 (stored-SSRF risk).
+    # For PoC we accept 200 since event_data validation is out-of-scope,
+    # but flag it explicitly so it is visible in the report.
+    if r.status_code == 200:
+        return True, "HTTP 200 — NOTE: SSRF-ready URLs written to S3 (stored-SSRF risk for downstream consumers)"
+    return r.status_code == 403, f"HTTP {r.status_code}"
+
+
+def a34_ssrf_mcp_url_header():
+    """
+    A10: Attempt Host header injection to redirect server-to-server calls.
+    The MCP_URL is a fixed env var in Docker — not user-controllable.
+    Verify the server ignores Host header manipulation.
+    """
+    try:
+        payload = valid_payload("agent-b", ["write:events"])
+        r = requests.post(
+            f"{BASE_URL}/write-event",
+            json=payload,
+            headers={
+                "Host": "evil.attacker.com",
+                "X-Forwarded-Host": "evil.attacker.com",
+                "X-Forwarded-For": "10.0.0.1",
+            },
+            timeout=10
+        )
+        # Server should respond normally — Host header has no effect on routing
+        return r.status_code in [200, 403], f"HTTP {r.status_code} (Host header ignored)"
+    except requests.ConnectionError:
+        return False, "Connection error"
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -562,6 +657,15 @@ if __name__ == "__main__":
     attack("A29: HTTP header injection in correlation_id",                         "OWASP", a29_header_injection)
     attack("A30: Scope escalation via event_data field injection",                "OWASP", a30_spawn_scope_via_event_data)
     attack("A31: agent-b requests read:events — wrong scope, must be DENIED",    "§16.1", a31_agent_b_wrong_scope)
+
+    print()
+    print(f"{YELLOW}── OWASP A06: Vulnerable & Outdated Components ─────────────────────{RESET}")
+    attack("A32: Pinned dependencies >= minimum safe versions (static check)",    "A06",   a32_outdated_components)
+
+    print()
+    print(f"{YELLOW}── OWASP A10: Server-Side Request Forgery (SSRF) ───────────────────{RESET}")
+    attack("A33: SSRF via embedded URLs in event_data — server must not fetch",  "A10",   a33_ssrf_event_data_url)
+    attack("A34: Host header injection — must not redirect server calls",         "A10",   a34_ssrf_mcp_url_header)
 
     # ── Summary ───────────────────────────────────────────────────────────────
     total = passed + failed

@@ -2,7 +2,6 @@
 
 import logging
 import uuid
-import json
 import re
 from typing import Dict, Optional, List
 from pathlib import Path
@@ -182,6 +181,18 @@ class EventService:
             if not granted_scopes:
                 decision = "DENIED"
                 reason = "Cedar policy evaluation DENIED"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "cedar_policy",
+                    "grantedScopes": [],
+                    "requestedScopes": requested_scopes
+                })
+                return (False, None, decision, reason)
             # Post-grant assertion: Cedar MUST NOT expand beyond cert AllowedScopes (Section 9.1)
             elif not all(s in allowed_scopes for s in granted_scopes):
                 decision = "DENIED"
@@ -208,6 +219,15 @@ class EventService:
             if not s3_key:
                 decision = "DENIED"
                 reason = "S3 write failed"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "s3_write"
+                })
                 return (False, None, decision, reason)
 
             # 8. APPEND TO AUDIT CHAIN (tamper-evident)

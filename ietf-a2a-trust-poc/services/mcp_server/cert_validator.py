@@ -13,6 +13,9 @@ from typing import Optional, Dict, List, Tuple
 
 log = logging.getLogger(__name__)
 
+# Safe path characters for cert file paths — no shell metacharacters
+_SAFE_PATH_RE = re.compile(r'^[a-zA-Z0-9/_\-\.]+$')
+
 
 class CertValidator:
     """Validates X.509 certificate chain and all IETF template fields"""
@@ -21,6 +24,13 @@ class CertValidator:
         self.ca_root_path = Path(ca_root_cert_path)
 
     # ── Low-level OpenSSL helpers ─────────────────────────────────────────────
+
+    def _safe_path(self, path: str) -> Optional[str]:
+        """Validate path contains no shell metacharacters before subprocess use."""
+        if not _SAFE_PATH_RE.match(path):
+            log.error("Unsafe path rejected", extra={"path": path[:64]})
+            return None
+        return path
 
     def _openssl(self, cmd: str) -> Tuple[bool, str]:
         try:
@@ -33,6 +43,8 @@ class CertValidator:
 
     def get_cert_info(self, cert_path: str) -> Optional[Dict]:
         """Extract subject, issuer, expiry, key size from X.509 certificate"""
+        if not self._safe_path(str(cert_path)):
+            return None
         ok, text = self._openssl(f"openssl x509 -in {cert_path} -text -noout")
         if not ok:
             log.error("Failed to parse cert", extra={"cert": cert_path})
@@ -62,7 +74,9 @@ class CertValidator:
         if not self.ca_root_path.exists():
             return (False, f"CA root not found: {self.ca_root_path}")
 
-        # Use openssl verify with CA file — this is the correct check
+        if not self._safe_path(str(agent_cert_path)):
+            return (False, "Unsafe cert path rejected (fail-closed)")
+
         ok, out = self._openssl(
             f"openssl verify -CAfile {self.ca_root_path} {agent_cert_path}"
         )
@@ -83,6 +97,8 @@ class CertValidator:
 
     def is_cert_expired(self, cert_path: str) -> bool:
         """Check expiry. Fail-closed: error = treat as expired."""
+        if not self._safe_path(str(cert_path)):
+            return True  # Fail closed
         ok, _ = self._openssl(f"openssl x509 -in {cert_path} -noout -checkend 0")
         return not ok  # checkend returns 0 if NOT expired
 
