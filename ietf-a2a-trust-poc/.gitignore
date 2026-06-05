@@ -50,3 +50,10 @@ build/
 # Node (if any)
 node_modules/
 certs/
+
+# Internal working docs — not for public IETF repo
+ARCHITECTURE.md
+IMPLEMENTATION.md
+NOTES.md
+PHASE7_REMAINING.md
+PITCH.md
