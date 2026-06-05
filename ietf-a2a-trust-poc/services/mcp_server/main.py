@@ -13,8 +13,6 @@ from service import EventService
 from cert_validator import CertValidator
 from replay_prevention import ReplayPrevention
 from audit_chain import AuditChain
-import sys
-sys.path.insert(0, '../admin_bootstrap')
 from cert_manager import CertManager
 
 # Setup logging
@@ -27,16 +25,19 @@ app = FastAPI(title="A2A Trust MCP Server", version="0.1.0")
 # Dependency injection: initialize components
 def get_event_service() -> EventService:
     """Factory: creates EventService with all IETF-compliant dependencies"""
+    import os
+    certs_dir = os.getenv("CERTS_DIR", "./certs")
+
     jwt_validator = JWTValidator(settings.jwt_secret)
     hmac_verifier = HMACVerifier(settings.hmac_secret)
     cedar_evaluator = CedarPolicyEvaluator(settings.cedar_policy_path)
     s3_tools = S3Tools(settings.s3_bucket, settings.aws_region)
-    cert_manager = CertManager(settings.dynamodb_table, settings.aws_region, certs_dir="./certs")
+    cert_manager = CertManager(settings.dynamodb_table, settings.aws_region, certs_dir=certs_dir)
 
     # IETF compliance validators
-    cert_validator = CertValidator(ca_root_cert_path="./certs/ca-root.crt")
-    replay_prevention = ReplayPrevention(nonce_tracker_path="./certs/nonce_tracker.json")
-    audit_chain = AuditChain(chain_path="./certs/audit_chain.json")
+    cert_validator = CertValidator(ca_root_cert_path=f"{certs_dir}/ca-root.crt")
+    replay_prevention = ReplayPrevention(nonce_tracker_path=f"{certs_dir}/nonce_tracker.json")
+    audit_chain = AuditChain(chain_path=f"{certs_dir}/audit_chain.json")
 
     return EventService(
         jwt_validator=jwt_validator,

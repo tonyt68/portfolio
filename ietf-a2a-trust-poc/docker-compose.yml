@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   mcp_server:
     build:
@@ -18,9 +16,11 @@ services:
       - GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - CERTS_DIR=/app/certs
     volumes:
       - ./services/mcp_server:/app
       - ./policies:/app/policies
+      - ./certs:/app/certs
       - ~/.config/gcloud:/root/.config/gcloud:ro
       - ~/.aws:/root/.aws:ro
     networks:
@@ -40,9 +40,10 @@ services:
       - AWS_SECRETS_NAME=${AWS_SECRETS_NAME}
       - DYNAMODB_TABLE=${DYNAMODB_TABLE}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CERTS_DIR=/app/certs
     volumes:
       - ./services/admin_bootstrap:/app
-      - ./ca:/app/ca
+      - ./certs:/app/certs
     networks:
       - a2a_network
     depends_on:
@@ -61,8 +62,11 @@ services:
       - MCP_URL=http://mcp_server:8001
       - ADMIN_URL=http://admin_bootstrap:8002
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CERTS_DIR=/app/certs
     volumes:
       - ./demo:/app
+      - ./certs:/app/certs
     networks:
       - a2a_network
     depends_on:

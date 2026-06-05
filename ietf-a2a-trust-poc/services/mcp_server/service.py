@@ -26,7 +26,8 @@ class EventService:
         self.cert_validator = cert_validator or CertValidator()
         self.replay_prevention = replay_prevention or ReplayPrevention()
         self.audit_chain = audit_chain or AuditChain()
-        self.certs_dir = Path("./certs")
+        import os
+        self.certs_dir = Path(os.getenv("CERTS_DIR", "./certs"))
 
     def write_event(self, correlation_id: str, agent_id: str, requested_scopes: List[str],
                    event_data: Dict, request_nonce: Optional[str] = None,

@@ -25,7 +25,7 @@ class ScenarioRunner:
         self.admin_url = admin_url
         self.audit_trail = []
         self.claude_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        self.certs_dir = Path("../certs")
+        self.certs_dir = Path(os.getenv("CERTS_DIR", "/app/certs"))
         self.owner_key  = self.certs_dir / "owner.key"
         self.owner_cert = self.certs_dir / "owner.crt"
         self.pa_key     = self.certs_dir / "pa.key"
