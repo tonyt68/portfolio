@@ -40,7 +40,7 @@ class CertManager:
                 'allowed_scopes': scopes,
                 'can_spawn': can_spawn,
                 'ttl': ttl_seconds,
-                'created_at': datetime.utcnow().isoformat(),
+                'created_at': datetime.now(timezone.utc).isoformat(),
                 'owner': 'tonyai-org'
             }
 

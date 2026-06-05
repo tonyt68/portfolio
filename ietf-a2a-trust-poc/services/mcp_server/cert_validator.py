@@ -23,8 +23,13 @@ class CertValidator:
     # ── Low-level OpenSSL helpers ─────────────────────────────────────────────
 
     def _openssl(self, cmd: str) -> Tuple[bool, str]:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        return result.returncode == 0, (result.stdout + result.stderr).strip()
+        try:
+            result = subprocess.run(cmd, shell=True, capture_output=True,
+                                    text=True, timeout=5)
+            return result.returncode == 0, (result.stdout + result.stderr).strip()
+        except subprocess.TimeoutExpired:
+            log.error("OpenSSL timeout — fail-closed (Section 13)")
+            return (False, "OpenSSL timeout")
 
     def get_cert_info(self, cert_path: str) -> Optional[Dict]:
         """Extract subject, issuer, expiry, key size from X.509 certificate"""

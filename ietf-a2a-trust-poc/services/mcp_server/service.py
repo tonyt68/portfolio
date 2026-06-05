@@ -62,29 +62,57 @@ class EventService:
                 })
                 return (False, None, decision, reason)
 
-            # 2. REPLAY ATTACK PREVENTION (timestamp + nonce)
-            if request_nonce and request_timestamp:
-                replay_valid, replay_reason = self.replay_prevention.validate_request(
-                    request_nonce, request_timestamp
-                )
+            # 2. REPLAY ATTACK PREVENTION — MANDATORY (Section 16.2)
+            # Fail-closed: missing nonce or timestamp = DENY, no exceptions
+            if not request_nonce or not request_timestamp:
+                decision = "DENIED"
+                reason = "Replay prevention: nonce and timestamp are required (Section 16.2)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "replay_prevention"
+                })
+                return (False, None, decision, reason)
 
-                if not replay_valid:
-                    decision = "DENIED"
-                    reason = f"Replay attack prevented: {replay_reason}"
-                    log.warning(f"Replay prevention: {reason}")
-                    self._log_audit({
-                        "correlationId": correlation_id,
-                        "spanId": span_id,
-                        "agent": agent_id,
-                        "action": "write_event",
-                        "decision": decision,
-                        "reason": reason,
-                        "stage": "replay_prevention"
-                    })
-                    return (False, None, decision, reason)
+            replay_valid, replay_reason = self.replay_prevention.validate_request(
+                request_nonce, request_timestamp
+            )
+            if not replay_valid:
+                decision = "DENIED"
+                reason = f"Replay attack prevented: {replay_reason}"
+                log.warning(f"Replay prevention: {reason}")
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "replay_prevention"
+                })
+                return (False, None, decision, reason)
 
-            # 3. CRL CHECK (revocation, disabled, expired)
-            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+            # 3. CRL CHECK — MANDATORY (Section 12, 13)
+            # Fail-closed: no cert_manager = DENY (infrastructure failure = DENY)
+            if not self.cert_manager:
+                decision = "DENIED"
+                reason = "CRL infrastructure unavailable (fail-closed, Section 13)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "crl_check"
+                })
+                return (False, None, decision, reason)
+
+            if not self.cert_manager.check_crl(agent_id):
                 decision = "DENIED"
                 reason = "Agent revoked/disabled/expired (CRL)"
                 self._log_audit({
@@ -244,28 +272,54 @@ class EventService:
                 })
                 return (False, None, decision, reason)
 
-            # 2. REPLAY PREVENTION
-            if request_nonce and request_timestamp:
-                replay_valid, replay_reason = self.replay_prevention.validate_request(
-                    request_nonce, request_timestamp
-                )
+            # 2. REPLAY PREVENTION — MANDATORY (Section 16.2)
+            if not request_nonce or not request_timestamp:
+                decision = "DENIED"
+                reason = "Replay prevention: nonce and timestamp are required (Section 16.2)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "replay_prevention"
+                })
+                return (False, None, decision, reason)
 
-                if not replay_valid:
-                    decision = "DENIED"
-                    reason = f"Replay attack prevented: {replay_reason}"
-                    self._log_audit({
-                        "correlationId": correlation_id,
-                        "spanId": span_id,
-                        "agent": agent_id,
-                        "action": "read_event",
-                        "decision": decision,
-                        "reason": reason,
-                        "stage": "replay_prevention"
-                    })
-                    return (False, None, decision, reason)
+            replay_valid, replay_reason = self.replay_prevention.validate_request(
+                request_nonce, request_timestamp
+            )
+            if not replay_valid:
+                decision = "DENIED"
+                reason = f"Replay attack prevented: {replay_reason}"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "replay_prevention"
+                })
+                return (False, None, decision, reason)
 
-            # 3. CRL CHECK
-            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+            # 3. CRL CHECK — MANDATORY (Section 12, 13)
+            if not self.cert_manager:
+                decision = "DENIED"
+                reason = "CRL infrastructure unavailable (fail-closed, Section 13)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "crl_check"
+                })
+                return (False, None, decision, reason)
+
+            if not self.cert_manager.check_crl(agent_id):
                 decision = "DENIED"
                 reason = "Agent revoked/disabled/expired (CRL)"
                 self._log_audit({
