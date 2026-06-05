@@ -46,27 +46,26 @@ class CedarPolicyEvaluator:
 
             policy = self.policies[policy_name]
 
-            # Simple policy evaluation: check if scopes are in allowed list
-            # In production, use Cedar SDK for real policy evaluation
-            allowed_scopes = self._parse_allowed_scopes(policy)
+            # Policy evaluation: scope-based authz
+            # Check if requested scopes are allowed in the policy
+            granted = [scope for scope in requested_scopes if self._has_scope_in_policy(policy, scope, agent_id)]
 
-            # Verify requested scopes are subset of allowed scopes
-            granted = [s for s in requested_scopes if s in allowed_scopes]
-
-            if len(granted) < len(requested_scopes):
-                log.warning("Scope escalation attempt",
-                           extra={"agent": agent_id, "requested": requested_scopes, "granted": granted})
+            if not granted:
+                log.warning("No scopes granted", extra={"agent": agent_id, "requested": requested_scopes})
                 return None
 
-            log.info("Cedar policy evaluated",
-                    extra={"agent": agent_id, "scopes": granted})
-
+            log.info("Cedar policy evaluated", extra={"agent": agent_id, "scopes": granted})
             return granted
 
         except Exception as e:
-            log.error("Cedar policy evaluation error",
-                     extra={"agent": agent_id, "error": str(e)})
+            log.error("Cedar policy evaluation error", extra={"agent": agent_id, "error": str(e)})
             return None
+
+    def _has_scope_in_policy(self, policy: str, scope: str, agent_id: str) -> bool:
+        """Check if scope is permitted in Cedar policy for this agent"""
+        # Cedar permits format: permit(...) when { ... "scope" in principal.scopes ... }
+        # Simple check: if scope string appears in the policy, it's allowed
+        return scope in policy and agent_id in policy
 
     def _parse_allowed_scopes(self, policy_content: str) -> List[str]:
         """
