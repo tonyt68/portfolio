@@ -78,7 +78,7 @@ class ScenarioRunner:
     def call_claude(self, prompt: str) -> str:
         """Real Claude API call"""
         message = self.claude_client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-sonnet-4-6",
             max_tokens=512,
             messages=[{"role": "user", "content": prompt}]
         )
