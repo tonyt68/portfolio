@@ -10,16 +10,17 @@ log = logging.getLogger(__name__)
 class EventService:
     """Handles event write/read business logic"""
 
-    def __init__(self, jwt_validator, hmac_verifier, cedar_evaluator, s3_tools, audit_fn):
+    def __init__(self, jwt_validator, hmac_verifier, cedar_evaluator, s3_tools, audit_fn, cert_manager=None):
         self.jwt_validator = jwt_validator
         self.hmac_verifier = hmac_verifier
         self.cedar_evaluator = cedar_evaluator
         self.s3_tools = s3_tools
         self.audit_fn = audit_fn
+        self.cert_manager = cert_manager
 
     def write_event(self, correlation_id: str, agent_id: str, requested_scopes: List[str], event_data: Dict) -> tuple:
         """
-        Write event: validates → authorizes → stores → audits.
+        Write event: CRL check → authorizes → stores → audits.
         Returns: (success: bool, s3_key: str, decision: str, reason: str)
         """
         span_id = str(uuid.uuid4())
@@ -28,6 +29,22 @@ class EventService:
         granted_scopes = []
 
         try:
+            # Check CRL (revocation, disabled, expired)
+            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+                decision = "DENIED"
+                reason = "Agent revoked/disabled/expired"
+                self.audit_fn({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "grantedScopes": [],
+                    "requestedScopes": requested_scopes
+                })
+                return (False, None, decision, reason)
+
             # Authorize via Cedar policy
             granted_scopes = self.cedar_evaluator.evaluate(agent_id, requested_scopes)
 
@@ -75,7 +92,7 @@ class EventService:
 
     def read_event(self, correlation_id: str, agent_id: str, s3_key: str) -> tuple:
         """
-        Read event: authorizes → retrieves → audits.
+        Read event: CRL check → authorizes → retrieves → audits.
         Returns: (success: bool, content: str, decision: str, reason: str)
         """
         span_id = str(uuid.uuid4())
@@ -83,6 +100,20 @@ class EventService:
         reason = "Full chain validates"
 
         try:
+            # Check CRL (revocation, disabled, expired)
+            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+                decision = "DENIED"
+                reason = "Agent revoked/disabled/expired"
+                self.audit_fn({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason
+                })
+                return (False, None, decision, reason)
+
             # Authorize (read:events)
             granted_scopes = self.cedar_evaluator.evaluate(agent_id, ["read:events"])
 

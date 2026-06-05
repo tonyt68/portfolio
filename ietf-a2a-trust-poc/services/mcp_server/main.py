@@ -9,6 +9,9 @@ from cedar_policy_eval import CedarPolicyEvaluator
 from s3_tools import S3Tools
 from audit import audit
 from service import EventService
+import sys
+sys.path.insert(0, '../admin_bootstrap')
+from cert_manager import CertManager
 
 # Setup logging
 logging.basicConfig(level=settings.log_level)
@@ -24,13 +27,15 @@ def get_event_service() -> EventService:
     hmac_verifier = HMACVerifier(settings.hmac_secret)
     cedar_evaluator = CedarPolicyEvaluator(settings.cedar_policy_path)
     s3_tools = S3Tools(settings.s3_bucket, settings.aws_region)
+    cert_manager = CertManager(settings.dynamodb_table, settings.aws_region, certs_dir="./certs")
 
     return EventService(
         jwt_validator=jwt_validator,
         hmac_verifier=hmac_verifier,
         cedar_evaluator=cedar_evaluator,
         s3_tools=s3_tools,
-        audit_fn=audit
+        audit_fn=audit,
+        cert_manager=cert_manager
     )
 
 

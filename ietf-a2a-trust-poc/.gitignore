@@ -49,3 +49,4 @@ build/
 
 # Node (if any)
 node_modules/
+certs/

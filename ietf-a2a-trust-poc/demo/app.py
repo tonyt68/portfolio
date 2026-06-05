@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import json
+from scenario_runner import ScenarioRunner
 
 logging.basicConfig(level=os.getenv('LOG_LEVEL', 'INFO'))
 log = logging.getLogger(__name__)
@@ -12,6 +13,27 @@ app = FastAPI(title="A2A Trust PoC Demo", version="0.1.0")
 
 # Serve static files (CSS, JS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Initialize scenario runner
+runner = ScenarioRunner(
+    mcp_url=os.getenv("MCP_URL", "http://localhost:8001"),
+    admin_url=os.getenv("ADMIN_URL", "http://localhost:8002")
+)
+
+# Map scenario ID to handler
+SCENARIO_HANDLERS = {
+    1: runner.scenario_1_golden_path,
+    2: runner.scenario_2_dynamic_policy_update,
+    3: runner.scenario_3_rogue_spawn,
+    4: runner.scenario_4_dual_sig_missing,
+    5: runner.scenario_5_dual_sig_tampered,
+    6: runner.scenario_6_scope_escalation,
+    7: runner.scenario_7_revocation_lifecycle,
+    8: runner.scenario_8_crl_check_failure,
+    9: runner.scenario_9_ttl_expiry,
+    10: runner.scenario_10_cross_org_grant,
+    11: runner.scenario_11_replay_attack,
+}
 
 
 @app.get("/health")
@@ -45,17 +67,30 @@ async def get_config():
 
 @app.post("/api/scenario/run")
 async def run_scenario(scenario: dict):
-    """Run a demo scenario"""
+    """Run a demo scenario with real Claude calls"""
     try:
         scenario_id = scenario.get("id")
-        log.info(f"Running scenario {scenario_id}")
+        log.info(f"Running scenario {scenario_id} with real Claude")
 
-        # TODO: Implement scenario runner
-        return {
-            "status": "success",
-            "scenario_id": scenario_id,
-            "result": "pending"
-        }
+        # Get and run scenario handler
+        handler = SCENARIO_HANDLERS.get(scenario_id)
+        if not handler:
+            return {"status": "error", "message": f"Unknown scenario {scenario_id}"}
+
+        handler()
+
+        # Return audit trail entry
+        if runner.audit_trail:
+            entry = runner.audit_trail[-1]
+            return {
+                "status": "success",
+                "scenario_id": scenario_id,
+                "decision": entry["decision"],
+                "reason": entry["reason"],
+                "timestamp": entry["timestamp"]
+            }
+
+        return {"status": "success", "scenario_id": scenario_id}
 
     except Exception as e:
         log.error(f"Scenario error: {e}")

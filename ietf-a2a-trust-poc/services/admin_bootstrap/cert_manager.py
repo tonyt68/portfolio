@@ -1,19 +1,24 @@
 import boto3
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
+from pathlib import Path
 
 log = logging.getLogger(__name__)
 
 
 class CertManager:
-    """Manages certificate metadata in DynamoDB Template Registry"""
+    """Manages certificate metadata in DynamoDB Template Registry + CRL checks"""
 
-    def __init__(self, table_name: str, region: str):
+    def __init__(self, table_name: str, region: str, certs_dir: str = "./certs"):
         self.table_name = table_name
         self.dynamodb = boto3.resource('dynamodb', region_name=region)
         self.table = self.dynamodb.Table(table_name)
+        self.certs_dir = Path(certs_dir)
+        self.certs_dir.mkdir(parents=True, exist_ok=True)
+        self.crl_file = self.certs_dir / "revocation_list.json"
+        self.crl = self._load_crl()
 
     def register_template(self, agent_id: str, scopes: list, can_spawn: list, ttl_seconds: int) -> bool:
         """
@@ -95,3 +100,62 @@ class CertManager:
         except Exception as e:
             log.error("Template listing failed", extra={"error": str(e)})
             return []
+
+    # ===== Certificate Revocation List (CRL) =====
+
+    def _load_crl(self) -> dict:
+        """Load Certificate Revocation List from disk"""
+        if self.crl_file.exists():
+            try:
+                with open(self.crl_file, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                log.error("Failed to load CRL", extra={"error": str(e)})
+        return {"revoked": [], "disabled": []}
+
+    def _save_crl(self):
+        """Persist CRL to disk"""
+        try:
+            with open(self.crl_file, 'w') as f:
+                json.dump(self.crl, f, indent=2)
+            log.info("CRL saved",
+                    extra={"revoked_count": len(self.crl.get("revoked", [])),
+                          "disabled_count": len(self.crl.get("disabled", []))})
+        except Exception as e:
+            log.error("Failed to save CRL", extra={"error": str(e)})
+
+    def disable_agent(self, agent_id: str) -> bool:
+        """Disable agent (suspend): no new auth allowed"""
+        try:
+            if agent_id not in self.crl.get("disabled", []):
+                self.crl["disabled"].append(agent_id)
+                self._save_crl()
+                log.info("Agent disabled", extra={"agent": agent_id})
+            return True
+        except Exception as e:
+            log.error("Failed to disable agent", extra={"agent": agent_id, "error": str(e)})
+            return False
+
+    def revoke_agent(self, agent_id: str) -> bool:
+        """Revoke agent (instant deny): no requests allowed"""
+        try:
+            if agent_id in self.crl.get("disabled", []):
+                self.crl["disabled"].remove(agent_id)
+            if agent_id not in self.crl.get("revoked", []):
+                self.crl["revoked"].append(agent_id)
+                self._save_crl()
+                log.warning("Agent revoked", extra={"agent": agent_id})
+            return True
+        except Exception as e:
+            log.error("Failed to revoke agent", extra={"agent": agent_id, "error": str(e)})
+            return False
+
+    def check_crl(self, agent_id: str) -> bool:
+        """Check if agent is revoked or disabled. Returns True if allowed, False if denied"""
+        if agent_id in self.crl.get("revoked", []):
+            log.warning("CRL check failed: agent revoked", extra={"agent": agent_id})
+            return False
+        if agent_id in self.crl.get("disabled", []):
+            log.warning("CRL check failed: agent disabled", extra={"agent": agent_id})
+            return False
+        return True
