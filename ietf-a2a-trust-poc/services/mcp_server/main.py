@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict
 
@@ -9,6 +10,9 @@ from cedar_policy_eval import CedarPolicyEvaluator
 from s3_tools import S3Tools
 from audit import audit
 from service import EventService
+from cert_validator import CertValidator
+from replay_prevention import ReplayPrevention
+from audit_chain import AuditChain
 import sys
 sys.path.insert(0, '../admin_bootstrap')
 from cert_manager import CertManager
@@ -22,12 +26,17 @@ app = FastAPI(title="A2A Trust MCP Server", version="0.1.0")
 
 # Dependency injection: initialize components
 def get_event_service() -> EventService:
-    """Factory: creates EventService with all dependencies injected"""
+    """Factory: creates EventService with all IETF-compliant dependencies"""
     jwt_validator = JWTValidator(settings.jwt_secret)
     hmac_verifier = HMACVerifier(settings.hmac_secret)
     cedar_evaluator = CedarPolicyEvaluator(settings.cedar_policy_path)
     s3_tools = S3Tools(settings.s3_bucket, settings.aws_region)
     cert_manager = CertManager(settings.dynamodb_table, settings.aws_region, certs_dir="./certs")
+
+    # IETF compliance validators
+    cert_validator = CertValidator(ca_root_cert_path="./certs/ca-root.crt")
+    replay_prevention = ReplayPrevention(nonce_tracker_path="./certs/nonce_tracker.json")
+    audit_chain = AuditChain(chain_path="./certs/audit_chain.json")
 
     return EventService(
         jwt_validator=jwt_validator,
@@ -35,7 +44,10 @@ def get_event_service() -> EventService:
         cedar_evaluator=cedar_evaluator,
         s3_tools=s3_tools,
         audit_fn=audit,
-        cert_manager=cert_manager
+        cert_manager=cert_manager,
+        cert_validator=cert_validator,
+        replay_prevention=replay_prevention,
+        audit_chain=audit_chain
     )
 
 
@@ -58,6 +70,8 @@ class WriteEventRequest(BaseModel):
     event_data: dict
     agent_id: str
     requested_scopes: list
+    request_nonce: Optional[str] = None
+    request_timestamp: Optional[str] = None
 
     def __init__(self, **data):
         super().__init__(**data)
@@ -71,6 +85,8 @@ class WriteEventRequest(BaseModel):
 class ReadEventRequest(BaseModel):
     s3_key: str
     correlation_id: str
+    request_nonce: Optional[str] = None
+    request_timestamp: Optional[str] = None
 
 
 @app.get("/health")
@@ -81,12 +97,14 @@ async def health_check():
 
 @app.post("/write-event")
 async def write_event(request: WriteEventRequest):
-    """MCP tool: Write event to S3. Delegates to EventService."""
+    """MCP tool: Write event to S3 with IETF compliance checks."""
     success, s3_key, decision, reason = _event_service.write_event(
         request.correlation_id,
         request.agent_id,
         request.requested_scopes,
-        request.event_data
+        request.event_data,
+        request_nonce=request.request_nonce,
+        request_timestamp=request.request_timestamp
     )
 
     if not success:
@@ -102,11 +120,13 @@ async def write_event(request: WriteEventRequest):
 
 @app.post("/read-event")
 async def read_event(request: ReadEventRequest):
-    """MCP tool: Read event from S3. Delegates to EventService."""
+    """MCP tool: Read event from S3 with IETF compliance checks."""
     success, content, decision, reason = _event_service.read_event(
         request.correlation_id,
         "agent-a",
-        request.s3_key
+        request.s3_key,
+        request_nonce=request.request_nonce,
+        request_timestamp=request.request_timestamp
     )
 
     if not success:

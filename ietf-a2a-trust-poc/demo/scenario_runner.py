@@ -25,8 +25,16 @@ class ScenarioRunner:
         self.pa_key = self.certs_dir / "pa.key"
 
     def generate_correlation_id(self) -> str:
-        """Generate UUID v7 correlation ID"""
+        """Generate UUID v4 correlation ID"""
         return str(uuid.uuid4())
+
+    def generate_nonce(self) -> str:
+        """Generate nonce for replay prevention"""
+        return str(uuid.uuid4())
+
+    def get_timestamp(self) -> str:
+        """Get current ISO timestamp"""
+        return datetime.utcnow().isoformat()
 
     def _sign_data(self, data: str, key_path: Path) -> str:
         """Sign data with RSA private key using OpenSSL"""
@@ -101,28 +109,35 @@ class ScenarioRunner:
     def scenario_1_golden_path(self):
         """Golden path: full auth chain succeeds"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         # Claude formulates request
         prompt = "As an A2A trust agent, formulate a brief data write request in JSON format."
         claude_response = self.call_claude(prompt)
 
-        # Agent B writes event with cryptographic signature
+        # Agent B writes event with full IETF compliance
         payload = {
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"claude_suggestion": claude_response}
+            "event_data": {"claude_suggestion": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp,
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
 
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
-        self.log_to_audit(1, agent_id, "write_event", decision, "Full chain validates")
+        self.log_to_audit(1, agent_id, "write_event", decision, f"Full chain validates (nonce={nonce[:8]})")
 
     def scenario_2_dynamic_policy_update(self):
         """Dynamic policy update changes enforcement"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "Suggest a policy change that would grant agent-a write permissions. Keep it brief."
@@ -132,17 +147,22 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"policy_suggestion": claude_response}
+            "event_data": {"policy_suggestion": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp,
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
 
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
-        self.log_to_audit(2, agent_id, "write_event", decision, "Policy updated")
+        self.log_to_audit(2, agent_id, "write_event", decision, "Policy updated (IETF compliant)")
 
     def scenario_3_rogue_spawn(self):
         """Agent tries to spawn unauthorized child"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-a"
 
         prompt = "Explain why an agent should not spawn a child without explicit authorization."
@@ -152,9 +172,12 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["spawn:child"],
-            "event_data": {"reason": claude_response}
+            "event_data": {"reason": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp,
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
 
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
@@ -163,6 +186,8 @@ class ScenarioRunner:
     def scenario_4_dual_sig_missing(self):
         """Policy update missing PA signature"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "What would happen if a policy change was signed by the owner but not the policy authority?"
@@ -182,12 +207,12 @@ class ScenarioRunner:
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
             "event_data": {"dual_sig_analysis": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp,
             "policy_doc": policy_doc,
             "owner_sig": owner_sig,
             "pa_sig": None  # Missing PA signature!
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(4, agent_id, "policy_update", decision, "PA sig missing")
@@ -195,6 +220,8 @@ class ScenarioRunner:
     def scenario_5_dual_sig_tampered(self):
         """PA signature tampered"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "Explain the security implications of a tampered PA signature."
@@ -215,12 +242,12 @@ class ScenarioRunner:
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
             "event_data": {"sig_tampering": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp,
             "policy_doc": policy_doc,
             "owner_sig": owner_sig,
             "pa_sig": tampered_pa_sig  # Tampered!
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(5, agent_id, "policy_update", decision, "PA sig tampered")
@@ -228,6 +255,8 @@ class ScenarioRunner:
     def scenario_6_scope_escalation(self):
         """Child requests scopes beyond parent's"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-a"
 
         prompt = "What scopes should a child agent never be allowed to request?"
@@ -237,10 +266,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["admin:all"],
-            "event_data": {"escalation_analysis": claude_response}
+            "event_data": {"escalation_analysis": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(6, agent_id, "write_event", decision, "Child exceeds scopes")
@@ -248,6 +277,8 @@ class ScenarioRunner:
     def scenario_7_revocation_lifecycle(self):
         """Cert lifecycle: ACTIVE → DISABLED → DELETED"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "Describe the cert state machine: ACTIVE, DISABLED, DELETED. What happens at each transition?"
@@ -257,10 +288,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"cert_lifecycle": claude_response}
+            "event_data": {"cert_lifecycle": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(7, agent_id, "write_event", decision, "Template DELETED")
@@ -268,6 +299,8 @@ class ScenarioRunner:
     def scenario_8_crl_check_failure(self):
         """Revoked cert in middle of chain"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "Why is a revoked certificate in the middle of a cert chain dangerous?"
@@ -277,10 +310,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"crl_analysis": claude_response}
+            "event_data": {"crl_analysis": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(8, agent_id, "write_event", decision, "Revoked cert mid-chain")
@@ -288,6 +321,8 @@ class ScenarioRunner:
     def scenario_9_ttl_expiry(self):
         """Cert TTL exceeded"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "What should happen when an agent's TTL expires?"
@@ -297,10 +332,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"ttl_analysis": claude_response}
+            "event_data": {"ttl_analysis": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(9, agent_id, "write_event", decision, "Expired template")
@@ -308,6 +343,8 @@ class ScenarioRunner:
     def scenario_10_cross_org_grant(self):
         """Cross-org grant then revocation"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "Why should cross-org grants be time-limited and revocable?"
@@ -317,10 +354,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"cross_org_analysis": claude_response}
+            "event_data": {"cross_org_analysis": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(10, agent_id, "write_event", decision, "Grant revoked")
@@ -328,6 +365,8 @@ class ScenarioRunner:
     def scenario_11_replay_attack(self):
         """Reused correlationId"""
         correlation_id = self.generate_correlation_id()
+        nonce = self.generate_nonce()
+        timestamp = self.get_timestamp()
         agent_id = "agent-b"
 
         prompt = "How should an A2A system prevent replay attacks using correlationId?"
@@ -338,10 +377,10 @@ class ScenarioRunner:
             "correlation_id": correlation_id,
             "agent_id": agent_id,
             "requested_scopes": ["write:events"],
-            "event_data": {"replay_prevention": claude_response}
+            "event_data": {"replay_prevention": claude_response},
+            "request_nonce": nonce,
+            "request_timestamp": timestamp
         }
-        payload["request_hmac"] = self.create_request_hmac(payload)
-
         response = requests.post(f"{self.mcp_url}/write-event", json=payload)
         decision = "ALLOWED" if response.status_code == 200 else "DENIED"
         self.log_to_audit(11, agent_id, "write_event", decision, "Reused nonce")
