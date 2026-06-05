@@ -1,7 +1,7 @@
 import boto3
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 log = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class S3Tools:
         Fail-closed: S3 error = no write
         """
         try:
-            timestamp = datetime.utcnow().isoformat()
+            timestamp = datetime.now(timezone.utc).isoformat()
             key = f"events/{correlation_id}_{timestamp}.md"
 
             # Format as markdown
