@@ -1,50 +1,49 @@
 #!/bin/bash
-
 # A2A Trust PoC Demo Startup Script
-# Starts Docker Compose + opens browser to demo
 
 set -e
 
-echo "🚀 Starting A2A Trust PoC Demo..."
+cd "$(dirname "$0")/.."
 
-# Check if .env exists
+echo "Starting A2A Trust PoC Demo..."
+
+# Check .env
 if [ ! -f .env ]; then
-    echo "❌ .env file not found. Copy .env.example to .env and fill in values."
+    echo "ERROR: .env not found. Copy .env.example and fill in values."
     exit 1
 fi
 
-# Start Docker Compose
-echo "📦 Starting Docker Compose (4 services)..."
-docker-compose up -d
-
-# Wait for services to be ready
-echo "⏳ Waiting for services to start..."
-sleep 5
-
-# Health check
-echo "🏥 Health checks..."
-curl -s http://localhost:8001/health || echo "⚠️  MCP server not ready"
-curl -s http://localhost:8002/health || echo "⚠️  Admin Bootstrap not ready"
-curl -s http://localhost:8765/health || echo "⚠️  Demo web not ready"
-
-# Open browser
-echo "🌐 Opening browser to http://localhost:8765..."
-if command -v open &> /dev/null; then
-    open "http://localhost:8765"
-elif command -v xdg-open &> /dev/null; then
-    xdg-open "http://localhost:8765"
-else
-    echo "Visit http://localhost:8765 in your browser"
+# Check certs
+if [ ! -f certs/ca-root.crt ]; then
+    echo "Certs not found. Generating..."
+    python3 setup_keys.py
 fi
 
+# Start services
+echo "Starting Docker Compose..."
+docker compose up -d
+
 echo ""
-echo "✅ Demo started!"
+echo "Waiting for services (15s)..."
+sleep 15
+
+# Full startup smoke test
 echo ""
-echo "Services:"
-echo "  • Demo UI: http://localhost:8765"
-echo "  • MCP Server: http://localhost:8001"
-echo "  • Admin Bootstrap: http://localhost:8002"
-echo "  • DynamoDB Local: http://localhost:8000"
+echo "Running startup checks..."
+python3 scripts/smoke_test.py
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "ERROR: Startup checks failed. Check output above."
+    exit 1
+fi
+
+# Open browser
 echo ""
-echo "To stop: docker-compose down"
-echo ""
+if command -v open &>/dev/null; then
+    open "http://localhost:8765"
+elif command -v xdg-open &>/dev/null; then
+    xdg-open "http://localhost:8765"
+fi
+
+echo "Demo ready at http://localhost:8765"
+echo "Stop with: docker compose down"

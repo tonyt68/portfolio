@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from functools import lru_cache
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 import boto3
 
 log = logging.getLogger(__name__)

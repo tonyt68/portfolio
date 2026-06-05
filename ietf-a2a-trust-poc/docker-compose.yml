@@ -41,6 +41,8 @@ services:
       - DYNAMODB_TABLE=${DYNAMODB_TABLE}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - CERTS_DIR=/app/certs
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
       - ./services/admin_bootstrap:/app
       - ./certs:/app/certs

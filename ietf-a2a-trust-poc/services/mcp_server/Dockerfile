@@ -6,7 +6,8 @@ RUN apk add --no-cache \
     gcc \
     musl-dev \
     libffi-dev \
-    openssl-dev
+    openssl-dev \
+    openssl
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
