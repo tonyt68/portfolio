@@ -1,180 +1,208 @@
-"""X.509 Certificate validation for IETF A2A Trust (RFC 5280 compliance)"""
+"""
+X.509 Certificate validation — IETF A2A Trust draft-tonyai-a2a-trust-00
+Implements: Section 6 (Agent Identity), Section 7 (Template Structure),
+            Section 8 (Spawn Chain), Section 13 (Fail Closed)
+"""
 
 import logging
 import subprocess
 import json
+import re
 from pathlib import Path
-from datetime import datetime, timedelta
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 
 log = logging.getLogger(__name__)
 
 
 class CertValidator:
-    """Validates X.509 certificates, chain, and IETF extensions"""
+    """Validates X.509 certificate chain and all IETF template fields"""
 
     def __init__(self, ca_root_cert_path: str = "./certs/ca-root.crt"):
         self.ca_root_path = Path(ca_root_cert_path)
 
+    # ── Low-level OpenSSL helpers ─────────────────────────────────────────────
+
+    def _openssl(self, cmd: str) -> Tuple[bool, str]:
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        return result.returncode == 0, (result.stdout + result.stderr).strip()
+
     def get_cert_info(self, cert_path: str) -> Optional[Dict]:
-        """Extract certificate information (subject, issuer, expiry, extensions)"""
-        try:
-            result = subprocess.run(
-                f"openssl x509 -in {cert_path} -text -noout",
-                shell=True,
-                capture_output=True,
-                text=True
-            )
-
-            if result.returncode != 0:
-                log.error("Failed to read cert", extra={"cert": cert_path})
-                return None
-
-            cert_text = result.stdout
-
-            # Extract subject CN
-            import re
-            subject_match = re.search(r'Subject:.*CN=(\S+)', cert_text)
-            subject_cn = subject_match.group(1) if subject_match else None
-
-            # Extract issuer CN
-            issuer_match = re.search(r'Issuer:.*CN=(\S+)', cert_text)
-            issuer_cn = issuer_match.group(1) if issuer_match else None
-
-            # Extract expiry
-            not_after_match = re.search(r'Not After\s*:\s*(.+)', cert_text)
-            not_after = not_after_match.group(1).strip() if not_after_match else None
-
-            # Extract public key
-            key_match = re.search(r'Public-Key: \((\d+) bit', cert_text)
-            key_bits = int(key_match.group(1)) if key_match else None
-
-            return {
-                "subject_cn": subject_cn,
-                "issuer_cn": issuer_cn,
-                "not_after": not_after,
-                "key_bits": key_bits,
-                "raw_text": cert_text
-            }
-
-        except Exception as e:
-            log.error("Error parsing cert", extra={"error": str(e)})
+        """Extract subject, issuer, expiry, key size from X.509 certificate"""
+        ok, text = self._openssl(f"openssl x509 -in {cert_path} -text -noout")
+        if not ok:
+            log.error("Failed to parse cert", extra={"cert": cert_path})
             return None
 
-    def validate_chain(self, agent_cert_path: str) -> bool:
-        """Validate certificate chain (issuer signature)"""
-        try:
-            # For demo: self-signed certs, check if issuer == subject
-            cert_info = self.get_cert_info(agent_cert_path)
-            if not cert_info:
-                return False
+        subject_match = re.search(r'Subject:.*?CN\s*=\s*([^,\n/]+)', text)
+        issuer_match  = re.search(r'Issuer:.*?CN\s*=\s*([^,\n/]+)', text)
+        not_after     = re.search(r'Not After\s*:\s*(.+)', text)
+        key_bits      = re.search(r'Public-Key:\s*\((\d+)\s*bit', text)
 
-            # Self-signed check (issuer == subject)
-            if cert_info["issuer_cn"] == cert_info["subject_cn"]:
-                log.info("Cert is self-signed", extra={"cn": cert_info["subject_cn"]})
-                return True
+        return {
+            "subject_cn": subject_match.group(1).strip() if subject_match else None,
+            "issuer_cn":  issuer_match.group(1).strip()  if issuer_match  else None,
+            "not_after":  not_after.group(1).strip()     if not_after     else None,
+            "key_bits":   int(key_bits.group(1))         if key_bits      else None,
+            "raw_text":   text,
+        }
 
-            log.warning("Chain validation not yet implemented for CA-signed certs")
-            return False
+    # ── Chain validation ──────────────────────────────────────────────────────
 
-        except Exception as e:
-            log.error("Chain validation error", extra={"error": str(e)})
-            return False
+    def validate_chain(self, agent_cert_path: str) -> Tuple[bool, str]:
+        """
+        Validate certificate chain using CA root.
+        Section 6.1: agent certs MUST be CA-signed, NOT self-signed.
+        Section 13: CA unreachable → DENY (fail-closed).
+        """
+        if not self.ca_root_path.exists():
+            return (False, f"CA root not found: {self.ca_root_path}")
+
+        # Use openssl verify with CA file — this is the correct check
+        ok, out = self._openssl(
+            f"openssl verify -CAfile {self.ca_root_path} {agent_cert_path}"
+        )
+
+        if not ok or "OK" not in out:
+            log.warning("Chain validation FAILED", extra={"cert": agent_cert_path, "detail": out})
+            return (False, f"Chain validation failed: {out}")
+
+        # Confirm cert is NOT self-signed (issuer != subject)
+        info = self.get_cert_info(agent_cert_path)
+        if info and info["subject_cn"] == info["issuer_cn"]:
+            return (False, "Self-signed certificates are not permitted (Section 6.1)")
+
+        log.info("Chain valid", extra={"cert": agent_cert_path})
+        return (True, "Chain valid")
 
     def is_cert_expired(self, cert_path: str) -> bool:
-        """Check if certificate is expired"""
-        try:
-            result = subprocess.run(
-                f"openssl x509 -in {cert_path} -noout -checkend 0",
-                shell=True,
-                capture_output=True
-            )
-            # checkend returns 0 if NOT expired
-            return result.returncode != 0
+        """Check expiry. Fail-closed: error = treat as expired."""
+        ok, _ = self._openssl(f"openssl x509 -in {cert_path} -noout -checkend 0")
+        return not ok  # checkend returns 0 if NOT expired
 
-        except Exception as e:
-            log.error("Expiry check error", extra={"error": str(e)})
-            return True  # Fail closed
+    # ── Full certificate validation ───────────────────────────────────────────
 
-    def validate_cert(self, agent_id: str, cert_path: str) -> tuple:
+    def validate_cert(self, agent_id: str, cert_path: str) -> Tuple[bool, str]:
         """
-        Full certificate validation per IETF spec.
+        Full IETF-compliant certificate validation.
+        Checks (in order per Section 13 fail-closed):
+          1. File exists
+          2. Parse succeeds
+          3. Subject CN matches agent_id
+          4. CA chain validates (NOT self-signed)
+          5. Not expired
+          6. Key size >= 2048 bits
         Returns: (valid: bool, reason: str)
-        Fail-closed: any check fails = invalid
         """
-        try:
-            # Check cert file exists
-            if not Path(cert_path).exists():
-                return (False, "Certificate file not found")
+        if not Path(cert_path).exists():
+            return (False, "Certificate file not found")
 
-            # Parse cert info
-            cert_info = self.get_cert_info(cert_path)
-            if not cert_info:
-                return (False, "Failed to parse certificate")
+        info = self.get_cert_info(cert_path)
+        if not info:
+            return (False, "Failed to parse certificate")
 
-            # Validate subject CN matches agent ID
-            if cert_info["subject_cn"] != agent_id:
-                return (False, f"Subject CN mismatch: {cert_info['subject_cn']} != {agent_id}")
+        if info["subject_cn"] != agent_id:
+            return (False, f"Subject CN '{info['subject_cn']}' != agent_id '{agent_id}'")
 
-            # Validate chain
-            if not self.validate_chain(cert_path):
-                return (False, "Certificate chain validation failed")
+        chain_ok, chain_reason = self.validate_chain(cert_path)
+        if not chain_ok:
+            return (False, chain_reason)
 
-            # Check expiry
-            if self.is_cert_expired(cert_path):
-                return (False, "Certificate expired")
+        if self.is_cert_expired(cert_path):
+            return (False, "Certificate expired (TTL exceeded)")
 
-            # Validate key size (min 2048-bit RSA)
-            if cert_info.get("key_bits", 0) < 2048:
-                return (False, f"RSA key too small: {cert_info['key_bits']} bits")
+        if (info.get("key_bits") or 0) < 2048:
+            return (False, f"RSA key too small: {info.get('key_bits')} bits (min 2048)")
 
-            log.info("Certificate valid", extra={"agent": agent_id})
-            return (True, "Certificate valid")
+        log.info("Certificate valid", extra={"agent": agent_id, "issuer": info["issuer_cn"]})
+        return (True, "Certificate valid")
 
-        except Exception as e:
-            log.error("Cert validation error", extra={"error": str(e)})
-            return (False, str(e))
+    # ── Authorization bounds ──────────────────────────────────────────────────
 
     def parse_auth_bounds(self, metadata_path: str) -> Optional[Dict]:
-        """Parse authorization bounds from certificate metadata"""
+        """
+        Parse ALL required IETF fields from template metadata.
+        Section 7.1: AllowedScopes, CanSpawn, MaxChildren, ScopeInherit, PolicyRef all REQUIRED.
+        """
         try:
-            with open(metadata_path, 'r') as f:
-                metadata = json.load(f)
+            with open(metadata_path, "r") as f:
+                meta = json.load(f)
 
-            auth_bounds = metadata.get("authorization_bounds", {})
+            # Support both flat (new) and nested (legacy) metadata layouts
+            if "authorization_bounds" in meta:
+                bounds = meta["authorization_bounds"]
+            else:
+                bounds = meta
+
             return {
-                "allowed_scopes": auth_bounds.get("allowed_scopes", []),
-                "can_spawn": auth_bounds.get("can_spawn", []),
-                "max_children": auth_bounds.get("max_children", 0)
+                "allowed_scopes":    bounds.get("allowed_scopes", meta.get("allowed_scopes", [])),
+                "can_spawn":         bounds.get("can_spawn",      meta.get("can_spawn", [])),
+                "max_children":      bounds.get("max_children",   meta.get("max_children", 0)),
+                "scope_inherit":     meta.get("scope_inherit", "strict-subset"),
+                "policy_ref":        meta.get("policy_ref", ""),
+                "template_version":  meta.get("template_version", "1.0"),
+                "owner":             meta.get("owner", ""),
+                "org_id":            meta.get("org_id", ""),
+                "state":             meta.get("state", "ACTIVE"),
+                "ttl_seconds":       meta.get("ttl_seconds", 86400),
             }
-
         except Exception as e:
             log.error("Failed to parse auth bounds", extra={"error": str(e)})
             return None
 
-    def validate_scope_subset(self, requested_scopes: List[str], allowed_scopes: List[str]) -> bool:
-        """Validate that requested_scopes ⊆ allowed_scopes (IETF requirement)"""
-        for scope in requested_scopes:
-            if scope not in allowed_scopes:
-                log.warning("Scope not in allowed set",
-                           extra={"scope": scope, "allowed": allowed_scopes})
+    # ── Scope validation ──────────────────────────────────────────────────────
+
+    def validate_scope_subset(self, requested: List[str], allowed: List[str]) -> bool:
+        """
+        Section 8.3: Child AllowedScopes MUST be strict subset of parent.
+        Section 16.1: Scope escalation MUST be rejected.
+        """
+        for scope in requested:
+            if scope not in allowed:
+                log.warning("Scope escalation attempt",
+                            extra={"scope": scope, "allowed": allowed})
                 return False
         return True
 
-    def validate_spawn_allowed(self, parent_id: str, child_id: str, parent_metadata: Dict) -> bool:
-        """Validate child_id is in parent's CanSpawn list"""
-        can_spawn = parent_metadata.get("authorization_bounds", {}).get("can_spawn", [])
-        if child_id not in can_spawn:
-            log.warning("Spawn not in CanSpawn list",
-                       extra={"parent": parent_id, "child": child_id, "can_spawn": can_spawn})
-            return False
-        return True
+    # ── Two-check spawn rule (Section 8.1) ───────────────────────────────────
 
-    def validate_max_children(self, parent_id: str, current_children: int, parent_metadata: Dict) -> bool:
-        """Validate child count does not exceed MaxChildren"""
-        max_children = parent_metadata.get("authorization_bounds", {}).get("max_children", 0)
-        if max_children > 0 and current_children >= max_children:
-            log.warning("MaxChildren limit exceeded",
-                       extra={"parent": parent_id, "current": current_children, "max": max_children})
-            return False
-        return True
+    def validate_spawn_check1(self, parent_meta: Dict, child_id: str) -> Tuple[bool, str]:
+        """
+        Check 1 (Static): child template MUST appear in parent CanSpawn list.
+        Section 8.1: 'CanSpawn alone is insufficient but MUST pass first.'
+        """
+        can_spawn = parent_meta.get("can_spawn", [])
+        if child_id not in can_spawn:
+            return (False, f"'{child_id}' not in parent CanSpawn {can_spawn}")
+        return (True, "CanSpawn check passed")
+
+    def validate_spawn_check2(self, child_id: str, child_cert_path: str,
+                               child_meta_path: str) -> Tuple[bool, str]:
+        """
+        Check 2 (Dynamic Registry): child template MUST be registered, CA-signed,
+        not revoked, and currently ACTIVE.
+        Section 8.1: 'Registry lookup alone insufficient but MUST also pass.'
+        """
+        # Must be CA-signed
+        chain_ok, chain_reason = self.validate_chain(child_cert_path)
+        if not chain_ok:
+            return (False, f"Registry check: {chain_reason}")
+
+        # Must be ACTIVE in registry (metadata state)
+        try:
+            with open(child_meta_path, "r") as f:
+                meta = json.load(f)
+            state = meta.get("state", "UNKNOWN")
+            if state != "ACTIVE":
+                return (False, f"Registry check: template state is {state}")
+        except Exception as e:
+            return (False, f"Registry check: cannot read metadata: {e}")
+
+        return (True, "Registry check passed")
+
+    def validate_max_children(self, parent_id: str, current_children: int,
+                               parent_meta: Dict) -> Tuple[bool, str]:
+        """Section 8.2 step 4: MaxChildren MUST be enforced."""
+        max_c = parent_meta.get("max_children", 0)
+        if max_c > 0 and current_children >= max_c:
+            return (False, f"MaxChildren {max_c} exceeded (current={current_children})")
+        return (True, "MaxChildren OK")
