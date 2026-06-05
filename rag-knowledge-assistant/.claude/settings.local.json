@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(mkdir -p /Users/tonyai/.claude/projects/-Users-tonyai-dev-seekwell-ai-adoption/memory)",
+      "Bash(ls /Users/tonyai/.claude/projects/)",
+      "Read(//Users/tonyai/.claude/projects/**)",
+      "Bash(npm test *)",
+      "Bash(find /Users/tonyai/dev -name \"package.json\" -not -path \"*/node_modules/*\" 2>&1)",
+      "Read(//Users/tonyai/dev/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/tonyai/.claude/projects/-Users-tonyai-dev-seekwell-ai-adoption"
+    ]
+  }
+}

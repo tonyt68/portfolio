@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:openlibrary.org)",
+      "Bash(curl -s https://api.github.com/repos/JuliusBrussee/caveman)",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}

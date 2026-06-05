@@ -1,0 +1,546 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sentinel FIPS — ReBAC + FIPS 140-3 boundary POC.
+  Earmarks: 🔒 FIPS-3-GAP = missing for true 140-3 L3, 📦 PROD-GAP = missing for prod scale.
+
+Parameters:
+  AnthropicApiKey:
+    Type: String
+    NoEcho: true
+    Description: Anthropic API key from console.anthropic.com
+  AnthropicBaseUrl:
+    Type: String
+    Default: 'https://api.anthropic.com'
+    Description: Anthropic API base URL — override to point at a proxy or swap to Bedrock.
+  AlertEmail:
+    Type: String
+    Description: Email for SNS escalation alerts (you must confirm the SNS subscription)
+  DryRun:
+    Type: String
+    Default: 'true'
+    AllowedValues: ['true', 'false']
+    Description: >
+      Recommended for first deploy. When true, sign_bundle and emit_alert return
+      "would have ..." stubs without invoking KMS or EventBridge. Verdict is
+      prefixed with [DRY-RUN]. Switch to false when you're ready to go live.
+      See AI-GOVERNANCE.md § Dry-Run Mode for verification recipes.
+
+Globals:
+  Function:
+    Runtime: python3.13
+    Timeout: 30
+    MemorySize: 512
+    Tracing: Active
+
+Resources:
+
+  # ───────────── ReBAC graph (📦 PROD-GAP: Neptune for v2) ─────────────
+  RebacTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: sentinel-rebac
+      AttributeDefinitions:
+        - AttributeName: subject_relation
+          AttributeType: S
+      KeySchema:
+        - AttributeName: subject_relation
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # ───────────── Anthropic API key (🔒 FIPS-3-GAP: Bedrock for v2) ────
+  AnthropicSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: sentinel-fips/anthropic-api-key
+      SecretString: !Ref AnthropicApiKey
+
+  # ───────────── Cryptographic boundary (🔒 FIPS-3-GAP: CloudHSM) ─────
+  SigningKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Sentinel FIPS signing key (FIPS 140-2 L3 HSMs today; CloudHSM for true 140-3 L3)
+      KeySpec: RSA_2048
+      KeyUsage: SIGN_VERIFY
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowAccountAdmin
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+
+  SigningKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/sentinel-fips
+      TargetKeyId: !Ref SigningKey
+
+  # ───────────── Cedar policy store (Verified Permissions) ────────────
+  PolicyStore:
+    Type: AWS::VerifiedPermissions::PolicyStore
+    Properties:
+      Description: Sentinel FIPS Cedar policies
+      ValidationSettings:
+        Mode: STRICT
+      Schema:
+        CedarJson: |
+          {
+            "SentinelFips": {
+              "entityTypes": {
+                "Service": {
+                  "shape": {"type": "Record", "attributes": {}},
+                  "memberOfTypes": ["User"]
+                },
+                "User": {
+                  "shape": {"type": "Record", "attributes": {}},
+                  "memberOfTypes": ["Team"]
+                },
+                "Team": {
+                  "shape": {"type": "Record", "attributes": {}}
+                },
+                "Bundle": {
+                  "shape": {"type": "Record", "attributes": {}}
+                }
+              },
+              "actions": {
+                "Sign": {
+                  "appliesTo": {
+                    "principalTypes": ["Service", "User"],
+                    "resourceTypes": ["Bundle"]
+                  }
+                }
+              }
+            }
+          }
+
+  SignPolicy:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: platform-team members may sign idp-config-bundle
+          Statement: |
+            permit (
+                principal in SentinelFips::Team::"platform-team",
+                action == SentinelFips::Action::"Sign",
+                resource == SentinelFips::Bundle::"idp-config-bundle"
+            );
+
+  # ───────────── Escalation channel ───────────────────────────────────
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: sentinel-fips-alerts
+      Tags:
+        - Key: Project
+          Value: sentinel-fips
+
+  AlertSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref AlertTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  AlertTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics: [!Ref AlertTopic]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowEventBridgePublish
+            Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: 'sns:Publish'
+            Resource: !Ref AlertTopic
+
+  AlertRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: sentinel-fips-auth-chain-broken
+      EventPattern:
+        source: [sentinel.fips]
+        detail-type: ['Sentinel.AuthChainBroken']
+      State: ENABLED
+      Targets:
+        - Arn: !Ref AlertTopic
+          Id: alert-topic
+
+  # ───── Pattern-level alerting (deny bursts + agent misbehavior) ─────
+  PatternAlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: sentinel-fips-pattern-alerts
+      Tags:
+        - Key: Project
+          Value: sentinel-fips
+
+  PatternAlertSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref PatternAlertTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  PatternAlertTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics: [!Ref PatternAlertTopic]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowEventBridgePatternPublish
+            Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: 'sns:Publish'
+            Resource: !Ref PatternAlertTopic
+          - Sid: AllowCloudWatchPatternPublish
+            Effect: Allow
+            Principal:
+              Service: cloudwatch.amazonaws.com
+            Action: 'sns:Publish'
+            Resource: !Ref PatternAlertTopic
+
+  AgentMisbehaviorRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: sentinel-fips-agent-misbehavior
+      EventPattern:
+        source: [sentinel.fips]
+        detail-type: ['Sentinel.AgentMisbehavior']
+      State: ENABLED
+      Targets:
+        - Arn: !Ref PatternAlertTopic
+          Id: pattern-topic-misbehavior
+
+  OrchestratorLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/sentinel-fips-orchestrator
+      RetentionInDays: 14
+
+  RebacDenyMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    DependsOn: OrchestratorLogGroup
+    Properties:
+      LogGroupName: !Ref OrchestratorLogGroup
+      FilterPattern: 'REBAC_DENIED'
+      MetricTransformations:
+        - MetricName: RebacDenied
+          MetricNamespace: SentinelFips
+          MetricValue: '1'
+          DefaultValue: 0
+
+  RebacDenyBurstAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: sentinel-fips-rebac-deny-burst
+      AlarmDescription: >
+        Fires when more than 5 REBAC_DENIED events occur in 10 minutes —
+        possible reconnaissance, attack pattern, or system misconfiguration.
+        Distinct from the per-event Sentinel.AuthChainBroken alert.
+      Namespace: SentinelFips
+      MetricName: RebacDenied
+      Statistic: Sum
+      Period: 600
+      EvaluationPeriods: 1
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref PatternAlertTopic
+
+  # ───────────── Audit trail (S3 Object Lock COMPLIANCE) ──────────────
+  AuditBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Sub 'sentinel-fips-audit-${AWS::AccountId}-v2'
+      ObjectLockEnabled: true
+      ObjectLockConfiguration:
+        ObjectLockEnabled: Enabled
+        Rule:
+          DefaultRetention:
+            Mode: COMPLIANCE
+            Days: 1
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  AuditBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AuditBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: CloudTrailAcl
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: 's3:GetBucketAcl'
+            Resource: !GetAtt AuditBucket.Arn
+          - Sid: CloudTrailPut
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: 's3:PutObject'
+            Resource: !Sub '${AuditBucket.Arn}/AWSLogs/${AWS::AccountId}/*'
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+
+  AuditTrail:
+    Type: AWS::CloudTrail::Trail
+    DependsOn: AuditBucketPolicy
+    Properties:
+      TrailName: sentinel-fips-trail
+      S3BucketName: !Ref AuditBucket
+      IsLogging: true
+      EnableLogFileValidation: true
+      IncludeGlobalServiceEvents: true
+      IsMultiRegionTrail: false
+      EventSelectors:
+        - ReadWriteType: All
+          IncludeManagementEvents: true
+
+  # ───────────── Lambdas ──────────────────────────────────────────────
+  AuthorizerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: sentinel-fips-authorizer
+      CodeUri: functions/authorizer/
+      Handler: app.lambda_handler
+      Environment:
+        Variables:
+          REBAC_TABLE: !Ref RebacTable
+          POLICY_STORE_ID: !GetAtt PolicyStore.PolicyStoreId
+          AWS_USE_FIPS_ENDPOINT: 'true'
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref RebacTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - verifiedpermissions:IsAuthorized
+              Resource: !GetAtt PolicyStore.Arn
+
+  SignFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: sentinel-fips-sign
+      CodeUri: functions/sign/
+      Handler: app.lambda_handler
+      Environment:
+        Variables:
+          KMS_KEY_ID: !Ref SigningKey
+          AUTHORIZER_FUNCTION: !Ref AuthorizerFunction
+          AWS_USE_FIPS_ENDPOINT: 'true'
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - kms:Sign
+                - kms:DescribeKey
+              Resource: !GetAtt SigningKey.Arn
+            - Effect: Allow
+              # Defense in depth — sign Lambda independently re-checks
+              # authorization before invoking KMS. See functions/sign/app.py.
+              Action: lambda:InvokeFunction
+              Resource: !GetAtt AuthorizerFunction.Arn
+
+  OrchestratorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: sentinel-fips-orchestrator
+      CodeUri: functions/orchestrator/
+      Handler: app.lambda_handler
+      Timeout: 90
+      MemorySize: 1024
+      Environment:
+        Variables:
+          ANTHROPIC_SECRET_ID: !Ref AnthropicSecret
+          ANTHROPIC_BASE_URL: !Ref AnthropicBaseUrl
+          AUTHORIZER_FUNCTION: !Ref AuthorizerFunction
+          SIGN_FUNCTION: !Ref SignFunction
+          DRY_RUN: !Ref DryRun
+          KMS_KEY_ID_HINT: alias/sentinel-fips
+          AWS_USE_FIPS_ENDPOINT: 'true'
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: secretsmanager:GetSecretValue
+              Resource: !Ref AnthropicSecret
+            - Effect: Allow
+              Action: lambda:InvokeFunction
+              Resource:
+                - !GetAtt AuthorizerFunction.Arn
+                - !GetAtt SignFunction.Arn
+            - Effect: Allow
+              Action: events:PutEvents
+              Resource: !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default'
+      Events:
+        Sentinel:
+          Type: Api
+          Properties:
+            Path: /sentinel
+            Method: POST
+
+  # ───────────── Demo operator role (not root) ───────────────────────
+  # Deploy once from root/admin → then assume this role for all demo ops.
+  # CloudTrail logs userIdentity.type: AssumedRole / sentinel-fips-operator
+  # instead of Root — named, scoped, revocable identity.
+  # 📦 PROD-GAP: scope further to per-resource ARNs and add MFA condition.
+  OperatorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sentinel-fips-operator
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/PowerUserAccess
+      Policies:
+        - PolicyName: sentinel-fips-iam-scoped
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - iam:CreateRole
+                  - iam:DeleteRole
+                  - iam:PutRolePolicy
+                  - iam:DeleteRolePolicy
+                  - iam:AttachRolePolicy
+                  - iam:DetachRolePolicy
+                  - iam:GetRole
+                  - iam:GetRolePolicy
+                  - iam:ListRolePolicies
+                  - iam:ListAttachedRolePolicies
+                  - iam:PassRole
+                  - iam:TagRole
+                Resource:
+                  - !Sub 'arn:aws:iam::${AWS::AccountId}:role/sentinel-fips-*'
+
+  # ───────────── MCP read-only role (sentinel-demo → sentinel-fips-mcp) ──
+  # Used by the local Sentinel MCP server on a developer's Mac.
+  # Read-only, scoped to Sentinel resources only — no write, no prod ops.
+  # Assumable by the sentinel-demo IAM user (the dedicated PoC demo identity).
+  # 📦 PROD-GAP: add MFA condition and tighten to per-ARN resource constraints.
+  McpRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sentinel-fips-mcp
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:user/sentinel-demo'
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: sentinel-fips-mcp-readonly
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: DynamoReadRebac
+                Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:Scan
+                  - dynamodb:BatchGetItem
+                Resource: !GetAtt RebacTable.Arn
+
+              - Sid: CloudWatchLogsRead
+                Effect: Allow
+                Action:
+                  - logs:FilterLogEvents
+                  - logs:GetLogEvents
+                  - logs:DescribeLogStreams
+                Resource: !GetAtt OrchestratorLogGroup.Arn
+
+              - Sid: CloudTrailRead
+                Effect: Allow
+                Action:
+                  - cloudtrail:LookupEvents
+                Resource: '*'
+
+              - Sid: KmsVerifyOnly
+                Effect: Allow
+                Action:
+                  - kms:Verify
+                  - kms:DescribeKey
+                  - kms:GetPublicKey
+                Resource: !GetAtt SigningKey.Arn
+
+              - Sid: CloudWatchMetrics
+                Effect: Allow
+                Action:
+                  - cloudwatch:GetMetricData
+                  - cloudwatch:GetMetricStatistics
+                  - cloudwatch:DescribeAlarms
+                Resource: '*'
+
+              - Sid: CloudFormationRead
+                Effect: Allow
+                Action:
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DescribeStackEvents
+                Resource: !Sub 'arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/sentinel-fips/*'
+
+              - Sid: LambdaConfigRead
+                Effect: Allow
+                Action:
+                  - lambda:GetFunctionConfiguration
+                Resource:
+                  - !GetAtt OrchestratorFunction.Arn
+                  - !GetAtt AuthorizerFunction.Arn
+                  - !GetAtt SignFunction.Arn
+
+Outputs:
+  ApiEndpoint:
+    Description: HTTPS endpoint for the orchestrator
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/sentinel'
+  RebacTableName:
+    Value: !Ref RebacTable
+  AlertTopicArn:
+    Description: Per-event alerts (Sentinel.AuthChainBroken)
+    Value: !Ref AlertTopic
+  PatternAlertTopicArn:
+    Description: Pattern-level alerts (REBAC_DENIED bursts, Sentinel.AgentMisbehavior)
+    Value: !Ref PatternAlertTopic
+  PolicyStoreId:
+    Value: !GetAtt PolicyStore.PolicyStoreId
+  SigningKeyId:
+    Value: !Ref SigningKey
+  AuditBucketName:
+    Value: !Ref AuditBucket
+  DryRunMode:
+    Description: Whether sign_bundle and emit_alert have side effects
+    Value: !Ref DryRun
+  OperatorRoleArn:
+    Description: Assume this role for demo ops — avoids running as root
+    Value: !GetAtt OperatorRole.Arn
+  McpRoleArn:
+    Description: Read-only role for Sentinel MCP server — assumed by sentinel-demo
+    Value: !GetAtt McpRole.Arn

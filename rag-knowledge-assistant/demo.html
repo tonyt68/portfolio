@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TonyAI RAG Knowledge Assistant — Demo</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; max-width: 860px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 1.6rem; color: #fff; margin-bottom: 4px; }
+    .subtitle { color: #64748b; font-size: 0.9rem; margin-bottom: 40px; }
+    .step { margin-bottom: 28px; }
+    .step-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 8px; }
+    .step-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin-bottom: 10px; }
+    .cmd-block { background: #1e2330; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cmd-text { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; color: #a5f3fc; word-break: break-all; flex: 1; }
+    .copy-btn { flex-shrink: 0; background: #2d3748; border: 1px solid #4a5568; color: #e2e8f0; padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
+    .copy-btn:hover { background: #4a5568; }
+    .copy-btn.copied { background: #065f46; border-color: #10b981; color: #6ee7b7; }
+    .divider { border: none; border-top: 1px solid #2d3748; margin: 32px 0; }
+    .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: 500; vertical-align: middle; }
+    .tag-free { background: #064e3b; color: #6ee7b7; }
+    .tag-llm { background: #1e3a5f; color: #93c5fd; }
+    .tag-block { background: #7f1d1d; color: #fca5a5; }
+    .before { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 8px; padding: 16px 20px; margin-bottom: 32px; }
+    .before h3 { margin: 0 0 12px; font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+
+  <h1>TonyAI RAG Knowledge Assistant</h1>
+  <p class="subtitle">Powered by TonyAI · Built with Claude · Principal Engineer AI Enablement PoC</p>
+
+  <div class="before">
+    <h3>Before the demo — run this first</h3>
+    <div class="cmd-block">
+      <span id="cmd-reset" class="cmd-text">npm run costs:reset</span>
+      <button class="copy-btn" data-target="cmd-reset">Copy</button>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">Step 1</div>
+    <div class="step-title">Luna returns — latency optimization <span class="tag tag-llm">LLM</span></div>
+    <div class="cmd-block">
+      <span id="cmd-1" class="cmd-text">npm run ask -- "I'm on the Luna returns team — what are the current order return steps and where can I reduce latency without breaking validation?"</span>
+      <button class="copy-btn" data-target="cmd-1">Copy</button>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">Step 2</div>
+    <div class="step-title">1-800 Contacts — ABC flow ownership <span class="tag tag-llm">LLM</span></div>
+    <div class="cmd-block">
+      <span id="cmd-2" class="cmd-text">npm run ask -- "I need to extend the 1-800 Contacts web UI for ABC flow — which components own the form state and what are the existing UX/validation rules?"</span>
+      <button class="copy-btn" data-target="cmd-2">Copy</button>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">Step 3</div>
+    <div class="step-title">Salary question — graceful decline <span class="tag tag-llm">LLM</span></div>
+    <div class="cmd-block">
+      <span id="cmd-3" class="cmd-text">npm run ask -- "What does a Principal Software Engineer make at 1-800 Contacts?"</span>
+      <button class="copy-btn" data-target="cmd-3">Copy</button>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">Step 4</div>
+    <div class="step-title">Financial forecast — hard block <span class="tag tag-free">$0.00 free</span> <span class="tag tag-block">guardrail</span></div>
+    <div class="cmd-block">
+      <span id="cmd-4" class="cmd-text">npm run ask -- "What is the company's private financial forecast?"</span>
+      <button class="copy-btn" data-target="cmd-4">Copy</button>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="step">
+    <div class="step-label">Finish</div>
+    <div class="step-title">Show cost dashboard</div>
+    <div class="cmd-block">
+      <span id="cmd-costs" class="cmd-text">npm run costs</span>
+      <button class="copy-btn" data-target="cmd-costs">Copy</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var targetId = btn.getAttribute('data-target');
+        var text = document.getElementById(targetId).textContent;
+        navigator.clipboard.writeText(text).then(function() {
+          btn.textContent = 'Copied ✓';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

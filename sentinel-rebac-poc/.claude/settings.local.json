@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "Bash(pip list *)",
+      "Bash(/Users/tonyai/dev/sentinel-poc/venv/bin/python3 --version)",
+      "WebSearch"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "question": "What are the current Luna order return steps?",
+      "answer": "Luna return flow: (1) customer self-service auth → (2) package receipt validation → (3) refund eligibility check via `return-policy-service` → (4) quality verification → (5) carrier label generation. The main latency hotspot is step 5 — label generation calls the external carrier API synchronously. To reduce latency without breaking validation: add early exits in `return-validation.ts` for missing required fields before reaching the carrier call; cache label responses for repeat address+carrier combos. Core validation logic lives in `luna-return-validator.ts`. Eligibility windows and exceptions are owned by `return-policy-service`. If you are modifying validation, run the integration suite in `tests/luna/returns/`.",
+      "tags": ["luna", "returns", "order processing", "performance", "latency", "validation"],
+      "source": "Luna Returns Process Overview"
+    },
+    {
+      "question": "How do I extend the 1-800 Contacts web UI for ABC flow?",
+      "answer": "The ABC flow is owned by the web UI team and uses the `ContactForm` and `CheckoutStep` components. Form state is managed in `ABCFormState`, with validation rules enforced in `abc-validation.ts`. When extending this flow, keep new inputs within the existing state model and reuse the shared validation helpers.",
+      "tags": ["1800contacts", "web ui", "abc", "form state", "validation"],
+      "source": "1-800 Contacts UI Architecture Notes"
+    },
+    {
+      "question": "What is the Luna validation process for return orders?",
+      "answer": "Luna return orders validate customer subscription status, item condition, and return reason before approval. The system then checks for eligibility windows and applies any exceptions from the return policy service.",
+      "tags": ["luna", "returns", "validation"],
+      "source": "Luna Returns Validation Rules"
+    },
+    {
+      "question": "Does the ABC flow use Redux for form state management?",
+      "answer": "Actually, no — and this is a common misconception. The ABC flow does not use Redux. Form state is managed locally in `ABCFormState`, a custom model scoped to the checkout flow. This was an intentional design decision to keep the ABC flow isolated from global state and avoid side effects across other UI flows. If you add new inputs, keep them inside `ABCFormState` and use the shared validation helpers in `abc-validation.ts`.",
+      "tags": ["abc", "redux", "form state", "misconception", "web ui", "1800contacts"],
+      "source": "1-800 Contacts UI Architecture Notes"
+    }
+  ]
+}

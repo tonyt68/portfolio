@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Blocks commits containing secrets. Add new patterns below.
+# Install: cp .hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+set -euo pipefail
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+FOUND=0
+
+# Staged additions only (lines starting with +, excluding diff headers)
+STAGED_DIFF=$(git diff --cached -U0 | grep '^+' | grep -v '^+++' || true)
+
+if [[ -z "$STAGED_DIFF" ]]; then
+  exit 0
+fi
+
+check_pattern() {
+  local label="$1"
+  local pattern="$2"
+  local hits
+  hits=$(echo "$STAGED_DIFF" | grep -P "$pattern" 2>/dev/null || true)
+  if [[ -n "$hits" ]]; then
+    echo -e "${RED}[SECRETS BLOCK] Possible secret — $label${NC}"
+    echo "$hits" | head -3
+    FOUND=1
+  fi
+}
+
+check_pattern "AWS Access Key ID"      'AKIA[0-9A-Z]{16}'
+check_pattern "AWS Secret Key"         '(?i)aws.{0,20}secret.{0,20}['"'"'"][0-9a-zA-Z/+=]{40}['"'"'"]'
+check_pattern "Private Key Header"     '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
+check_pattern "Generic API key"        '(?i)(api_key|apikey|api[-_]key)\s*[:=]\s*['"'"'"][a-zA-Z0-9_\-]{16,}['"'"'"]'
+check_pattern "Generic token/secret"   '(?i)(token|secret|password|passwd|pwd)\s*[:=]\s*['"'"'"][^'"'"'"\s]{8,}['"'"'"]'
+check_pattern "Bearer token"           '(?i)bearer\s+[a-zA-Z0-9\-_.]{20,}'
+
+if [[ $FOUND -ne 0 ]]; then
+  echo ""
+  echo "Commit blocked. Remove secrets before committing."
+  echo "False positive? Use: git commit --no-verify  (only if you are certain)"
+  exit 1
+fi
+
+exit 0
