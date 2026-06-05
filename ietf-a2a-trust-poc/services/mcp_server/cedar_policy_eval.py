@@ -46,12 +46,20 @@ class CedarPolicyEvaluator:
 
             policy = self.policies[policy_name]
 
-            # Policy evaluation: scope-based authz
-            # Check if requested scopes are allowed in the policy
-            granted = [scope for scope in requested_scopes if self._has_scope_in_policy(policy, scope, agent_id)]
+            # Parse allowed scopes from Cedar policy
+            allowed_scopes = self._parse_allowed_scopes(policy)
 
-            if not granted:
-                log.warning("No scopes granted", extra={"agent": agent_id, "requested": requested_scopes})
+            if not allowed_scopes:
+                log.warning("No scopes allowed in policy", extra={"agent": agent_id})
+                return None
+
+            # Check ALL requested scopes are in allowed list (fail-closed)
+            granted = [scope for scope in requested_scopes if scope in allowed_scopes]
+
+            # DENY if ANY requested scope is not explicitly allowed
+            if len(granted) != len(requested_scopes):
+                log.warning("Scope escalation attempt",
+                           extra={"agent": agent_id, "requested": requested_scopes, "allowed": allowed_scopes})
                 return None
 
             log.info("Cedar policy evaluated", extra={"agent": agent_id, "scopes": granted})
@@ -61,22 +69,22 @@ class CedarPolicyEvaluator:
             log.error("Cedar policy evaluation error", extra={"agent": agent_id, "error": str(e)})
             return None
 
-    def _has_scope_in_policy(self, policy: str, scope: str, agent_id: str) -> bool:
-        """Check if scope is permitted in Cedar policy for this agent"""
-        # Cedar permits format: permit(...) when { ... "scope" in principal.scopes ... }
-        # Simple check: if scope string appears in the policy, it's allowed
-        return scope in policy and agent_id in policy
-
     def _parse_allowed_scopes(self, policy_content: str) -> List[str]:
         """
-        Parse allowed scopes from policy file.
-        Expected format: lines containing "allow_scope: scope_name"
+        Parse allowed scopes from Cedar policy file.
+        Cedar format: "SCOPE" in principal.scopes
+        Example: "write:events" in principal.scopes
         """
         scopes = []
         for line in policy_content.split('\n'):
-            if 'allow_scope:' in line:
-                scope = line.split('allow_scope:')[1].strip()
-                scopes.append(scope)
+            # Look for pattern: "scope_name" in principal.scopes
+            if 'in principal.scopes' in line:
+                # Extract quoted string before 'in principal.scopes'
+                parts = line.split('in principal.scopes')[0].strip()
+                # Remove quotes and whitespace
+                scope = parts.strip('"\'').strip()
+                if scope:
+                    scopes.append(scope)
 
         return scopes
 

@@ -1,6 +1,6 @@
 import logging
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from config import settings
 from jwt_validator import JWTValidator
@@ -47,10 +47,20 @@ async def startup():
 
 
 class WriteEventRequest(BaseModel):
+    model_config = ConfigDict(max_json_schema_depth=10)
+
     correlation_id: str
     event_data: dict
     agent_id: str
     requested_scopes: list
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        # Validate event_data size (max 5MB for LLM context)
+        import json
+        data_size = len(json.dumps(self.event_data).encode())
+        if data_size > 5 * 1024 * 1024:  # 5MB
+            raise ValueError("event_data exceeds 5MB limit")
 
 
 class ReadEventRequest(BaseModel):
