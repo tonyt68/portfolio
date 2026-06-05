@@ -1,49 +1,102 @@
 #!/bin/bash
-# A2A Trust PoC Demo Startup Script
+# A2A Trust PoC — Start with full test gate
+# Same flow as restart.sh but without --build (faster for demo day)
 
-set -e
+set -euo pipefail
 
-cd "$(dirname "$0")/.."
+SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$SCRIPT_DIR"
 
-echo "Starting A2A Trust PoC Demo..."
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+die() {
+    echo -e "\n${RED}FAILED: $1${NC}"
+    echo -e "${YELLOW}Stopping all services...${NC}"
+    docker compose down 2>/dev/null || true
+    echo -e "${RED}Fix the errors above, then run ./demo/start.sh again.${NC}\n"
+    exit 1
+}
 
 # Check .env
 if [ ! -f .env ]; then
-    echo "ERROR: .env not found. Copy .env.example and fill in values."
+    echo -e "${RED}ERROR: .env not found. Copy .env.example and fill in values.${NC}"
     exit 1
 fi
 
-# Check certs
+# Auto-generate certs if missing
 if [ ! -f certs/ca-root.crt ]; then
-    echo "Certs not found. Generating..."
-    python3 setup_keys.py
+    echo -e "${YELLOW}Certs not found — generating now...${NC}"
+    python3 setup_keys.py || die "setup_keys.py failed"
 fi
 
-# Start services
-echo "Starting Docker Compose..."
-docker compose up -d
+# ── Step 1: Static tests ──────────────────────────────────────────────────
+echo ""
+echo "═══════════════════════════════════════════════════════════════"
+echo " Step 1/3: Static tests (IETF conformance, runs in seconds)"
+echo "═══════════════════════════════════════════════════════════════"
+python3 tests/test_vectors.py || die "Static tests failed. Fix before starting."
+echo -e "${GREEN}✓ Static tests passed${NC}"
+
+# ── Step 2: Start services ────────────────────────────────────────────────
+echo ""
+echo "═══════════════════════════════════════════════════════════════"
+echo " Step 2/3: Starting services"
+echo "═══════════════════════════════════════════════════════════════"
+docker compose up -d 2>&1 | tail -6
 
 echo ""
-echo "Waiting for services (15s)..."
-sleep 15
+echo "Waiting for services to be ready..."
+MAX_WAIT=30
+ELAPSED=0
+all_up=false
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+    mcp=$(curl -sf http://localhost:8001/health -m 2 | python3 -c "import sys,json; d=json.load(sys.stdin); sys.exit(0 if d.get('status')=='healthy' else 1)" 2>/dev/null && echo "up" || echo "down")
+    adm=$(curl -sf http://localhost:8002/health -m 2 | python3 -c "import sys,json; d=json.load(sys.stdin); sys.exit(0 if d.get('status')=='healthy' else 1)" 2>/dev/null && echo "up" || echo "down")
+    web=$(curl -sf http://localhost:8765/health -m 2 | python3 -c "import sys,json; d=json.load(sys.stdin); sys.exit(0 if d.get('status')=='healthy' else 1)" 2>/dev/null && echo "up" || echo "down")
 
-# Full startup smoke test
-echo ""
-echo "Running startup checks..."
-python3 scripts/smoke_test.py
-if [ $? -ne 0 ]; then
+    if [ "$mcp" = "up" ] && [ "$adm" = "up" ] && [ "$web" = "up" ]; then
+        all_up=true
+        break
+    fi
+    echo "  mcp=$mcp admin=$adm demo=$web — waiting... (${ELAPSED}s/${MAX_WAIT}s)"
+    sleep 3
+    ELAPSED=$((ELAPSED + 3))
+done
+
+if [ "$all_up" != "true" ]; then
     echo ""
-    echo "ERROR: Startup checks failed. Check output above."
-    exit 1
+    echo "Service logs:"
+    docker compose logs --tail=10 2>&1 | grep -v "^time="
+    die "Services did not become healthy within ${MAX_WAIT}s"
 fi
+echo -e "${GREEN}✓ All services healthy${NC}"
 
-# Open browser
+# ── Step 3: Smoke tests ───────────────────────────────────────────────────
 echo ""
+echo "═══════════════════════════════════════════════════════════════"
+echo " Step 3/3: Smoke tests (live server verification)"
+echo "═══════════════════════════════════════════════════════════════"
+python3 tests/smoke_test.py || die "Smoke tests failed. Services stopped."
+echo -e "${GREEN}✓ Smoke tests passed${NC}"
+
+# ── Open browser ──────────────────────────────────────────────────────────
 if command -v open &>/dev/null; then
     open "http://localhost:8765"
 elif command -v xdg-open &>/dev/null; then
     xdg-open "http://localhost:8765"
 fi
 
-echo "Demo ready at http://localhost:8765"
-echo "Stop with: docker compose down"
+echo ""
+echo "═══════════════════════════════════════════════════════════════"
+echo -e " ${GREEN}✓ ALL TESTS PASSED — Demo is ready${NC}"
+echo "═══════════════════════════════════════════════════════════════"
+echo "  Demo UI:          http://localhost:8765"
+echo "  MCP Server:       http://localhost:8001"
+echo "  Admin Bootstrap:  http://localhost:8002"
+echo ""
+echo "  Red team:         python3 tests/red_team_test.py"
+echo "  Stop:             docker compose down"
+echo ""

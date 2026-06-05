@@ -3,7 +3,7 @@
 Startup Smoke Test — IETF A2A Trust PoC
 Verifies all services and dependencies are healthy before demo.
 
-Run: python3 scripts/smoke_test.py
+Run: python3 tests/smoke_test.py
 Exit 0 = all good, demo is ready
 Exit 1 = something is broken, with clear error message
 

@@ -4,7 +4,7 @@ IETF A2A Trust Conformance Test Vectors — draft-tonyai-a2a-trust-00
 Section 14.3: 'Implementations MUST provide test vectors — concrete examples
                of valid and invalid template chains — for conformance validation.'
 
-Run: python3 scripts/test_vectors.py
+Run: python3 tests/test_vectors.py
 All vectors must PASS for conformance certification.
 """
 
