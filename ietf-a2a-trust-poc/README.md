@@ -12,17 +12,19 @@ Each of the 11 demo scenarios maps directly to a requirement in the IETF draft:
 
 | # | Scenario | Expected | Section |
 |---|---|---|---|
-| 1 | Golden path — full auth chain | ALLOWED | §8.2 |
-| 2 | Dynamic policy update (dual-signed) | ALLOWED | §9.3 |
-| 3 | Rogue spawn — not in CanSpawn | DENIED | §8.1 |
+| 1 | Golden path — full auth chain validates | ALLOWED | §6, §8, §9 |
+| 2 | Dynamic policy update (dual-signed) | ALLOWED | §9.3, §9.4 |
+| 3 | Rogue spawn — not in CanSpawn list | DENIED | §8.1 |
 | 4 | Dual-sig missing — PA sig absent | DENIED | §9.3 |
 | 5 | Dual-sig tampered — PA sig corrupted | DENIED | §9.3 |
-| 6 | Scope escalation — child > parent | DENIED | §8.3 |
-| 7 | Cert lifecycle — ACTIVE → DISABLED → DELETED | DENIED | §10.4 |
-| 8 | CRL check failure — revoked cert | DENIED | §12.1 |
-| 9 | TTL expiry — cert expired | DENIED | §12.3 |
-| 10 | Cross-org grant — dual-signed, time-limited | ALLOWED | §11.2 |
-| 11 | Replay attack — same nonce twice | DENIED | §16.2 |
+| 6 | Scope escalation — child requests beyond AllowedScopes | DENIED | §8.3, §16.1 |
+| 7 | Cert lifecycle — ACTIVE → DISABLED → DELETED state machine | ALLOWED¹ | §10.4 |
+| 8 | CRL check — agent with no registered cert (simulates revocation) | DENIED | §12.1 |
+| 9 | TTL expiry — agent with no valid cert (simulates expiry) | DENIED | §12.3 |
+| 10 | Cross-org grant — dual-signed, TTL-limited, unilateral revocation | ALLOWED | §11.2, §11.4 |
+| 11 | Replay attack — same nonce sent twice | DENIED (2nd) | §16.2 |
+
+¹ Scenario 7 demonstrates the lifecycle state machine with a live agent-b (ACTIVE → write succeeds). A separate admin API call transitions the state; the demo narrates the concept per §10.4.
 
 ---
 
@@ -85,19 +87,21 @@ python3 tests/red_team_test.py
 
 ## Validation Chain
 
-Every request through the MCP server passes 8 sequential checks. Any failure → DENY.
+Every request through the MCP server passes the following checks in order. Any failure → DENY.
 
 ```
-0. agent_id format validation  (allowlist regex — blocks injection, traversal)
-1. X.509 certificate validation (RFC 5280 chain, CA-signed, not expired)
-2. Replay prevention           (nonce uniqueness + timestamp freshness, file-locked)
-3. CRL check                   (revocation + disabled + TTL expiry — automated)
-4. Authorization bounds        (AllowedScopes, CanSpawn, MaxChildren from cert)
-5. Scope subset validation     (requested ⊆ cert AllowedScopes)
-6. Cedar policy evaluation     (dynamic policy layer, post-grant subset re-check)
-7. S3 write
-8. Audit chain append          (SHA-256 hash chain, tamper-evident)
+[security]  agent_id format validation  (allowlist regex — blocks injection + path traversal)
+[§6]        X.509 certificate validation (RFC 5280 chain, CA-signed, not expired)
+[§16.2]     Replay prevention           (nonce uniqueness + timestamp freshness, file-locked)
+[§12]       CRL check                   (revocation + disabled + TTL expiry — automated)
+[§7]        Authorization bounds        (AllowedScopes, CanSpawn, MaxChildren from cert)
+[§8.3]      Scope subset validation     (requested ⊆ cert AllowedScopes — fail-closed)
+[§9]        Cedar policy evaluation     (dynamic policy layer, post-grant subset re-check)
+            S3 write
+[§8.4]      Audit chain append          (SHA-256 hash chain, tamper-evident)
 ```
+
+The agent_id format check is an implementation security measure. The remaining steps map directly to the IETF draft sections shown.
 
 ---
 

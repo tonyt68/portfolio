@@ -29,7 +29,7 @@ The PoC implements `draft-tonyai-a2a-trust-00` in full across four Docker servic
 | `mcp_server` | Authorization enforcement, CRL checks, audit chain | §6, §8, §12, §13 |
 | `admin_bootstrap` | Template Registry CA, policy authority, cert lifecycle | §6.1, §9, §10 |
 | `demo_web` | 11 scenario runner with real Claude API calls | §14.5 |
-| `dynamodb_local` | Template Registry store (local, replaces prod DynamoDB) | §3 |
+| `dynamodb_local` | Template Registry store (local, replaces prod DynamoDB) | §3 (term), §6.1 (used) |
 
 ### 2.1 Conformance Certification
 
@@ -46,13 +46,17 @@ Sections covered: 6, 7, 8, 8.3, 9.3, 9.4, 11, 12, 13, 16.6
 python3 tests/red_team_test.py
 
 34/34 attacks blocked — 0 findings
-§16.1 Scope Escalation     5/5  blocked
-§16.2 Replay Attacks       5/5  blocked
-§16.3 Cert Attacks         6/6  blocked
-§16.4 Dual-Sig Bypass      4/4  blocked
-§16.5 Cross-Org Trust      2/2  blocked
-§16.6 Audit Integrity      1/1  blocked
-OWASP A01-A10              7/7  blocked (full OWASP Top 10 coverage)
+§16.1 Scope Escalation     6/6  blocked  (A01-A05 + A31 symmetric scope test)
+§16.2 Replay Attacks       5/5  blocked  (A06-A10)
+§16.3 Cert Attacks         6/6  blocked  (A11-A16)
+§16.4 Dual-Sig Bypass      4/4  blocked  (A17-A20)
+§16.5 Cross-Org Trust      2/2  blocked  (A21-A22)
+§16.6 Audit Integrity      1/1  blocked  (A23)
+OWASP General              7/7  blocked  (A24-A30: DoS, type confusion, injection, path traversal)
+OWASP A06 Components       1/1  blocked  (A32: dependency version scan)
+OWASP A10 SSRF             2/2  blocked  (A33-A34: embedded URL + Host header injection)
+─────────────────────────────────────────
+Total                     34/34 blocked  Full IETF §16 + OWASP Top 10 coverage
 ```
 
 ### 2.3 Startup Verification
