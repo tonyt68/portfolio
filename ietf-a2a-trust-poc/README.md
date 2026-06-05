@@ -1,188 +1,198 @@
-# A2A Trust Enforcement PoC
+# A2A Trust — IETF Reference Implementation
 
-Reference implementation of [draft-tonyai-a2a-trust-00](https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/) — Agent-to-Agent Trust enforcement via cryptographic identity, least privilege, and fail-closed enforcement.
+Reference implementation of [draft-tonyai-a2a-trust-00](https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/) — Agent-to-Agent trust enforcement via X.509 cryptographic identity, least privilege, dual-signature policy governance, and fail-closed enforcement.
+
+**Conformance:** 50/50 test vectors certified · 34/34 security attacks blocked · Full OWASP Top 10 coverage
+
+---
 
 ## What This PoC Proves
 
-Every demo scenario maps directly to an IETF requirement:
-- **Golden Path:** Full authentication + authorization chain validates → ALLOWED
-- **Dynamic Policy:** Cedar policy changes → enforcement changes instantly (no cert rotation)
-- **11 Attack Scenarios:** Rogue spawn, dual-sig tampering, scope escalation, revocation, CRL failure, TTL expiry, cross-org grants, replay attacks — all FAIL CLOSED
+Each of the 11 demo scenarios maps directly to a requirement in the IETF draft:
+
+| # | Scenario | Expected | Section |
+|---|---|---|---|
+| 1 | Golden path — full auth chain | ALLOWED | §8.2 |
+| 2 | Dynamic policy update (dual-signed) | ALLOWED | §9.3 |
+| 3 | Rogue spawn — not in CanSpawn | DENIED | §8.1 |
+| 4 | Dual-sig missing — PA sig absent | DENIED | §9.3 |
+| 5 | Dual-sig tampered — PA sig corrupted | DENIED | §9.3 |
+| 6 | Scope escalation — child > parent | DENIED | §8.3 |
+| 7 | Cert lifecycle — ACTIVE → DISABLED → DELETED | DENIED | §10.4 |
+| 8 | CRL check failure — revoked cert | DENIED | §12.1 |
+| 9 | TTL expiry — cert expired | DENIED | §12.3 |
+| 10 | Cross-org grant — dual-signed, time-limited | ALLOWED | §11.2 |
+| 11 | Replay attack — same nonce twice | DENIED | §16.2 |
+
+---
 
 ## Quick Start
 
 ### Prerequisites
-- macOS / Linux
 - Docker + Docker Compose
-- Python 3.12+ (for local development)
-- AWS credentials (for secrets + CloudWatch)
-- GCP credentials (for Vertex AI + Cloud Logging)
+- Python 3.12+
+- AWS credentials (S3 + DynamoDB)
+- Anthropic API key
 
-### 1. Setup
+### 1. Configure
 
 ```bash
-cd /Users/tonyai/dev/ietf-a2a-trust-poc
-
-# Copy template config
 cp .env.example .env
-
-# Fill in .env with your AWS_REGION, S3_BUCKET, GCP_PROJECT_ID, etc.
-# (Config only — secrets come from AWS Secrets Manager)
+# Edit .env: ANTHROPIC_API_KEY, AWS credentials, S3_BUCKET, DYNAMODB_TABLE
 ```
 
-### 2. Create AWS Secrets Manager Secret
+### 2. Generate Certificates
 
 ```bash
-aws secretsmanager create-secret \
-  --name a2a-trust-poc/secrets \
-  --secret-string '{
-    "jwt_secret": "your-secret",
-    "hmac_secret": "your-secret",
-    "admin_api_key": "your-secret",
-    "gcp_service_account_json": "{...full service account JSON...}"
-  }' \
-  --region us-east-1
+python3 setup_keys.py
 ```
 
-### 3. Run Demo
+Generates IETF-compliant X.509 certificates via CSR → CA signing flow (Section 6.1).
+
+### 3. Start with Full Test Gate
 
 ```bash
-cd demo
-./start.sh
-
-# Starts all 4 services + opens http://localhost:8765
+./restart.sh
 ```
 
-### 4. Explore
+Runs in three gated stages:
+1. **Static tests** — 50 IETF conformance vectors (no server needed)
+2. **Start services** — Docker Compose with health-check polling
+3. **Smoke tests** — 33 live checks (certs, env, services, end-to-end)
 
-- **Architecture:** http://localhost:8765/prep
-- **Live Demo:** http://localhost:8765
-  - Click scenario buttons
-  - Watch audit trail populate in real-time
-  - Verify hash chain integrity
+Stops at the first failure with a clear error message.
+
+### 4. Run Security Tests
+
+```bash
+python3 tests/red_team_test.py
+```
+
+34 attacks across all IETF Section 16 threat vectors + OWASP Top 10.
+
+---
+
+## Services
+
+| Service | Port | Role |
+|---|---|---|
+| `mcp_server` | 8001 | Authorization enforcement — 8-stage IETF validation chain |
+| `admin_bootstrap` | 8002 | Template Registry CA, policy authority, cert lifecycle |
+| `demo_web` | 8765 | 11 demo scenarios with real Claude Sonnet API calls |
+| `dynamodb_local` | 8000 | Template Registry (local DynamoDB) |
+
+---
+
+## Validation Chain
+
+Every request through the MCP server passes 8 sequential checks. Any failure → DENY.
+
+```
+0. agent_id format validation  (allowlist regex — blocks injection, traversal)
+1. X.509 certificate validation (RFC 5280 chain, CA-signed, not expired)
+2. Replay prevention           (nonce uniqueness + timestamp freshness, file-locked)
+3. CRL check                   (revocation + disabled + TTL expiry — automated)
+4. Authorization bounds        (AllowedScopes, CanSpawn, MaxChildren from cert)
+5. Scope subset validation     (requested ⊆ cert AllowedScopes)
+6. Cedar policy evaluation     (dynamic policy layer, post-grant subset re-check)
+7. S3 write
+8. Audit chain append          (SHA-256 hash chain, tamper-evident)
+```
+
+---
+
+## Security Properties
+
+- No secrets in code, git, or containers — all via `.env` (gitignored)
+- X.509 certificates generated via CSR → CA signing (not self-signed agents)
+- Dual-signature enforcement on all policy changes (Owner + Policy Authority RSA)
+- Fail-closed at every stage — infrastructure unreachable → DENY
+- Tamper-evident audit trail (SHA-256 hash chain)
+- Replay prevention with file-locked nonce tracker (fcntl.LOCK_EX)
+- agent_id allowlist regex before any subprocess or filesystem use
+
+---
+
+## Tests
+
+```bash
+# IETF conformance (no server needed, runs in ~3 seconds)
+python3 tests/test_vectors.py        # 50/50
+
+# Startup verification (server required)
+python3 tests/smoke_test.py          # 33/33
+
+# Security attack suite (server required)
+python3 tests/red_team_test.py       # 34/34
+```
+
+---
 
 ## Architecture
 
 ```
-Agent A (Requester)
-    ↓ mTLS
-Agent B (Responder)
-    ↓ JWT RS256 validation
-    ↓ HMAC-SHA256 verification
-    ↓ Cedar policy evaluation
-MCP Server (public interface)
-    ↓ S3 write/read operations
-Federated Audit Trail
-    ├─ CloudWatch Logs (AWS)
-    └─ Google Cloud Logging (GCP)
+┌─────────────────────────────────────────────────────┐
+│                Docker Compose (local)               │
+│                                                     │
+│  demo_web ──▶ mcp_server ──▶ DynamoDB Local        │
+│  (Claude)     (8-stage       (Template Registry)   │
+│               validation)                          │
+│                   │                                 │
+│          admin_bootstrap                            │
+│          (CA · Policy Authority · CRL)              │
+│                                                     │
+│  Shared: certs/ volume (X.509 + CRL + audit chain) │
+└─────────────────────────────────────────────────────┘
+                        │
+                   AWS S3 (events)
 ```
-
-## Services
-
-| Service | Port | Purpose |
-|---------|------|---------|
-| **mcp_server** | 8001 | Public MCP tools (JWT, HMAC, Cedar, S3) |
-| **admin_bootstrap** | 8002 | Locked-down cert/policy management (mTLS + API key) |
-| **demo_web** | 8765 | Demo UI + scenario orchestration |
-| **dynamodb_local** | 8000 | DynamoDB Template Registry |
-
-## Tech Stack
-
-- **Backend:** Python + FastAPI
-- **Agents:** Claude via Vertex AI SDK
-- **Security:** mTLS, JWT RS256, HMAC-SHA256, Cedar SDK
-- **Secrets:** AWS Secrets Manager (KMS encrypted)
-- **Infrastructure:** Docker Compose (local) + Terraform (AWS + GCP)
-- **Audit:** CloudWatch Logs + Google Cloud Logging
-- **Frontend:** HTML + CSS + JavaScript (no build step)
-
-## Key Design Decisions
-
-- **No secrets in .env** — all secrets in AWS Secrets Manager
-- **No PostgreSQL** — DynamoDB + CloudWatch authoritative
-- **Cedar SDK** — local policy engine, replaces Redis ReBAC
-- **Self-signed certs** — PoC only; Vault PKI for production
-- **Agents credential-free** — MCP server owns all AWS/GCP keys
-- **Fail-closed** — any verification failure = DENY, no degraded mode
-- **Federated audit** — CloudWatch (AWS) + Cloud Logging (GCP) independent
-
-## Security Properties
-
-✅ No secrets in code/git/containers  
-✅ KMS encryption at rest (AWS Secrets Manager)  
-✅ TLS in transit (mTLS + HTTPS)  
-✅ Audit trail outside agent control (CloudWatch, Cloud Logging)  
-✅ Least privilege (Cedar policies per agent)  
-✅ Fail-closed (any verification failure = DENY)  
-✅ Tamper-evident (hash-chained audit entries)  
-✅ Correlation ID traces (multi-hop request chains)  
-
-## Production Scale-Out Paths
-
-| Component | PoC | Production |
-|-----------|-----|-----------|
-| CA | Self-signed (OpenSSL) | HashiCorp Vault PKI |
-| Policy Engine | Cedar SDK (local) | Amazon Verified Permissions |
-| Orchestration | FastAPI | LangGraph + Temporal |
-| Deployment | Docker Compose | ECS/GKE |
-| Secrets | Secrets Manager | Vault / Cloud Secrets |
-| Audit | CloudWatch + Cloud Logging | S3 (Object Lock) + Cloud Audit Logs |
-
-## 11 Demo Scenarios
-
-1. **Golden Path** → ALLOWED (full chain validates)
-2. **Dynamic Policy** → ALLOWED (policy updated, enforcement changes)
-3. **Rogue Spawn** → DENIED (not in CanSpawn list)
-4. **Dual-Sig Missing** → DENIED (owner sig only)
-5. **Dual-Sig Tampered** → DENIED (PA sig invalid)
-6. **Scope Escalation** → DENIED (child > parent)
-7. **Revocation Lifecycle** → DENIED (ACTIVE → DISABLED → DELETED)
-8. **CRL Check Failure** → DENIED (revoked cert)
-9. **TTL Expiry** → DENIED (expired template)
-10. **Cross-Org Grant** → DENIED (grant revoked)
-11. **Replay Attack** → DENIED (reused nonce)
-
-## Files
-
-```
-a2a-trust-poc/
-├── services/
-│   ├── mcp_server/          # MCP tools + JWT/HMAC/Cedar validation
-│   ├── admin_bootstrap/     # Cert generation + policy management
-│   └── cert_authority/      # CA library
-├── demo/
-│   ├── app.py              # FastAPI backend
-│   ├── prep.html           # Architecture context
-│   ├── demo.html           # 11 scenarios + audit table
-│   ├── static/             # CSS/JS
-│   └── start.sh            # Docker Compose starter
-├── terraform/              # AWS + GCP IaC
-├── policies/               # Cedar policy files
-├── ca/                     # CA certs (gitignored)
-├── docker-compose.yml      # 4 services
-├── .env                    # Config (gitignored, secrets separate)
-└── README.md              # This file
-```
-
-## NOTES.md
-
-Full architecture & implementation details in [NOTES.md](NOTES.md):
-- 7-phase build plan
-- Service architecture
-- Secret management
-- Testing strategy
-- Production scale-out paths
-
-## License
-
-Reference implementation for IETF draft-tonyai-a2a-trust-00.
 
 ---
 
-**Status:** Phase 1-6 implementation complete. Phase 7 (hardening) pending.
+## Production Scale-Out
 
-**Next Steps:**
-1. Populate AWS Secrets Manager secret
-2. Run `demo/start.sh`
-3. Test all 11 scenarios
-4. Phase 7: Security hardening + red team pass
+See [SCALE_OUT.md](SCALE_OUT.md) for the full production implementation guide including:
+- PoC → Production gap analysis (CA, nonce store, audit, policy store, CRL)
+- Production architecture diagram (ECS + Redis + OPA + DynamoDB Global Tables)
+- Multi-organization federation (§11) with three trust anchor options
+- RFC compliance checklist by section
+- Path from Informational → Standards Track
+
+---
+
+## Repository Structure
+
+```
+ietf-a2a-trust-poc/
+├── setup_keys.py                  # IETF-compliant cert generation (CSR → CA)
+├── restart.sh                     # Gated start: static tests → services → smoke
+├── SCALE_OUT.md                   # Production guide + RFC path
+├── demo/
+│   ├── start.sh                   # Demo day start (no rebuild)
+│   ├── app.py                     # Demo web service
+│   └── scenario_runner.py         # 11 scenarios with Claude Sonnet
+├── services/
+│   ├── mcp_server/
+│   │   ├── service.py             # 8-stage validation chain
+│   │   ├── cert_validator.py      # RFC 5280 chain validation
+│   │   ├── replay_prevention.py   # Nonce + timestamp (§16.2)
+│   │   └── audit_chain.py         # Tamper-evident hash chain (§16.6)
+│   └── admin_bootstrap/
+│       ├── policy_authority.py    # Dual-signature RSA (§9.3)
+│       ├── cert_manager.py        # Template lifecycle + CRL (§10, §12)
+│       └── cross_org_grant.py     # Cross-org grants (§11)
+├── tests/
+│   ├── test_vectors.py            # 50 conformance vectors (§14.3)
+│   ├── smoke_test.py              # 33 startup checks
+│   └── red_team_test.py           # 34 security attacks (§16)
+├── policies/
+│   ├── agent-a.cedar              # read:events
+│   └── agent-b.cedar              # write:events
+└── terraform/                     # AWS IaC (DynamoDB, S3, KMS, Secrets Manager)
+```
+
+---
+
+## License
+
+Reference implementation for [draft-tonyai-a2a-trust-00](https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/).
