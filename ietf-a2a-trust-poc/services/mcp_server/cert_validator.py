@@ -71,9 +71,11 @@ class CertValidator:
             log.warning("Chain validation FAILED", extra={"cert": agent_cert_path, "detail": out})
             return (False, f"Chain validation failed: {out}")
 
-        # Confirm cert is NOT self-signed (issuer != subject)
+        # Confirm cert is NOT self-signed — fail-closed if parse fails (Section 13)
         info = self.get_cert_info(agent_cert_path)
-        if info and info["subject_cn"] == info["issuer_cn"]:
+        if not info:
+            return (False, "Failed to parse cert for self-signed check (fail-closed)")
+        if info["subject_cn"] == info["issuer_cn"]:
             return (False, "Self-signed certificates are not permitted (Section 6.1)")
 
         log.info("Chain valid", extra={"cert": agent_cert_path})

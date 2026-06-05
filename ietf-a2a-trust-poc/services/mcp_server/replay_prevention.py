@@ -1,10 +1,11 @@
 """Replay attack prevention for IETF A2A Trust (timestamp + nonce validation)"""
 
+import fcntl
 import logging
 import json
 import uuid
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Tuple
 
 log = logging.getLogger(__name__)
@@ -19,17 +20,23 @@ class ReplayPrevention:
         self.tracker = self._load_tracker()
 
     def _load_tracker(self) -> dict:
-        """Load nonce tracker from disk"""
+        """Load nonce tracker from disk. On failure, keep existing in-memory state."""
         if self.tracker_path.exists():
             try:
                 with open(self.tracker_path, 'r') as f:
-                    return json.load(f)
+                    data = json.load(f)
+                    # Validate structure before accepting
+                    if isinstance(data, dict) and "used_nonces" in data:
+                        return data
+                    log.warning("Nonce tracker malformed — keeping in-memory state")
             except Exception as e:
-                log.error("Failed to load nonce tracker", extra={"error": str(e)})
-        return {"used_nonces": [], "last_cleaned": datetime.utcnow().isoformat()}
+                log.error("Failed to load nonce tracker — keeping in-memory state",
+                          extra={"error": str(e)})
+        # Return existing in-memory tracker if available, else empty
+        return getattr(self, 'tracker', {"used_nonces": [], "last_cleaned": datetime.now(timezone.utc).isoformat()})
 
     def _save_tracker(self):
-        """Persist nonce tracker to disk"""
+        """Persist nonce tracker to disk atomically."""
         try:
             with open(self.tracker_path, 'w') as f:
                 json.dump(self.tracker, f, indent=2)
@@ -66,37 +73,46 @@ class ReplayPrevention:
     def validate_request(self, request_nonce: str, request_timestamp: str) -> Tuple[bool, str]:
         """
         Validate request freshness and nonce uniqueness.
+        File-locked to prevent race conditions (TOCTOU) under concurrent requests.
         Returns: (valid: bool, reason: str)
         """
         try:
             # Parse timestamp
             try:
                 req_time = datetime.fromisoformat(request_timestamp)
+                if req_time.tzinfo is None:
+                    req_time = req_time.replace(tzinfo=timezone.utc)
             except Exception:
                 return (False, "Invalid timestamp format")
 
             # Check timestamp freshness (must be within 5 minutes)
-            now = datetime.utcnow()
+            now = datetime.now(timezone.utc)
             time_diff = abs((now - req_time).total_seconds())
-
             if time_diff > self.nonce_ttl_seconds:
-                return (False, f"Timestamp too old: {time_diff}s > {self.nonce_ttl_seconds}s")
+                return (False, f"Timestamp out of window: {time_diff:.0f}s > {self.nonce_ttl_seconds}s")
 
-            # Cleanup old nonces
-            self._cleanup_expired_nonces()
+            # Acquire exclusive file lock — prevents TOCTOU race between concurrent requests
+            lock_path = self.tracker_path.with_suffix('.lock')
+            with open(lock_path, 'w') as lock_file:
+                fcntl.flock(lock_file, fcntl.LOCK_EX)
+                try:
+                    # Re-read from disk while holding lock to get latest state
+                    self.tracker = self._load_tracker()
+                    self._cleanup_expired_nonces()
 
-            # Check nonce uniqueness
-            for nonce_entry in self.tracker["used_nonces"]:
-                if nonce_entry["nonce"] == request_nonce:
-                    return (False, "Nonce already used (replay attack detected)")
+                    # Check nonce uniqueness
+                    for nonce_entry in self.tracker["used_nonces"]:
+                        if nonce_entry["nonce"] == request_nonce:
+                            return (False, "Nonce already used (replay attack detected)")
 
-            # Record nonce as used
-            self.tracker["used_nonces"].append({
-                "nonce": request_nonce,
-                "timestamp": request_timestamp,
-                "agent_id": None  # Will be set by caller
-            })
-            self._save_tracker()
+                    # Record nonce as used
+                    self.tracker["used_nonces"].append({
+                        "nonce": request_nonce,
+                        "timestamp": request_timestamp,
+                    })
+                    self._save_tracker()
+                finally:
+                    fcntl.flock(lock_file, fcntl.LOCK_UN)
 
             log.info("Request validated", extra={"nonce": request_nonce[:8]})
             return (True, "Request valid")

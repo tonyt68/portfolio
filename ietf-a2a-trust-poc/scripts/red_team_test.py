@@ -197,12 +197,12 @@ def a08_future_timestamp():
 
 
 def a09_no_nonce():
-    """Missing nonce — partial replay prevention bypass"""
+    """Missing nonce — mandatory replay prevention must DENY (nonce is now required)"""
     p = valid_payload("agent-b", ["write:events"])
     p.pop("request_nonce")
     r = post(p)
-    # Without nonce, replay prevention can't run — but cert/scope checks still apply
-    return r.status_code in [200, 403], f"HTTP {r.status_code} (nonce optional in current schema)"
+    # service.py now hard-denies if request_nonce is missing (Section 16.2)
+    return r.status_code == 403, f"HTTP {r.status_code}"
 
 
 def a10_empty_nonce():
@@ -492,6 +492,14 @@ def a30_spawn_scope_via_event_data():
     return r.status_code in [200, 403], f"HTTP {r.status_code}"
 
 
+def a31_agent_b_wrong_scope():
+    """agent-b requests read:events — not in its AllowedScopes=['write:events']"""
+    p = valid_payload("agent-b", ["read:events"])
+    r = post(p)
+    # Symmetric to A01. agent-b only has write:events in cert AllowedScopes.
+    return r.status_code == 403, f"HTTP {r.status_code}"
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═════════════════════════════════════════════════════════════════════════════
@@ -553,6 +561,7 @@ if __name__ == "__main__":
     attack("A28: S3 path traversal via event_data",                               "OWASP", a28_s3_path_traversal)
     attack("A29: HTTP header injection in correlation_id",                         "OWASP", a29_header_injection)
     attack("A30: Scope escalation via event_data field injection",                "OWASP", a30_spawn_scope_via_event_data)
+    attack("A31: agent-b requests read:events — wrong scope, must be DENIED",    "§16.1", a31_agent_b_wrong_scope)
 
     # ── Summary ───────────────────────────────────────────────────────────────
     total = passed + failed

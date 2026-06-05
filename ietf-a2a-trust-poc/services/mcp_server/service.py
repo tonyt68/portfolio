@@ -3,6 +3,7 @@
 import logging
 import uuid
 import json
+import re
 from typing import Dict, Optional, List
 from pathlib import Path
 from cert_validator import CertValidator
@@ -10,6 +11,10 @@ from replay_prevention import ReplayPrevention
 from audit_chain import AuditChain
 
 log = logging.getLogger(__name__)
+
+# Allowlist: agent IDs must be alphanumeric + hyphen only.
+# Blocks shell injection, path traversal, null bytes, and long filenames.
+_AGENT_ID_RE = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$')
 
 
 class EventService:
@@ -43,6 +48,16 @@ class EventService:
         granted_scopes = []
 
         try:
+            # 0. AGENT ID FORMAT VALIDATION (prevent shell injection + path traversal)
+            if not _AGENT_ID_RE.match(agent_id):
+                decision = "DENIED"
+                reason = "Invalid agent_id format"
+                self._log_audit({"correlationId": correlation_id, "spanId": span_id,
+                                 "agent": agent_id, "action": "write_event",
+                                 "decision": decision, "reason": reason,
+                                 "stage": "input_validation"})
+                return (False, None, decision, reason)
+
             # 1. CERTIFICATE VALIDATION (RFC 5280)
             cert_path = self.certs_dir / f"{agent_id}.crt"
             cert_valid, cert_reason = self.cert_validator.validate_cert(agent_id, str(cert_path))
@@ -167,6 +182,13 @@ class EventService:
             if not granted_scopes:
                 decision = "DENIED"
                 reason = "Cedar policy evaluation DENIED"
+            # Post-grant assertion: Cedar MUST NOT expand beyond cert AllowedScopes (Section 9.1)
+            elif not all(s in allowed_scopes for s in granted_scopes):
+                decision = "DENIED"
+                reason = f"Cedar granted scopes exceed cert AllowedScopes — policy misconfiguration"
+                log.error("Cedar policy exceeded cert bounds",
+                          extra={"granted": granted_scopes, "allowed": allowed_scopes})
+                granted_scopes = []
                 self._log_audit({
                     "correlationId": correlation_id,
                     "spanId": span_id,
@@ -234,12 +256,18 @@ class EventService:
             return (False, None, "DENIED", str(e))
 
     def _log_audit(self, event: Dict):
-        """Log to audit trail"""
+        """Log to tamper-evident audit chain. Failure is logged but does not block the decision."""
         try:
             self.audit_chain.append_event(event)
             self.audit_fn(event)
         except Exception as e:
-            log.error(f"Audit logging error: {str(e)}")
+            # AUDIT INTEGRITY GAP: this DENY/ALLOW event was not persisted to the hash chain.
+            # The decision itself stands (fail-closed), but the audit record is lost.
+            log.warning("AUDIT INTEGRITY GAP — event not persisted to chain",
+                        extra={"error": str(e),
+                               "decision": event.get("decision"),
+                               "agent": event.get("agent"),
+                               "action": event.get("action")})
 
     def read_event(self, correlation_id: str, agent_id: str, s3_key: str,
                    request_nonce: Optional[str] = None,
@@ -254,6 +282,16 @@ class EventService:
         reason = "Full chain validates"
 
         try:
+            # 0. AGENT ID FORMAT VALIDATION
+            if not _AGENT_ID_RE.match(agent_id):
+                decision = "DENIED"
+                reason = "Invalid agent_id format"
+                self._log_audit({"correlationId": correlation_id, "spanId": span_id,
+                                 "agent": agent_id, "action": "read_event",
+                                 "decision": decision, "reason": reason,
+                                 "stage": "input_validation"})
+                return (False, None, decision, reason)
+
             # 1. CERTIFICATE VALIDATION
             cert_path = self.certs_dir / f"{agent_id}.crt"
             cert_valid, cert_reason = self.cert_validator.validate_cert(agent_id, str(cert_path))

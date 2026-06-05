@@ -52,13 +52,13 @@ class ScenarioRunner:
             sig_tmp = data_tmp + ".sig"
             result = subprocess.run(
                 f"openssl dgst -sha256 -sign {key_path} -out {sig_tmp} {data_tmp}",
-                shell=True, capture_output=True, text=True
+                shell=True, capture_output=True, text=True, timeout=5
             )
             if result.returncode != 0:
                 return None
             b64_result = subprocess.run(
                 f"openssl enc -base64 -A -in {sig_tmp}",
-                shell=True, capture_output=True, text=True
+                shell=True, capture_output=True, text=True, timeout=5
             )
             return b64_result.stdout.strip()
         except Exception as e:
