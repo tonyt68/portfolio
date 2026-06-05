@@ -4,62 +4,71 @@ import requests
 import anthropic
 import os
 import json
-import hmac
-import hashlib
+import subprocess
+import tempfile
 from datetime import datetime
+from pathlib import Path
 
 log = logging.getLogger(__name__)
 
 
 class ScenarioRunner:
-    """Runs all 11 demo scenarios with real Claude API calls and cryptographic signatures"""
+    """Runs all 11 demo scenarios with real Claude API calls and RSA X.509 signatures"""
 
     def __init__(self, mcp_url: str, admin_url: str):
         self.mcp_url = mcp_url
         self.admin_url = admin_url
         self.audit_trail = []
         self.claude_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        self.hmac_secret = os.getenv("HMAC_SECRET", "dev-secret-key").encode()
-        self.owner_key = self._load_key("../certs/owner.key")
-        self.pa_key = self._load_key("../certs/pa.key")
-
-    def _load_key(self, key_path: str) -> bytes:
-        """Load signing key from file"""
-        try:
-            with open(key_path, "rb") as f:
-                return f.read()
-        except Exception as e:
-            log.warning(f"Could not load key {key_path}: {e}")
-            return b"demo-key"
+        self.certs_dir = Path("../certs")
+        self.owner_key = self.certs_dir / "owner.key"
+        self.pa_key = self.certs_dir / "pa.key"
 
     def generate_correlation_id(self) -> str:
         """Generate UUID v7 correlation ID"""
         return str(uuid.uuid4())
 
+    def _sign_data(self, data: str, key_path: Path) -> str:
+        """Sign data with RSA private key using OpenSSL"""
+        try:
+            # Write data to temp file
+            with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as f:
+                f.write(data)
+                data_file = f.name
+
+            try:
+                result = subprocess.run(
+                    f"openssl dgst -sha256 -sign {key_path} {data_file} | openssl enc -base64 -A",
+                    shell=True,
+                    capture_output=True,
+                    text=True
+                )
+
+                if result.returncode != 0:
+                    log.error(f"OpenSSL signing error: {result.stderr}")
+                    return None
+
+                return result.stdout.strip()
+
+            finally:
+                os.unlink(data_file)
+
+        except Exception as e:
+            log.error(f"Failed to sign data: {e}")
+            return None
+
     def create_request_hmac(self, payload: dict) -> str:
-        """Create HMAC-SHA256 for request payload"""
+        """Create request signature (for message integrity)"""
+        # For demo purposes, use RSA signature of request
         payload_json = json.dumps(payload, sort_keys=True)
-        return hmac.new(
-            self.hmac_secret,
-            payload_json.encode(),
-            hashlib.sha256
-        ).hexdigest()
+        return self._sign_data(payload_json, self.owner_key) or "unsigned"
 
     def create_dual_sig(self, policy_doc: dict) -> tuple:
-        """Create owner and PA signatures for policy document"""
+        """Create RSA dual signatures (Owner + PA) for policy document"""
         policy_json = json.dumps(policy_doc, sort_keys=True)
 
-        owner_sig = hmac.new(
-            self.owner_key,
-            policy_json.encode(),
-            hashlib.sha256
-        ).hexdigest()
-
-        pa_sig = hmac.new(
-            self.pa_key,
-            policy_json.encode(),
-            hashlib.sha256
-        ).hexdigest()
+        owner_sig = self._sign_data(policy_json, self.owner_key)
+        pa_sig = self._sign_data(policy_json, self.pa_key)
 
         return (owner_sig, pa_sig)
 

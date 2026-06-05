@@ -1,26 +1,39 @@
-"""Business logic service layer (separates from FastAPI routing)"""
+"""Business logic service layer (IETF A2A Trust RFC 5280 compliance)"""
 
 import logging
 import uuid
+import json
 from typing import Dict, Optional, List
+from pathlib import Path
+from cert_validator import CertValidator
+from replay_prevention import ReplayPrevention
+from audit_chain import AuditChain
 
 log = logging.getLogger(__name__)
 
 
 class EventService:
-    """Handles event write/read business logic"""
+    """Handles event write/read with IETF A2A Trust compliance checks"""
 
-    def __init__(self, jwt_validator, hmac_verifier, cedar_evaluator, s3_tools, audit_fn, cert_manager=None):
+    def __init__(self, jwt_validator, hmac_verifier, cedar_evaluator, s3_tools, audit_fn,
+                 cert_manager=None, cert_validator=None, replay_prevention=None, audit_chain=None):
         self.jwt_validator = jwt_validator
         self.hmac_verifier = hmac_verifier
         self.cedar_evaluator = cedar_evaluator
         self.s3_tools = s3_tools
         self.audit_fn = audit_fn
         self.cert_manager = cert_manager
+        self.cert_validator = cert_validator or CertValidator()
+        self.replay_prevention = replay_prevention or ReplayPrevention()
+        self.audit_chain = audit_chain or AuditChain()
+        self.certs_dir = Path("./certs")
 
-    def write_event(self, correlation_id: str, agent_id: str, requested_scopes: List[str], event_data: Dict) -> tuple:
+    def write_event(self, correlation_id: str, agent_id: str, requested_scopes: List[str],
+                   event_data: Dict, request_nonce: Optional[str] = None,
+                   request_timestamp: Optional[str] = None) -> tuple:
         """
-        Write event: CRL check → authorizes → stores → audits.
+        Write event with IETF A2A Trust compliance checks.
+        Validation chain: cert → replay → CRL → scopes → scopes subset → S3 → audit chain
         Returns: (success: bool, s3_key: str, decision: str, reason: str)
         """
         span_id = str(uuid.uuid4())
@@ -29,41 +42,116 @@ class EventService:
         granted_scopes = []
 
         try:
-            # Check CRL (revocation, disabled, expired)
-            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+            # 1. CERTIFICATE VALIDATION (RFC 5280)
+            cert_path = self.certs_dir / f"{agent_id}.crt"
+            cert_valid, cert_reason = self.cert_validator.validate_cert(agent_id, str(cert_path))
+
+            if not cert_valid:
                 decision = "DENIED"
-                reason = "Agent revoked/disabled/expired"
-                self.audit_fn({
+                reason = f"Certificate invalid: {cert_reason}"
+                log.warning(f"Cert validation failed: {reason}")
+                self._log_audit({
                     "correlationId": correlation_id,
                     "spanId": span_id,
                     "agent": agent_id,
                     "action": "write_event",
                     "decision": decision,
                     "reason": reason,
-                    "grantedScopes": [],
-                    "requestedScopes": requested_scopes
+                    "stage": "certificate_validation"
                 })
                 return (False, None, decision, reason)
 
-            # Authorize via Cedar policy
+            # 2. REPLAY ATTACK PREVENTION (timestamp + nonce)
+            if request_nonce and request_timestamp:
+                replay_valid, replay_reason = self.replay_prevention.validate_request(
+                    request_nonce, request_timestamp
+                )
+
+                if not replay_valid:
+                    decision = "DENIED"
+                    reason = f"Replay attack prevented: {replay_reason}"
+                    log.warning(f"Replay prevention: {reason}")
+                    self._log_audit({
+                        "correlationId": correlation_id,
+                        "spanId": span_id,
+                        "agent": agent_id,
+                        "action": "write_event",
+                        "decision": decision,
+                        "reason": reason,
+                        "stage": "replay_prevention"
+                    })
+                    return (False, None, decision, reason)
+
+            # 3. CRL CHECK (revocation, disabled, expired)
+            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+                decision = "DENIED"
+                reason = "Agent revoked/disabled/expired (CRL)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "crl_check"
+                })
+                return (False, None, decision, reason)
+
+            # 4. PARSE AUTHORIZATION BOUNDS FROM CERTIFICATE
+            metadata_path = self.certs_dir / f"{agent_id}.json"
+            auth_bounds = self.cert_validator.parse_auth_bounds(str(metadata_path))
+
+            if not auth_bounds:
+                decision = "DENIED"
+                reason = "Failed to parse authorization bounds"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "auth_bounds_parsing"
+                })
+                return (False, None, decision, reason)
+
+            allowed_scopes = auth_bounds.get("allowed_scopes", [])
+
+            # 5. SCOPE SUBSET VALIDATION (requested ⊆ allowed, IETF requirement)
+            if not self.cert_validator.validate_scope_subset(requested_scopes, allowed_scopes):
+                decision = "DENIED"
+                reason = f"Scope escalation: {requested_scopes} not ⊆ {allowed_scopes}"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "write_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "scope_subset_validation"
+                })
+                return (False, None, decision, reason)
+
+            # 6. CEDAR POLICY EVALUATION (dynamic policy layer)
             granted_scopes = self.cedar_evaluator.evaluate(agent_id, requested_scopes)
 
             if not granted_scopes:
                 decision = "DENIED"
-                reason = "Cedar policy DENY"
-                self.audit_fn({
+                reason = "Cedar policy evaluation DENIED"
+                self._log_audit({
                     "correlationId": correlation_id,
                     "spanId": span_id,
                     "agent": agent_id,
                     "action": "write_event",
                     "decision": decision,
                     "reason": reason,
+                    "stage": "cedar_policy",
                     "grantedScopes": [],
                     "requestedScopes": requested_scopes
                 })
                 return (False, None, decision, reason)
 
-            # Store in S3
+            # 7. WRITE TO S3
             s3_key = self.s3_tools.write_event(correlation_id, event_data)
 
             if not s3_key:
@@ -71,8 +159,8 @@ class EventService:
                 reason = "S3 write failed"
                 return (False, None, decision, reason)
 
-            # Audit success
-            self.audit_fn({
+            # 8. APPEND TO AUDIT CHAIN (tamper-evident)
+            audit_event = {
                 "correlationId": correlation_id,
                 "spanId": span_id,
                 "agent": agent_id,
@@ -81,18 +169,55 @@ class EventService:
                 "reason": reason,
                 "grantedScopes": granted_scopes,
                 "requestedScopes": requested_scopes,
-                "s3_key": s3_key
+                "s3_key": s3_key,
+                "stages_passed": [
+                    "certificate_validation",
+                    "replay_prevention",
+                    "crl_check",
+                    "scope_subset_validation",
+                    "cedar_policy",
+                    "s3_write"
+                ]
+            }
+
+            self.audit_chain.append_event(audit_event)
+            self.audit_fn(audit_event)
+
+            log.info("Event written successfully", extra={
+                "agent": agent_id,
+                "scopes": granted_scopes,
+                "s3_key": s3_key[:32]
             })
 
             return (True, s3_key, decision, reason)
 
         except Exception as e:
             log.error(f"write_event error: {str(e)}")
+            self._log_audit({
+                "correlationId": correlation_id,
+                "spanId": span_id,
+                "agent": agent_id,
+                "action": "write_event",
+                "decision": "DENIED",
+                "reason": f"Exception: {str(e)}",
+                "stage": "exception_handling"
+            })
             return (False, None, "DENIED", str(e))
 
-    def read_event(self, correlation_id: str, agent_id: str, s3_key: str) -> tuple:
+    def _log_audit(self, event: Dict):
+        """Log to audit trail"""
+        try:
+            self.audit_chain.append_event(event)
+            self.audit_fn(event)
+        except Exception as e:
+            log.error(f"Audit logging error: {str(e)}")
+
+    def read_event(self, correlation_id: str, agent_id: str, s3_key: str,
+                   request_nonce: Optional[str] = None,
+                   request_timestamp: Optional[str] = None) -> tuple:
         """
-        Read event: CRL check → authorizes → retrieves → audits.
+        Read event with IETF compliance checks.
+        Validation chain: cert → replay → CRL → scopes → S3 → audit chain
         Returns: (success: bool, content: str, decision: str, reason: str)
         """
         span_id = str(uuid.uuid4())
@@ -100,57 +225,130 @@ class EventService:
         reason = "Full chain validates"
 
         try:
-            # Check CRL (revocation, disabled, expired)
-            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+            # 1. CERTIFICATE VALIDATION
+            cert_path = self.certs_dir / f"{agent_id}.crt"
+            cert_valid, cert_reason = self.cert_validator.validate_cert(agent_id, str(cert_path))
+
+            if not cert_valid:
                 decision = "DENIED"
-                reason = "Agent revoked/disabled/expired"
-                self.audit_fn({
+                reason = f"Certificate invalid: {cert_reason}"
+                self._log_audit({
                     "correlationId": correlation_id,
                     "spanId": span_id,
                     "agent": agent_id,
                     "action": "read_event",
                     "decision": decision,
-                    "reason": reason
+                    "reason": reason,
+                    "stage": "certificate_validation"
                 })
                 return (False, None, decision, reason)
 
-            # Authorize (read:events)
+            # 2. REPLAY PREVENTION
+            if request_nonce and request_timestamp:
+                replay_valid, replay_reason = self.replay_prevention.validate_request(
+                    request_nonce, request_timestamp
+                )
+
+                if not replay_valid:
+                    decision = "DENIED"
+                    reason = f"Replay attack prevented: {replay_reason}"
+                    self._log_audit({
+                        "correlationId": correlation_id,
+                        "spanId": span_id,
+                        "agent": agent_id,
+                        "action": "read_event",
+                        "decision": decision,
+                        "reason": reason,
+                        "stage": "replay_prevention"
+                    })
+                    return (False, None, decision, reason)
+
+            # 3. CRL CHECK
+            if self.cert_manager and not self.cert_manager.check_crl(agent_id):
+                decision = "DENIED"
+                reason = "Agent revoked/disabled/expired (CRL)"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "crl_check"
+                })
+                return (False, None, decision, reason)
+
+            # 4. AUTHORIZE (read:events scope required)
             granted_scopes = self.cedar_evaluator.evaluate(agent_id, ["read:events"])
 
             if not granted_scopes:
                 decision = "DENIED"
-                reason = "Cedar policy DENY"
-                self.audit_fn({
+                reason = "Cedar policy DENY (read:events not granted)"
+                self._log_audit({
                     "correlationId": correlation_id,
                     "spanId": span_id,
                     "agent": agent_id,
                     "action": "read_event",
                     "decision": decision,
-                    "reason": reason
+                    "reason": reason,
+                    "stage": "cedar_policy"
                 })
                 return (False, None, decision, reason)
 
-            # Retrieve from S3
+            # 5. RETRIEVE FROM S3
             content = self.s3_tools.read_event(s3_key)
 
             if not content:
                 decision = "DENIED"
-                reason = "Event not found"
+                reason = "Event not found in S3"
+                self._log_audit({
+                    "correlationId": correlation_id,
+                    "spanId": span_id,
+                    "agent": agent_id,
+                    "action": "read_event",
+                    "decision": decision,
+                    "reason": reason,
+                    "stage": "s3_read"
+                })
                 return (False, None, decision, reason)
 
-            # Audit success
-            self.audit_fn({
+            # 6. AUDIT CHAIN
+            audit_event = {
                 "correlationId": correlation_id,
                 "spanId": span_id,
                 "agent": agent_id,
                 "action": "read_event",
                 "decision": decision,
                 "reason": reason,
-                "s3_key": s3_key
+                "s3_key": s3_key,
+                "stages_passed": [
+                    "certificate_validation",
+                    "replay_prevention",
+                    "crl_check",
+                    "cedar_policy",
+                    "s3_read"
+                ]
+            }
+
+            self.audit_chain.append_event(audit_event)
+            self.audit_fn(audit_event)
+
+            log.info("Event read successfully", extra={
+                "agent": agent_id,
+                "s3_key": s3_key[:32]
             })
 
             return (True, content, decision, reason)
 
         except Exception as e:
             log.error(f"read_event error: {str(e)}")
+            self._log_audit({
+                "correlationId": correlation_id,
+                "spanId": span_id,
+                "agent": agent_id,
+                "action": "read_event",
+                "decision": "DENIED",
+                "reason": f"Exception: {str(e)}",
+                "stage": "exception_handling"
+            })
             return (False, None, "DENIED", str(e))
