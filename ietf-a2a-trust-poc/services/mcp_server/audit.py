@@ -87,7 +87,7 @@ def audit(entry: dict) -> None:
     try:
         resp = _cw_client.put_log_events(**kwargs)
         _sequence_token = resp.get('nextSequenceToken')
-        log.debug(f"Audit → CloudWatch: decision={entry.get('decision')} agent={entry.get('agent')}")
+        log.info(f"Audit → CloudWatch: decision={entry.get('decision')} agent={entry.get('agent')}")
 
     except ClientError as e:
         code = e.response['Error']['Code']

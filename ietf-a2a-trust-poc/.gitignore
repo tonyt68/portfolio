@@ -57,3 +57,9 @@ IMPLEMENTATION.md
 NOTES.md
 PHASE7_REMAINING.md
 PITCH.md
+
+# Local utilities (personal use, not for repo)
+check_costs.py
+
+# Tech debt (internal tracking, not for repo)
+TECH_DEBT.md

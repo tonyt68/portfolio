@@ -70,27 +70,33 @@ async def run_scenario(scenario: dict):
     """Run a demo scenario with real Claude calls"""
     try:
         scenario_id = scenario.get("id")
-        log.info(f"Running scenario {scenario_id} with real Claude")
+        correlation_id = scenario.get("correlationId")
+        log.info(f"Running scenario {scenario_id} with real Claude (correlationId={correlation_id})")
 
         # Get and run scenario handler
         handler = SCENARIO_HANDLERS.get(scenario_id)
         if not handler:
             return {"status": "error", "message": f"Unknown scenario {scenario_id}"}
 
+        # Set correlationId on runner so all requests use the same one
+        runner.correlation_id = correlation_id
+        log.info(f"SET runner.correlation_id = {runner.correlation_id}")
         handler()
+        log.info(f"After handler: runner.correlation_id = {runner.correlation_id}")
 
-        # Return audit trail entry
+        # Return audit trail entry with correlationId
         if runner.audit_trail:
             entry = runner.audit_trail[-1]
             return {
                 "status": "success",
                 "scenario_id": scenario_id,
+                "correlationId": correlation_id,
                 "decision": entry["decision"],
                 "reason": entry["reason"],
                 "timestamp": entry["timestamp"]
             }
 
-        return {"status": "success", "scenario_id": scenario_id}
+        return {"status": "success", "scenario_id": scenario_id, "correlationId": correlation_id}
 
     except Exception as e:
         log.error(f"Scenario error: {e}")

@@ -56,7 +56,7 @@ async function runScenario(scenarioId) {
         const response = await fetch(`${API_URL}/scenario/run`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: scenarioId })
+            body: JSON.stringify({ id: scenarioId, correlationId: correlationId })
         });
 
         const result = await response.json();
@@ -106,7 +106,7 @@ function updateAuditTable() {
         const row = document.createElement('tr');
         row.className = entry.decision === 'ALLOWED' ? 'allowed' : 'denied';
 
-        const cwLink = `https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:logs-insights$3FqueryDetail$3D~(end~0~start~-3600~timeType~'RELATIVE~unit~'seconds~editorString~'fields*20*40timestamp*2c*20correlationId*2c*20decision*0a*7c*20filter*20correlationId*20*3d*20*22${entry.correlationId}*22~source~(~'/a2a-trust-poc/audit))`;
+        const cwLink = `https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:logs-insights$3FqueryDetail$3D~(end~0~start~-10800~timeType~'RELATIVE~unit~'seconds~editorString~'fields*20*40timestamp*2c*20correlationId*2c*20decision*0a*7c*20filter*20correlationId*20*3d*20*22${entry.correlationId}*22~source~(~'/a2a-trust-poc/audit))`;
 
         const correlationDisplay = `<code style="font-size: 0.75em; color: #58a6ff;">${entry.correlationId.substring(0, 8)}...</code>
             <a href="${cwLink}" target="_blank" style="display: inline-block; margin-left: 4px; font-size: 0.75em;">📊</a>`;

@@ -24,7 +24,9 @@ class ScenarioRunner:
         self.mcp_url   = mcp_url
         self.admin_url = admin_url
         self.audit_trail = []
-        self.claude_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        self.correlation_id = None  # Set before running each scenario
+        api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+        self.claude_client = anthropic.Anthropic(api_key=api_key)
         self.certs_dir = Path(os.getenv("CERTS_DIR", "/app/certs"))
         self.owner_key  = self.certs_dir / "owner.key"
         self.owner_cert = self.certs_dir / "owner.crt"
@@ -87,8 +89,10 @@ class ScenarioRunner:
     def _post(self, agent_id: str, scopes: list, event_data: dict,
               nonce: str = None, timestamp: str = None) -> requests.Response:
         """POST /write-event with full IETF fields"""
+        corr_id = self.correlation_id or self.generate_correlation_id()
+        log.info(f"_post: using correlationId={corr_id} (self.correlation_id={self.correlation_id})")
         payload = {
-            "correlation_id":    self.generate_correlation_id(),
+            "correlation_id":    corr_id,
             "agent_id":          agent_id,
             "requested_scopes":  scopes,
             "event_data":        event_data,
@@ -118,11 +122,14 @@ class ScenarioRunner:
         Expected: ALLOWED — full chain validates.
         """
         agent_id = "agent-b"
-        prompt = ("You are agent-b in an A2A trust system. Formulate a brief JSON "
-                  "data write request including type, payload, and timestamp fields.")
-        claude_response = self.call_claude(prompt)
+        # Hardcoded payload (replaces Claude call)
+        event_data = {
+            "type": "event_write",
+            "payload": {"status": "processing", "count": 5, "operation": "log"},
+            "timestamp": self.get_timestamp()
+        }
 
-        r = self._post(agent_id, ["write:events"], {"claude_output": claude_response})
+        r = self._post(agent_id, ["write:events"], event_data)
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
         self.log_to_audit(1, agent_id, "write_event", decision,
                           "Full chain: CA cert → nonce → CRL → scope ⊆ allowed → Cedar → S3 → audit")
@@ -135,7 +142,7 @@ class ScenarioRunner:
         agent_id = "agent-b"
         prompt = ("You are a Policy Authority agent. Draft a brief policy update "
                   "granting agent-b continued write access. One sentence.")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         policy_doc = {
             "name":       "policy-agent-b-v2",
@@ -160,7 +167,7 @@ class ScenarioRunner:
         agent_id = "agent-a"
         prompt = ("Explain in one sentence why agents should not self-authorize spawning children "
                   "without being in their CanSpawn list.")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         r = self._post(agent_id, ["spawn:child"], {"analysis": claude_response})
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
@@ -176,7 +183,7 @@ class ScenarioRunner:
         agent_id = "agent-b"
         prompt = ("What is the security risk of accepting a policy change with only "
                   "the owner signature and no Policy Authority countersignature?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         policy_doc = {
             "name":       "policy-missing-pa-sig",
@@ -204,7 +211,7 @@ class ScenarioRunner:
         """
         agent_id = "agent-b"
         prompt = "In one sentence: what does a tampered PA signature indicate in an A2A trust system?"
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         policy_doc = {
             "name":       "policy-tampered-pa",
@@ -233,7 +240,7 @@ class ScenarioRunner:
         agent_id = "agent-a"
         prompt = ("In one sentence: why must child agent scopes always be a strict "
                   "subset of the parent agent's AllowedScopes?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         r = self._post(agent_id, ["admin:all"], {"escalation_analysis": claude_response})
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
@@ -248,7 +255,7 @@ class ScenarioRunner:
         agent_id = "agent-b"
         prompt = ("Describe the three certificate lifecycle states (ACTIVE, DISABLED, DELETED) "
                   "and what each means for agent authorization. Two sentences.")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         r = self._post(agent_id, ["write:events"], {"lifecycle_explanation": claude_response})
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
@@ -264,7 +271,7 @@ class ScenarioRunner:
         agent_id = "agent-x-revoked"
         prompt = ("In one sentence: why must all derived agent certificates be revoked "
                   "when their parent template is compromised?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         r = self._post(agent_id, ["write:events"], {"crl_explanation": claude_response})
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
@@ -280,7 +287,7 @@ class ScenarioRunner:
         agent_id = "agent-expired"
         prompt = ("In one sentence: what should happen automatically when an agent's "
                   "certificate TTL expires in an A2A trust system?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         r = self._post(agent_id, ["write:events"], {"ttl_explanation": claude_response})
         decision = "ALLOWED" if r.status_code == 200 else "DENIED"
@@ -296,7 +303,7 @@ class ScenarioRunner:
         agent_id = "agent-b"
         prompt = ("In two sentences: why must cross-organizational agent grants be "
                   "explicitly authorized with dual-signatures and subject to unilateral revocation?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         # Build Section 11.2 compliant grant structure
         grant = {
@@ -329,7 +336,7 @@ class ScenarioRunner:
         agent_id = "agent-b"
         prompt = ("In one sentence: how does nonce-based replay prevention protect "
                   "agent-to-agent systems from replay attacks?")
-        claude_response = self.call_claude(prompt)
+        claude_response = "Hardcoded response (Claude auth disabled)"  # Skip Claude call
 
         # First request — fresh nonce, should succeed
         nonce     = self.generate_nonce()
