@@ -1,7 +1,38 @@
+# Secrets & Credentials
 .env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+service-account.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform.lock.hcl
+*.tfvars
+*.tfvars.json
+
+# Certificates
+certs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local only — not for portfolio repo
 last-mile-zero-trust/
-TonyAI-Rebranding.md
-*.original.md
 ietf-a2a-trust-poc/
 sentinel-rebac-poc/
 sentinel-fips/
@@ -10,6 +41,7 @@ rag-knowledge-assistant/
 backup.sh
 SHIFT_LEFT.md
 .claudeignore
-.DS_Store
 portfolio.py
 requirements.txt
+TonyAI-Rebranding.md
+*.original.md
