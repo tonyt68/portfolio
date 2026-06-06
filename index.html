@@ -625,15 +625,16 @@
       transform-origin: 15% center;
     }
 
-    .demo-preview img:nth-child(1) { animation: imgfade 32s infinite 0s  backwards, imgzoom-flagship 32s infinite 0s backwards; object-position: top; }
-    .demo-preview img:nth-child(2) { animation: imgfade 32s infinite 8s  backwards, imgzoom  32s infinite 8s  backwards; object-position: top; }
-    .demo-preview img:nth-child(3) { animation: imgfade 32s infinite 16s backwards, imgzoom2 32s infinite 16s backwards; object-position: 25% 85%; }
-    .demo-preview img:nth-child(4) { animation: imgfade 32s infinite 24s backwards, imgzoom3 32s infinite 24s backwards; object-position: 70% 85%; transform-origin: 50% center; }
+    .demo-preview img:nth-child(1) { animation: imgfade 35s infinite 0s  backwards, imgzoom-flagship 35s infinite 0s  backwards; object-position: top; }
+    .demo-preview img:nth-child(2) { animation: imgfade 35s infinite 7s  backwards; object-fit: contain; object-position: center; background: #0d1117; }
+    .demo-preview img:nth-child(3) { animation: imgfade 35s infinite 14s backwards, imgzoom2 35s infinite 14s backwards; object-position: 25% 85%; }
+    .demo-preview img:nth-child(4) { animation: imgfade 35s infinite 21s backwards, imgzoom3 35s infinite 21s backwards; object-position: 70% 85%; transform-origin: 50% center; }
+    .demo-preview img:nth-child(5) { animation: imgfade 35s infinite 28s backwards, imgzoom  35s infinite 28s backwards; object-position: top; }
 
     @keyframes imgfade {
       0%        { opacity: 0; }
-      3%, 25%   { opacity: 1; }
-      28%, 100% { opacity: 0; }
+      3%, 20%   { opacity: 1; }
+      23%, 100% { opacity: 0; }
     }
 
     @keyframes imgzoom-flagship {
@@ -867,6 +868,7 @@
           <span class="badge badge-green badge-demo">Running Demos
             <div class="demo-preview">
               <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
+              <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
               <img src="demo.png" alt="TonyAI Portfolio demo menu" />
               <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
               <img src="demo-d.png" alt="Last Mile demo — DENIED" />
