@@ -1,3 +1,0 @@
-# TonyAI Portfolio Launcher
-# No external dependencies — stdlib only (subprocess, sys)
-# Python 3.8+
