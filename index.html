@@ -11,9 +11,7 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" href="TonyAI.png" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -903,16 +901,42 @@
   <!-- PoC Grid -->
   <div class="grid">
 
+    <!-- Zero Trust Payments -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">💳</span>
+        <span class="card-title">Zero Trust Payments with AI</span>
+      </div>
+      <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
+      <p class="card-desc-green">The AI recommends. A hard policy engine decides. The money never moves on AI confidence alone. ReBAC enforces identity at every layer boundary — revoke one relationship, the entire chain is blocked.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Prompt Evaluation Gate (PEG) sits between Claude's output and execution — deterministic Python, no LLM. Checks amount coherence, duplicate detection, frequency anomaly, reasoning validity. Fail any check = hard block, no override. Hash-chained audit trail ties every hop — ReBAC check, AI recommendation, PEG verdict, human approval, execution — to one correlation ID.</p>
+      <div>
+        <div class="card-section-label">Stack</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">Zero Trust</span>
+          <span class="tag">ReBAC</span><span class="tag">Prompt Evaluation Gate</span>
+          <span class="tag">Redis</span><span class="tag">DynamoDB</span><span class="tag">S3</span>
+          <span class="tag">KMS</span><span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span>
+          <span class="tag">Terraform</span><span class="tag">CloudWatch</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-section-label">Compliance</div>
+        <div class="tags compliance-tags">
+          <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+      </div>
+    </div>
+
     <!-- Secure RAG — Flagship -->
     <div class="card card-flagship">
       <div class="card-header">
         <span class="card-icon">🔐</span>
         <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
         <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
-      </div>
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-top:-4px;margin-bottom:2px;">
-        <span style="font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:4px;background:linear-gradient(135deg,#7a5200,#ffd000,#7a5200);color:#0d1117;letter-spacing:0.05em;">★ FLAGSHIP DEMO</span>
-        <span style="font-size:0.68rem;color:#8b949e;">Most AWS services · Most compliance coverage</span>
       </div>
       <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
       <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before Claude sees a single token. PHI never leaves the trust boundary.</p>
@@ -1108,31 +1132,35 @@
       </div>
     </div>
 
-
-
-  </div>
-
-  <!-- Certifications -->
-  <div class="certs-section" id="certs">
-    <h3>Anthropic Academy Certifications</h3>
-    <div class="certs-list">
-      <a class="cert-badge" href="https://verify.skilljar.com/c/igok3f6xqvfp" target="_blank" rel="noopener noreferrer">
-        <span class="cert-name">Claude Code in Action</span>
-        <span class="cert-meta">Anthropic &nbsp;·&nbsp; Jun 2026 &nbsp;·&nbsp; Verify ↗</span>
-      </a>
-      <a class="cert-badge" href="https://verify.skilljar.com/c/mpyqgci4jcc6" target="_blank" rel="noopener noreferrer">
-        <span class="cert-name">Introduction to Model Context Protocol</span>
-        <span class="cert-meta">Anthropic &nbsp;·&nbsp; Apr 2026 &nbsp;·&nbsp; Verify ↗</span>
-      </a>
-      <a class="cert-badge" href="https://verify.skilljar.com/c/cxuaxz6gi34u" target="_blank" rel="noopener noreferrer">
-        <span class="cert-name">Model Context Protocol: Advanced Topics</span>
-        <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
-      </a>
-      <a class="cert-badge" href="https://verify.skilljar.com/c/aqp2mxpwvftt" target="_blank" rel="noopener noreferrer">
-        <span class="cert-name">Claude in Amazon Bedrock</span>
-        <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
-      </a>
+    <!-- Anthropic Academy Certifications -->
+    <div class="card" id="certs">
+      <div class="card-header">
+        <span class="card-icon">🎓</span>
+        <span class="card-title">Anthropic Academy Certifications</span>
+      </div>
+      <div class="certs-list" style="margin-top:0.6rem;">
+        <a class="cert-badge" href="https://verify.skilljar.com/c/igok3f6xqvfp" target="_blank" rel="noopener noreferrer">
+          <span class="cert-name">Claude Code in Action</span>
+          <span class="cert-meta">Anthropic &nbsp;·&nbsp; Jun 2026 &nbsp;·&nbsp; Verify ↗</span>
+        </a>
+        <a class="cert-badge" href="https://verify.skilljar.com/c/mpyqgci4jcc6" target="_blank" rel="noopener noreferrer">
+          <span class="cert-name">Introduction to Model Context Protocol</span>
+          <span class="cert-meta">Anthropic &nbsp;·&nbsp; Apr 2026 &nbsp;·&nbsp; Verify ↗</span>
+        </a>
+        <a class="cert-badge" href="https://verify.skilljar.com/c/cxuaxz6gi34u" target="_blank" rel="noopener noreferrer">
+          <span class="cert-name">Model Context Protocol: Advanced Topics</span>
+          <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+        </a>
+        <a class="cert-badge" href="https://verify.skilljar.com/c/aqp2mxpwvftt" target="_blank" rel="noopener noreferrer">
+          <span class="cert-name">Claude in Amazon Bedrock</span>
+          <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+        </a>
+      </div>
     </div>
+
+
+
+
   </div>
 
   <!-- Production Proof -->
