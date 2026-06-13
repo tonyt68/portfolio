@@ -906,6 +906,7 @@
       <div class="card-header">
         <span class="card-icon">💳</span>
         <span class="card-title">Zero Trust Payments with AI</span>
+        <span onclick="document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;white-space:nowrap;">📷 Preview demo</span>
       </div>
       <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
       <p class="card-desc-green">The AI recommends. A hard policy engine decides. The money never moves on AI confidence alone. ReBAC enforces identity at every layer boundary — revoke one relationship, the entire chain is blocked.</p>
@@ -1178,5 +1179,10 @@
     </div>
   </div>
 
+<!-- ATM Demo Lightbox -->
+<div id="atm-lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
+  <a onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='none'" style="font-size:0.82rem;text-decoration:none;cursor:pointer;align-self:flex-start;margin-left:4vw;background:linear-gradient(90deg,#8a5a85 0%,#b87ab5 25%,#dda8d8 42%,#f0dff0 50%,#dda8d8 58%,#b87ab5 75%,#8a5a85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">← Portfolio</a>
+  <img src="zero-trust-atm-demo.png" alt="Zero Trust ATM Demo" style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);" />
+</div>
 </body>
 </html>
