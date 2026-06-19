@@ -35,8 +35,9 @@
       max-width: 1100px;
       margin: 0 auto 1.5rem;
       padding: 2rem 2rem 5rem;
-      background: linear-gradient(135deg, #161b22, #1c2230);
-      border: 1px solid #30363d;
+      background: linear-gradient(135deg, #161b22, #1c2230) padding-box,
+                  linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
+      border: 2px solid transparent;
       border-radius: 16px;
       position: relative;
     }
@@ -907,7 +908,7 @@
   </div>
 
   <!-- AI Cost Optimization Card -->
-  <div class="cost-card" style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#0d1f0d,#0d1117);border:1px solid #2ea043;border-left:4px solid #2ea043;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
+  <div class="cost-card" style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#161b22,#1c2230) padding-box,linear-gradient(135deg,#1e2830,#6a7a88,#bcccd8,#ffffff,#bcccd8,#6a7a88,#1e2830) border-box;border:2px solid transparent;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
     <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" class="cost-card-img" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
     <div class="cost-card-text" style="padding:1.5rem 2rem;flex:1;">
       <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:linear-gradient(90deg,#8aaabb 0%,#c8dce8 25%,#ffffff 50%,#c8dce8 75%,#8aaabb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
@@ -956,7 +957,7 @@
     </div>
 
     <!-- Secure RAG — Flagship -->
-    <div class="card card-flagship">
+    <div class="card">
       <div class="card-header">
         <span class="card-icon">🔐</span>
         <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
@@ -1156,6 +1157,25 @@
       </div>
     </div>
 
+    <!-- Production Impact -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🏆</span>
+        <span class="card-title">Production Impact</span>
+      </div>
+      <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#8b949e;margin:0 0 0.75rem;">Henry Schein One · 14 Years &nbsp;|&nbsp; State of Utah</p>
+      <div class="hso-links">
+        <a class="hso-link" href="https://www.dentrixascend.com/features/soc2" target="_blank" rel="noopener noreferrer">Dentrix Ascend SOC2 Type II — First cloud PMS to achieve it</a>
+        <a class="hso-link" href="https://learn.dentrixascend.com/enhanced-security-login-and-mfa/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Enhanced Security &amp; MFA — Auth0 to 100k+ users</a>
+        <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/ensuring-data-ownership-and-security-the-henry-schein-one-api-advantage/" target="_blank" rel="noopener noreferrer">HSO API Data Ownership &amp; Security — Authored</a>
+        <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/customer-faqs/" target="_blank" rel="noopener noreferrer">HSO API Security Enhancements — OAuth2/SOC2 for 140+ vendor partners</a>
+        <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/charting-imaging-and-clinical-ai/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Clinical AI &amp; Charting — Secured 3rd party integrations</a>
+        <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/marketing-and-patient-experience/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Patient Experience — Secured 3rd party integrations</a>
+        <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/vendors-list/" target="_blank" rel="noopener noreferrer">HSO API — Unauthorized vendor detection &amp; bot/threat mitigation (published by HSO)</a>
+        <a class="hso-link" href="https://jobs.utah.gov/occ/cac/search/programs-list" target="_blank" rel="noopener noreferrer">State of Utah — Care About Childcare search engine, safe filter processing &amp; input validation</a>
+      </div>
+    </div>
+
     <!-- Anthropic Academy Certifications -->
     <div class="card" id="certs">
       <div class="card-header">
@@ -1187,20 +1207,6 @@
 
   </div>
 
-  <!-- Production Proof -->
-  <div class="hso-section">
-    <h3>Production Impact — Henry Schein One (HSO) · 14 Years &nbsp;|&nbsp; State of Utah</h3>
-    <div class="hso-links">
-      <a class="hso-link" href="https://www.dentrixascend.com/features/soc2" target="_blank" rel="noopener noreferrer">Dentrix Ascend SOC2 Type II — First cloud PMS to achieve it</a>
-      <a class="hso-link" href="https://learn.dentrixascend.com/enhanced-security-login-and-mfa/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Enhanced Security &amp; MFA — Auth0 to 100k+ users</a>
-      <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/ensuring-data-ownership-and-security-the-henry-schein-one-api-advantage/" target="_blank" rel="noopener noreferrer">HSO API Data Ownership &amp; Security — Authored</a>
-      <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/customer-faqs/" target="_blank" rel="noopener noreferrer">HSO API Security Enhancements — OAuth2/SOC2 for 140+ vendor partners</a>
-      <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/charting-imaging-and-clinical-ai/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Clinical AI &amp; Charting — Secured 3rd party integrations</a>
-      <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/marketing-and-patient-experience/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Patient Experience — Secured 3rd party integrations</a>
-      <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/vendors-list/" target="_blank" rel="noopener noreferrer">HSO API — Unauthorized vendor detection &amp; bot/threat mitigation (published by HSO)</a>
-      <a class="hso-link" href="https://jobs.utah.gov/occ/cac/search/programs-list" target="_blank" rel="noopener noreferrer">State of Utah — Care About Childcare search engine, safe filter processing &amp; input validation</a>
-    </div>
-  </div>
 
 <!-- ATM Demo Lightbox -->
 <div id="atm-lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
