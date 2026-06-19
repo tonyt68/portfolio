@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TonyAI Security Portfolio</title>
   <meta property="og:title" content="TonyAI Security Portfolio" />
-  <meta property="og:description" content="Principal Software Engineer · AI Force Delivery · Zero Trust · Identity · Compliance. Live security PoCs — IETF Internet-Draft author." />
+  <meta property="og:description" content="Principal Software Engineer · AI Accelerated Engineering · Zero Trust · Identity · Compliance. Live security PoCs — IETF Internet-Draft author." />
   <meta property="og:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
   <meta property="og:url" content="https://tonyt68.github.io/portfolio/" />
   <meta property="og:type" content="website" />
@@ -65,9 +65,12 @@
       font-size: 2.4rem;
       font-weight: 700;
       margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
     }
     .header-text h1 .h1-text {
-      display: inline-block;
       background: linear-gradient(180deg, #1a1f26 0%, #3d4a58 8%, #7a8fa0 18%, #b8ccd8 30%, #e8f2f8 42%, #ffffff 50%, #e0eaf2 55%, #8aaabb 68%, #3a4a58 82%, #1a2028 92%, #0d1117 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -77,6 +80,7 @@
     .header-text .tagline {
       font-size: 1rem;
       margin-bottom: 0.75rem;
+      text-align: center;
     }
 
     .header-text .tagline .word {
@@ -139,6 +143,7 @@
       font-weight: 700;
       font-style: italic;
       letter-spacing: 0.03em;
+      text-align: center;
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
       background: linear-gradient(180deg,
@@ -166,6 +171,7 @@
     .badges {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
     }
@@ -214,6 +220,15 @@
       border: none;
     }
 
+    .demo-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2rem;
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.5rem;
+    }
     .social-links {
       display: flex;
       gap: 0.75rem;
@@ -242,6 +257,11 @@
       }
       .badges {
         justify-content: center;
+      }
+      .demo-footer {
+        position: static;
+        align-items: center;
+        margin-top: 0.5rem;
       }
       .social-links {
         position: static;
@@ -597,9 +617,9 @@
     .demo-preview {
       display: none;
       position: absolute;
-      top: calc(100% + 48px);
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 0;
+      left: calc(100% + 0.75rem);
+      transform: none;
       width: 420px;
       height: 280px;
       border-radius: 10px;
@@ -852,9 +872,9 @@
   <div class="header">
     <img class="avatar" src="TonyAI.png" alt="TonyAI" />
     <div class="header-text">
-      <h1><img src="TonyAI-WebsiteLogo-purple-nobg.png" alt="TonyAI Shield" style="height:8rem;width:auto;vertical-align:middle;margin-right:0.6rem;display:inline-block"><span class="h1-text"><span style="display:inline-block">TonyAI</span> <span style="display:inline-block">Security</span> <span style="display:inline-block">Portfolio</span></span></h1>
+      <h1><img src="TonyAI-WebsiteLogo-purple-nobg.png" alt="TonyAI Shield" style="height:8rem;width:auto;flex-shrink:0;"><span class="h1-text"><span style="display:inline-block">TonyAI</span> <span style="display:inline-block">Security</span> <span style="display:inline-block">Portfolio</span></span></h1>
       <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
-      <p class="tagline"><span class="word"><span style="--i:0">P</span><span style="--i:1">r</span><span style="--i:2">i</span><span style="--i:3">n</span><span style="--i:4">c</span><span style="--i:5">i</span><span style="--i:6">p</span><span style="--i:7">a</span><span style="--i:8">l</span></span><span style="--i:9">&nbsp;</span><span class="word"><span style="--i:10">S</span><span style="--i:11">o</span><span style="--i:12">f</span><span style="--i:13">t</span><span style="--i:14">w</span><span style="--i:15">a</span><span style="--i:16">r</span><span style="--i:17">e</span></span><span style="--i:18">&nbsp;</span><span class="word"><span style="--i:19">E</span><span style="--i:20">n</span><span style="--i:21">g</span><span style="--i:22">i</span><span style="--i:23">n</span><span style="--i:24">e</span><span style="--i:25">e</span><span style="--i:26">r</span></span><span style="--i:27">&nbsp;</span><span style="--i:28" class="sep">·</span><span style="--i:29">&nbsp;</span><span class="word"><span style="--i:30">A</span><span style="--i:31">I</span></span><span style="--i:32">&nbsp;</span><span class="word"><span style="--i:33">F</span><span style="--i:34">o</span><span style="--i:35">r</span><span style="--i:36">c</span><span style="--i:37">e</span></span><span style="--i:38">&nbsp;</span><span class="word"><span style="--i:39">D</span><span style="--i:40">e</span><span style="--i:41">l</span><span style="--i:42">i</span><span style="--i:43">v</span><span style="--i:44">e</span><span style="--i:45">r</span><span style="--i:46">y</span></span><span style="--i:49">&nbsp;</span><span style="--i:50" class="sep">·</span><span style="--i:51">&nbsp;</span><span class="word"><span style="--i:52">A</span><span style="--i:53">r</span><span style="--i:54">c</span><span style="--i:55">h</span><span style="--i:56">i</span><span style="--i:57">t</span><span style="--i:58">e</span><span style="--i:59">c</span><span style="--i:60">t</span><span style="--i:61">u</span><span style="--i:62">r</span><span style="--i:63">e</span></span><span style="--i:64">&nbsp;</span><span style="--i:65" class="sep">·</span><span style="--i:66">&nbsp;</span><span class="word"><span style="--i:67">Z</span><span style="--i:68">e</span><span style="--i:69">r</span><span style="--i:70">o</span></span><span style="--i:71">&nbsp;</span><span class="word"><span style="--i:72">T</span><span style="--i:73">r</span><span style="--i:74">u</span><span style="--i:75">s</span><span style="--i:76">t</span></span><span style="--i:77">&nbsp;</span><span style="--i:78" class="sep">·</span><span style="--i:79">&nbsp;</span><span class="word"><span style="--i:80">I</span><span style="--i:81">d</span><span style="--i:82">e</span><span style="--i:83">n</span><span style="--i:84">t</span><span style="--i:85">i</span><span style="--i:86">t</span><span style="--i:87">y</span></span><span style="--i:88">&nbsp;</span><span style="--i:89" class="sep">·</span><span style="--i:90">&nbsp;</span><span class="word"><span style="--i:91">C</span><span style="--i:92">o</span><span style="--i:93">m</span><span style="--i:94">p</span><span style="--i:95">l</span><span style="--i:96">i</span><span style="--i:97">a</span><span style="--i:98">n</span><span style="--i:99">c</span><span style="--i:100">e</span></span></p>
+      <p class="tagline"><span class="word"><span style="--i:0">P</span><span style="--i:1">r</span><span style="--i:2">i</span><span style="--i:3">n</span><span style="--i:4">c</span><span style="--i:5">i</span><span style="--i:6">p</span><span style="--i:7">a</span><span style="--i:8">l</span></span><span style="--i:9">&nbsp;</span><span class="word"><span style="--i:10">S</span><span style="--i:11">o</span><span style="--i:12">f</span><span style="--i:13">t</span><span style="--i:14">w</span><span style="--i:15">a</span><span style="--i:16">r</span><span style="--i:17">e</span></span><span style="--i:18">&nbsp;</span><span class="word"><span style="--i:19">E</span><span style="--i:20">n</span><span style="--i:21">g</span><span style="--i:22">i</span><span style="--i:23">n</span><span style="--i:24">e</span><span style="--i:25">e</span><span style="--i:26">r</span></span><span style="--i:27">&nbsp;</span><span style="--i:28" class="sep">·</span><span style="--i:29">&nbsp;</span><span class="word"><span style="--i:30">A</span><span style="--i:31">I</span></span><span style="--i:32">&nbsp;</span><span class="word"><span style="--i:33">A</span><span style="--i:34">c</span><span style="--i:35">c</span><span style="--i:36">e</span><span style="--i:37">l</span><span style="--i:38">e</span><span style="--i:39">r</span><span style="--i:40">a</span><span style="--i:41">t</span><span style="--i:42">e</span><span style="--i:43">d</span></span><span style="--i:44">&nbsp;</span><span class="word"><span style="--i:45">E</span><span style="--i:46">n</span><span style="--i:47">g</span><span style="--i:48">i</span><span style="--i:49">n</span><span style="--i:50">e</span><span style="--i:51">e</span><span style="--i:52">r</span><span style="--i:53">i</span><span style="--i:54">n</span><span style="--i:55">g</span></span><span style="--i:56">&nbsp;</span><span style="--i:57" class="sep">·</span><span style="--i:58">&nbsp;</span><span class="word"><span style="--i:59">A</span><span style="--i:60">r</span><span style="--i:61">c</span><span style="--i:62">h</span><span style="--i:63">i</span><span style="--i:64">t</span><span style="--i:65">e</span><span style="--i:66">c</span><span style="--i:67">t</span><span style="--i:68">u</span><span style="--i:69">r</span><span style="--i:70">e</span></span><span style="--i:71">&nbsp;</span><span style="--i:72" class="sep">·</span><span style="--i:73">&nbsp;</span><span class="word"><span style="--i:74">Z</span><span style="--i:75">e</span><span style="--i:76">r</span><span style="--i:77">o</span></span><span style="--i:78">&nbsp;</span><span class="word"><span style="--i:79">T</span><span style="--i:80">r</span><span style="--i:81">u</span><span style="--i:82">s</span><span style="--i:83">t</span></span><span style="--i:84">&nbsp;</span><span style="--i:85" class="sep">·</span><span style="--i:86">&nbsp;</span><span class="word"><span style="--i:87">I</span><span style="--i:88">d</span><span style="--i:89">e</span><span style="--i:90">n</span><span style="--i:91">t</span><span style="--i:92">i</span><span style="--i:93">t</span><span style="--i:94">y</span></span><span style="--i:95">&nbsp;</span><span style="--i:96" class="sep">·</span><span style="--i:97">&nbsp;</span><span class="word"><span style="--i:98">C</span><span style="--i:99">o</span><span style="--i:100">m</span><span style="--i:101">p</span><span style="--i:102">l</span><span style="--i:103">i</span><span style="--i:104">a</span><span style="--i:105">n</span><span style="--i:106">c</span><span style="--i:107">e</span></span></p>
       <div class="badges">
         <span class="badge badge-red">Zero Trust</span>
         <span class="badge badge-red">BAA</span>
@@ -862,18 +882,18 @@
         <span class="badge badge-red">SOC2</span>
         <span class="badge badge-red">PCI DSS</span>
         <span class="badge badge-red">FIPS 140-3</span>
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;flex-basis:100%;margin-top:0.25rem;">
-          <span class="badge badge-green badge-demo">Running Demos
-            <div class="demo-preview">
-              <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
-              <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
-              <img src="demo.png" alt="TonyAI Portfolio demo menu" />
-              <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
-              <img src="demo-d.png" alt="Last Mile demo — DENIED" />
-            </div>
-          </span>
-          <span style="font-size:0.65rem;color:#555;padding-left:0.2rem;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a> &nbsp;·&nbsp; <a href="#certs" style="text-decoration:none;font-size:0.78rem;background:linear-gradient(90deg,#4a5a6a 0%,#8aaabb 20%,#c8dce8 38%,#ffffff 50%,#c8dce8 62%,#8aaabb 80%,#4a5a6a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎓 Certifications</a><a href="#certs" title="View Certifications" style="text-decoration:none;font-size:0.82rem;color:#ffd000;margin-left:3px;animation:cert-pulse 2.5s ease-in-out infinite;display:inline-block;cursor:pointer;">⬇</a></span>
-        </div>
+      </div>
+      <div class="demo-footer">
+        <span class="badge badge-green badge-demo">Running Demos
+          <div class="demo-preview">
+            <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
+            <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
+            <img src="demo.png" alt="TonyAI Portfolio demo menu" />
+            <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
+            <img src="demo-d.png" alt="Last Mile demo — DENIED" />
+          </div>
+        </span>
+        <span style="font-size:0.65rem;color:#555;padding-left:0.2rem;">Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a> &nbsp;·&nbsp; <a href="#certs" style="text-decoration:none;font-size:0.78rem;background:linear-gradient(90deg,#4a5a6a 0%,#8aaabb 20%,#c8dce8 38%,#ffffff 50%,#c8dce8 62%,#8aaabb 80%,#4a5a6a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎓 Certifications</a><a href="#certs" title="View Certifications" style="text-decoration:none;font-size:0.82rem;color:#ffd000;margin-left:3px;animation:cert-pulse 2.5s ease-in-out infinite;display:inline-block;cursor:pointer;">⬇</a></span>
       </div>
       <div class="social-links">
         <a class="social-link" href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a>
