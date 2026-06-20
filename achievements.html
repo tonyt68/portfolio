@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Achievements — Anthony James Trujillo</title>
+<link rel="icon" type="image/png" href="TonyAI.png" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #b8bec4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Nav */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    color: #79c0ff;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 0.9rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #2a5298, #1a3a6c);
+    border-top: 1px solid #4a7fd4;
+    border-left: 1px solid #3a6abf;
+    border-right: 1px solid #122a52;
+    border-bottom: 2px solid #0d1e3a;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.07) inset;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.07) inset;
+    color: #fff;
+  }
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  /* Page title */
+  .page-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-sub {
+    font-size: 0.82rem;
+    color: #484f58;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 1.2rem;
+  }
+
+  /* Section headings */
+  h2 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+  h2:first-of-type { margin-top: 0; }
+
+  /* Certs */
+  .certs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .cert-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.7rem 1rem;
+    flex: 1;
+    min-width: 200px;
+    background: #0d1117;
+    border: 1px solid #5a6acf;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .cert-badge:hover {
+    border-color: #7b8cf0;
+    box-shadow: 0 0 10px rgba(123,140,240,0.3);
+  }
+  .cert-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+  .cert-meta {
+    font-size: 0.75rem;
+    color: #79c0ff;
+  }
+
+  /* Production Impact */
+  .impact-sub {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #8b949e;
+    margin-bottom: 1rem;
+  }
+  .hso-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .hso-link {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    color: #79c0ff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+    line-height: 1.5;
+  }
+  .hso-link:hover {
+    border-color: #3fb950;
+    color: #3fb950;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.82rem;
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+  }
+  .back:hover { text-decoration: underline; }
+
+  /* Footer */
+  .footer-rule {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #21262d;
+    margin: 2.5rem 0 0;
+  }
+  .footer {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #484f58;
+    padding-bottom: 1.5rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="index.html">← Portfolio</a>
+
+  <div class="page-title">Achievements</div>
+  <div class="page-sub">Anthony James Trujillo &nbsp;·&nbsp; Principal Software Engineer &nbsp;·&nbsp; Zero Trust · Identity · AI</div>
+
+  <!-- Certifications -->
+  <h2 id="certs">🎓 Anthropic Academy Certifications</h2>
+  <div class="certs-list">
+    <a class="cert-badge" href="https://verify.skilljar.com/c/aqp2mxpwvftt" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Claude in Amazon Bedrock</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+    <a class="cert-badge" href="https://verify.skilljar.com/c/h88ohpvsdz6a" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Claude with Google Cloud's Vertex AI</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; Jun 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+    <a class="cert-badge" href="https://verify.skilljar.com/c/igok3f6xqvfp" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Claude Code in Action</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; Jun 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+    <a class="cert-badge" href="https://verify.skilljar.com/c/mpyqgci4jcc6" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Introduction to Model Context Protocol</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; Apr 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+    <a class="cert-badge" href="https://verify.skilljar.com/c/cxuaxz6gi34u" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Model Context Protocol: Advanced Topics</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+    <a class="cert-badge" href="https://verify.skilljar.com/c/338hz82cub2j" target="_blank" rel="noopener noreferrer">
+      <span class="cert-name">Introduction to Subagents</span>
+      <span class="cert-meta">Anthropic &nbsp;·&nbsp; Jun 2026 &nbsp;·&nbsp; Verify ↗</span>
+    </a>
+  </div>
+
+  <!-- Production Impact -->
+  <h2 id="impact">🏆 Production Impact</h2>
+  <div class="impact-sub">Henry Schein One · 14 Years &nbsp;|&nbsp; State of Utah</div>
+  <div class="hso-links">
+    <a class="hso-link" href="https://investor.henryschein.com/news-releases/news-release-details/2023/Henry-Schein-One-Announces-Dentrix-Ascend-API-Exchange-07-13-2023/default.aspx" target="_blank" rel="noopener noreferrer"><strong>★ Dentrix Ascend SOC2 Type II</strong> — First cloud PMS to achieve it (Investor Relations)</a>
+    <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/this-is-the-year-to-prioritize-security" target="_blank" rel="noopener noreferrer">★ HSO Security Mandate 2026 — "This Is the Year to Prioritize Security"</a>
+    <a class="hso-link" href="https://news.henryschein.com/press-releases/press-release-details/2026/Henry-Schein-One-Unveils-the-Next-Era-of-Dentrix-Ascend-for-DSOs-and-Growth-Focused-Practices/" target="_blank" rel="noopener noreferrer">★ Dentrix Ascend Next-Era Platform (Mar 2026) — Agentic architecture, identity-first security</a>
+    <a class="hso-link" href="https://learn.dentrixascend.com/enhanced-security-login-and-mfa/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Enhanced Security &amp; MFA — Auth0 to 100k+ users</a>
+    <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/ensuring-data-ownership-and-security-the-henry-schein-one-api-advantage/" target="_blank" rel="noopener noreferrer">HSO API Data Ownership &amp; Security — Authored</a>
+    <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/customer-faqs/" target="_blank" rel="noopener noreferrer">HSO API Security Enhancements — OAuth2/SOC2 for 140+ vendor partners</a>
+    <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/charting-imaging-and-clinical-ai/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Clinical AI &amp; Charting — Secured 3rd party integrations</a>
+    <a class="hso-link" href="https://www.dentrixascend.com/dental-solutions/marketing-and-patient-experience/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Patient Experience — Secured 3rd party integrations</a>
+    <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/vendors-list/" target="_blank" rel="noopener noreferrer">HSO API — Unauthorized vendor detection &amp; bot/threat mitigation (published by HSO)</a>
+    <a class="hso-link" href="https://jobs.utah.gov/occ/cac/search/programs-list" target="_blank" rel="noopener noreferrer">State of Utah — Care About Childcare search engine, safe filter processing &amp; input validation</a>
+  </div>
+
+
+</div>
+
+<hr class="footer-rule" />
+<div class="footer">
+  &copy; 2026 Anthony James Trujillo — All rights reserved
+</div>
+
+</body>
+</html>
