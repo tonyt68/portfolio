@@ -470,13 +470,22 @@
       gap: 0.35rem;
     }
 
+    .chrome {
+      background: linear-gradient(135deg,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .tag {
       padding: 0.2rem 0.5rem;
       border-radius: 6px;
       font-size: 0.7rem;
-      font-weight: 500;
-      background: #21262d;
-      color: #8b949e;
+      font-weight: 600;
+      background: linear-gradient(135deg,#4a5a6a,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb,#4a5a6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       border: 1px solid #30363d;
     }
 
@@ -925,6 +934,39 @@
   <!-- PoC Grid -->
   <div class="grid">
 
+    <!-- Phalanx -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🤖</span>
+        <span class="card-title">Phalanx</span>
+      </div>
+      <div style="margin-bottom:0.85rem;padding-left:0.75rem;border-left:2px solid #6a7a88;">
+        <div style="font-size:1.05rem;font-weight:900;letter-spacing:0.04em;margin-bottom:0.35rem;background:linear-gradient(135deg,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Phalanx — Zero Trust AI Agent Platform</div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;color:#e3b341;margin-bottom:0.35rem;">FIPS 140-3 &nbsp;·&nbsp; OWASP Top 10 &nbsp;·&nbsp; SOC2 &nbsp;·&nbsp; HIPAA &nbsp;·&nbsp; PCI-DSS</div>
+        <div style="font-size:0.82rem;font-style:italic;font-weight:600;color:#3fb950;">Every data flow verified, encrypted, audited, defended.</div>
+      </div>
+      <p class="card-desc-green">Extends the IdP's "My Apps" model to <strong style="color:#fff">"My Agents."</strong> Every agent born with a cryptographic <em>IETF A2A certificate</em>, <strong class="chrome">policy-locked at creation</strong>. Users see only the agents their role allows. <em>MCP Security Gate</em> verifies identity, policy, and RBAC on every invocation. Agents are <strong class="chrome">credential-blind</strong> — Vault handles all secrets. <strong style="color:#fff">Nothing assumed, everything verified.</strong></p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong style="color:#fff">Four Zero Trust control planes:</strong> <em>Assignment</em> (admin assigns agents like apps), <em>Policy Enforcement</em> (MCP gate checks cert + policy hash + role), <em>Execution</em> (agent runs within bounds, refuses outside), <em>Verification</em> (<strong class="chrome">HMAC-SHA256 hash chain</strong> — <strong class="chrome">non-repudiation proof end-to-end</strong>). <strong style="color:#f85149">Poison pill detection</strong> blocks <strong style="color:#f85149">PHI leakage</strong> and <strong style="color:#f85149">prompt injection</strong> before any data reaches the LLM. The IdP's April 2026 agent identity launch solved who the agent is. This solves what they shipped expecting someone to build: who can use it, under what guardrails, with what <strong class="chrome">cryptographic proof</strong>. <strong style="color:#fff;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
+      <div>
+        <div class="card-section-label">Stack</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">IdP OIDC/OAuth2</span><span class="tag">IETF A2A</span>
+          <span class="tag">MCP Security Gate</span><span class="tag">HashiCorp Vault</span>
+          <span class="tag">JWT/JWK</span><span class="tag">HMAC-SHA256</span>
+          <span class="tag">FGA</span><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">Claude Sonnet</span><span class="tag">Pinecone</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-section-label">Compliance</div>
+        <div class="tags compliance-tags">
+          <span class="tag">FIPS 140-3</span><span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="status-amber"><div class="status-dot-amber"></div>Under Construction</div>
+      </div>
+    </div>
+
     <!-- Zero Trust Payments -->
     <div class="card">
       <div class="card-header">
@@ -933,8 +975,8 @@
         <span onclick="document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;white-space:nowrap;">📷 Preview demo</span>
       </div>
       <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
-      <p class="card-desc-green">The AI recommends. A hard policy engine decides. The money never moves on AI confidence alone. ReBAC enforces identity at every layer boundary — revoke one relationship, the entire chain is blocked.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Prompt Evaluation Gate (PEG) sits between Claude's output and execution — deterministic Python, no LLM. Checks amount coherence, duplicate detection, frequency anomaly, reasoning validity. Fail any check = hard block, no override. Hash-chained audit trail ties every hop — ReBAC check, AI recommendation, PEG verdict, human approval, execution — to one correlation ID.</p>
+      <p class="card-desc-green">The AI recommends. A hard policy engine decides. The money never moves on AI confidence alone. <strong class="chrome">ReBAC</strong> enforces identity at every layer boundary — revoke one relationship, the entire chain is blocked.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Prompt Evaluation Gate (PEG)</strong> sits between <strong class="chrome">Claude</strong>'s output and execution — deterministic <strong class="chrome">Python</strong>, no LLM. Checks amount coherence, duplicate detection, frequency anomaly, reasoning validity. Fail any check = hard block, no override. Hash-chained audit trail ties every hop — <strong class="chrome">ReBAC</strong> check, AI recommendation, PEG verdict, human approval, execution — to one correlation ID.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -964,9 +1006,9 @@
         <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
-      <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before Claude sees a single token. PHI never leaves the trust boundary.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — JWT → ReBAC → Bedrock KB pre-filter → DynamoDB audit. Same stack, swappable backend.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:4px;font-style:italic;color:#cdd5dc;">Every request carries a <strong>correlation ID</strong> from JWT validation through ReBAC, retrieval, and response — traceable end-to-end in CloudWatch. Full observability built in, not bolted on.</p>
+      <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before <strong class="chrome">Claude</strong> sees a single token. PHI never leaves the trust boundary.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — <strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> pre-filter → <strong class="chrome">DynamoDB</strong> audit. Same stack, swappable backend.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:4px;font-style:italic;color:#cdd5dc;">Every request carries a <strong>correlation ID</strong> from <strong class="chrome">JWT</strong> validation through <strong class="chrome">ReBAC</strong>, retrieval, and response — traceable end-to-end in <strong class="chrome">CloudWatch</strong>. Full observability built in, not bolted on.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1000,7 +1042,7 @@
       </div>
       <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
       <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one. First author.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Draft backed by a working PoC — JWT chains, HMAC message integrity, X.509 PKI, CRL, dual-signature policy governance. Every pattern in the spec runs as code.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Draft backed by a working PoC — <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> message integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature policy governance. Every pattern in the spec runs as code.</p>
       <div>
         <div class="card-section-label">Draft</div>
         <div class="tags">
@@ -1077,7 +1119,7 @@
         <span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span>
       </div>
       <p class="card-question">How do you prove an AI system's decisions are tamper-proof in a federally regulated environment?</p>
-      <p class="card-desc-green">AWS-native FIPS 140-3 security boundary. KMS-signed decisions. Tamper-proof audit trail in S3 Object Lock COMPLIANCE mode — root cannot delete the evidence. FedRAMP-ready.</p>
+      <p class="card-desc-green">AWS-native FIPS 140-3 security boundary. <strong class="chrome">KMS</strong>-signed decisions. Tamper-proof audit trail in <strong class="chrome">S3 Object Lock</strong> COMPLIANCE mode — root cannot delete the evidence. FedRAMP-ready.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1107,7 +1149,7 @@
         <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">How do you cut security investigation time from 45 minutes to 60 seconds?</p>
-      <p class="card-desc-green">Plain-English in, forensically verified answer out. Conversational DevOps — CloudTrail, CloudWatch, DynamoDB, and KMS through natural language with full audit trail.</p>
+      <p class="card-desc-green">Plain-English in, forensically verified answer out. Conversational DevOps — <strong class="chrome">CloudTrail</strong>, <strong class="chrome">CloudWatch</strong>, <strong class="chrome">DynamoDB</strong>, and <strong class="chrome">KMS</strong> through natural language with full audit trail.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1165,7 +1207,9 @@
       </div>
       <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#8b949e;margin:0 0 0.75rem;">Henry Schein One · 14 Years &nbsp;|&nbsp; State of Utah</p>
       <div class="hso-links">
-        <a class="hso-link" href="https://www.dentrixascend.com/features/soc2" target="_blank" rel="noopener noreferrer">Dentrix Ascend SOC2 Type II — First cloud PMS to achieve it</a>
+        <a class="hso-link" href="https://investor.henryschein.com/news-releases/news-release-details/2023/Henry-Schein-One-Announces-Dentrix-Ascend-API-Exchange-07-13-2023/default.aspx" target="_blank" rel="noopener noreferrer" style="font-weight:700;"><strong>★ Dentrix Ascend SOC2 Type II</strong> — First cloud PMS to achieve it (Investor Relations)</a>
+        <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/this-is-the-year-to-prioritize-security" target="_blank" rel="noopener noreferrer">★ HSO Security Mandate 2026 — "This Is the Year to Prioritize Security"</a>
+        <a class="hso-link" href="https://news.henryschein.com/press-releases/press-release-details/2026/Henry-Schein-One-Unveils-the-Next-Era-of-Dentrix-Ascend-for-DSOs-and-Growth-Focused-Practices/" target="_blank" rel="noopener noreferrer">★ Dentrix Ascend Next-Era Platform (Mar 2026) — Agentic architecture, identity-first security</a>
         <a class="hso-link" href="https://learn.dentrixascend.com/enhanced-security-login-and-mfa/" target="_blank" rel="noopener noreferrer">Dentrix Ascend Enhanced Security &amp; MFA — Auth0 to 100k+ users</a>
         <a class="hso-link" href="https://www.henryscheinone.com/insights/blogs/ensuring-data-ownership-and-security-the-henry-schein-one-api-advantage/" target="_blank" rel="noopener noreferrer">HSO API Data Ownership &amp; Security — Authored</a>
         <a class="hso-link" href="https://www.henryscheinone.com/dental-solutions/api-exchange/customer-faqs/" target="_blank" rel="noopener noreferrer">HSO API Security Enhancements — OAuth2/SOC2 for 140+ vendor partners</a>
