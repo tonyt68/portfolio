@@ -898,10 +898,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       align-items: center;
-      margin-bottom: 0;
+      margin: 0 calc(-3rem + 6px) 0 0;
+      width: calc(100% + 3rem - 6px);
       padding-bottom: 0.2rem;
       border-bottom: 1px solid #21262d;
-      width: 100%;
     }
     .card-sig img {
       width: 40px;
@@ -944,7 +944,7 @@
       object-fit: contain;
       opacity: 1;
       flex-shrink: 0;
-      margin-left: auto;
+      justify-self: end;
     }
   </style>
 </head>
