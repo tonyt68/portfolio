@@ -894,6 +894,58 @@
       border-top: 1px solid #21262d;
       margin: 2.5rem 0 0;
     }
+    .card-sig {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      margin-bottom: 0;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #21262d;
+      width: 100%;
+    }
+    .card-sig img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+    .card-sig-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-sig-label span {
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      background: linear-gradient(180deg,#3a0a5a 0%,#7a20c0 20%,#b060e8 38%,#e0a0ff 50%,#b060e8 62%,#7a20c0 80%,#3a0a5a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 6px rgba(160,80,240,0.5));
+      border: 1px solid #7a20c0;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      box-shadow: 0 0 8px rgba(140,60,220,0.3), inset 0 0 6px rgba(140,60,220,0.1);
+    }
+    .card-copy {
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid #21262d;
+      font-size: 0.62rem;
+      color: #484f58;
+      text-align: right;
+    }
+    .card-sig img.badge {
+      border-radius: 0;
+      width: 115px;
+      height: 56px;
+      object-fit: contain;
+      opacity: 1;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
@@ -1234,5 +1286,17 @@
   <a onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='none'" style="font-size:0.82rem;text-decoration:none;cursor:pointer;align-self:flex-start;margin-left:4vw;background:linear-gradient(90deg,#8a5a85 0%,#b87ab5 25%,#dda8d8 42%,#f0dff0 50%,#dda8d8 58%,#b87ab5 75%,#8a5a85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">← Portfolio</a>
   <img src="zero-trust-atm-demo.png" alt="Zero Trust ATM Demo" style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);" />
 </div>
+<script>
+  document.querySelectorAll('.card').forEach(card => {
+    const sig = document.createElement('div');
+    sig.className = 'card-sig';
+    sig.innerHTML = '<img src="TonyAI.png" alt="TonyAI" /><span class="card-sig-label"><span>TonyAI</span></span><img src="TonyAI-WebsiteLogo-purple-nobg.png" alt="Zero Trust" class="badge" />';
+    const copy = document.createElement('div');
+    copy.className = 'card-copy';
+    copy.innerHTML = '&copy; 2026 Anthony James Trujillo';
+    card.appendChild(copy);
+    card.insertBefore(sig, card.firstChild);
+  });
+</script>
 </body>
 </html>
