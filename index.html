@@ -1009,8 +1009,7 @@
         <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;color:#e3b341;margin-bottom:0.35rem;">Designed for FIPS 140-3 &nbsp;·&nbsp; OWASP Top 10 &nbsp;·&nbsp; SOC2 &nbsp;·&nbsp; HIPAA &nbsp;·&nbsp; PCI-DSS</div>
         <div style="font-size:0.82rem;font-style:italic;font-weight:600;color:#3fb950;">Every data flow verified, encrypted, audited, defended.</div>
       </div>
-      <p class="card-desc-green">Extends the IdP's "My Apps" model to <strong style="color:#fff">"My Agents."</strong> Every agent born with a cryptographic <em>IETF A2A certificate</em>, <strong class="chrome">policy-locked at creation</strong>. Users see only the agents their role allows. <em>MCP Security Gate</em> verifies identity, policy, and RBAC on every invocation. Agents are <strong class="chrome">credential-blind</strong> — Vault handles all secrets. <strong style="color:#fff">Nothing assumed, everything verified.</strong></p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong style="color:#fff">Four Zero Trust control planes:</strong> <em>Assignment</em> (admin assigns agents like apps), <em>Policy Enforcement</em> (MCP gate checks cert + policy hash + role), <em>Execution</em> (agent runs within bounds, refuses outside), <em>Verification</em> (<strong class="chrome">HMAC-SHA256 hash chain</strong> — <strong class="chrome">non-repudiation proof end-to-end</strong>). <strong style="color:#f85149">Poison pill detection</strong> blocks <strong style="color:#f85149">PHI leakage</strong> and <strong style="color:#f85149">prompt injection</strong> before any data reaches the LLM. The IdP's April 2026 agent identity launch solved who the agent is. This solves what they shipped expecting someone to build: who can use it, under what guardrails, with what <strong class="chrome">cryptographic proof</strong>. <strong style="color:#fff;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
+      <p class="card-desc-green">IdP's <strong style="color:#c8d4e0">"My Apps"</strong> model extended to <strong style="color:#c8d4e0">"My Agents."</strong> Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + RBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1033,8 +1032,8 @@
         <span onclick="document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;white-space:nowrap;">📷 Preview demo</span>
       </div>
       <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
-      <p class="card-desc-green">The AI recommends. A hard policy engine decides. The money never moves on AI confidence alone. <strong class="chrome">ReBAC</strong> enforces identity at every layer boundary — revoke one relationship, the entire chain is blocked.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Prompt Evaluation Gate (PEG)</strong> sits between <strong class="chrome">Claude</strong>'s output and execution — deterministic <strong class="chrome">Python</strong>, no LLM. Checks amount coherence, duplicate detection, frequency anomaly, reasoning validity. Fail any check = hard block, no override. Hash-chained audit trail ties every hop — <strong class="chrome">ReBAC</strong> check, AI recommendation, PEG verdict, human approval, execution — to one correlation ID.</p>
+      <p class="card-desc-green">AI recommends. Policy decides. Money never moves on AI confidence alone. Revoke one <strong class="chrome">ReBAC</strong> relationship — the entire chain dies.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Prompt Evaluation Gate</strong> sits between Claude and execution — deterministic Python, no LLM. Four checks. Fail any = hard block. Zero overrides.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1071,12 +1070,12 @@
       </div>
       <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
       <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one. First author.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Draft backed by a working PoC — <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> message integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature policy governance. Every pattern in the spec runs as code.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. Every pattern in the spec runs as code.</p>
       <div>
         <div class="card-section-label">Draft</div>
         <div class="tags">
           <span class="tag">draft-tonyai-a2a-trust-00</span><span class="tag">Agent Identity</span>
-          <span class="tag">Trust Framework</span><span class="tag">AI Governance</span><span class="tag">PoC on GitHub</span>
+          <span class="tag">Trust Framework</span><span class="tag">AI Governance</span>
         </div>
       </div>
       <div>
@@ -1113,9 +1112,8 @@
         <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
-      <p class="card-desc-green">Jill asks about Q1 revenue — gets the numbers. Jack asks the same question — gets nothing. Enforcement happens at retrieval, before <strong class="chrome">Claude</strong> sees a single token. PHI never leaves the trust boundary.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;">Builds on <strong>Last Mile Zero Trust</strong> — <strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> pre-filter → <strong class="chrome">DynamoDB</strong> audit. Same stack, swappable backend.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:4px;font-style:italic;color:#cdd5dc;">Every request carries a <strong>correlation ID</strong> from <strong class="chrome">JWT</strong> validation through <strong class="chrome">ReBAC</strong>, retrieval, and response — traceable end-to-end in <strong class="chrome">CloudWatch</strong>. Full observability built in, not bolted on.</p>
+      <p class="card-desc-green">PHI never crosses the boundary. Enforced before <strong class="chrome">Claude</strong> sees a single token — by the enforcement stack, not the prompt.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> → audit. One correlation ID. Full trail, end-to-end.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1146,6 +1144,7 @@
       </div>
       <p class="card-question">How do you give an AI agent secure access to on-prem data without static credentials or opening firewall holes?</p>
       <p class="card-desc-green">Zero static credentials. Zero inbound firewall rules. Full cryptographic audit trail on every access.</p>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Vault PKI</strong> issues short-lived X.509 certs. Relay agent polls <strong class="chrome">SQS</strong> outbound — no inbound ports, no firewall holes. <strong class="chrome">JWT → ReBAC → cert → DB.</strong> Every hop enforced. No hop trusted.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
