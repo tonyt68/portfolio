@@ -380,6 +380,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
+      min-height: 520px;
       transition: border-color 0.2s, transform 0.2s;
     }
 
@@ -433,7 +434,7 @@
 
     .card-question {
       font-size: 0.84rem;
-      color: #b392f0;
+      color: #c8d4e0;
       font-style: italic;
       line-height: 1.5;
       border-left: 2px solid #8b5cf6;
@@ -1006,8 +1007,6 @@
       </div>
       <div style="margin-bottom:0.85rem;padding-left:0.75rem;border-left:2px solid #6a7a88;">
         <div style="font-size:1.05rem;font-weight:900;letter-spacing:0.04em;margin-bottom:0.35rem;background:linear-gradient(135deg,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Phalanx — Zero Trust AI Agent Platform</div>
-        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;color:#e3b341;margin-bottom:0.35rem;">Designed for FIPS 140-3 &nbsp;·&nbsp; OWASP Top 10 &nbsp;·&nbsp; SOC2 &nbsp;·&nbsp; HIPAA &nbsp;·&nbsp; PCI-DSS</div>
-        <div style="font-size:0.82rem;font-style:italic;font-weight:600;color:#3fb950;">Every data flow verified, encrypted, audited, defended.</div>
       </div>
       <p class="card-desc-green">Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + RBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
       <div>
@@ -1017,6 +1016,12 @@
           <span class="tag">MCP Security Gate</span><span class="tag">HashiCorp Vault</span>
           <span class="tag">JWT/JWK</span><span class="tag">HMAC-SHA256</span>
           <span class="tag">FGA</span><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">Claude Sonnet</span><span class="tag">Pinecone</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-section-label">Designed for</div>
+        <div class="tags compliance-tags">
+          <span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span><span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span>
         </div>
       </div>
       <div class="card-footer">
