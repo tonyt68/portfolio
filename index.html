@@ -523,7 +523,6 @@
     }
 
     .card-footer {
-      margin-top: auto;
       padding-top: 0.75rem;
       border-top: 1px solid #21262d;
       display: flex;
@@ -1292,6 +1291,12 @@
     copy.innerHTML = '&copy; 2026 Anthony James Trujillo';
     card.appendChild(copy);
     card.insertBefore(sig, card.firstChild);
+
+    card.querySelectorAll('.card-section-label').forEach(label => {
+      if (label.textContent.trim() === 'Stack') {
+        label.parentElement.style.marginTop = 'auto';
+      }
+    });
   });
 
 </script>
