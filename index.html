@@ -377,9 +377,11 @@
       border-left: 4px solid #b8b0f0;
       border-radius: 12px;
       padding: 1.5rem;
+      padding-bottom: 3rem;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
+      position: relative;
       transition: border-color 0.2s, transform 0.2s;
     }
 
@@ -932,7 +934,10 @@
       box-shadow: 0 0 8px rgba(140,60,220,0.3), inset 0 0 6px rgba(140,60,220,0.1);
     }
     .card-copy {
-      margin-top: auto;
+      position: absolute;
+      bottom: 0.75rem;
+      left: 1.5rem;
+      right: 1.5rem;
       padding-top: 0.5rem;
       border-top: 1px solid #21262d;
       font-size: 0.62rem;
@@ -1289,12 +1294,6 @@
     card.insertBefore(sig, card.firstChild);
   });
 
-  window.addEventListener('load', () => {
-    const cards = document.querySelectorAll('.card');
-    let max = 0;
-    cards.forEach(c => { c.style.height = 'auto'; max = Math.max(max, c.offsetHeight); });
-    cards.forEach(c => c.style.height = max + 'px');
-  });
 </script>
 </body>
 </html>
