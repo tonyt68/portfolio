@@ -13,6 +13,7 @@
   <meta name="twitter:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
   <link rel="icon" type="image/png" href="TonyAI.png" />
   <style>
+    :root { --chrome: linear-gradient(135deg,#4a5a6a,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb,#4a5a6a); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -426,7 +427,7 @@
     .card-title {
       font-size: 1rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -455,25 +456,27 @@
     }
 
     .card-section-label {
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.4rem;
+      margin: 0 auto 0.4rem;
+      display: table;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
+      justify-content: center;
     }
 
     .chrome {
-      background: linear-gradient(135deg,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -484,7 +487,7 @@
       border-radius: 6px;
       font-size: 0.7rem;
       font-weight: 600;
-      background: linear-gradient(135deg,#4a5a6a,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb,#4a5a6a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -523,6 +526,7 @@
     }
 
     .card-footer {
+      margin-top: auto;
       padding-top: 0.75rem;
       border-top: 1px solid #21262d;
       display: flex;
@@ -941,7 +945,7 @@
       border-top: 1px solid #21262d;
       font-size: 0.62rem;
       color: #484f58;
-      text-align: right;
+      text-align: center;
     }
     .card-sig img.badge {
       border-radius: 0;
@@ -988,7 +992,7 @@
   <div class="cost-card" style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#161b22,#1c2230) padding-box,linear-gradient(135deg,#1e2830,#6a7a88,#bcccd8,#ffffff,#bcccd8,#6a7a88,#1e2830) border-box;border:2px solid transparent;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
     <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" class="cost-card-img" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
     <div class="cost-card-text" style="padding:1.5rem 2rem;flex:1;">
-      <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:linear-gradient(90deg,#8aaabb 0%,#c8dce8 25%,#ffffff 50%,#c8dce8 75%,#8aaabb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
+      <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
       <div style="font-size:0.82rem;color:#b8bec4;line-height:1.9;">
         <span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed<br>
         <span style="color:#2ea043;font-weight:700;">▸</span> Prompt caching — stop paying for repeated context<br>
@@ -1007,9 +1011,6 @@
       <div class="card-header">
         <span class="card-icon">🛡️</span>
         <span class="card-title">Phalanx</span>
-      </div>
-      <div style="margin-bottom:0.85rem;padding-left:0.75rem;border-left:2px solid #6a7a88;">
-        <div style="font-size:1.05rem;font-weight:900;letter-spacing:0.04em;margin-bottom:0.35rem;background:linear-gradient(135deg,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Phalanx — Zero Trust AI Agent Platform</div>
       </div>
       <p class="card-desc-green">Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + RBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
       <div>
@@ -1078,14 +1079,7 @@
       </div>
       <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
       <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one. First author.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. Every pattern in the spec runs as code.</p>
-      <div>
-        <div class="card-section-label">Draft</div>
-        <div class="tags">
-          <span class="tag">draft-tonyai-a2a-trust-00</span><span class="tag">Agent Identity</span>
-          <span class="tag">Trust Framework</span><span class="tag">AI Governance</span>
-        </div>
-      </div>
+      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. <strong style="color:#c8d4e0">34/34 attacks blocked. 50/50 conformance vectors.</strong> Every pattern in the spec runs as code.</p>
       <div>
         <div class="card-section-label">Stack</div>
         <div class="tags">
@@ -1095,16 +1089,9 @@
         </div>
       </div>
       <div>
-        <div class="card-section-label">Security &amp; Tests</div>
+        <div class="card-section-label">Designed for</div>
         <div class="tags compliance-tags">
-          <span class="tag">OWASP Top 10</span><span class="tag">50/50 Conformance Vectors</span>
-          <span class="tag">34/34 Security Attacks Blocked</span><span class="tag">33 Smoke Tests</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-section-label">Standards Body</div>
-        <div class="tags compliance-tags">
-          <span class="tag">IETF</span><span class="tag">RFC Track</span><span class="tag">Security Area</span>
+          <span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span><span class="tag">NIST 800-207</span><span class="tag">RFC Track</span>
         </div>
       </div>
       <div class="card-footer">
@@ -1116,7 +1103,7 @@
     <div class="card">
       <div class="card-header">
         <span class="card-icon">🔐</span>
-        <span class="card-title card-title-gold">Secure RAG — Zero Trust Demo</span>
+        <span class="card-title">Secure RAG — Zero Trust Demo</span>
         <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
       </div>
       <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
@@ -1168,9 +1155,6 @@
           <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span>
           <span class="tag">FIPS 140-3</span><span class="tag">NIST 800-207</span>
         </div>
-      </div>
-      <div class="mcp-tools">
-        <span>MCP tools:</span> query_patient_records · get_patient_records
       </div>
       <div class="card-footer">
         <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
@@ -1228,9 +1212,6 @@
         <div class="tags compliance-tags">
           <span class="tag">SOC2</span><span class="tag">OWASP A05</span><span class="tag">OWASP A09</span>
         </div>
-      </div>
-      <div class="mcp-tools">
-        <span>MCP tools:</span> verify_setup · check_chain_status · get_full_chain · get_signing_history · get_denial_history · get_chain_changes · verify_signature
       </div>
       <div class="card-footer">
         <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
@@ -1291,11 +1272,32 @@
     copy.innerHTML = '&copy; 2026 Anthony James Trujillo';
     card.appendChild(copy);
     card.insertBefore(sig, card.firstChild);
+  });
 
-    card.querySelectorAll('.card-section-label').forEach(label => {
-      if (label.textContent.trim() === 'Stack') {
-        label.parentElement.style.marginTop = 'auto';
-      }
+  window.addEventListener('load', () => {
+    ['Stack', 'Designed for'].forEach(sectionName => {
+      const rows = new Map();
+      document.querySelectorAll('.card').forEach(card => {
+        const rowKey = Math.round(card.getBoundingClientRect().top);
+        if (!rows.has(rowKey)) rows.set(rowKey, []);
+        card.querySelectorAll('.card-section-label').forEach(label => {
+          if (label.textContent.trim() === sectionName) {
+            rows.get(rowKey).push({ card, div: label.parentElement });
+          }
+        });
+      });
+      rows.forEach(items => {
+        let maxOffset = 0;
+        items.forEach(({ card, div }) => {
+          const offset = div.getBoundingClientRect().top - card.getBoundingClientRect().top;
+          maxOffset = Math.max(maxOffset, offset);
+        });
+        items.forEach(({ card, div }) => {
+          const offset = div.getBoundingClientRect().top - card.getBoundingClientRect().top;
+          const extra = maxOffset - offset;
+          if (extra > 0) div.style.marginTop = extra + 'px';
+        });
+      });
     });
   });
 
