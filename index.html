@@ -984,7 +984,6 @@
       </div>
       <div class="social-links">
         <a class="social-link" href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="social-link" href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">IETF Draft</a>
         <a class="social-link" href="resume.html">Resume</a>
         <a class="social-link" href="achievements.html">Achievements</a>
       </div>
@@ -1060,6 +1059,34 @@
         <div class="card-section-label">Designed for</div>
         <div class="tags compliance-tags">
           <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+      </div>
+    </div>
+
+    <!-- Autonomous Code Reviewer -->
+    <div class="card">
+      <div class="card-header">
+        <img src="snitch.png" alt="Snitch" style="height:40px;width:auto;vertical-align:middle;margin-right:0.4rem;" />
+        <span class="card-title">Autonomous <span style="white-space:nowrap">Code Reviewer</span></span>
+        <a onclick="var v=document.querySelector('#acra-lightbox video');document.getElementById('acra-lightbox').style.display='flex';v.currentTime=0;v.play();return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a>
+      </div>
+      <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
+      <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
+      <div>
+        <div class="card-section-label">Stack</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Auth0 M2M</span>
+          <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span>
+          <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-section-label">Designed for</div>
+        <div class="tags compliance-tags">
+          <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
         </div>
       </div>
       <div class="card-footer">
@@ -1259,6 +1286,12 @@
   <div class="footer">
     &copy; 2026 Anthony James Trujillo — All rights reserved
   </div>
+
+<!-- ACRA Demo Lightbox -->
+<div id="acra-lightbox" onclick="var v=this.querySelector('video');v.pause();v.currentTime=0;this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
+  <a onclick="event.stopPropagation();var v=document.querySelector('#acra-lightbox video');v.pause();v.currentTime=0;document.getElementById('acra-lightbox').style.display='none'" style="font-size:0.82rem;text-decoration:none;cursor:pointer;align-self:flex-start;margin-left:4vw;background:linear-gradient(90deg,#8a5a85 0%,#b87ab5 25%,#dda8d8 42%,#f0dff0 50%,#dda8d8 58%,#b87ab5 75%,#8a5a85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">← Portfolio</a>
+  <video src="code-reviewer-agent.mp4" onclick="event.stopPropagation()" controls style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);"></video>
+</div>
 
 <!-- ATM Demo Lightbox -->
 <div id="atm-lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
