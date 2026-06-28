@@ -722,6 +722,8 @@
     }
 
     @media (max-width: 640px) {
+      #obo-card { grid-column: auto !important; }
+      #obo-card > div { grid-template-columns: 1fr !important; }
       #obo-card .card-header a { margin-left: 0 !important; }
       .cost-card { flex-direction: column; }
       .cost-card-img { width: 100% !important; max-width: 100% !important; }
@@ -1279,34 +1281,42 @@
     </div>
 
     <!-- Agentic OBO + Okta -->
-    <div id="obo-card" class="card card-flagship">
-      <div class="card-header">
-        <img src="obo-okta.png" alt="Agentic OBO + Okta" style="height:28px;width:auto;vertical-align:middle;flex-shrink:0;" />
-        <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
-        <a onclick="var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;margin-right:4px;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a>
-      </div>
-      <p class="card-question">When an AI agent moves money, opens a ticket, or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
-      <p class="card-desc-green">Most AI systems give the agent a broad service credential and call it done. This PoC proves the alternative: the agent carries <strong class="chrome">zero standing authority</strong>. It acts only with what the user is allowed to do — scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>. Agent is fully credential-blind.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch kills in-flight tokens at the resource. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain — every decision, every denial, tamper-evident.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
-          <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
-          <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
-          <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
-          <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
-          <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
+    <div id="obo-card" class="card card-flagship" style="grid-column:1/-1;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
+        <!-- Left: pitch -->
+        <div style="display:flex;flex-direction:column;gap:0.85rem;">
+          <div class="card-header">
+            <img src="obo-okta.png" alt="Agentic OBO + Okta" style="height:28px;width:auto;vertical-align:middle;flex-shrink:0;" />
+            <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
+            <a onclick="var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;margin-right:4px;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a>
+          </div>
+          <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
+          <p class="card-desc-green">The agent carries <strong class="chrome">zero standing authority</strong>. It acts only with what the user is allowed to do — scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>. Fully credential-blind.</p>
+          <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
+          <div class="card-footer">
+            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
+        <!-- Right: tech -->
+        <div style="display:flex;flex-direction:column;gap:0.85rem;">
+          <div>
+            <div class="card-section-label">Stack</div>
+            <div class="tags">
+              <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
+              <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
+              <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
+              <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
+              <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
+              <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Designed for</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
       </div>
     </div>
 
