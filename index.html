@@ -31,9 +31,10 @@
     .header {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 2rem;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 0 auto 1.5rem;
       padding: 2rem 2rem 5rem;
       background: linear-gradient(135deg, #161b22, #1c2230) padding-box,
@@ -41,6 +42,31 @@
       border: 2px solid transparent;
       border-radius: 16px;
       position: relative;
+    }
+    .header-cost-badge {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 280px;
+      padding: 0.65rem 0.8rem;
+      background: linear-gradient(135deg, #161b22, #1c2230) padding-box,
+                  linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
+      border: 1px solid transparent;
+      border-radius: 10px;
+    }
+    .header-cost-badge-title {
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+      background: var(--chrome);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header-cost-badge-list {
+      font-size: 0.74rem;
+      color: #b8bec4;
+      line-height: 1.55;
     }
     .powered-by {
       position: absolute;
@@ -80,7 +106,7 @@
     }
 
     .header-text .tagline {
-      font-size: 1rem;
+      font-size: 1.2rem;
       margin-bottom: 0.75rem;
       text-align: center;
     }
@@ -142,7 +168,7 @@
 
     .gold-saying {
       font-family: Georgia, 'Times New Roman', serif;
-      font-size: 1.05rem;
+      font-size: 1.3rem;
       font-weight: 700;
       font-style: italic;
       letter-spacing: 0.03em;
@@ -306,7 +332,7 @@
     /* ── IETF Feature ── */
     .ietf-feature {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 1.5rem auto 1.5rem;
       padding: 1.5rem 2rem;
       background: linear-gradient(135deg, #153528, #201a3a);
@@ -366,9 +392,10 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      align-items: start;
       gap: 1.5rem;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 0 auto 1.5rem;
     }
 
@@ -379,12 +406,12 @@
       border-left: 4px solid #b8b0f0;
       border-radius: 12px;
       padding: 1.5rem;
-      padding-bottom: 3rem;
+      padding-bottom: 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.7rem;
       position: relative;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s, transform 0.2s, min-height 0.35s ease;
     }
 
     .card-flagship {
@@ -416,13 +443,29 @@
 
     .card-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: flex-start;
       gap: 0.75rem;
     }
+    .card-header-extra {
+      flex: 1 0 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: -8px;
+    }
 
-    .card-icon {
-      font-size: 1.75rem;
+    .card-toggle-icon {
+      height: 58px;
+      width: auto;
       flex-shrink: 0;
+      margin-left: auto;
+      cursor: pointer;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: drop-shadow(0 0 0 rgba(88,166,255,0));
+    }
+    .card-toggle-icon.is-open {
+      transform: rotate(180deg);
+      filter: drop-shadow(0 0 6px rgba(88,166,255,0.65));
     }
 
     .card-title {
@@ -433,6 +476,8 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       line-height: 1.3;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .card-question {
@@ -533,6 +578,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    /* ── Card expand/collapse ── */
+    .card-header.is-collapsible {
+      cursor: pointer;
+    }
+    .card-punch {
+      cursor: pointer;
+    }
+    .card-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.25s ease;
+    }
+    .card-details.is-open {
+      max-height: 600px;
+      opacity: 1;
     }
 
     .status {
@@ -722,9 +788,6 @@
     }
 
     @media (max-width: 640px) {
-      #obo-card { grid-column: auto !important; }
-      #obo-card > div { grid-template-columns: 1fr !important; }
-      #obo-card .card-header a { margin-left: 0 !important; }
       .cost-card { flex-direction: column; }
       .cost-card-img { width: 100% !important; max-width: 100% !important; }
       .cost-card-text { padding: 1rem 1rem !important; }
@@ -768,7 +831,7 @@
     /* ── HSO Production Proof ── */
     .hso-section {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 0 auto 0;
       padding: 1.25rem 2rem;
       background: linear-gradient(135deg, #153528, #201a3a);
@@ -836,7 +899,7 @@
     /* ── Certifications ── */
     .certs-section {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 0 auto 1.5rem;
       padding: 1.25rem 2rem;
       background: linear-gradient(135deg, #13203a, #1a1530);
@@ -891,7 +954,7 @@
 
     /* ── Footer ── */
     .footer {
-      max-width: 1100px;
+      max-width: 1480px;
       margin: 1rem auto 0;
       text-align: center;
       font-size: 0.8rem;
@@ -903,46 +966,6 @@
       border-top: 1px solid #21262d;
       margin: 2.5rem 0 0;
     }
-    .card-sig {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      padding-bottom: 0.2rem;
-      border-bottom: 1px solid #21262d;
-      width: 100%;
-    }
-    .card-sig img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      opacity: 0.85;
-    }
-    .card-sig img:not(.badge) {
-      border: 1px solid #c8a030;
-    }
-    .card-sig-label {
-      position: absolute;
-      left: 44%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-    }
-    .card-sig-label span {
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      background: linear-gradient(180deg,#0a1a4a 0%,#1a3a8c 20%,#2a5ab8 38%,#6a9ae0 50%,#2a5ab8 62%,#1a3a8c 80%,#0a1a4a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 6px rgba(42,90,184,0.5));
-      border: 1px solid #c8a030;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
-      box-shadow: 0 0 8px rgba(140,60,220,0.3), inset 0 0 6px rgba(140,60,220,0.1);
-    }
     .card-copy {
       position: absolute;
       bottom: 0.75rem;
@@ -953,15 +976,6 @@
       font-size: 0.62rem;
       color: #484f58;
       text-align: center;
-    }
-    .card-sig img.badge {
-      border-radius: 0;
-      width: 115px;
-      height: 56px;
-      object-fit: contain;
-      opacity: 1;
-      flex-shrink: 0;
-      flex-shrink: 0;
     }
   </style>
 </head>
@@ -984,28 +998,22 @@
             <img src="demo-d.png" alt="Last Mile demo — DENIED" />
           </div>
         </span>
-        <span style="font-size:0.65rem;color:#555;padding-left:0.2rem;">Piloted by TonyAI, Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></span>
+        <span style="font-size:0.8rem;color:#555;padding-left:0.2rem;">Piloted by <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer" style="font-weight:800;color:#79c0ff;text-decoration:none;">TonyAI</a>, Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></span>
       </div>
       <div class="social-links">
-        <a class="social-link" href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="social-link" href="resume.html">Resume</a>
         <a class="social-link" href="achievements.html">Achievements</a>
         <a href="#obo-card" style="font-size:0.7rem;font-weight:700;text-decoration:none;border:1px solid #c8a030;border-radius:10px;padding:3px 10px;letter-spacing:0.04em;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8a6a00,#c8a030,#ffe066,#c8a030,#8a6a00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">★ New: Agentic OBO</a>
       </div>
     </div>
-  </div>
-
-  <!-- AI Cost Optimization Card -->
-  <div class="cost-card" style="width:100%;max-width:1100px;margin:0 auto 1.5rem;background:linear-gradient(135deg,#161b22,#1c2230) padding-box,linear-gradient(135deg,#1e2830,#6a7a88,#bcccd8,#ffffff,#bcccd8,#6a7a88,#1e2830) border-box;border:2px solid transparent;border-radius:12px;display:flex;align-items:center;overflow:hidden;gap:0;">
-    <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" class="cost-card-img" style="width:55%;max-width:600px;display:block;object-fit:cover;" />
-    <div class="cost-card-text" style="padding:1.5rem 2rem;flex:1;">
-      <div style="font-size:1.25rem;font-weight:900;letter-spacing:0.03em;margin-bottom:0.85rem;background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI Cost Engineering</div>
-      <div style="font-size:0.82rem;color:#b8bec4;line-height:1.9;">
-        <span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed<br>
-        <span style="color:#2ea043;font-weight:700;">▸</span> Prompt caching — stop paying for repeated context<br>
-        <span style="color:#2ea043;font-weight:700;">▸</span> Spend caps — hard limits, no surprise bills<br>
-        <span style="color:#2ea043;font-weight:700;">▸</span> Model tiering — Haiku for simple tasks, Opus for hard ones<br>
-        <span style="color:#2ea043;font-weight:700;">▸</span> Context budgeting — 2k tokens, not 100k
+    <div class="header-cost-badge">
+      <div class="header-cost-badge-title"><span style="-webkit-text-fill-color:initial;font-size:1.3rem;">💰</span> AI Cost Engineering</div>
+      <div class="header-cost-badge-list">
+        <div><span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed</div>
+        <div><span style="color:#2ea043;font-weight:700;">▸</span> Prompt caching — stop paying for repeated context</div>
+        <div><span style="color:#2ea043;font-weight:700;">▸</span> Spend caps — hard limits, no surprise bills</div>
+        <div><span style="color:#2ea043;font-weight:700;">▸</span> Model tiering — Haiku for simple tasks, Opus for hard ones</div>
+        <div><span style="color:#2ea043;font-weight:700;">▸</span> Context budgeting — 2k tokens, not 100k</div>
       </div>
     </div>
   </div>
@@ -1014,308 +1022,326 @@
   <div class="grid">
 
     <!-- Phalanx -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🛡️</span>
+    <div class="card" id="phalanx-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
         <span class="card-title">Phalanx</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-desc-green">Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + ReBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">IdP OIDC/OAuth2</span><span class="tag">IETF A2A</span>
-          <span class="tag">MCP Security Gate</span><span class="tag">HashiCorp Vault</span>
-          <span class="tag">JWT/JWK</span><span class="tag">HMAC-SHA256</span>
-          <span class="tag">FGA</span><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">Claude Sonnet</span><span class="tag">Pinecone</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">Every AI agent gets a cryptographic identity at birth — and <strong class="chrome">zero standing access</strong>.</p>
+      <div class="card-details">
+        <p class="card-desc-green">Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + ReBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">IdP OIDC/OAuth2</span><span class="tag">IETF A2A</span>
+            <span class="tag">MCP Security Gate</span><span class="tag">HashiCorp Vault</span>
+            <span class="tag">JWT/JWK</span><span class="tag">HMAC-SHA256</span>
+            <span class="tag">FGA</span><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">Claude Sonnet</span><span class="tag">Pinecone</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span><span class="tag">OWASP LLM Top 10</span><span class="tag">MITRE ATLAS</span><span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span><span class="tag">OWASP LLM Top 10</span><span class="tag">MITRE ATLAS</span><span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status-amber"><div class="status-dot-amber"></div>Under Construction</div>
+        <div class="card-footer">
+          <div class="status-amber"><div class="status-dot-amber"></div>Under Construction</div>
+        </div>
       </div>
     </div>
 
     <!-- Zero Trust Payments -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">💳</span>
+    <div class="card" id="payments-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
         <span class="card-title">Zero Trust Payments with AI</span>
-        <span onclick="document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;white-space:nowrap;">📷 Preview demo</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+        <span class="card-header-extra"><span onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;">📷 Preview demo</span></span>
       </div>
-      <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
-      <p class="card-desc-green">AI recommends. Policy decides. Money never moves on AI confidence alone. Revoke one <strong class="chrome">ReBAC</strong> relationship — the entire chain dies.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Prompt Evaluation Gate</strong> sits between Claude and execution — deterministic Python, no LLM. Four checks. Fail any = hard block. Zero overrides.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">Zero Trust</span>
-          <span class="tag">ReBAC</span><span class="tag">Prompt Evaluation Gate</span>
-          <span class="tag">Redis</span><span class="tag">DynamoDB</span><span class="tag">S3</span>
-          <span class="tag">KMS</span><span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span>
-          <span class="tag">Terraform</span><span class="tag">CloudWatch</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">AI recommends. Policy decides. Money never moves on AI confidence alone.</p>
+      <div class="card-details">
+        <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
+        <p class="card-desc-green">Revoke one <strong class="chrome">ReBAC</strong> relationship — the entire chain dies.</p>
+        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Prompt Evaluation Gate</strong> sits between Claude and execution — deterministic Python, no LLM. Four checks. Fail any = hard block. Zero overrides.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">Zero Trust</span>
+            <span class="tag">ReBAC</span><span class="tag">Prompt Evaluation Gate</span>
+            <span class="tag">Redis</span><span class="tag">DynamoDB</span><span class="tag">S3</span>
+            <span class="tag">KMS</span><span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span>
+            <span class="tag">Terraform</span><span class="tag">CloudWatch</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Autonomous Code Reviewer -->
-    <div class="card">
-      <div class="card-header">
-        <img src="snitch.png" alt="Snitch" style="height:28px;width:auto;vertical-align:middle;flex-shrink:0;" />
+    <div class="card" id="acra-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
         <span class="card-title">Autonomous Code Reviewer</span>
-        <a onclick="var v=document.querySelector('#acra-lightbox video');document.getElementById('acra-lightbox').style.display='flex';v.currentTime=0;v.play();return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;margin-right:4px;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+        <span class="card-header-extra"><a onclick="event.stopPropagation();var v=document.querySelector('#acra-lightbox video');document.getElementById('acra-lightbox').style.display='flex';v.currentTime=0;v.play();return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a></span>
       </div>
-      <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
-      <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Auth0 M2M</span>
-          <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
-          <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
+      <div class="card-details">
+        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
+        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Auth0 M2M</span>
+            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
+            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- IETF Internet-Draft -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">📡</span>
+    <div class="card" id="ietf-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
         <span class="card-title" style="animation:pulse 2.5s ease-in-out infinite;display:inline-block;">IETF Internet-Draft — Agent-to-Agent Trust</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-top:-4px;margin-bottom:4px;">
-        <span style="font-size:0.78rem;font-weight:700;padding:2px 10px;border-radius:4px;background:linear-gradient(135deg,#7a0000,#c0392b,#7a0000);color:#fff;letter-spacing:0.05em;">★ IETF AUTHOR</span>
-      </div>
-      <div style="display:flex;gap:1.25rem;margin-bottom:0.6rem;">
-        <a class="card-ext-link" href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">datatracker.ietf.org →</a>
-        <a class="card-ext-link" href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">PoC on GitHub →</a>
-      </div>
-      <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
-      <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one. First author.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-4px;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. <strong style="color:#c8d4e0">34/34 attacks blocked. 50/50 conformance vectors.</strong> Every pattern in the spec runs as code.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python 3.12</span><span class="tag">FastAPI</span><span class="tag">X.509 PKI</span><span class="tag">JWT Chains</span>
-          <span class="tag">HMAC</span><span class="tag">CRL</span><span class="tag">Cedar</span><span class="tag">AWS KMS</span>
-          <span class="tag">S3</span><span class="tag">Replay Prevention</span><span class="tag">Docker</span><span class="tag">Terraform</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">First author defining the IETF standard for agent-to-agent trust — every clause runs as working code.</p>
+      <div class="card-details">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <span style="font-size:0.78rem;font-weight:700;padding:2px 10px;border-radius:4px;background:linear-gradient(135deg,#7a0000,#c0392b,#7a0000);color:#fff;letter-spacing:0.05em;">★ IETF AUTHOR</span>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span><span class="tag">NIST 800-207</span><span class="tag">RFC Track</span>
+        <div style="display:flex;gap:1.25rem;">
+          <a class="card-ext-link" href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">datatracker.ietf.org →</a>
+          <a class="card-ext-link" href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">PoC on GitHub →</a>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Published · Draft 00 · PoC Live</span></div>
+        <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
+        <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one.</p>
+        <p class="card-desc" style="font-size:0.78rem;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. <strong style="color:#c8d4e0">34/34 attacks blocked. 50/50 conformance vectors.</strong> Every pattern in the spec runs as code.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python 3.12</span><span class="tag">FastAPI</span><span class="tag">X.509 PKI</span><span class="tag">JWT Chains</span>
+            <span class="tag">HMAC</span><span class="tag">CRL</span><span class="tag">Cedar</span><span class="tag">AWS KMS</span>
+            <span class="tag">S3</span><span class="tag">Replay Prevention</span><span class="tag">Docker</span><span class="tag">Terraform</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span><span class="tag">NIST 800-207</span><span class="tag">RFC Track</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Published · Draft 00 · PoC Live</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Secure RAG — Flagship -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🔐</span>
+    <div class="card" id="secure-rag-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
         <span class="card-title">Secure RAG — Zero Trust Demo</span>
-        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-question">Same AI. Same query. Different identity. Different answer. Zero Trust enforces it — not the prompt.</p>
-      <p class="card-desc-green">PHI never crosses the boundary. Enforced before <strong class="chrome">Claude</strong> sees a single token — by the enforcement stack, not the prompt.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> → audit. One correlation ID. Full trail, end-to-end.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">AWS Bedrock Knowledge Base</span>
-          <span class="tag">Pinecone</span><span class="tag">S3</span><span class="tag">DynamoDB</span>
-          <span class="tag">CloudWatch</span><span class="tag">SQS</span><span class="tag">IAM</span>
-          <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">MCP Resources</span>
-          <span class="tag">MCP Prompts</span><span class="tag">Claude Code</span><span class="tag">JWT RS256</span><span class="tag">Terraform</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('secure-rag-card')">Same AI, same query, different identity — different answer. Zero Trust enforces it, not the prompt.</p>
+      <div class="card-details">
+        <p class="card-desc-green">PHI never crosses the boundary. Enforced before <strong class="chrome">Claude</strong> sees a single token — by the enforcement stack, not the prompt.</p>
+        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> → audit. One correlation ID. Full trail, end-to-end.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">AWS Bedrock Knowledge Base</span>
+            <span class="tag">Pinecone</span><span class="tag">S3</span><span class="tag">DynamoDB</span>
+            <span class="tag">CloudWatch</span><span class="tag">SQS</span><span class="tag">IAM</span>
+            <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">MCP Resources</span>
+            <span class="tag">MCP Prompts</span><span class="tag">Claude Code</span><span class="tag">JWT RS256</span><span class="tag">Terraform</span><span class="tag">Token Savings</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">HIPAA</span><span class="tag">SOC2</span>
-          <span class="tag">NIST 800-207</span><span class="tag">FIPS 140-3</span><span class="tag">OWASP A01</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">HIPAA</span><span class="tag">SOC2</span>
+            <span class="tag">NIST 800-207</span><span class="tag">FIPS 140-3</span><span class="tag">OWASP A01</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Last Mile Zero Trust -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">⚔️</span>
+    <div class="card" id="lastmile-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('lastmile-card')">
         <span class="card-title">Last Mile Zero Trust</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-question">How do you give an AI agent secure access to on-prem data without static credentials or opening firewall holes?</p>
-      <p class="card-desc-green">Zero static credentials. Zero inbound firewall rules. Full cryptographic audit trail on every access.</p>
-      <p class="card-desc" style="font-size:0.78rem;margin-top:-6px;"><strong class="chrome">Vault PKI</strong> issues short-lived X.509 certs. Relay agent polls <strong class="chrome">SQS</strong> outbound — no inbound ports, no firewall holes. <strong class="chrome">JWT → ReBAC → cert → DB.</strong> Every hop enforced. No hop trusted.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">AWS SQS</span>
-          <span class="tag">IAM</span><span class="tag">HashiCorp Vault</span><span class="tag">PostgreSQL 16</span>
-          <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">JWT RS256</span>
-          <span class="tag">MCP</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Docker</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">No static credentials. No inbound firewall holes. Every hop enforced, no hop trusted.</p>
+      <div class="card-details">
+        <p class="card-question">How do you give an AI agent secure access to on-prem data without static credentials or opening firewall holes?</p>
+        <p class="card-desc-green">Zero static credentials. Zero inbound firewall rules. Full cryptographic audit trail on every access.</p>
+        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Vault PKI</strong> issues short-lived X.509 certs. Relay agent polls <strong class="chrome">SQS</strong> outbound — no inbound ports, no firewall holes. <strong class="chrome">JWT → ReBAC → cert → DB.</strong></p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">AWS SQS</span>
+            <span class="tag">IAM</span><span class="tag">HashiCorp Vault</span><span class="tag">PostgreSQL 16</span>
+            <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">JWT RS256</span>
+            <span class="tag">MCP</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Docker</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span>
-          <span class="tag">FIPS 140-3</span><span class="tag">NIST 800-207</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span>
+            <span class="tag">FIPS 140-3</span><span class="tag">NIST 800-207</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Sentinel FIPS -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🔒</span>
+    <div class="card" id="sentinel-fips-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-fips-card')">
         <span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-question">How do you prove an AI system's decisions are tamper-proof in a federally regulated environment?</p>
-      <p class="card-desc-green">AWS-native FIPS 140-3 security boundary. <strong class="chrome">KMS</strong>-signed decisions. Tamper-proof audit trail in <strong class="chrome">S3 Object Lock</strong> COMPLIANCE mode — root cannot delete the evidence. FedRAMP-ready.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">AWS Lambda</span><span class="tag">API Gateway</span>
-          <span class="tag">KMS</span><span class="tag">DynamoDB</span><span class="tag">Cedar/AVP</span>
-          <span class="tag">CloudTrail</span><span class="tag">S3 Object Lock</span><span class="tag">EventBridge</span>
-          <span class="tag">SNS</span><span class="tag">SecretsManager</span><span class="tag">CloudWatch</span><span class="tag">SAM</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-fips-card')">KMS-signed decisions, locked in S3 Object Lock — even root can't delete the evidence.</p>
+      <div class="card-details">
+        <p class="card-question">How do you prove an AI system's decisions are tamper-proof in a federally regulated environment?</p>
+        <p class="card-desc-green">AWS-native FIPS 140-3 security boundary. Tamper-proof audit trail in <strong class="chrome">S3 Object Lock</strong> COMPLIANCE mode. FedRAMP-ready.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">AWS Lambda</span><span class="tag">API Gateway</span>
+            <span class="tag">KMS</span><span class="tag">DynamoDB</span><span class="tag">Cedar/AVP</span>
+            <span class="tag">CloudTrail</span><span class="tag">S3 Object Lock</span><span class="tag">EventBridge</span>
+            <span class="tag">SNS</span><span class="tag">SecretsManager</span><span class="tag">CloudWatch</span><span class="tag">SAM</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">FIPS 140-3</span><span class="tag">FedRAMP High</span>
-          <span class="tag">SOC2</span><span class="tag">NIST 800-53</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">FIPS 140-3</span><span class="tag">FedRAMP High</span>
+            <span class="tag">SOC2</span><span class="tag">NIST 800-53</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Sentinel MCP -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">⚡</span>
+    <div class="card" id="sentinel-mcp-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mcp-card')">
         <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
-        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-question">How do you cut security investigation time from 45 minutes to 60 seconds?</p>
-      <p class="card-desc-green">Plain-English in, forensically verified answer out. Conversational DevOps — <strong class="chrome">CloudTrail</strong>, <strong class="chrome">CloudWatch</strong>, <strong class="chrome">DynamoDB</strong>, and <strong class="chrome">KMS</strong> through natural language with full audit trail.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">FastMCP</span><span class="tag">Boto3</span>
-          <span class="tag">DynamoDB</span><span class="tag">CloudTrail</span><span class="tag">CloudWatch</span>
-          <span class="tag">KMS</span><span class="tag">Lambda</span><span class="tag">IAM</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">Security investigations: 45 minutes down to 60 seconds — plain English in, forensically verified answer out.</p>
+      <div class="card-details">
+        <p class="card-question">How do you cut security investigation time from 45 minutes to 60 seconds?</p>
+        <p class="card-desc-green">Conversational DevOps — <strong class="chrome">CloudTrail</strong>, <strong class="chrome">CloudWatch</strong>, <strong class="chrome">DynamoDB</strong>, and <strong class="chrome">KMS</strong> through natural language with full audit trail.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">FastMCP</span><span class="tag">Boto3</span>
+            <span class="tag">DynamoDB</span><span class="tag">CloudTrail</span><span class="tag">CloudWatch</span>
+            <span class="tag">KMS</span><span class="tag">Lambda</span><span class="tag">IAM</span><span class="tag">Token Savings</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">SOC2</span><span class="tag">OWASP A05</span><span class="tag">OWASP A09</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">SOC2</span><span class="tag">OWASP A05</span><span class="tag">OWASP A09</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- RAG Knowledge Assistant -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🧠</span>
+    <div class="card" id="rag-knowledge-card">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
         <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
-        <img src="cost-cutting-badge.png" alt="Cuts AI Token Costs" title="Cuts AI Token Costs" style="height:52px;width:auto;display:inline-block;vertical-align:middle;opacity:0.9;" />
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-question">How do you roll out enterprise AI safely — and onboard into a new role faster without sensitive data leaving the org?</p>
-      <p class="card-desc-green">Hard spend caps. Local-first retrieval. Sensitive data never reaches an external API. Onboarding accelerator — ingest docs, ADRs, runbooks. Ramp fast, stay secure.</p>
-      <div>
-        <div class="card-section-label">Stack</div>
-        <div class="tags">
-          <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span>
-          <span class="tag">JSON knowledge store</span><span class="tag">Token budgeting</span>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">Hard spend caps. Local-first retrieval. Sensitive data never leaves the building.</p>
+      <div class="card-details">
+        <p class="card-question">How do you roll out enterprise AI safely — and onboard into a new role faster without sensitive data leaving the org?</p>
+        <p class="card-desc-green">Sensitive data never reaches an external API. Onboarding accelerator — ingest docs, ADRs, runbooks. Ramp fast, stay secure.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span>
+            <span class="tag">JSON knowledge store</span><span class="tag">Token budgeting</span><span class="tag">Token Savings</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="card-section-label">Designed for</div>
-        <div class="tags compliance-tags">
-          <span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A09</span>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A09</span>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
       </div>
     </div>
 
     <!-- Agentic OBO + Okta -->
-    <div id="obo-card" class="card card-flagship" style="grid-column:1/-1;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
-        <!-- Left: pitch -->
-        <div style="display:flex;flex-direction:column;gap:0.85rem;">
-          <div class="card-header">
-            <img src="obo-okta.png" alt="Agentic OBO + Okta" style="height:28px;width:auto;vertical-align:middle;flex-shrink:0;" />
-            <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
-            <a onclick="var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;margin-left:auto;margin-right:4px;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a>
-          </div>
-          <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
-          <p class="card-desc-green">The agent carries <strong class="chrome">zero standing authority</strong>. It acts only with what the user is allowed to do — scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>. Fully credential-blind.</p>
-          <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
-          <div class="card-footer">
-            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+    <div id="obo-card" class="card card-flagship">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
+        <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+        <span class="card-header-extra"><a onclick="event.stopPropagation();var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a></span>
+      </div>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">The agent carries <strong class="chrome">zero standing authority</strong> — it acts only with what the user is allowed to do, fully credential-blind.</p>
+      <div class="card-details">
+        <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
+        <p class="card-desc-green">Scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>.</p>
+        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
+            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
+            <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
+            <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
+            <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
+            <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
           </div>
         </div>
-        <!-- Right: tech -->
-        <div style="display:flex;flex-direction:column;gap:0.85rem;">
-          <div>
-            <div class="card-section-label">Stack</div>
-            <div class="tags">
-              <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
-              <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
-              <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
-              <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
-              <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
-              <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
-            </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
           </div>
-          <div>
-            <div class="card-section-label">Designed for</div>
-            <div class="tags compliance-tags">
-              <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
-            </div>
-          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
         </div>
       </div>
     </div>
@@ -1346,42 +1372,48 @@
   <img src="zero-trust-atm-demo.png" alt="Zero Trust ATM Demo" style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);" />
 </div>
 <script>
+  function toggleCardDetails(cardId) {
+    const card = document.getElementById(cardId);
+    const details = card.querySelector('.card-details');
+    const toggleIcon = card.querySelector('.card-toggle-icon');
+    const opening = !details.classList.contains('is-open');
+    details.classList.toggle('is-open');
+    toggleIcon.classList.toggle('is-open');
+    toggleIcon.title = opening ? 'Click to collapse' : 'Click to expand';
+    details.style.maxHeight = opening ? details.scrollHeight + 'px' : '0px';
+    if (card.dataset.expandedHeight) {
+      card.style.minHeight = (opening ? card.dataset.expandedHeight : card.dataset.collapsedHeight) + 'px';
+    }
+  }
+
+  function equalizeCardSizes() {
+    const cards = Array.from(document.querySelectorAll('.card')).filter(card => card.querySelector('.card-details'));
+    let maxCollapsed = 0, maxExpanded = 0;
+    cards.forEach(card => {
+      card.style.minHeight = '';
+      const details = card.querySelector('.card-details');
+      const collapsedHeight = card.offsetHeight;
+      const expandedHeight = collapsedHeight + details.scrollHeight;
+      maxCollapsed = Math.max(maxCollapsed, collapsedHeight);
+      maxExpanded = Math.max(maxExpanded, expandedHeight);
+    });
+    cards.forEach(card => {
+      const details = card.querySelector('.card-details');
+      card.dataset.collapsedHeight = maxCollapsed;
+      card.dataset.expandedHeight = maxExpanded;
+      card.style.minHeight = (details.classList.contains('is-open') ? maxExpanded : maxCollapsed) + 'px';
+    });
+  }
+
   document.querySelectorAll('.card').forEach(card => {
-    const sig = document.createElement('div');
-    sig.className = 'card-sig';
-    sig.innerHTML = '<img src="TonyAI.png" alt="PhalanxAI" /><span class="card-sig-label"><span>PhalanxAI</span></span><img src="website-logo-v2.png" alt="Zero Trust" class="badge" />';
     const copy = document.createElement('div');
     copy.className = 'card-copy';
     copy.innerHTML = '&copy; 2026 Anthony James Trujillo';
     card.appendChild(copy);
-    card.insertBefore(sig, card.firstChild);
   });
 
   window.addEventListener('load', () => {
-    ['Stack', 'Designed for'].forEach(sectionName => {
-      const rows = new Map();
-      document.querySelectorAll('.card').forEach(card => {
-        const rowKey = Math.round(card.getBoundingClientRect().top);
-        if (!rows.has(rowKey)) rows.set(rowKey, []);
-        card.querySelectorAll('.card-section-label').forEach(label => {
-          if (label.textContent.trim() === sectionName) {
-            rows.get(rowKey).push({ card, div: label.parentElement });
-          }
-        });
-      });
-      rows.forEach(items => {
-        let maxOffset = 0;
-        items.forEach(({ card, div }) => {
-          const offset = div.getBoundingClientRect().top - card.getBoundingClientRect().top;
-          maxOffset = Math.max(maxOffset, offset);
-        });
-        items.forEach(({ card, div }) => {
-          const offset = div.getBoundingClientRect().top - card.getBoundingClientRect().top;
-          const extra = maxOffset - offset;
-          if (extra > 0) div.style.marginTop = extra + 'px';
-        });
-      });
-    });
+    equalizeCardSizes();
   });
 
 </script>
