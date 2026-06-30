@@ -266,6 +266,34 @@
       bottom: 1.25rem;
       right: 1.5rem;
     }
+    .header-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    .header-note img {
+      height: 58px;
+      width: auto;
+      flex-shrink: 0;
+    }
+    .header-note span {
+      font-size: 0.95rem;
+      color: #8b949e;
+    }
+
+    @media (max-width: 1100px) {
+      .header-note {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+    }
 
     @media (max-width: 640px) {
       .header {
@@ -299,6 +327,18 @@
         position: static;
         justify-content: center;
         margin-top: 1rem;
+      }
+      .header-note {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin-top: 0.75rem;
+        white-space: normal;
+        text-align: center;
+        max-width: 100%;
+      }
+      .header-note span {
+        white-space: normal;
       }
     }
 
@@ -406,7 +446,6 @@
       border-left: 4px solid #b8b0f0;
       border-radius: 12px;
       padding: 1.5rem;
-      padding-bottom: 2.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.7rem;
@@ -447,11 +486,19 @@
       align-items: flex-start;
       gap: 0.75rem;
     }
-    .card-header-extra {
-      flex: 1 0 100%;
+    .card-title-group {
       display: flex;
-      justify-content: flex-end;
-      margin-top: -8px;
+      flex-direction: column;
+      gap: 0.3rem;
+      min-width: 0;
+      flex: 1 1 0;
+    }
+    .card-demo-link {
+      font-size: 0.75rem;
+      color: #58a6ff;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .card-toggle-icon {
@@ -966,17 +1013,6 @@
       border-top: 1px solid #21262d;
       margin: 2.5rem 0 0;
     }
-    .card-copy {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 1.5rem;
-      right: 1.5rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid #21262d;
-      font-size: 0.62rem;
-      color: #484f58;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -999,6 +1035,10 @@
           </div>
         </span>
         <span style="font-size:0.8rem;color:#555;padding-left:0.2rem;">Piloted by <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer" style="font-weight:800;color:#79c0ff;text-decoration:none;">TonyAI</a>, Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></span>
+      </div>
+      <div class="header-note">
+        <img src="website-logo-v2-trimmed.png" alt="Shield" />
+        <span>Click on a shield below to expand and reveal the details.</span>
       </div>
       <div class="social-links">
         <a class="social-link" href="resume.html">Resume</a>
@@ -1024,7 +1064,7 @@
     <!-- Phalanx -->
     <div class="card" id="phalanx-card">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
-        <span class="card-title">Phalanx</span>
+        <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
       <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">Every AI agent gets a cryptographic identity at birth — and <strong class="chrome">zero standing access</strong>.</p>
@@ -1054,9 +1094,11 @@
     <!-- Zero Trust Payments -->
     <div class="card" id="payments-card">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
-        <span class="card-title">Zero Trust Payments with AI</span>
+        <div class="card-title-group">
+          <span class="card-title">Zero Trust Payments with AI</span>
+          <span class="card-demo-link" onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='flex'">📷 Preview demo</span>
+        </div>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-        <span class="card-header-extra"><span onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='flex'" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;">📷 Preview demo</span></span>
       </div>
       <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">AI recommends. Policy decides. Money never moves on AI confidence alone.</p>
       <div class="card-details">
@@ -1088,9 +1130,11 @@
     <!-- Autonomous Code Reviewer -->
     <div class="card" id="acra-card">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
-        <span class="card-title">Autonomous Code Reviewer</span>
+        <div class="card-title-group">
+          <span class="card-title">Autonomous Code Reviewer</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();var v=document.querySelector('#acra-lightbox video');document.getElementById('acra-lightbox').style.display='flex';v.currentTime=0;v.play();return false;" href="#">🎬 60-sec demo</a>
+        </div>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-        <span class="card-header-extra"><a onclick="event.stopPropagation();var v=document.querySelector('#acra-lightbox video');document.getElementById('acra-lightbox').style.display='flex';v.currentTime=0;v.play();return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a></span>
       </div>
       <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
       <div class="card-details">
@@ -1190,7 +1234,7 @@
     <!-- Last Mile Zero Trust -->
     <div class="card" id="lastmile-card">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('lastmile-card')">
-        <span class="card-title">Last Mile Zero Trust</span>
+        <span class="card-title">Last Mile Zero Trust — Platform</span>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
       <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">No static credentials. No inbound firewall holes. Every hop enforced, no hop trusted.</p>
@@ -1314,9 +1358,11 @@
     <!-- Agentic OBO + Okta -->
     <div id="obo-card" class="card card-flagship">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
-        <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
+        <div class="card-title-group">
+          <span class="card-title card-title-gold">Autonomous Agentic OBO</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#">🎬 60-sec demo</a>
+        </div>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-        <span class="card-header-extra"><a onclick="event.stopPropagation();var lb=document.getElementById('obo-lightbox');lb.style.display='flex';var v=lb.querySelector('video');v.currentTime=0;setTimeout(function(){v.play();},50);return false;" href="#" style="cursor:pointer;font-size:0.75rem;color:#58a6ff;white-space:nowrap;text-decoration:none;">🎬 60-sec demo</a></span>
       </div>
       <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">The agent carries <strong class="chrome">zero standing authority</strong> — it acts only with what the user is allowed to do, fully credential-blind.</p>
       <div class="card-details">
@@ -1404,13 +1450,6 @@
       card.style.minHeight = (details.classList.contains('is-open') ? maxExpanded : maxCollapsed) + 'px';
     });
   }
-
-  document.querySelectorAll('.card').forEach(card => {
-    const copy = document.createElement('div');
-    copy.className = 'card-copy';
-    copy.innerHTML = '&copy; 2026 Anthony James Trujillo';
-    card.appendChild(copy);
-  });
 
   window.addEventListener('load', () => {
     equalizeCardSizes();
