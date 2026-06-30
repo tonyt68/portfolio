@@ -1088,6 +1088,116 @@
   <!-- PoC Grid -->
   <div class="grid">
 
+    <!-- Autonomous Code Reviewer -->
+    <div class="card card-flagship" id="acra-card">
+      <div class="card-badge-new"><span>★ New</span></div>
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
+        <div class="card-title-group">
+          <span class="card-title">Auth0 Autonomous Code Reviewer</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('code-reviewer-agent.mp4');return false;" href="#">🎬 60-sec demo</a>
+        </div>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+      </div>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
+      <div class="card-details">
+        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
+        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Auth0 M2M</span>
+            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
+            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agentic OBO + Okta -->
+    <div id="obo-card" class="card card-flagship">
+      <div class="card-badge-new"><span>★ New</span></div>
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
+        <div class="card-title-group">
+          <span class="card-title card-title-gold">Okta Autonomous Agentic OBO</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('obo-okta-demo.mp4');return false;" href="#">🎬 60-sec demo</a>
+        </div>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+      </div>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">The agent carries <strong class="chrome">zero standing authority</strong> — it acts only with what the user is allowed to do, fully credential-blind.</p>
+      <div class="card-details">
+        <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
+        <p class="card-desc-green">Scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>.</p>
+        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
+            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
+            <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
+            <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
+            <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
+            <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWS OBO Permissions — Cognito + Spring Resource Server -->
+    <div class="card card-flagship" id="aws-obo-card">
+      <div class="card-badge-new"><span>★ New</span></div>
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')">
+        <div class="card-title-group">
+          <span class="card-title">AWS OBO Permissions — Cognito + Spring Resource Server</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('aws-obo-permissions-demo.mp4');return false;" href="#">🎬 45-sec demo</a>
+        </div>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+      </div>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">Pure stateless token auth — IdP authenticates, Spring validates JWT claims. No hybrid session flows. No server-side auth state.</p>
+      <div class="card-details">
+        <p class="card-question">How do you enforce scoped, time-limited permissions on every API call when the resource server must stay completely stateless — no session, no auth state?</p>
+        <p class="card-desc-green"><strong class="chrome">Cognito</strong> authenticates the user — Spring never sees a login form. Lambda mints a scoped-down OBO token per task. Kill switch fires on both layers simultaneously: <strong class="chrome">DynamoDB JTI blocklist</strong> + <strong class="chrome">Redis session delete</strong>. User is locked out before the current token expires.</p>
+        <p class="card-desc" style="font-size:0.78rem;">Spring configured as pure <strong class="chrome">OAuth2 Resource Server</strong> — no <code>formLogin()</code>, no session tracking, no login page generated. Every request self-describing: role, scope, dept baked into JWT claims, enforced by <code>@PreAuthorize</code> SpEL. <strong class="chrome">Amplify Authenticator</strong> delivers Cognito's token to the browser; Spring only ever sees <code>Bearer &lt;jwt&gt;</code>.</p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span>
+            <span class="tag">OAuth2 Resource Server</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span>
+            <span class="tag">Amplify UI React</span><span class="tag">TypeScript</span><span class="tag">React</span>
+            <span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Redis</span>
+            <span class="tag">JWT RS256</span><span class="tag">ABAC @PreAuthorize</span><span class="tag">JTI Kill Switch</span><span class="tag">Vite HMR</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span>
+            <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Phalanx -->
     <div class="card" id="phalanx-card">
       <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
@@ -1146,39 +1256,6 @@
           <div class="card-section-label">Designed for</div>
           <div class="tags compliance-tags">
             <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Autonomous Code Reviewer -->
-    <div class="card" id="acra-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
-        <div class="card-title-group">
-          <span class="card-title">Autonomous Code Reviewer</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('code-reviewer-agent.mp4');return false;" href="#">🎬 60-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
-      <div class="card-details">
-        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
-        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Auth0 M2M</span>
-            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
-            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
           </div>
         </div>
         <div class="card-footer">
@@ -1374,82 +1451,6 @@
           <div class="card-section-label">Designed for</div>
           <div class="tags compliance-tags">
             <span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Agentic OBO + Okta -->
-    <div id="obo-card" class="card card-flagship">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
-        <div class="card-title-group">
-          <span class="card-title card-title-gold">Okta Autonomous Agentic OBO</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('obo-okta-demo.mp4');return false;" href="#">🎬 60-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">The agent carries <strong class="chrome">zero standing authority</strong> — it acts only with what the user is allowed to do, fully credential-blind.</p>
-      <div class="card-details">
-        <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
-        <p class="card-desc-green">Scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>.</p>
-        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
-            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
-            <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
-            <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
-            <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
-            <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AWS OBO Permissions — Cognito + Spring Resource Server -->
-    <div class="card card-flagship" id="aws-obo-card">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')">
-        <div class="card-title-group">
-          <span class="card-title">AWS OBO Permissions — Cognito + Spring Resource Server</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('aws-obo-permissions-demo.mp4');return false;" href="#">🎬 45-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">Pure stateless token auth — IdP authenticates, Spring validates JWT claims. No hybrid session flows. No server-side auth state.</p>
-      <div class="card-details">
-        <p class="card-question">How do you enforce scoped, time-limited permissions on every API call when the resource server must stay completely stateless — no session, no auth state?</p>
-        <p class="card-desc-green"><strong class="chrome">Cognito</strong> authenticates the user — Spring never sees a login form. Lambda mints a scoped-down OBO token per task. Kill switch fires on both layers simultaneously: <strong class="chrome">DynamoDB JTI blocklist</strong> + <strong class="chrome">Redis session delete</strong>. User is locked out before the current token expires.</p>
-        <p class="card-desc" style="font-size:0.78rem;">Spring configured as pure <strong class="chrome">OAuth2 Resource Server</strong> — no <code>formLogin()</code>, no session tracking, no login page generated. Every request self-describing: role, scope, dept baked into JWT claims, enforced by <code>@PreAuthorize</code> SpEL. <strong class="chrome">Amplify Authenticator</strong> delivers Cognito's token to the browser; Spring only ever sees <code>Bearer &lt;jwt&gt;</code>.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span>
-            <span class="tag">OAuth2 Resource Server</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span>
-            <span class="tag">Amplify UI React</span><span class="tag">TypeScript</span><span class="tag">React</span>
-            <span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Redis</span>
-            <span class="tag">JWT RS256</span><span class="tag">ABAC @PreAuthorize</span><span class="tag">JTI Kill Switch</span><span class="tag">Vite HMR</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span>
-            <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span>
           </div>
         </div>
         <div class="card-footer">
