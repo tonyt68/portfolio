@@ -1160,43 +1160,43 @@
       </div>
     </div>
 
-    <!-- AWS OBO Permissions — Cognito + Spring Resource Server -->
-    <div class="card card-flagship" id="aws-obo-card">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')">
-        <div class="card-title-group">
-          <span class="card-title">AWS OBO Permissions — Cognito + Spring Resource Server</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('aws-obo-permissions-demo.mp4');return false;" href="#">🎬 45-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">Pure stateless token auth — IdP authenticates, Spring validates JWT claims. No hybrid session flows. No server-side auth state.</p>
-      <div class="card-details">
-        <p class="card-question">How do you enforce scoped, time-limited permissions on every API call when the resource server must stay completely stateless — no session, no auth state?</p>
-        <p class="card-desc-green"><strong class="chrome">Cognito</strong> authenticates the user — Spring never sees a login form. Lambda mints a scoped-down OBO token per task. Kill switch fires on both layers simultaneously: <strong class="chrome">DynamoDB JTI blocklist</strong> + <strong class="chrome">Redis session delete</strong>. User is locked out before the current token expires.</p>
-        <p class="card-desc" style="font-size:0.78rem;">Spring configured as pure <strong class="chrome">OAuth2 Resource Server</strong> — no <code>formLogin()</code>, no session tracking, no login page generated. Every request self-describing: role, scope, dept baked into JWT claims, enforced by <code>@PreAuthorize</code> SpEL. <strong class="chrome">Amplify Authenticator</strong> delivers Cognito's token to the browser; Spring only ever sees <code>Bearer &lt;jwt&gt;</code>.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span>
-            <span class="tag">OAuth2 Resource Server</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span>
-            <span class="tag">Amplify UI React</span><span class="tag">TypeScript</span><span class="tag">React</span>
-            <span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Redis</span>
-            <span class="tag">JWT RS256</span><span class="tag">ABAC @PreAuthorize</span><span class="tag">JTI Kill Switch</span><span class="tag">Vite HMR</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span>
-            <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
+    <!-- AWS OBO Permissions — Cognito + Custom Token Exchange --> 
+<div class="card card-flagship" id="aws-obo-card"> 
+    <div class="card-badge-new"><span>★ New</span></div> 
+    <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')"> 
+        <div class="card-title-group"> 
+            <span class="card-title">AWS OBO Permissions — Cognito + Custom Token Exchange</span> 
+            <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('aws-obo-permissions-demo.mp4');return false;" href="#">🎬 45-sec demo</a> 
+        </div> 
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" /> 
+    </div> 
+    <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">Custom RFC 8693 Engine — Bypasses Cognito protocol gaps via a secure Lambda token exchange plane. Bounded 15-min OBO JWT lifecycles.</p> 
+    <div class="card-details"> 
+        <p class="card-question">How do you enforce granular, scope-locked, short-TTL permissions on every API call when using an IdP that lacks native token exchange support?</p> 
+        <p class="card-desc-green"><strong class="chrome">AWS Cognito</strong> lacks native RFC 8693 support, risking token bloat downstream. This platform bridges the gap using an <strong class="chrome">AWS Lambda Layer</strong> as a custom Token Exchange Engine. The Lambda intercepts the token, executes real-time ReBAC graph evaluations, and self-mints an independent, cryptographically isolated <strong class="chrome">RS256 OBO JWT</strong> strictly scope-locked to the target downstream action.</p> 
+        <p class="card-desc" style="font-size:0.78rem;">Downstream Spring Boot microservices operate as pure <strong class="chrome">OAuth2 Resource Servers</strong> executing sub-millisecond local cryptographic signature validations. Real-time revocation is enforced by a dual-layer kill switch that writes the unique <code>jti</code> to a <strong class="chrome">DynamoDB blocklist</strong> for the gateway while instantly deleting the corresponding session from the <strong class="chrome">Redis cache</strong> on the API layer, failing closed instantly.</p> 
+        <div> 
+            <div class="card-section-label">Stack</div> 
+            <div class="tags"> 
+                <span class="tag">Java 17</span><span class="tag">Spring Boot 3</span><span class="tag">Spring Security</span> 
+                <span class="tag">OAuth2 Resource Server</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span> 
+                <span class="tag">RFC 8693 Exchange</span><span class="tag">TypeScript</span><span class="tag">React</span> 
+                <span class="tag">Lambda</span><span class="tag">DynamoDB Global Tables</span><span class="tag">Amazon ElastiCache Redis</span> 
+                <span class="tag">JWT RS256</span><span class="tag">ReBAC BFS Traversal</span><span class="tag">JTI Kill Switch</span><span class="tag">Vite HMR</span> 
+            </div> 
+        </div> 
+        <div> 
+            <div class="card-section-label">Designed for</div> 
+            <div class="tags compliance-tags"> 
+                <span class="tag">NIST 800-207</span><span class="tag">SOC2</span> 
+                <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span> 
+            </div> 
+        </div> 
+        <div class="card-footer"> 
+            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div> 
+        </div> 
+    </div> 
+</div>
 
     <!-- Phalanx -->
     <div class="card" id="phalanx-card">
