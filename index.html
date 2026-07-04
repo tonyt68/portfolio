@@ -490,6 +490,19 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    /* First card only — pulsing gold border/glow + pulsing "New" badge, not shared with the
+       other flagship cards. */
+    @keyframes flagship-pulse-gold {
+      0%, 100% { border-left-color: #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.12), 0 0 4px rgba(255, 215, 0, 0.08); }
+      50% { border-left-color: #fff2a8; box-shadow: 0 0 32px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3); }
+    }
+    #obo-platform-card {
+      animation: flagship-pulse-gold 2s ease-in-out infinite;
+    }
+    #obo-platform-card .card-badge-new span {
+      animation: cert-pulse 2s ease-in-out infinite;
+    }
     .card-title-gold {
       background: linear-gradient(90deg,
         #1a0e00 0%, #7a5200 8%, #c89010 18%, #e8a800 27%,
@@ -1088,32 +1101,38 @@
   <!-- PoC Grid -->
   <div class="grid">
 
-    <!-- Autonomous Code Reviewer -->
-    <div class="card card-flagship" id="acra-card">
+    <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
+    <div class="card card-flagship" id="obo-platform-card">
       <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
         <div class="card-title-group">
-          <span class="card-title">Auth0 Autonomous Code Reviewer</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('code-reviewer-agent.mp4');return false;" href="#">🎬 60-sec demo</a>
+          <span class="card-title">OBO with AWS Cognito as a Platform</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('obo-aws-platform-demo.mp4');return false;" href="#">🎬 60-sec demo</a>
         </div>
         <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
       </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-platform-card')"><strong class="chrome">Zero Trust</strong> On-Behalf-Of on <strong class="chrome">AWS Cognito</strong>, built from scratch — <strong class="chrome">four custom middle-tier</strong> implementations, <strong class="chrome">four languages (Python/Java/TypeScript/C#)</strong>, one authorization contract, and a <strong class="chrome">hash-chained audit log</strong> that proves every action taken.</p>
       <div class="card-details">
-        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
-        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
+        <p class="card-question">How do you prove an authorization design actually works — not just in the one language you prototyped it in, but <strong class="chrome">everywhere your stack actually runs?</strong></p>
+        <p class="card-desc-green">A single <code>AuthorizationProvider</code> contract — <code>isAllowed()</code> + <code>getGroups()</code> — backed by two real engines: <strong class="chrome">Cedar</strong> (in-memory, sub-millisecond) and <strong class="chrome">OpenFGA/Zanzibar</strong> (gRPC-primary with automatic HTTP fallback), swapped per-service via a feature flag with zero call-site changes. Deployed for real: <strong class="chrome">AWS Lambda</strong> + API Gateway behind a <strong class="chrome">Cognito Managed Login</strong> screen custom-branded to match the app, not the stock Hosted UI.</p>
+        <p class="card-desc" style="font-size:0.78rem;">Every allow/deny decision, in all four languages, lands in a UUIDv7-correlated, <strong class="chrome">HMAC-SHA256</strong> hash-chained audit log — each entry's hash covers the previous entry's, so tampering with history breaks every link after it; <code>GET /audit</code> recomputes and reports <code>chainValid</code> live. <strong class="chrome">240 automated tests</strong> across four independent stacks, every provider verified against a real running OpenFGA container (not mocked), and a JWT-validation hardening pass that brought signature/issuer/audience/<code>iat</code> checks to parity across every language. <strong class="chrome">Most "pluggable auth" designs never get a second implementation. This one has four — plus cryptographic proof of actions.</strong></p>
         <div>
           <div class="card-section-label">Stack</div>
           <div class="tags">
-            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Auth0 M2M</span>
-            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
-            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+            <span class="tag">TypeScript</span><span class="tag">Express</span><span class="tag">Java 17</span><span class="tag">Spring Boot 3</span>
+            <span class="tag">C# / ASP.NET Core</span><span class="tag">Python / FastAPI</span>
+            <span class="tag">Cedar</span><span class="tag">OpenFGA / Zanzibar</span><span class="tag">gRPC</span>
+            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span>
+            <span class="tag">AWS Lambda</span><span class="tag">API Gateway</span><span class="tag">CloudFormation</span>
+            <span class="tag">Docker Compose</span>
+            <span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span><span class="tag">UUIDv7</span>
           </div>
         </div>
         <div>
           <div class="card-section-label">Designed for</div>
           <div class="tags compliance-tags">
-            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
+            <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span>
+            <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP A09</span>
           </div>
         </div>
         <div class="card-footer">
@@ -1192,11 +1211,45 @@
                 <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span> 
             </div> 
         </div> 
-        <div class="card-footer"> 
-            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div> 
-        </div> 
-    </div> 
+        <div class="card-footer">
+            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
+    </div>
 </div>
+
+    <!-- Autonomous Code Reviewer -->
+    <div class="card card-flagship" id="acra-card">
+      <div class="card-badge-new"><span>★ New</span></div>
+      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
+        <div class="card-title-group">
+          <span class="card-title">Auth0 Autonomous Code Reviewer</span>
+          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('code-reviewer-agent.mp4');return false;" href="#">🎬 60-sec demo</a>
+        </div>
+        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
+      </div>
+      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
+      <div class="card-details">
+        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
+        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
+        <div>
+          <div class="card-section-label">Stack</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Auth0 M2M</span>
+            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
+            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-section-label">Designed for</div>
+          <div class="tags compliance-tags">
+            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
+        </div>
+      </div>
+    </div>
 
     <!-- Phalanx -->
     <div class="card" id="phalanx-card">
