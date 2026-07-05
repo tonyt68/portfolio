@@ -1,1589 +1,2379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PhalanxAI Security</title>
-  <meta property="og:title" content="PhalanxAI Security" />
-  <meta property="og:description" content="Principal Software Engineer · AI Accelerated Engineering · Zero Trust · Identity · Compliance. Live security PoCs — IETF Internet-Draft author." />
-  <meta property="og:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
-  <meta property="og:url" content="https://tonyt68.github.io/portfolio/" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
-  <link rel="icon" type="image/png" href="TonyAI.png" />
-  <style>
-    :root { --chrome: linear-gradient(135deg,#4a5a6a,#8aaabb,#c8dce8,#ffffff,#c8dce8,#8aaabb,#4a5a6a); }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      min-height: 100vh;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* ── Header ── */
-    .header {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      width: 100%;
-      max-width: 1480px;
-      margin: 0 auto 1.5rem;
-      padding: 2rem 2rem 5rem;
-      background: linear-gradient(135deg, #161b22, #1c2230) padding-box,
-                  linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
-      border: 2px solid transparent;
-      border-radius: 16px;
-      position: relative;
-    }
-    .header-cost-badge {
-      margin-left: auto;
-      flex-shrink: 0;
-      width: 280px;
-      padding: 0.65rem 0.8rem;
-      background: linear-gradient(135deg, #161b22, #1c2230) padding-box,
-                  linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      transform: perspective(900px) rotateY(-9deg) rotateX(2deg);
-      box-shadow:
-        4px 5px 0 0 #0d1117,
-        7px 9px 0 0 #2a3038,
-        16px 20px 30px rgba(0, 0, 0, 0.5);
-    }
-    .header-cost-badge-title {
-      font-size: 0.92rem;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      margin-bottom: 0.4rem;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .header-cost-badge-list {
-      font-size: 0.74rem;
-      color: #b8bec4;
-      line-height: 1.55;
-    }
-    .powered-by {
-      position: absolute;
-      bottom: 0.6rem;
-      right: 1rem;
-      font-size: 0.7rem;
-      color: #555;
-    }
-    .powered-by a {
-      color: #79c0ff;
-      text-decoration: none;
-    }
-
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid #c8a030;
-      flex-shrink: 0;
-      object-fit: cover;
-    }
-
-    .header-text h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.3rem;
-    }
-    .header-text h1 .h1-text {
-      background: linear-gradient(180deg, #1a1f26 0%, #3d4a58 8%, #7a8fa0 18%, #b8ccd8 30%, #e8f2f8 42%, #ffffff 50%, #e0eaf2 55%, #8aaabb 68%, #3a4a58 82%, #1a2028 92%, #0d1117 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .header-text .tagline {
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-      text-align: center;
-    }
-
-    .header-text .tagline .word {
-      display: inline-block;
-      white-space: nowrap;
-      animation: none;
-    }
-
-    .header-text .tagline span {
-      display: inline-block;
-      background: linear-gradient(180deg,
-        #252c34 0%,
-        #505c68 12%,
-        #8a98a8 26%,
-        #bcccd8 40%,
-        #e4eff5 47%,
-        #ffffff 51%,
-        #e4eff5 55%,
-        #aabcc8 67%,
-        #6a7a88 80%,
-        #424e58 92%,
-        #1e2830 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: tagline-fly 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-      animation-delay: calc(var(--i) * 0.025s);
-    }
-
-    .header-text .tagline span.sep {
-      animation-name: tagline-fly, dot-pulse;
-      animation-duration: 0.55s, 3s;
-      animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1), ease-in-out;
-      animation-delay: calc(var(--i) * 0.025s), 3s;
-      animation-fill-mode: backwards, none;
-      animation-iteration-count: 1, infinite;
-    }
-
-    @keyframes dot-pulse {
-      0%, 100% { opacity: 0.35; }
-      50%       { opacity: 1; }
-    }
-
-    @keyframes tagline-fly {
-      from {
-        opacity: 0;
-        transform: translateY(-24px) scale(1.35);
-        filter: blur(2px);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhalanxAI Security</title>
+    <meta property="og:title" content="PhalanxAI Security" />
+    <meta
+      property="og:description"
+      content="Principal Software Engineer · AI Accelerated Engineering · Zero Trust · Identity · Compliance. Live security PoCs — IETF Internet-Draft author."
+    />
+    <meta property="og:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
+    <meta property="og:url" content="https://tonyt68.github.io/portfolio/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://tonyt68.github.io/portfolio/TonyAI.png" />
+    <link rel="icon" type="image/png" href="TonyAI.png" />
+    <style>
+      :root {
+        --chrome: linear-gradient(135deg, #4a5a6a, #8aaabb, #c8dce8, #ffffff, #c8dce8, #8aaabb, #4a5a6a);
       }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    }
 
-    .gold-saying {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      font-style: italic;
-      letter-spacing: 0.03em;
-      text-align: center;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-      background: linear-gradient(180deg,
-        #0d0700 0%,
-        #5a3800 8%,
-        #aa7a00 18%,
-        #e8a800 27%,
-        #ffd000 35%,
-        #ffe44a 42%,
-        #ffffff 50%,
-        #ffe44a 58%,
-        #ffd000 65%,
-        #e8a800 73%,
-        #aa7a00 82%,
-        #5a3800 92%,
-        #0d0700 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 10px rgba(255, 180, 0, 0.45))
-              drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .badge-green  {
-      background: linear-gradient(135deg, #5cb85c, #87d787);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: none;
-    }
-    .badge-blue   {
-      background: linear-gradient(135deg, #1f6feb, #79c0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: none;
-    }
-    .badge-purple {
-      background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: none;
-    }
-    .badge-orange {
-      background: linear-gradient(135deg, #bd561d, #ffa657);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: none;
-    }
-    .badge-red {
-      background: linear-gradient(135deg, #c0392b, #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: none;
-    }
-
-    .demo-footer {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.2rem;
-      position: absolute;
-      bottom: 1.25rem;
-      left: 1.5rem;
-    }
-    .social-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      position: absolute;
-      bottom: 1.25rem;
-      right: 1.5rem;
-    }
-    .header-note {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      position: absolute;
-      bottom: 1.25rem;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-    }
-    .header-note img {
-      height: 58px;
-      width: auto;
-      flex-shrink: 0;
-    }
-    .header-note span {
-      font-size: 0.95rem;
-      color: #8b949e;
-    }
-
-    @media (max-width: 1100px) {
-      .header-note {
-        position: static;
-        transform: none;
-        justify-content: center;
-        margin-top: 0.5rem;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #e6edf3;
+        min-height: 100vh;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-    }
 
-    @media (max-width: 640px) {
+      /* ── Header ── */
       .header {
-        flex-direction: column;
+        display: flex;
         align-items: center;
-        text-align: center;
-        gap: 1rem;
-        padding: 1.5rem 1rem;
+        flex-wrap: wrap;
+        gap: 2rem;
+        width: 100%;
+        max-width: 1480px;
+        margin: 0 auto 1.5rem;
+        padding: 2rem 2rem 5rem;
+        background:
+          linear-gradient(135deg, #161b22, #1c2230) padding-box,
+          linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
+        border: 2px solid transparent;
+        border-radius: 16px;
+        position: relative;
       }
+      .header-cost-badge {
+        margin-left: auto;
+        flex-shrink: 0;
+        width: 280px;
+        padding: 0.65rem 0.8rem;
+        background:
+          linear-gradient(135deg, #161b22, #1c2230) padding-box,
+          linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        transform: perspective(900px) rotateY(-9deg) rotateX(2deg);
+        box-shadow:
+          4px 5px 0 0 #0d1117,
+          7px 9px 0 0 #2a3038,
+          16px 20px 30px rgba(0, 0, 0, 0.5);
+      }
+      .header-cost-badge-title {
+        font-size: 0.92rem;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        margin-bottom: 0.4rem;
+        background: var(--chrome);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .header-cost-badge-list {
+        font-size: 0.74rem;
+        color: #b8bec4;
+        line-height: 1.55;
+      }
+      .powered-by {
+        position: absolute;
+        bottom: 0.6rem;
+        right: 1rem;
+        font-size: 0.7rem;
+        color: #555;
+      }
+      .powered-by a {
+        color: #79c0ff;
+        text-decoration: none;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 2px solid #c8a030;
+        flex-shrink: 0;
+        object-fit: cover;
+      }
+
       .header-text h1 {
-        font-size: 1.6rem;
-        flex-direction: column;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        display: flex;
         align-items: center;
-        gap: 0.5rem;
-      }
-      .header-text h1 img {
-        height: 5rem;
-      }
-      .header-text .tagline {
-        font-size: clamp(0.6rem, 3vw, 0.8rem);
-      }
-      .badges {
         justify-content: center;
+        gap: 0.3rem;
       }
+      .header-text h1 .h1-text {
+        background: linear-gradient(
+          180deg,
+          #1a1f26 0%,
+          #3d4a58 8%,
+          #7a8fa0 18%,
+          #b8ccd8 30%,
+          #e8f2f8 42%,
+          #ffffff 50%,
+          #e0eaf2 55%,
+          #8aaabb 68%,
+          #3a4a58 82%,
+          #1a2028 92%,
+          #0d1117 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header-text .tagline {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        text-align: center;
+      }
+
+      .header-text .tagline .word {
+        display: inline-block;
+        white-space: nowrap;
+        animation: none;
+      }
+
+      .header-text .tagline span {
+        display: inline-block;
+        background: linear-gradient(
+          180deg,
+          #252c34 0%,
+          #505c68 12%,
+          #8a98a8 26%,
+          #bcccd8 40%,
+          #e4eff5 47%,
+          #ffffff 51%,
+          #e4eff5 55%,
+          #aabcc8 67%,
+          #6a7a88 80%,
+          #424e58 92%,
+          #1e2830 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: tagline-fly 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        animation-delay: calc(var(--i) * 0.025s);
+      }
+
+      .header-text .tagline span.sep {
+        animation-name: tagline-fly, dot-pulse;
+        animation-duration: 0.55s, 3s;
+        animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1), ease-in-out;
+        animation-delay: calc(var(--i) * 0.025s), 3s;
+        animation-fill-mode: backwards, none;
+        animation-iteration-count: 1, infinite;
+      }
+
+      @keyframes dot-pulse {
+        0%,
+        100% {
+          opacity: 0.35;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes tagline-fly {
+        from {
+          opacity: 0;
+          transform: translateY(-24px) scale(1.35);
+          filter: blur(2px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+      }
+
+      .gold-saying {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        font-style: italic;
+        letter-spacing: 0.03em;
+        text-align: center;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(
+          180deg,
+          #0d0700 0%,
+          #5a3800 8%,
+          #aa7a00 18%,
+          #e8a800 27%,
+          #ffd000 35%,
+          #ffe44a 42%,
+          #ffffff 50%,
+          #ffe44a 58%,
+          #ffd000 65%,
+          #e8a800 73%,
+          #aa7a00 82%,
+          #5a3800 92%,
+          #0d0700 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 10px rgba(255, 180, 0, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+      }
+
+      .badge-green {
+        background: linear-gradient(135deg, #5cb85c, #87d787);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: none;
+      }
+      .badge-blue {
+        background: linear-gradient(135deg, #1f6feb, #79c0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: none;
+      }
+      .badge-purple {
+        background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: none;
+      }
+      .badge-orange {
+        background: linear-gradient(135deg, #bd561d, #ffa657);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: none;
+      }
+      .badge-red {
+        background: linear-gradient(135deg, #c0392b, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: none;
+      }
+
       .demo-footer {
-        position: static;
-        align-items: center;
-        margin-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        position: absolute;
+        bottom: 1.25rem;
+        left: 1.5rem;
       }
       .social-links {
-        position: static;
-        justify-content: center;
-        margin-top: 1rem;
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 1.25rem;
+        right: 1.5rem;
       }
       .header-note {
-        position: static;
-        transform: none;
-        justify-content: center;
-        margin-top: 0.75rem;
-        white-space: normal;
-        text-align: center;
-        max-width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: absolute;
+        bottom: 1.25rem;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+      .header-note img {
+        height: 58px;
+        width: auto;
+        flex-shrink: 0;
       }
       .header-note span {
-        white-space: normal;
+        font-size: 0.95rem;
+        color: #8b949e;
       }
-    }
 
-    .social-link {
-      color: #79c0ff;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.3rem 0.9rem;
-      border-radius: 6px;
-      background: linear-gradient(180deg, #2a5298, #1a3a6c);
-      border-top: 1px solid #4a7fd4;
-      border-left: 1px solid #3a6abf;
-      border-right: 1px solid #122a52;
-      border-bottom: 2px solid #0d1e3a;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.07) inset;
-      transition: transform 0.1s, box-shadow 0.1s;
-    }
+      @media (max-width: 1100px) {
+        .header-note {
+          position: static;
+          transform: none;
+          justify-content: center;
+          margin-top: 0.5rem;
+        }
+      }
 
-    .social-link:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.07) inset;
-      color: #fff;
-    }
+      @media (max-width: 640px) {
+        .header {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 1rem;
+          padding: 1.5rem 1rem;
+        }
+        .header-text h1 {
+          font-size: 1.6rem;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .header-text h1 img {
+          height: 5rem;
+        }
+        .header-text .tagline {
+          font-size: clamp(0.6rem, 3vw, 0.8rem);
+        }
+        .badges {
+          justify-content: center;
+        }
+        .demo-footer {
+          position: static;
+          align-items: center;
+          margin-top: 0.5rem;
+        }
+        .social-links {
+          position: static;
+          justify-content: center;
+          margin-top: 1rem;
+        }
+        .header-note {
+          position: static;
+          transform: none;
+          justify-content: center;
+          margin-top: 0.75rem;
+          white-space: normal;
+          text-align: center;
+          max-width: 100%;
+        }
+        .header-note span {
+          white-space: normal;
+        }
+      }
 
-    .social-link:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    }
+      .social-link {
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 0.3rem 0.9rem;
+        border-radius: 6px;
+        background: linear-gradient(180deg, #2a5298, #1a3a6c);
+        border-top: 1px solid #4a7fd4;
+        border-left: 1px solid #3a6abf;
+        border-right: 1px solid #122a52;
+        border-bottom: 2px solid #0d1e3a;
+        box-shadow:
+          0 4px 8px rgba(0, 0, 0, 0.5),
+          0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+      }
 
-    /* ── IETF Feature ── */
-    .ietf-feature {
-      width: 100%;
-      max-width: 1480px;
-      margin: 1.5rem auto 1.5rem;
-      padding: 1.5rem 2rem;
-      background: linear-gradient(135deg, #153528, #201a3a);
-      border: 1px solid #8b7fd4;
-      border-left: 4px solid #b8b0f0;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
+      .social-link:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 6px 12px rgba(0, 0, 0, 0.6),
+          0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        color: #fff;
+      }
 
-    .ietf-feature:hover {
-      border-color: #58a6ff;
-      transform: translateY(-2px);
-    }
+      .social-link:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      }
 
-    .ietf-icon {
-      font-size: 2.25rem;
-      flex-shrink: 0;
-    }
+      /* ── IETF Feature ── */
+      .ietf-feature {
+        width: 100%;
+        max-width: 1480px;
+        margin: 1.5rem auto 1.5rem;
+        padding: 1.5rem 2rem;
+        background: linear-gradient(135deg, #153528, #201a3a);
+        border: 1px solid #8b7fd4;
+        border-left: 4px solid #b8b0f0;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
 
-    .ietf-body .ietf-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #9b8fe0;
-      margin-bottom: 0.3rem;
-    }
+      .ietf-feature:hover {
+        border-color: #58a6ff;
+        transform: translateY(-2px);
+      }
 
-    .ietf-body .ietf-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #c9d1d9;
-      margin-bottom: 0.4rem;
-    }
+      .ietf-icon {
+        font-size: 2.25rem;
+        flex-shrink: 0;
+      }
 
-    .ietf-body p {
-      font-size: 0.875rem;
-      color: #8b949e;
-      line-height: 1.5;
-    }
+      .ietf-body .ietf-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #9b8fe0;
+        margin-bottom: 0.3rem;
+      }
 
-    .ietf-body a {
-      color: #79c0ff;
-      text-decoration: none;
-      font-weight: 600;
-    }
+      .ietf-body .ietf-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #c9d1d9;
+        margin-bottom: 0.4rem;
+      }
 
-    .ietf-body a:hover {
-      color: #d0caff;
-      text-decoration: underline;
-    }
+      .ietf-body p {
+        font-size: 0.875rem;
+        color: #8b949e;
+        line-height: 1.5;
+      }
 
-    /* ── Grid ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      align-items: start;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 1480px;
-      margin: 0 auto 1.5rem;
-    }
+      .ietf-body a {
+        color: #79c0ff;
+        text-decoration: none;
+        font-weight: 600;
+      }
 
-    /* ── PoC Card ── */
-    .card {
-      background: linear-gradient(135deg, #153528, #201a3a);
-      border: 1px solid #8b7fd4;
-      border-left: 4px solid #b8b0f0;
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      position: relative;
-      transition: border-color 0.2s, transform 0.2s, min-height 0.35s ease;
-    }
+      .ietf-body a:hover {
+        color: #d0caff;
+        text-decoration: underline;
+      }
 
-    .card-flagship {
-      border: 1px solid #b8860b;
-      border-left: 4px solid #ffd700;
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.12), 0 0 4px rgba(255, 215, 0, 0.08);
-    }
-    .card-flagship:hover {
-      border-color: #ffd700 !important;
-      box-shadow: 0 0 28px rgba(255, 215, 0, 0.22), 0 0 8px rgba(255, 215, 0, 0.12);
-    }
-    .card-badge-new {
-      position: absolute;
-      top: -0.6rem;
-      right: 1.25rem;
-      padding: 2px 9px;
-      border-radius: 10px;
-      border: 1px solid #c8a030;
-      background: #0d1117;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-badge-new span {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      background: linear-gradient(135deg,#8a6a00,#c8a030,#ffe066,#c8a030,#8a6a00);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      /* ── Grid ── */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        align-items: start;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1480px;
+        margin: 0 auto 1.5rem;
+      }
 
-    /* First card only — pulsing gold border/glow + pulsing "New" badge, not shared with the
+      /* ── PoC Card ── */
+      .card {
+        background: linear-gradient(135deg, #153528, #201a3a);
+        border: 1px solid #8b7fd4;
+        border-left: 4px solid #b8b0f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        position: relative;
+        transition:
+          border-color 0.2s,
+          transform 0.2s,
+          min-height 0.35s ease;
+      }
+
+      .card-flagship {
+        border: 1px solid #b8860b;
+        border-left: 4px solid #ffd700;
+        box-shadow:
+          0 0 18px rgba(255, 215, 0, 0.12),
+          0 0 4px rgba(255, 215, 0, 0.08);
+      }
+      .card-flagship:hover {
+        border-color: #ffd700 !important;
+        box-shadow:
+          0 0 28px rgba(255, 215, 0, 0.22),
+          0 0 8px rgba(255, 215, 0, 0.12);
+      }
+      .card-badge-new {
+        position: absolute;
+        top: -0.6rem;
+        right: 1.25rem;
+        padding: 2px 9px;
+        border-radius: 10px;
+        border: 1px solid #c8a030;
+        background: #0d1117;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card-badge-new span {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+        background: linear-gradient(135deg, #8a6a00, #c8a030, #ffe066, #c8a030, #8a6a00);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* First card only — pulsing gold border/glow + pulsing "New" badge, not shared with the
        other flagship cards. */
-    @keyframes flagship-pulse-gold {
-      0%, 100% { border-left-color: #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.12), 0 0 4px rgba(255, 215, 0, 0.08); }
-      50% { border-left-color: #fff2a8; box-shadow: 0 0 32px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3); }
-    }
-    #obo-platform-card {
-      animation: flagship-pulse-gold 2s ease-in-out infinite;
-    }
-    #obo-platform-card .card-badge-new span {
-      animation: cert-pulse 2s ease-in-out infinite;
-    }
-    .card-title-gold {
-      background: linear-gradient(90deg,
-        #1a0e00 0%, #7a5200 8%, #c89010 18%, #e8a800 27%,
-        #ffd000 35%, #ffe44a 42%, #ffffff 50%,
-        #ffe44a 58%, #ffd000 65%, #e8a800 73%,
-        #c89010 82%, #7a5200 92%, #1a0e00 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.35));
-    }
-
-    .card:hover {
-      border-color: #58a6ff;
-      transform: translateY(-2px);
-    }
-
-    .card-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-    .card-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      min-width: 0;
-      flex: 1 1 0;
-    }
-    .card-demo-link {
-      font-size: 0.75rem;
-      color: #58a6ff;
-      white-space: nowrap;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .card-toggle-icon {
-      height: 58px;
-      width: auto;
-      flex-shrink: 0;
-      margin-left: auto;
-      cursor: pointer;
-      transition: transform 0.25s ease, filter 0.25s ease;
-      filter: drop-shadow(0 0 0 rgba(88,166,255,0));
-    }
-    .card-toggle-icon.is-open {
-      transform: rotate(180deg);
-      filter: drop-shadow(0 0 6px rgba(88,166,255,0.65));
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.3;
-      flex: 1 1 0;
-      min-width: 0;
-    }
-
-    .card-question {
-      font-size: 0.84rem;
-      color: #c8d4e0;
-      font-style: italic;
-      line-height: 1.5;
-      border-left: 2px solid #8b5cf6;
-      padding-left: 0.75rem;
-    }
-
-    .card-desc {
-      font-size: 0.875rem;
-      color: #b8bec4;
-      line-height: 1.6;
-    }
-
-    .card-desc-green {
-      font-size: 0.875rem;
-      color: #b8bec4;
-      line-height: 1.6;
-    }
-
-    .card-section-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 0 auto 0.4rem;
-      display: table;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      justify-content: center;
-    }
-
-    .chrome {
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .tag {
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border: 1px solid #30363d;
-    }
-
-    .mcp-tools {
-      font-size: 0.68rem;
-      color: #b8bec4;
-      font-family: "SF Mono", "Fira Code", monospace;
-      line-height: 1.7;
-    }
-
-    .mcp-tools span {
-      font-weight: 700;
-    }
-
-    .compliance-tags .tag {
-      background: #1a3a5c;
-      background: linear-gradient(135deg, #c0392b, #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      border-color: #c0392b;
-    }
-
-    .trust-pill {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      background: #161b22;
-      border: 1px solid #f85149;
-      color: #f85149;
-    }
-
-    .card-footer {
-      margin-top: auto;
-      padding-top: 0.75rem;
-      border-top: 1px solid #21262d;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* ── Card expand/collapse ── */
-    .card-header.is-collapsible {
-      cursor: pointer;
-    }
-    .card-punch {
-      cursor: pointer;
-    }
-    .card-details {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.25s ease;
-    }
-    .card-details.is-open {
-      max-height: 600px;
-      opacity: 1;
-    }
-
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      color: #3fb950;
-      font-weight: 600;
-    }
-
-    .status-wave-amber {
-      background: linear-gradient(90deg,
-        #e3b341 0%,
-        #e3b341 20%,
-        #ffd97a 45%,
-        #ffffff 55%,
-        #ffd97a 65%,
-        #e3b341 80%,
-        #e3b341 100%
-      );
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: wave-shimmer 2.5s linear infinite;
-    }
-
-    .status-wave {
-      background: linear-gradient(90deg,
-        #3fb950 0%,
-        #3fb950 20%,
-        #a8ffb0 45%,
-        #ffffff 55%,
-        #a8ffb0 65%,
-        #3fb950 80%,
-        #3fb950 100%
-      );
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: wave-shimmer 2.5s linear infinite;
-    }
-
-    @keyframes wave-shimmer {
-      0%   { background-position: 150% center; }
-      100% { background-position: -150% center; }
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #3fb950;
-      animation: pulse 2s infinite;
-    }
-
-    .status-amber {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      color: #e3b341;
-      font-weight: 600;
-    }
-
-    .status-dot-amber {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #e3b341;
-      animation: pulse 2s infinite;
-    }
-
-    .card-ext-link {
-      color: #79c0ff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .card-ext-link:hover {
-      color: #d0caff;
-      text-decoration: underline;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    /* ── Demo Preview Tooltip ── */
-    @keyframes cert-pulse {
-      0%, 100% { opacity: 1; text-shadow: 0 0 4px #ffd000; }
-      50%       { opacity: 0.5; text-shadow: 0 0 10px #ffd000; }
-    }
-
-    @keyframes badge-shake {
-      0%, 85%, 100% { transform: translateX(0) rotate(0deg); }
-      88%  { transform: translateX(-3px) rotate(-2deg); }
-      91%  { transform: translateX(3px) rotate(2deg); }
-      94%  { transform: translateX(-2px) rotate(-1deg); }
-      97%  { transform: translateX(2px) rotate(1deg); }
-    }
-    .badge-demo {
-      position: relative;
-      cursor: pointer;
-      animation: badge-shake 3s ease-in-out infinite;
-    }
-
-    .demo-preview {
-      display: none;
-      position: absolute;
-      bottom: 0;
-      left: calc(100% + 0.75rem);
-      transform: none;
-      width: 420px;
-      height: 280px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #3fb950;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.9);
-      z-index: 200;
-      background: #0d1117;
-    }
-
-    .demo-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top; /* overridden per image below */
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transform-origin: 15% center;
-    }
-
-    .demo-preview img:nth-child(1) { animation: imgfade 35s infinite 0s  backwards, imgzoom-flagship 35s infinite 0s  backwards; object-position: top; }
-    .demo-preview img:nth-child(2) { animation: imgfade 35s infinite 7s  backwards; object-fit: contain; object-position: center; background: #0d1117; }
-    .demo-preview img:nth-child(3) { animation: imgfade 35s infinite 14s backwards, imgzoom2 35s infinite 14s backwards; object-position: 25% 85%; }
-    .demo-preview img:nth-child(4) { animation: imgfade 35s infinite 21s backwards, imgzoom3 35s infinite 21s backwards; object-position: 70% 85%; transform-origin: 50% center; }
-    .demo-preview img:nth-child(5) { animation: imgfade 35s infinite 28s backwards, imgzoom  35s infinite 28s backwards; object-position: top; }
-
-    @keyframes imgfade {
-      0%        { opacity: 0; }
-      3%, 20%   { opacity: 1; }
-      23%, 100% { opacity: 0; }
-    }
-
-    @keyframes imgzoom-flagship {
-      0%   { transform: scale(1.0) translate(0px,  0px); }
-      25%  { transform: scale(1.15) translate(12px, 15px); }
-      70%  { transform: scale(1.15) translate(12px, 15px); }
-      83%  { transform: scale(1.0) translate(0px,  0px); }
-      100% { transform: scale(1.0) translate(0px,  0px); }
-    }
-
-    @keyframes imgzoom {
-      0%   { transform: scale(1.0); }
-      25%  { transform: scale(1.18); }
-      70%  { transform: scale(1.18); }
-      83%  { transform: scale(1.0); }
-      100% { transform: scale(1.0); }
-    }
-
-    @keyframes imgzoom2 {
-      0%   { transform: scale(1.0); }
-      25%  { transform: scale(1.32); }
-      70%  { transform: scale(1.32); }
-      83%  { transform: scale(1.0); }
-      100% { transform: scale(1.0); }
-    }
-
-    @keyframes imgzoom3 {
-      0%   { transform: scale(1.0)  translateX(0px); }
-      25%  { transform: scale(1.40) translateX(75px); }
-      70%  { transform: scale(1.40) translateX(75px); }
-      83%  { transform: scale(1.0)  translateX(0px); }
-      100% { transform: scale(1.0)  translateX(0px); }
-    }
-
-    .badge-demo:hover .demo-preview {
-      display: block;
-    }
-
-    @media (max-width: 640px) {
-      .cost-card { flex-direction: column; }
-      .cost-card-img { width: 100% !important; max-width: 100% !important; }
-      .cost-card-text { padding: 1rem 1rem !important; }
-      .badge-demo {
-        animation: none !important;
+      @keyframes flagship-pulse-gold {
+        0%,
+        100% {
+          border-left-color: #ffd700;
+          box-shadow:
+            0 0 18px rgba(255, 215, 0, 0.12),
+            0 0 4px rgba(255, 215, 0, 0.08);
+        }
+        50% {
+          border-left-color: #fff2a8;
+          box-shadow:
+            0 0 32px rgba(255, 215, 0, 0.5),
+            0 0 10px rgba(255, 215, 0, 0.3);
+        }
       }
-      .badge-demo:hover {
-        animation: none !important;
+      #obo-platform-card {
+        animation: flagship-pulse-gold 2s ease-in-out infinite;
       }
-      .demo-preview {
-        position: fixed;
-        width: calc(100vw - 32px);
-        height: 220px;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 9999;
-        display: block;
+      #obo-platform-card .card-badge-new span {
+        animation: cert-pulse 2s ease-in-out infinite;
+      }
+      .card-title-gold {
+        background: linear-gradient(
+          90deg,
+          #1a0e00 0%,
+          #7a5200 8%,
+          #c89010 18%,
+          #e8a800 27%,
+          #ffd000 35%,
+          #ffe44a 42%,
+          #ffffff 50%,
+          #ffe44a 58%,
+          #ffd000 65%,
+          #e8a800 73%,
+          #c89010 82%,
+          #7a5200 92%,
+          #1a0e00 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.35));
+      }
+
+      .card:hover {
+        border-color: #58a6ff;
+        transform: translateY(-2px);
+      }
+
+      .card-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .card-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        min-width: 0;
+        flex: 1 1 0;
+      }
+      .card-demo-link {
+        font-size: 0.75rem;
+        color: #58a6ff;
+        white-space: nowrap;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .card-toggle-icon {
+        height: 58px;
+        width: auto;
+        flex-shrink: 0;
+        margin-left: auto;
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          filter 0.25s ease;
+        filter: drop-shadow(0 0 0 rgba(88, 166, 255, 0));
+      }
+      .card-toggle-icon.is-open {
+        transform: rotate(180deg);
+        filter: drop-shadow(0 0 6px rgba(88, 166, 255, 0.65));
+      }
+
+      .card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        background: var(--chrome);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.3;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .card-question {
+        font-size: 0.84rem;
+        color: #c8d4e0;
+        font-style: italic;
+        line-height: 1.5;
+        border-left: 2px solid #8b5cf6;
+        padding-left: 0.75rem;
+      }
+
+      .card-desc {
+        font-size: 0.875rem;
+        color: #b8bec4;
+        line-height: 1.6;
+      }
+
+      .card-desc-green {
+        font-size: 0.875rem;
+        color: #b8bec4;
+        line-height: 1.6;
+      }
+
+      .card-section-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--chrome);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0 auto 0.4rem;
+        display: table;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        justify-content: center;
+      }
+
+      .chrome {
+        background: var(--chrome);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .tag {
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: var(--chrome);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border: 1px solid #6a7a8a;
+      }
+
+      .mcp-tools {
+        font-size: 0.68rem;
+        color: #b8bec4;
+        font-family: "SF Mono", "Fira Code", monospace;
+        line-height: 1.7;
+      }
+
+      .mcp-tools span {
+        font-weight: 700;
+      }
+
+      .compliance-tags .tag {
+        background: #1a3a5c;
+        background: linear-gradient(135deg, #c0392b, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border-color: #c0392b;
+      }
+
+      .trust-pill {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        background: #161b22;
+        border: 1px solid #f85149;
+        color: #f85149;
+      }
+
+      .card-footer {
+        margin-top: auto;
+        padding-top: 0.75rem;
+        border-top: 1px solid #21262d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* ── Card expand/collapse ── */
+      .card-header.is-collapsible {
+        cursor: pointer;
+      }
+      .card-punch {
+        cursor: pointer;
+      }
+      .card-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        max-height: 0;
+        overflow: hidden;
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.15s ease;
+        transition:
+          max-height 0.35s ease,
+          opacity 0.25s ease;
       }
-      .badge-demo:hover .demo-preview {
+      .card-details.is-open {
+        max-height: 600px;
         opacity: 1;
-        pointer-events: auto;
       }
-    }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%       { transform: translateX(-3px); }
-      40%       { transform: translateX(3px); }
-      60%       { transform: translateX(-2px); }
-      80%       { transform: translateX(2px); }
-    }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.75rem;
+        color: #3fb950;
+        font-weight: 600;
+      }
 
-    .badge-demo:hover {
-      animation: shake 0.4s ease;
-    }
+      .status-wave-amber {
+        background: linear-gradient(
+          90deg,
+          #e3b341 0%,
+          #e3b341 20%,
+          #ffd97a 45%,
+          #ffffff 55%,
+          #ffd97a 65%,
+          #e3b341 80%,
+          #e3b341 100%
+        );
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: wave-shimmer 2.5s linear infinite;
+      }
 
-    /* ── HSO Production Proof ── */
-    .hso-section {
-      width: 100%;
-      max-width: 1480px;
-      margin: 0 auto 0;
-      padding: 1.25rem 2rem;
-      background: linear-gradient(135deg, #153528, #201a3a);
-      border: 1px solid #8b7fd4;
-      border-left: 4px solid #b8b0f0;
-      border-radius: 12px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
+      .status-wave {
+        background: linear-gradient(
+          90deg,
+          #3fb950 0%,
+          #3fb950 20%,
+          #a8ffb0 45%,
+          #ffffff 55%,
+          #a8ffb0 65%,
+          #3fb950 80%,
+          #3fb950 100%
+        );
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: wave-shimmer 2.5s linear infinite;
+      }
 
-    .hso-section:hover {
-      border-color: #58a6ff;
-      transform: translateY(-2px);
-    }
+      @keyframes wave-shimmer {
+        0% {
+          background-position: 150% center;
+        }
+        100% {
+          background-position: -150% center;
+        }
+      }
 
-    .hso-section h3 {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.85rem;
-    }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #3fb950;
+        animation: pulse 2s infinite;
+      }
 
-    .hso-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
+      .status-amber {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.75rem;
+        color: #e3b341;
+        font-weight: 600;
+      }
 
-    .hso-link {
-      display: inline-block;
-      padding: 0.35rem 0.8rem;
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      color: #79c0ff;
-      text-decoration: none;
-      font-size: 0.775rem;
-      font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
-    }
+      .status-dot-amber {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #e3b341;
+        animation: pulse 2s infinite;
+      }
 
-    .hso-link:hover {
-      border-color: #3fb950;
-      color: #3fb950;
-    }
+      .card-ext-link {
+        color: #79c0ff;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
 
-    /* ── Cost Savings Tag ── */
-    .cost-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      color: #2ea043;
-      border: 1px solid #2ea043;
-      border-radius: 4px;
-      padding: 1px 6px;
-    }
+      .card-ext-link:hover {
+        color: #d0caff;
+        text-decoration: underline;
+      }
 
-    /* ── Certifications ── */
-    .certs-section {
-      width: 100%;
-      max-width: 1480px;
-      margin: 0 auto 1.5rem;
-      padding: 1.25rem 2rem;
-      background: linear-gradient(135deg, #13203a, #1a1530);
-      border: 1px solid #5a6acf;
-      border-left: 4px solid #7b8cf0;
-      border-radius: 10px;
-      box-sizing: border-box;
-    }
-    .certs-section h3 {
-      margin: 0 0 0.85rem 0;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .certs-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .cert-badge {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      padding: 0.6rem 1rem;
-      flex: 1;
-      min-width: 180px;
-      background: #0d1117;
-      border: 1px solid #5a6acf;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-sizing: border-box;
-    }
-    .cert-badge:hover {
-      border-color: #7b8cf0;
-      box-shadow: 0 0 10px rgba(123,140,240,0.3);
-    }
-    .cert-name {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #b8bec4;
-    }
-    .cert-meta {
-      font-size: 0.72rem;
-      color: #79c0ff;
-    }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
 
-    /* ── Footer ── */
-    .footer {
-      max-width: 1480px;
-      margin: 1rem auto 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #484f58;
-    }
-    .footer-rule {
-      width: 100%;
-      border: none;
-      border-top: 1px solid #21262d;
-      margin: 2.5rem 0 0;
-    }
-  </style>
-</head>
-<body>
+      /* ── Demo Preview Tooltip ── */
+      @keyframes cert-pulse {
+        0%,
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 4px #ffd000;
+        }
+        50% {
+          opacity: 0.5;
+          text-shadow: 0 0 10px #ffd000;
+        }
+      }
 
-  <!-- Header -->
-  <div class="header">
-    <img class="avatar" src="TonyAI.png" alt="TonyAI" />
-    <div class="header-text">
-      <h1><img src="website-logo-v2.png" alt="TonyAI Shield" style="height:8rem;width:auto;flex-shrink:0;"><span class="h1-text"><span style="display:inline-block">PhalanxAI</span> <span style="display:inline-block">Security</span></span></h1>
-      <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
-      <p class="tagline"><span class="word"><span style="--i:0">P</span><span style="--i:1">r</span><span style="--i:2">i</span><span style="--i:3">n</span><span style="--i:4">c</span><span style="--i:5">i</span><span style="--i:6">p</span><span style="--i:7">a</span><span style="--i:8">l</span></span><span style="--i:9">&nbsp;</span><span class="word"><span style="--i:10">S</span><span style="--i:11">o</span><span style="--i:12">f</span><span style="--i:13">t</span><span style="--i:14">w</span><span style="--i:15">a</span><span style="--i:16">r</span><span style="--i:17">e</span></span><span style="--i:18">&nbsp;</span><span class="word"><span style="--i:19">E</span><span style="--i:20">n</span><span style="--i:21">g</span><span style="--i:22">i</span><span style="--i:23">n</span><span style="--i:24">e</span><span style="--i:25">e</span><span style="--i:26">r</span></span><span style="--i:27">&nbsp;</span><span style="--i:28" class="sep">·</span><span style="--i:29">&nbsp;</span><span class="word"><span style="--i:30">A</span><span style="--i:31">I</span></span><span style="--i:32">&nbsp;</span><span class="word"><span style="--i:33">A</span><span style="--i:34">c</span><span style="--i:35">c</span><span style="--i:36">e</span><span style="--i:37">l</span><span style="--i:38">e</span><span style="--i:39">r</span><span style="--i:40">a</span><span style="--i:41">t</span><span style="--i:42">e</span><span style="--i:43">d</span></span><span style="--i:44">&nbsp;</span><span class="word"><span style="--i:45">E</span><span style="--i:46">n</span><span style="--i:47">g</span><span style="--i:48">i</span><span style="--i:49">n</span><span style="--i:50">e</span><span style="--i:51">e</span><span style="--i:52">r</span><span style="--i:53">i</span><span style="--i:54">n</span><span style="--i:55">g</span></span><span style="--i:56">&nbsp;</span><span style="--i:57" class="sep">·</span><span style="--i:58">&nbsp;</span><span class="word"><span style="--i:59">Z</span><span style="--i:60">e</span><span style="--i:61">r</span><span style="--i:62">o</span></span><span style="--i:63">&nbsp;</span><span class="word"><span style="--i:64">T</span><span style="--i:65">r</span><span style="--i:66">u</span><span style="--i:67">s</span><span style="--i:68">t</span></span><span style="--i:69">&nbsp;</span><span style="--i:70" class="sep">·</span><span style="--i:71">&nbsp;</span><span class="word"><span style="--i:72">I</span><span style="--i:73">d</span><span style="--i:74">e</span><span style="--i:75">n</span><span style="--i:76">t</span><span style="--i:77">i</span><span style="--i:78">t</span><span style="--i:79">y</span></span><span style="--i:80">&nbsp;</span><span style="--i:81" class="sep">·</span><span style="--i:82">&nbsp;</span><span class="word"><span style="--i:83">C</span><span style="--i:84">o</span><span style="--i:85">m</span><span style="--i:86">p</span><span style="--i:87">l</span><span style="--i:88">i</span><span style="--i:89">a</span><span style="--i:90">n</span><span style="--i:91">c</span><span style="--i:92">e</span></span></p>
-      <div class="demo-footer">
-        <span class="badge badge-green badge-demo">Running Demos
-          <div class="demo-preview">
-            <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
-            <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
-            <img src="demo.png" alt="TonyAI Portfolio demo menu" />
-            <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
-            <img src="demo-d.png" alt="Last Mile demo — DENIED" />
+      @keyframes badge-shake {
+        0%,
+        85%,
+        100% {
+          transform: translateX(0) rotate(0deg);
+        }
+        88% {
+          transform: translateX(-3px) rotate(-2deg);
+        }
+        91% {
+          transform: translateX(3px) rotate(2deg);
+        }
+        94% {
+          transform: translateX(-2px) rotate(-1deg);
+        }
+        97% {
+          transform: translateX(2px) rotate(1deg);
+        }
+      }
+      .badge-demo {
+        position: relative;
+        cursor: pointer;
+        animation: badge-shake 3s ease-in-out infinite;
+      }
+
+      .demo-preview {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: calc(100% + 0.75rem);
+        transform: none;
+        width: 420px;
+        height: 280px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #3fb950;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
+        z-index: 200;
+        background: #0d1117;
+      }
+
+      .demo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top; /* overridden per image below */
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transform-origin: 15% center;
+      }
+
+      .demo-preview img:nth-child(1) {
+        animation:
+          imgfade 35s infinite 0s backwards,
+          imgzoom-flagship 35s infinite 0s backwards;
+        object-position: top;
+      }
+      .demo-preview img:nth-child(2) {
+        animation: imgfade 35s infinite 7s backwards;
+        object-fit: contain;
+        object-position: center;
+        background: #0d1117;
+      }
+      .demo-preview img:nth-child(3) {
+        animation:
+          imgfade 35s infinite 14s backwards,
+          imgzoom2 35s infinite 14s backwards;
+        object-position: 25% 85%;
+      }
+      .demo-preview img:nth-child(4) {
+        animation:
+          imgfade 35s infinite 21s backwards,
+          imgzoom3 35s infinite 21s backwards;
+        object-position: 70% 85%;
+        transform-origin: 50% center;
+      }
+      .demo-preview img:nth-child(5) {
+        animation:
+          imgfade 35s infinite 28s backwards,
+          imgzoom 35s infinite 28s backwards;
+        object-position: top;
+      }
+
+      @keyframes imgfade {
+        0% {
+          opacity: 0;
+        }
+        3%,
+        20% {
+          opacity: 1;
+        }
+        23%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes imgzoom-flagship {
+        0% {
+          transform: scale(1) translate(0px, 0px);
+        }
+        25% {
+          transform: scale(1.15) translate(12px, 15px);
+        }
+        70% {
+          transform: scale(1.15) translate(12px, 15px);
+        }
+        83% {
+          transform: scale(1) translate(0px, 0px);
+        }
+        100% {
+          transform: scale(1) translate(0px, 0px);
+        }
+      }
+
+      @keyframes imgzoom {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.18);
+        }
+        70% {
+          transform: scale(1.18);
+        }
+        83% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes imgzoom2 {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.32);
+        }
+        70% {
+          transform: scale(1.32);
+        }
+        83% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes imgzoom3 {
+        0% {
+          transform: scale(1) translateX(0px);
+        }
+        25% {
+          transform: scale(1.4) translateX(75px);
+        }
+        70% {
+          transform: scale(1.4) translateX(75px);
+        }
+        83% {
+          transform: scale(1) translateX(0px);
+        }
+        100% {
+          transform: scale(1) translateX(0px);
+        }
+      }
+
+      .badge-demo:hover .demo-preview {
+        display: block;
+      }
+
+      @media (max-width: 640px) {
+        .cost-card {
+          flex-direction: column;
+        }
+        .cost-card-img {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .cost-card-text {
+          padding: 1rem 1rem !important;
+        }
+        .badge-demo {
+          animation: none !important;
+        }
+        .badge-demo:hover {
+          animation: none !important;
+        }
+        .demo-preview {
+          position: fixed;
+          width: calc(100vw - 32px);
+          height: 220px;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 9999;
+          display: block;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.15s ease;
+        }
+        .badge-demo:hover .demo-preview {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-3px);
+        }
+        40% {
+          transform: translateX(3px);
+        }
+        60% {
+          transform: translateX(-2px);
+        }
+        80% {
+          transform: translateX(2px);
+        }
+      }
+
+      .badge-demo:hover {
+        animation: shake 0.4s ease;
+      }
+
+      /* ── HSO Production Proof ── */
+      .hso-section {
+        width: 100%;
+        max-width: 1480px;
+        margin: 0 auto 0;
+        padding: 1.25rem 2rem;
+        background: linear-gradient(135deg, #153528, #201a3a);
+        border: 1px solid #8b7fd4;
+        border-left: 4px solid #b8b0f0;
+        border-radius: 12px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+
+      .hso-section:hover {
+        border-color: #58a6ff;
+        transform: translateY(-2px);
+      }
+
+      .hso-section h3 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          #4a5a6a 0%,
+          #8aaabb 20%,
+          #c8dce8 38%,
+          #ffffff 50%,
+          #c8dce8 62%,
+          #8aaabb 80%,
+          #4a5a6a 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.85rem;
+      }
+
+      .hso-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .hso-link {
+        display: inline-block;
+        padding: 0.35rem 0.8rem;
+        background: #21262d;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.775rem;
+        font-weight: 500;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+
+      .hso-link:hover {
+        border-color: #3fb950;
+        color: #3fb950;
+      }
+
+      /* ── Cost Savings Tag ── */
+      .cost-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #2ea043;
+        border: 1px solid #2ea043;
+        border-radius: 4px;
+        padding: 1px 6px;
+      }
+
+      /* ── Certifications ── */
+      .certs-section {
+        width: 100%;
+        max-width: 1480px;
+        margin: 0 auto 1.5rem;
+        padding: 1.25rem 2rem;
+        background: linear-gradient(135deg, #13203a, #1a1530);
+        border: 1px solid #5a6acf;
+        border-left: 4px solid #7b8cf0;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      .certs-section h3 {
+        margin: 0 0 0.85rem 0;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          #4a5a6a 0%,
+          #8aaabb 20%,
+          #c8dce8 38%,
+          #ffffff 50%,
+          #c8dce8 62%,
+          #8aaabb 80%,
+          #4a5a6a 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .certs-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .cert-badge {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        padding: 0.6rem 1rem;
+        flex: 1;
+        min-width: 180px;
+        background: #0d1117;
+        border: 1px solid #5a6acf;
+        border-radius: 8px;
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        box-sizing: border-box;
+      }
+      .cert-badge:hover {
+        border-color: #7b8cf0;
+        box-shadow: 0 0 10px rgba(123, 140, 240, 0.3);
+      }
+      .cert-name {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #b8bec4;
+      }
+      .cert-meta {
+        font-size: 0.72rem;
+        color: #79c0ff;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        max-width: 1480px;
+        margin: 1rem auto 0;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #484f58;
+      }
+      .footer-rule {
+        width: 100%;
+        border: none;
+        border-top: 1px solid #21262d;
+        margin: 2.5rem 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <img class="avatar" src="TonyAI.png" alt="TonyAI" />
+      <div class="header-text">
+        <h1>
+          <img src="website-logo-v2.png" alt="TonyAI Shield" style="height: 8rem; width: auto; flex-shrink: 0" /><span
+            class="h1-text"
+            ><span style="display: inline-block">PhalanxAI</span>
+            <span style="display: inline-block">Security</span></span
+          >
+        </h1>
+        <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
+        <p class="tagline">
+          <span class="word"
+            ><span style="--i: 0">P</span><span style="--i: 1">r</span><span style="--i: 2">i</span
+            ><span style="--i: 3">n</span><span style="--i: 4">c</span><span style="--i: 5">i</span
+            ><span style="--i: 6">p</span><span style="--i: 7">a</span><span style="--i: 8">l</span></span
+          ><span style="--i: 9">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 10">S</span><span style="--i: 11">o</span><span style="--i: 12">f</span
+            ><span style="--i: 13">t</span><span style="--i: 14">w</span><span style="--i: 15">a</span
+            ><span style="--i: 16">r</span><span style="--i: 17">e</span></span
+          ><span style="--i: 18">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 19">E</span><span style="--i: 20">n</span><span style="--i: 21">g</span
+            ><span style="--i: 22">i</span><span style="--i: 23">n</span><span style="--i: 24">e</span
+            ><span style="--i: 25">e</span><span style="--i: 26">r</span></span
+          ><span style="--i: 27">&nbsp;</span><span style="--i: 28" class="sep">·</span
+          ><span style="--i: 29">&nbsp;</span
+          ><span class="word"><span style="--i: 30">A</span><span style="--i: 31">I</span></span
+          ><span style="--i: 32">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 33">A</span><span style="--i: 34">c</span><span style="--i: 35">c</span
+            ><span style="--i: 36">e</span><span style="--i: 37">l</span><span style="--i: 38">e</span
+            ><span style="--i: 39">r</span><span style="--i: 40">a</span><span style="--i: 41">t</span
+            ><span style="--i: 42">e</span><span style="--i: 43">d</span></span
+          ><span style="--i: 44">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 45">E</span><span style="--i: 46">n</span><span style="--i: 47">g</span
+            ><span style="--i: 48">i</span><span style="--i: 49">n</span><span style="--i: 50">e</span
+            ><span style="--i: 51">e</span><span style="--i: 52">r</span><span style="--i: 53">i</span
+            ><span style="--i: 54">n</span><span style="--i: 55">g</span></span
+          ><span style="--i: 56">&nbsp;</span><span style="--i: 57" class="sep">·</span
+          ><span style="--i: 58">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 59">Z</span><span style="--i: 60">e</span><span style="--i: 61">r</span
+            ><span style="--i: 62">o</span></span
+          ><span style="--i: 63">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 64">T</span><span style="--i: 65">r</span><span style="--i: 66">u</span
+            ><span style="--i: 67">s</span><span style="--i: 68">t</span></span
+          ><span style="--i: 69">&nbsp;</span><span style="--i: 70" class="sep">·</span
+          ><span style="--i: 71">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 72">I</span><span style="--i: 73">d</span><span style="--i: 74">e</span
+            ><span style="--i: 75">n</span><span style="--i: 76">t</span><span style="--i: 77">i</span
+            ><span style="--i: 78">t</span><span style="--i: 79">y</span></span
+          ><span style="--i: 80">&nbsp;</span><span style="--i: 81" class="sep">·</span
+          ><span style="--i: 82">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 83">C</span><span style="--i: 84">o</span><span style="--i: 85">m</span
+            ><span style="--i: 86">p</span><span style="--i: 87">l</span><span style="--i: 88">i</span
+            ><span style="--i: 89">a</span><span style="--i: 90">n</span><span style="--i: 91">c</span
+            ><span style="--i: 92">e</span></span
+          >
+        </p>
+        <div class="demo-footer">
+          <span class="badge badge-green badge-demo"
+            >Running Demos
+            <div class="demo-preview">
+              <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
+              <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
+              <img src="demo.png" alt="TonyAI Portfolio demo menu" />
+              <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
+              <img src="demo-d.png" alt="Last Mile demo — DENIED" />
+            </div>
+          </span>
+          <span style="font-size: 0.8rem; color: #555; padding-left: 0.2rem"
+            >Piloted by
+            <a
+              href="https://www.linkedin.com/in/anthony-trujillo-tony-t"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="font-weight: 800; color: #79c0ff; text-decoration: none"
+              >TonyAI</a
+            >, Co-piloted by
+            <a
+              href="https://claude.ai/code"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #79c0ff; text-decoration: none"
+              >Claude Code</a
+            ></span
+          >
+        </div>
+        <div class="header-note">
+          <img src="website-logo-v2-trimmed.png" alt="Shield" />
+          <span>Click on a shield below to expand and reveal the details.</span>
+        </div>
+        <div class="social-links">
+          <a class="social-link" href="resume.html">Resume</a>
+          <a class="social-link" href="achievements.html">Achievements</a>
+        </div>
+      </div>
+      <div class="header-cost-badge">
+        <div class="header-cost-badge-title">
+          <span style="-webkit-text-fill-color: initial; font-size: 1.3rem">💰</span> AI Cost Engineering
+        </div>
+        <div class="header-cost-badge-list">
+          <div>
+            <span style="color: #2ea043; font-weight: 700">▸</span> RAG pre-filter — retrieve only what's needed
           </div>
-        </span>
-        <span style="font-size:0.8rem;color:#555;padding-left:0.2rem;">Piloted by <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer" style="font-weight:800;color:#79c0ff;text-decoration:none;">TonyAI</a>, Co-piloted by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></span>
-      </div>
-      <div class="header-note">
-        <img src="website-logo-v2-trimmed.png" alt="Shield" />
-        <span>Click on a shield below to expand and reveal the details.</span>
-      </div>
-      <div class="social-links">
-        <a class="social-link" href="resume.html">Resume</a>
-        <a class="social-link" href="achievements.html">Achievements</a>
+          <div>
+            <span style="color: #2ea043; font-weight: 700">▸</span> Prompt caching — stop paying for repeated context
+          </div>
+          <div><span style="color: #2ea043; font-weight: 700">▸</span> Spend caps — hard limits, no surprise bills</div>
+          <div>
+            <span style="color: #2ea043; font-weight: 700">▸</span> Model tiering — Haiku for simple tasks, Opus for
+            hard ones
+          </div>
+          <div><span style="color: #2ea043; font-weight: 700">▸</span> Context budgeting — 2k tokens, not 100k</div>
+        </div>
       </div>
     </div>
-    <div class="header-cost-badge">
-      <div class="header-cost-badge-title"><span style="-webkit-text-fill-color:initial;font-size:1.3rem;">💰</span> AI Cost Engineering</div>
-      <div class="header-cost-badge-list">
-        <div><span style="color:#2ea043;font-weight:700;">▸</span> RAG pre-filter — retrieve only what's needed</div>
-        <div><span style="color:#2ea043;font-weight:700;">▸</span> Prompt caching — stop paying for repeated context</div>
-        <div><span style="color:#2ea043;font-weight:700;">▸</span> Spend caps — hard limits, no surprise bills</div>
-        <div><span style="color:#2ea043;font-weight:700;">▸</span> Model tiering — Haiku for simple tasks, Opus for hard ones</div>
-        <div><span style="color:#2ea043;font-weight:700;">▸</span> Context budgeting — 2k tokens, not 100k</div>
+
+    <!-- PoC Grid -->
+    <div class="grid">
+      <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
+      <div class="card card-flagship" id="obo-platform-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
+          <div class="card-title-group">
+            <span class="card-title">Production-Grade Zero Trust OBO Platform</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('obo-aws-platform-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-platform-card')">
+          One <strong class="chrome">Zero Trust OBO</strong> contract. Four languages.
+          <strong class="chrome">Cryptographically sealed</strong> audit log. Built natively on AWS Cognito.
+        </p>
+        <div class="card-details">
+          <p class="card-question">
+            How do you guarantee bulletproof authorization across a fragmented polyglot stack?
+          </p>
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">4 Native Implementations:</strong> Shared auth contract running seamlessly across
+              Python, Java, TypeScript, and C#.
+            </li>
+            <li>
+              <strong class="chrome">Policy as Code — Hot-Swappable:</strong> Cedar (sub-millisecond in-memory) and OpenFGA/Zanzibar (gRPC) toggled via feature flags. Authorization logic lives in code, not config files.
+            </li>
+            <li>
+              <strong class="chrome">Tamper-Proof Auditing:</strong> Every lifecycle event hits an HMAC-SHA256
+              hash-chained log. Tampering instantly breaks the chain; verified live via <code>GET /audit</code>.
+            </li>
+            <li>
+              <strong class="chrome">Least Privilege by Default:</strong> Zero-trust JWT validation enforces minimum-scope access across all four runtimes. Trust boundary defined in code, not firewall rules. Backed by 240+ integration tests.
+            </li>
+            <li>
+              <strong class="chrome">100% Automated IaC:</strong> CloudFormation completely models the serverless
+              infrastructure, including API Gateway, custom-branded Cognito Managed Login, and Lambdas.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Stack</div>
+            <div class="tags">
+              <span class="tag">TypeScript / Express</span><span class="tag">Java 17 / Spring Boot 3</span
+              ><span class="tag">C# / ASP.NET Core</span><span class="tag">Python / FastAPI</span>
+              <span class="tag">Cedar</span><span class="tag">OpenFGA / Zanzibar</span><span class="tag">gRPC</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">AWS Cognito</span
+              ><span class="tag">AWS Lambda</span><span class="tag">API Gateway</span
+              ><span class="tag">AWS SAM (IaC)</span><span class="tag">Docker Compose</span>
+              <span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span><span class="tag">UUIDv7</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">OWASP A01 / A07 / A09</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agentic OBO + Okta -->
+      <div id="obo-card" class="card card-flagship">
+        <div class="card-badge-new"><span>★ New</span></div>
+
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
+          <div class="card-title-group">
+            <span class="card-title card-title-gold">Autonomous Agentic OBO (Okta)</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('obo-okta-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">
+          <strong class="chrome">Agentic AI</strong> with no standing authority. The agent acts only within the human's live permissions — <strong class="chrome">cryptographic delegation</strong>, not assumed trust.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">
+            When an AI agent triggers a high-value transaction or accesses sensitive data, who actually authorized it?
+          </p>
+
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Cryptographic Delegation:</strong> Uses RFC 8693 Token Exchange to mint highly
+              scoped tokens containing explicit actor context (<code>sub=user, act=agent</code>).
+            </li>
+            <li>
+              <strong class="chrome">DPoP Protection:</strong> Binds access tokens to the runtime client via RFC 9449,
+              rendering intercepted tokens completely useless to attackers.
+            </li>
+            <li>
+              <strong class="chrome">Agentic Workflow Gate:</strong> 6-step enforcement — Okta OIDC → ReBAC → token exchange → DPoP binding → JTI check → kill switch. Every step in the agentic workflow is a trust boundary.
+            </li>
+            <li>
+              <strong class="chrome">AI Governance Audit Chain:</strong> Streams every agentic action into an append-only HMAC-SHA256 log. Non-repudiation — provable who authorized what, when, and under which permissions.
+            </li>
+            <li>
+              <strong class="chrome">Replay Defenses:</strong> Mitigates token theft with aggressive JTI replay
+              prevention, short-lived lifecycles, and RP-initiated logouts.
+            </li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Stack</div>
+            <div class="tags">
+              <span class="tag">TypeScript / Node / Express</span><span class="tag">React</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030"
+                >Okta Identity Platform</span
+              >
+              <span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP (RFC 9449)</span>
+              <span class="tag">OIDC / SAML 2.0</span><span class="tag">ReBAC BFS Engine</span
+              ><span class="tag">JWT RS256 / JTI</span> <span class="tag">HMAC-SHA256 Audit Chain</span
+              ><span class="tag">PostgreSQL</span><span class="tag">Docker Compose</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01 / A07</span
+              ><span class="tag">OWASP LLM06 (AI Security)</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AWS OBO Permissions — Cognito + Custom Token Exchange -->
+      <div class="card card-flagship" id="aws-obo-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')">
+          <div class="card-title-group">
+            <span class="card-title">Custom Token Exchange Engine (AWS Cognito)</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('aws-obo-permissions-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 45-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">
+          <strong class="chrome">Custom token exchange engine</strong> on AWS Cognito. Issues <strong class="chrome">15-minute scope-locked OBO JWTs</strong> where the IdP won't — stateless enforcement at every API call.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">
+            How do you enforce short-TTL, granular permissions on every API call when using an IdP that lacks native
+            token exchange support?
+          </p>
+
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Custom RFC 8693 Plane:</strong> Engineered a lightweight AWS Lambda Layer that
+              intercepts user tokens and self-mints independent, cryptographically isolated RS256 OBO tokens.
+            </li>
+            <li>
+              <strong class="chrome">Least Privilege at the Exchange Layer:</strong> Real-time ReBAC graph traversal at token issuance — permissions scoped to exactly the target action, nothing broader. Trust boundary enforced before the token leaves the gate.
+            </li>
+            <li>
+              <strong class="chrome">Dual-Layer Fail-Closed Lock:</strong> Enforces instant global revocation via a
+              synchronized system that writes the unique <code>jti</code> to a DynamoDB blocklist while wiping active
+              sessions from ElastiCache Redis.
+            </li>
+            <li>
+              <strong class="chrome">Ultra-Fast Validation:</strong> Downstream Spring Boot microservices act as lean
+              OAuth2 Resource Servers, running sub-millisecond local cryptographic signature checks with zero runtime
+              IdP overhead.
+            </li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Stack</div>
+            <div class="tags">
+              <span class="tag">Java 17 / Spring Boot 3</span><span class="tag">Spring Security</span
+              ><span class="tag">OAuth2 Resource Server</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">AWS Cognito</span>
+              <span class="tag">AWS Lambda (Custom RFC 8693 Engine)</span><span class="tag">DynamoDB Global Tables</span
+              ><span class="tag">Amazon ElastiCache Redis</span> <span class="tag">TypeScript / React</span
+              ><span class="tag">JWT RS256 / JTI Blocklist</span><span class="tag">ReBAC BFS Engine</span><span class="tag">Vite HMR</span><span class="tag">AWS SAM (IaC)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">OWASP A01 / A07</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autonomous Code Reviewer -->
+      <div class="card card-flagship" id="acra-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
+          <div class="card-title-group">
+            <span class="card-title">Autonomous Code Reviewer (Auth0 + MCP)</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('code-reviewer-agent.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">
+          <strong class="chrome">Autonomous AI agent</strong> with <strong class="chrome">zero standing privileges</strong>. Every PR reviewed under a verified, ephemeral machine identity — fails closed, every time.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">
+            How do you catch hardcoded secrets or injection vulnerabilities before merge using an agent with its own
+            verified cryptographic identity?
+          </p>
+
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Verified Webhook Pipe:</strong> Intercepts GitHub PR events, immediately verifying
+              payloads via secure cryptographic HMAC signatures.
+            </li>
+            <li>
+              <strong class="chrome">Workload Identity — Zero Standing Privilege:</strong> Fetches short-lived, 1-hour Auth0 M2M tokens scoped to one repo. The agent's workload identity expires — no persistent access, instant global revocation.
+            </li>
+            <li>
+              <strong class="chrome">Agentic MCP Architecture:</strong> Leverages Model Context Protocol (MCP) to supply
+              Claude with deep context, moving beyond naive regex to reason deeply about diffs.
+            </li>
+            <li>
+              <strong class="chrome">Inline Guardrails — OWASP LLM Top 10:</strong> Streams vulnerability findings directly back to GitHub, pinning OWASP violations to the exact line. LLM output governed, not trusted.
+            </li>
+            <li>
+              <strong class="chrome">Deterministic Audit Trail:</strong> Logs every agent action into an HMAC-signed
+              audit entry, strictly enforcing a fail-closed posture across all error paths.
+            </li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Stack</div>
+            <div class="tags">
+              <span class="tag">Python / Flask</span><span class="tag">Claude API</span
+              ><span class="tag">Model Context Protocol (MCP)</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Auth0 M2M</span>
+              <span class="tag">GitHub Webhooks</span><span class="tag">Terraform (IaC)</span
+              ><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance</div>
+            <div class="tags compliance-tags">
+              <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02 / A03</span><span class="tag">SOC2</span
+              ><span class="tag">Zero Trust</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phalanx -->
+      <div class="card" id="phalanx-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
+          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
+          <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
+            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
+            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
+            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
+            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
+              ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
+              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span
+              ><span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span
+              ><span class="tag">MITRE ATLAS</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status-amber">
+              <div class="status-dot-amber"></div>
+              Under Construction
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zero Trust Payments -->
+      <div class="card" id="payments-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
+          <div class="card-title-group">
+            <span class="card-title">Zero Trust Payments with AI</span>
+            <span
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                document.getElementById('atm-lightbox').style.display = 'flex';
+              "
+              >📷 Preview demo</span
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">
+          <strong class="chrome">AI recommends</strong>. Policy decides. Money never moves on <strong class="chrome">AI confidence alone</strong>.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own authority?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Guardrails — Deterministic Gate:</strong> Prompt Evaluation Gate sits pre-execution. Pure Python, four checks, zero LLM variance, zero overrides. Fail one, hard stop. No AI confidence bypasses policy.</li>
+            <li><strong class="chrome">Human-in-the-Loop by Design:</strong> AI recommends. Human-defined policy executes. Money never moves on model confidence alone — the architecture enforces HITL, not a setting.</li>
+            <li><strong class="chrome">AI Governance Audit Trail:</strong> Every recommendation, gate decision, and outcome KMS-signed and immutably logged. Regulators get cryptographic proof, not log files.</li>
+            <li><strong class="chrome">ReBAC Kill Switch:</strong> Revoke one relationship — the entire agentic transaction chain dies instantly. Least privilege enforced at the trust boundary, not the API.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Prompt Evaluation Gate</span><span class="tag">ReBAC</span
+              ><span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">KMS</span
+              ><span class="tag">JWT RS256</span><span class="tag">DynamoDB</span><span class="tag">Redis</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span
+              ><span class="tag">OWASP Top 10</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IETF Internet-Draft -->
+      <div class="card" id="ietf-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
+          <div class="card-title-group">
+            <span class="card-title" style="animation: pulse 2.5s ease-in-out infinite; display: inline-block"
+              >IETF Internet-Draft — Agent-to-Agent Trust</span
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">
+          First author defining the <strong class="chrome">IETF standard</strong> for <strong class="chrome">agent-to-agent trust</strong> — every clause runs as working code.
+        </p>
+
+        <div class="card-details">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 12px">
+            <span
+              style="
+                font-size: 0.72rem;
+                font-weight: 700;
+                padding: 2px 10px;
+                border-radius: 4px;
+                background: linear-gradient(135deg, #7a0000, #c0392b, #7a0000);
+                color: #fff;
+                letter-spacing: 0.05em;
+              "
+              >★ IETF AUTHOR</span
+            >
+            <div style="display: flex; gap: 1rem">
+              <a
+                class="card-ext-link"
+                href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="font-size: 0.75rem"
+                >Datatracker →</a
+              >
+              <a
+                class="card-ext-link"
+                href="https://github.com/tonyt68/ietf-a2a-trust-poc"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="font-size: 0.75rem"
+                >GitHub PoC →</a
+              >
+            </div>
+          </div>
+
+          <p class="card-question">What does it take to define agent-to-agent trust as an Internet Standard — and ship working code that proves every clause?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Multi-Agent Trust Standard:</strong> Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.</li>
+            <li><strong class="chrome">Policy as Code — Dual Signature:</strong> Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.</li>
+            <li><strong class="chrome">50/50 Conformance + 34/34 Red-Team:</strong> 100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">X.509 PKI</span><span class="tag">Cedar Policy</span><span class="tag">Python 3.12</span
+              ><span class="tag">Claude Sonnet</span><span class="tag">AWS KMS</span><span class="tag">S3</span
+              ><span class="tag">SHA-256 Audit Chain</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">IETF Standards Track</span><span class="tag">NIST 800-207</span
+              ><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Published · Draft 00 · PoC Live</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secure RAG — Flagship -->
+      <div class="card" id="secure-rag-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
+          <div class="card-title-group">
+            <span class="card-title">Secure RAG — Zero Trust Demo</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('secure-rag-card')">
+          Same AI, same query, different <strong class="chrome">identity</strong> — different answer. <strong class="chrome">Zero Trust</strong> enforces it, not the prompt.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you serve the right data to the right identity — and prove the wrong identity never saw it?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Identity-Gated RAG:</strong> JWT claims map to ReBAC policies that filter Bedrock Knowledge Base lookups at query time. Least privilege enforced at the retrieval layer — Claude never sees data it's not cleared for.</li>
+            <li><strong class="chrome">Guardrails Before the LLM:</strong> Enforcement stack strips unauthorized context before a single token reaches Claude. OWASP LLM Top 10 — no prompt-level workaround, no jailbreak path to PHI.</li>
+            <li><strong class="chrome">AI Governance — Full Chain of Custody:</strong> Every query, retrieval, and response bound to a single immutable correlation ID. Audit trail proves the right identity got the right data. Nothing silent.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">AWS Bedrock KB</span><span class="tag">Pinecone</span><span class="tag">ReBAC</span
+              ><span class="tag">JWT RS256</span><span class="tag">Python</span><span class="tag">MCP Resources</span
+              ><span class="tag">Claude Code</span><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">HIPAA</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span
+              ><span class="tag">OWASP Top 10</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Mile Zero Trust -->
+      <div class="card" id="lastmile-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('lastmile-card')">
+          <div class="card-title-group">
+            <span class="card-title">Last Mile Zero Trust — Platform</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">
+          <strong class="chrome">No static credentials</strong>. No inbound firewall holes. Every hop enforced, <strong class="chrome">no hop trusted</strong>.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you connect a cloud MCP agent to an on-prem database with zero static credentials and zero inbound firewall rules?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Outbound-Only Transport:</strong> On-prem relay polls AWS SQS — no inbound ports, no VPN, no firewall hole. Trust boundary is architectural, not a rule.</li>
+            <li><strong class="chrome">Vault PKI — Least Privilege Credentials:</strong> Short-lived X.509 certs replace every static DB credential. Scoped to read or write — nothing broader. Cert expires, access is gone.</li>
+            <li><strong class="chrome">JWT → ReBAC → DB Trust Chain:</strong> Agentic workflow enforces identity at every hop. JWT claims → ReBAC evaluation → cert-gated DB access. No hop trusted, no step skipped.</li>
+            <li><strong class="chrome">AI Governance Audit Trail:</strong> Every agentic request logged — identity, resource, scope, outcome. ALLOWED or DENIED. Full chain of custody, nothing silent.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">HashiCorp Vault</span><span class="tag">AWS SQS</span><span class="tag">ReBAC</span
+              ><span class="tag">JWT RS256</span><span class="tag">PostgreSQL 16</span><span class="tag">MCP</span
+              ><span class="tag">Python</span><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span><span class="tag">FIPS 140-3</span
+              ><span class="tag">NIST 800-207</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sentinel FIPS -->
+      <div class="card" id="sentinel-fips-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-fips-card')">
+          <div class="card-title-group">
+            <span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-fips-card')">
+          <strong class="chrome">KMS-signed decisions</strong>, locked in <strong class="chrome">S3 Object Lock</strong> — even root can't delete the evidence.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you prove an authorization decision was made correctly — and that no one, including root, can alter the record after the fact?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">AI Governance — Immutable by Design:</strong> Decisions committed as hashes to S3 Object Lock (COMPLIANCE mode). Root cannot delete. Regulators get cryptographic proof of every authorization decision.</li>
+            <li><strong class="chrome">FIPS 140-3 KMS Signatures:</strong> Every auth decision and audit entry signed in real time with validated KMS keys. Cryptographic proof, not a log statement — FedRAMP High ready.</li>
+            <li><strong class="chrome">Policy as Code — Cedar + AVP:</strong> Authorization logic in Cedar, evaluated serverless in Lambda. Microsecond multi-tenant policy gate — least privilege enforced at the decision layer, not the perimeter.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">AWS KMS</span><span class="tag">S3 Object Lock</span><span class="tag">Cedar / AVP</span
+              ><span class="tag">AWS Lambda</span><span class="tag">DynamoDB</span><span class="tag">CloudTrail</span
+              ><span class="tag">Python</span><span class="tag">AWS SAM (IaC)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">FIPS 140-3</span><span class="tag">FedRAMP High</span
+              ><span class="tag">NIST 800-53</span><span class="tag">SOC2</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sentinel MCP -->
+      <div class="card" id="sentinel-mcp-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mcp-card')">
+          <div class="card-title-group">
+            <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">
+          Security investigations: 45 minutes → 60 seconds. Plain English in, <strong class="chrome">forensically verified</strong> answer out.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you let an AI agent investigate live AWS infrastructure — and guarantee every query it runs is signed, tracked, and provable?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Agentic Workflow — MCP Forensics:</strong> Natural language drives an autonomous multi-service AWS investigation. The agentic workflow spans CloudTrail + CloudWatch + DynamoDB in a single governed query.</li>
+            <li><strong class="chrome">45 min → 60 sec:</strong> Security investigations that required a senior engineer now run in under a minute — same depth, deterministic output, guardrails on every LLM action.</li>
+            <li><strong class="chrome">AI Governance — KMS-Signed Queries:</strong> Every LLM-driven infrastructure query signed via AWS KMS and bound to an immutable tracking ID. No agentic action is unverifiable.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">FastMCP</span><span class="tag">Python</span><span class="tag">Boto3</span
+              ><span class="tag">CloudTrail</span><span class="tag">CloudWatch</span><span class="tag">AWS KMS</span
+              ><span class="tag">DynamoDB</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">NIST 800-207</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAG Knowledge Assistant -->
+      <div class="card" id="rag-knowledge-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
+          <div class="card-title-group">
+            <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="website-logo-v2-trimmed.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
+          <strong class="chrome">Hard spend caps</strong>. Local-first retrieval. <strong class="chrome">Sensitive data never leaves the building</strong>.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you deploy AI-assisted onboarding without letting sensitive data escape the building or costs spiral out of control?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
+            <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
+            <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span
+              ><span class="tag">JSON Knowledge Store</span><span class="tag">Token Budgeting</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- PoC Grid -->
-  <div class="grid">
+    <hr class="footer-rule" />
+    <div class="footer">&copy; 2026 Anthony James Trujillo — All rights reserved</div>
 
-    <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
-    <div class="card card-flagship" id="obo-platform-card">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
-        <div class="card-title-group">
-          <span class="card-title">OBO with AWS Cognito as a Platform</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('obo-aws-platform-demo.mp4');return false;" href="#">🎬 60-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-platform-card')"><strong class="chrome">Zero Trust</strong> On-Behalf-Of on <strong class="chrome">AWS Cognito</strong>, built from scratch — <strong class="chrome">four custom middle-tier</strong> implementations, <strong class="chrome">four languages (Python/Java/TypeScript/C#)</strong>, one authorization contract, and a <strong class="chrome">hash-chained audit log</strong> that proves every action taken.</p>
-      <div class="card-details">
-        <p class="card-question">How do you prove an authorization design actually works — not just in the one language you prototyped it in, but <strong class="chrome">everywhere your stack actually runs?</strong></p>
-        <p class="card-desc-green">A single <code>AuthorizationProvider</code> contract — <code>isAllowed()</code> + <code>getGroups()</code> — backed by two real engines: <strong class="chrome">Cedar</strong> (in-memory, sub-millisecond) and <strong class="chrome">OpenFGA/Zanzibar</strong> (gRPC-primary with automatic HTTP fallback), swapped per-service via a feature flag with zero call-site changes. Deployed for real: <strong class="chrome">AWS Lambda</strong> + API Gateway behind a <strong class="chrome">Cognito Managed Login</strong> screen custom-branded to match the app, not the stock Hosted UI.</p>
-        <p class="card-desc" style="font-size:0.78rem;">Every allow/deny decision, in all four languages, lands in a UUIDv7-correlated, <strong class="chrome">HMAC-SHA256</strong> hash-chained audit log — each entry's hash covers the previous entry's, so tampering with history breaks every link after it; <code>GET /audit</code> recomputes and reports <code>chainValid</code> live. <strong class="chrome">240 automated tests</strong> across four independent stacks, every provider verified against a real running OpenFGA container (not mocked), and a JWT-validation hardening pass that brought signature/issuer/audience/<code>iat</code> checks to parity across every language. <strong class="chrome">Most "pluggable auth" designs never get a second implementation. This one has four — plus cryptographic proof of actions.</strong></p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">TypeScript</span><span class="tag">Express</span><span class="tag">Java 17</span><span class="tag">Spring Boot 3</span>
-            <span class="tag">C# / ASP.NET Core</span><span class="tag">Python / FastAPI</span>
-            <span class="tag">Cedar</span><span class="tag">OpenFGA / Zanzibar</span><span class="tag">gRPC</span>
-            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span>
-            <span class="tag">AWS Lambda</span><span class="tag">API Gateway</span><span class="tag">CloudFormation</span>
-            <span class="tag">Docker Compose</span>
-            <span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span><span class="tag">UUIDv7</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span>
-            <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
+    <!-- Shared Video Lightbox -->
+    <div
+      id="video-lightbox"
+      onclick="closeVideoLightbox()"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+        flex-direction: column;
+        gap: 1rem;
+      "
+    >
+      <a
+        onclick="
+          event.stopPropagation();
+          closeVideoLightbox();
+        "
+        style="
+          font-size: 0.82rem;
+          text-decoration: none;
+          cursor: pointer;
+          align-self: flex-start;
+          margin-left: 4vw;
+          background: linear-gradient(
+            90deg,
+            #8a5a85 0%,
+            #b87ab5 25%,
+            #dda8d8 42%,
+            #f0dff0 50%,
+            #dda8d8 58%,
+            #b87ab5 75%,
+            #8a5a85 100%
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        "
+        >← Portfolio</a
+      >
+      <video
+        id="video-lightbox-player"
+        onclick="event.stopPropagation()"
+        controls
+        preload="metadata"
+        style="
+          max-width: 92vw;
+          max-height: 85vh;
+          border-radius: 8px;
+          border: 1px solid #30363d;
+          box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        "
+      ></video>
     </div>
 
-    <!-- Agentic OBO + Okta -->
-    <div id="obo-card" class="card card-flagship">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
-        <div class="card-title-group">
-          <span class="card-title card-title-gold">Okta Autonomous Agentic OBO</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('obo-okta-demo.mp4');return false;" href="#">🎬 60-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">The agent carries <strong class="chrome">zero standing authority</strong> — it acts only with what the user is allowed to do, fully credential-blind.</p>
-      <div class="card-details">
-        <p class="card-question">When an AI agent moves money or touches production data — who authorized that? The agent's own credential? Or the human who triggered it?</p>
-        <p class="card-desc-green">Scoped, time-limited, cryptographically attributed, and <strong class="chrome">provable in court</strong>.</p>
-        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Okta OIDC</strong> authenticates the user. Six-step gate — <strong class="chrome">ReBAC</strong> → <strong class="chrome">RFC 8693 Token Exchange</strong> → policy — mints a DPoP-bound OBO token: <code>sub=user, act=agent</code>. One-time-use. Kill switch. <strong class="chrome">HMAC-SHA256</strong> append-only audit chain.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">TypeScript</span><span class="tag">Node / Express</span><span class="tag">React</span>
-            <span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Okta</span><span class="tag">RFC 8693 Token Exchange</span><span class="tag">DPoP RFC 9449</span>
-            <span class="tag">OIDC Auth Code</span><span class="tag">RP-Initiated Logout</span>
-            <span class="tag">SAML 2.0 XMLDSig</span><span class="tag">ReBAC BFS</span><span class="tag">JWT RS256</span>
-            <span class="tag">JTI Replay Prevention</span><span class="tag">Revocation Kill Switch</span>
-            <span class="tag">HMAC-SHA256 Audit Chain</span><span class="tag">PostgreSQL</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">NIST 800-207</span><span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">OWASP LLM06</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
+    <!-- ATM Demo Lightbox -->
+    <div
+      id="atm-lightbox"
+      onclick="this.style.display = 'none'"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+        flex-direction: column;
+        gap: 1rem;
+      "
+    >
+      <a
+        onclick="
+          event.stopPropagation();
+          document.getElementById('atm-lightbox').style.display = 'none';
+        "
+        style="
+          font-size: 0.82rem;
+          text-decoration: none;
+          cursor: pointer;
+          align-self: flex-start;
+          margin-left: 4vw;
+          background: linear-gradient(
+            90deg,
+            #8a5a85 0%,
+            #b87ab5 25%,
+            #dda8d8 42%,
+            #f0dff0 50%,
+            #dda8d8 58%,
+            #b87ab5 75%,
+            #8a5a85 100%
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        "
+        >← Portfolio</a
+      >
+      <img
+        src="zero-trust-atm-demo.png"
+        alt="Zero Trust ATM Demo"
+        style="
+          max-width: 92vw;
+          max-height: 85vh;
+          border-radius: 8px;
+          border: 1px solid #30363d;
+          box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        "
+      />
     </div>
+    <script>
+      function openVideoDemo(src) {
+        var v = document.getElementById("video-lightbox-player");
+        v.src = src;
+        v.currentTime = 0;
+        document.getElementById("video-lightbox").style.display = "flex";
+        setTimeout(function () {
+          v.play();
+        }, 50);
+      }
 
-    <!-- AWS OBO Permissions — Cognito + Custom Token Exchange --> 
-<div class="card card-flagship" id="aws-obo-card"> 
-    <div class="card-badge-new"><span>★ New</span></div> 
-    <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')"> 
-        <div class="card-title-group"> 
-            <span class="card-title">AWS OBO Permissions — Cognito + Custom Token Exchange</span> 
-            <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('aws-obo-permissions-demo.mp4');return false;" href="#">🎬 45-sec demo</a> 
-        </div> 
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" /> 
-    </div> 
-    <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">Custom RFC 8693 Engine — Bypasses Cognito protocol gaps via a secure Lambda token exchange plane. Bounded 15-min OBO JWT lifecycles.</p> 
-    <div class="card-details"> 
-        <p class="card-question">How do you enforce granular, scope-locked, short-TTL permissions on every API call when using an IdP that lacks native token exchange support?</p> 
-        <p class="card-desc-green"><strong class="chrome">AWS Cognito</strong> lacks native RFC 8693 support, risking token bloat downstream. This platform bridges the gap using an <strong class="chrome">AWS Lambda Layer</strong> as a custom Token Exchange Engine. The Lambda intercepts the token, executes real-time ReBAC graph evaluations, and self-mints an independent, cryptographically isolated <strong class="chrome">RS256 OBO JWT</strong> strictly scope-locked to the target downstream action.</p> 
-        <p class="card-desc" style="font-size:0.78rem;">Downstream Spring Boot microservices operate as pure <strong class="chrome">OAuth2 Resource Servers</strong> executing sub-millisecond local cryptographic signature validations. Real-time revocation is enforced by a dual-layer kill switch that writes the unique <code>jti</code> to a <strong class="chrome">DynamoDB blocklist</strong> for the gateway while instantly deleting the corresponding session from the <strong class="chrome">Redis cache</strong> on the API layer, failing closed instantly.</p> 
-        <div> 
-            <div class="card-section-label">Stack</div> 
-            <div class="tags"> 
-                <span class="tag">Java 17</span><span class="tag">Spring Boot 3</span><span class="tag">Spring Security</span> 
-                <span class="tag">OAuth2 Resource Server</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">AWS Cognito</span> 
-                <span class="tag">RFC 8693 Exchange</span><span class="tag">TypeScript</span><span class="tag">React</span> 
-                <span class="tag">Lambda</span><span class="tag">DynamoDB Global Tables</span><span class="tag">Amazon ElastiCache Redis</span> 
-                <span class="tag">JWT RS256</span><span class="tag">ReBAC BFS Traversal</span><span class="tag">JTI Kill Switch</span><span class="tag">Vite HMR</span> 
-            </div> 
-        </div> 
-        <div> 
-            <div class="card-section-label">Designed for</div> 
-            <div class="tags compliance-tags"> 
-                <span class="tag">NIST 800-207</span><span class="tag">SOC2</span> 
-                <span class="tag">OWASP A01</span><span class="tag">OWASP A07</span><span class="tag">Zero Trust</span> 
-            </div> 
-        </div> 
-        <div class="card-footer">
-            <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-    </div>
-</div>
+      function closeVideoLightbox() {
+        var v = document.getElementById("video-lightbox-player");
+        v.pause();
+        v.currentTime = 0;
+        document.getElementById("video-lightbox").style.display = "none";
+      }
 
-    <!-- Autonomous Code Reviewer -->
-    <div class="card card-flagship" id="acra-card">
-      <div class="card-badge-new"><span>★ New</span></div>
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
-        <div class="card-title-group">
-          <span class="card-title">Auth0 Autonomous Code Reviewer</span>
-          <a class="card-demo-link" onclick="event.stopPropagation();openVideoDemo('code-reviewer-agent.mp4');return false;" href="#">🎬 60-sec demo</a>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">Every PR gets a reviewer with its own verified identity — no static keys, fails closed every time.</p>
-      <div class="card-details">
-        <p class="card-question">How do you stop a hardcoded secret or SQL injection from merging — every PR, automatically, with an agent that has its own verified identity?</p>
-        <p class="card-desc-green">PR opened → <strong class="chrome">HMAC verified</strong> → <strong class="chrome">Auth0 M2M token</strong> fetched autonomously → <strong class="chrome">Claude</strong> reasons about the diff → OWASP findings posted inline, pinned to exact file and line → <strong class="chrome">HMAC-signed audit entry</strong>. No regex. No static keys. Fails closed on every error path. <strong style="color:#c8d4e0;font-style:italic">Agent credential expires in 1hr, scoped to one repo, revocable in one click.</strong></p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag" style="border-color:#c8a030;-webkit-text-fill-color:#c8a030;">Auth0 M2M</span>
-            <span class="tag">GitHub Webhooks</span><span class="tag">Claude API</span><span class="tag">MCP Server</span>
-            <span class="tag">Terraform</span><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02</span><span class="tag">OWASP A03</span><span class="tag">SOC2</span><span class="tag">Zero Trust</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
+      function toggleCardDetails(cardId) {
+        const card = document.getElementById(cardId);
+        const details = card.querySelector(".card-details");
+        const toggleIcon = card.querySelector(".card-toggle-icon");
+        const opening = !details.classList.contains("is-open");
+        details.classList.toggle("is-open");
+        toggleIcon.classList.toggle("is-open");
+        toggleIcon.title = opening ? "Click to collapse" : "Click to expand";
+        details.style.maxHeight = opening ? details.scrollHeight + "px" : "0px";
+        if (card.dataset.expandedHeight) {
+          card.style.minHeight = (opening ? card.dataset.expandedHeight : card.dataset.collapsedHeight) + "px";
+        }
+      }
 
-    <!-- Phalanx -->
-    <div class="card" id="phalanx-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
-        <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">Every AI agent gets a cryptographic identity at birth — and <strong class="chrome">zero standing access</strong>.</p>
-      <div class="card-details">
-        <p class="card-desc-green">Every agent gets an <strong class="chrome">IETF A2A cert</strong> at birth, policy-locked. <em>MCP Security Gate</em> verifies identity + ReBAC on every call. Agents are <strong class="chrome">credential-blind</strong> — Vault owns all secrets. <strong class="chrome">HMAC-SHA256</strong> hash chain proves every decision. <strong style="color:#f85149">Poison pill detection</strong> kills prompt injection before the LLM sees it. <strong style="color:#c8d4e0;font-style:italic">Identity without access governance isn't Zero Trust — it's a registry.</strong></p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">IdP OIDC/OAuth2</span><span class="tag">IETF A2A</span>
-            <span class="tag">MCP Security Gate</span><span class="tag">HashiCorp Vault</span>
-            <span class="tag">JWT/JWK</span><span class="tag">HMAC-SHA256</span>
-            <span class="tag">FGA</span><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">Claude Sonnet</span><span class="tag">Pinecone</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span><span class="tag">OWASP LLM Top 10</span><span class="tag">MITRE ATLAS</span><span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status-amber"><div class="status-dot-amber"></div>Under Construction</div>
-        </div>
-      </div>
-    </div>
+      function equalizeCardSizes() {
+        const cards = Array.from(document.querySelectorAll(".card")).filter((card) =>
+          card.querySelector(".card-details"),
+        );
+        let maxCollapsed = 0,
+          maxExpanded = 0;
+        cards.forEach((card) => {
+          card.style.minHeight = "";
+          const details = card.querySelector(".card-details");
+          const collapsedHeight = card.offsetHeight;
+          const expandedHeight = collapsedHeight + details.scrollHeight;
+          maxCollapsed = Math.max(maxCollapsed, collapsedHeight);
+          maxExpanded = Math.max(maxExpanded, expandedHeight);
+        });
+        cards.forEach((card) => {
+          const details = card.querySelector(".card-details");
+          card.dataset.collapsedHeight = maxCollapsed;
+          card.dataset.expandedHeight = maxExpanded;
+          card.style.minHeight = (details.classList.contains("is-open") ? maxExpanded : maxCollapsed) + "px";
+        });
+      }
 
-    <!-- Zero Trust Payments -->
-    <div class="card" id="payments-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
-        <div class="card-title-group">
-          <span class="card-title">Zero Trust Payments with AI</span>
-          <span class="card-demo-link" onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='flex'">📷 Preview demo</span>
-        </div>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">AI recommends. Policy decides. Money never moves on AI confidence alone.</p>
-      <div class="card-details">
-        <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own confidence?</p>
-        <p class="card-desc-green">Revoke one <strong class="chrome">ReBAC</strong> relationship — the entire chain dies.</p>
-        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Prompt Evaluation Gate</strong> sits between Claude and execution — deterministic Python, no LLM. Four checks. Fail any = hard block. Zero overrides.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">Zero Trust</span>
-            <span class="tag">ReBAC</span><span class="tag">Prompt Evaluation Gate</span>
-            <span class="tag">Redis</span><span class="tag">DynamoDB</span><span class="tag">S3</span>
-            <span class="tag">KMS</span><span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span>
-            <span class="tag">Terraform</span><span class="tag">CloudWatch</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span><span class="tag">OWASP A03</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IETF Internet-Draft -->
-    <div class="card" id="ietf-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
-        <span class="card-title" style="animation:pulse 2.5s ease-in-out infinite;display:inline-block;">IETF Internet-Draft — Agent-to-Agent Trust</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">First author defining the IETF standard for agent-to-agent trust — every clause runs as working code.</p>
-      <div class="card-details">
-        <div style="display:flex;align-items:center;gap:0.5rem;">
-          <span style="font-size:0.78rem;font-weight:700;padding:2px 10px;border-radius:4px;background:linear-gradient(135deg,#7a0000,#c0392b,#7a0000);color:#fff;letter-spacing:0.05em;">★ IETF AUTHOR</span>
-        </div>
-        <div style="display:flex;gap:1.25rem;">
-          <a class="card-ext-link" href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener noreferrer">datatracker.ietf.org →</a>
-          <a class="card-ext-link" href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">PoC on GitHub →</a>
-        </div>
-        <p class="card-question">How do you establish trust between AI agents when no standard exists?</p>
-        <p class="card-desc-green">Defining the standard for agent-to-agent identity and trust. IETF Security Area Director responded day one.</p>
-        <p class="card-desc" style="font-size:0.78rem;">Working PoC: <strong class="chrome">JWT chains</strong>, <strong class="chrome">HMAC</strong> integrity, <strong class="chrome">X.509 PKI</strong>, <strong class="chrome">CRL</strong>, dual-signature governance. <strong style="color:#c8d4e0">34/34 attacks blocked. 50/50 conformance vectors.</strong> Every pattern in the spec runs as code.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python 3.12</span><span class="tag">FastAPI</span><span class="tag">X.509 PKI</span><span class="tag">JWT Chains</span>
-            <span class="tag">HMAC</span><span class="tag">CRL</span><span class="tag">Cedar</span><span class="tag">AWS KMS</span>
-            <span class="tag">S3</span><span class="tag">Replay Prevention</span><span class="tag">Docker</span><span class="tag">Terraform</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span><span class="tag">NIST 800-207</span><span class="tag">RFC Track</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Published · Draft 00 · PoC Live</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Secure RAG — Flagship -->
-    <div class="card" id="secure-rag-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
-        <span class="card-title">Secure RAG — Zero Trust Demo</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('secure-rag-card')">Same AI, same query, different identity — different answer. Zero Trust enforces it, not the prompt.</p>
-      <div class="card-details">
-        <p class="card-desc-green">PHI never crosses the boundary. Enforced before <strong class="chrome">Claude</strong> sees a single token — by the enforcement stack, not the prompt.</p>
-        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">JWT</strong> → <strong class="chrome">ReBAC</strong> → <strong class="chrome">Bedrock KB</strong> → audit. One correlation ID. Full trail, end-to-end.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">AWS Bedrock Knowledge Base</span>
-            <span class="tag">Pinecone</span><span class="tag">S3</span><span class="tag">DynamoDB</span>
-            <span class="tag">CloudWatch</span><span class="tag">SQS</span><span class="tag">IAM</span>
-            <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">MCP Resources</span>
-            <span class="tag">MCP Prompts</span><span class="tag">Claude Code</span><span class="tag">JWT RS256</span><span class="tag">Terraform</span><span class="tag">Token Savings</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">HIPAA</span><span class="tag">SOC2</span>
-            <span class="tag">NIST 800-207</span><span class="tag">FIPS 140-3</span><span class="tag">OWASP A01</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Last Mile Zero Trust -->
-    <div class="card" id="lastmile-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('lastmile-card')">
-        <span class="card-title">Last Mile Zero Trust — Platform</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">No static credentials. No inbound firewall holes. Every hop enforced, no hop trusted.</p>
-      <div class="card-details">
-        <p class="card-question">How do you give an AI agent secure access to on-prem data without static credentials or opening firewall holes?</p>
-        <p class="card-desc-green">Zero static credentials. Zero inbound firewall rules. Full cryptographic audit trail on every access.</p>
-        <p class="card-desc" style="font-size:0.78rem;"><strong class="chrome">Vault PKI</strong> issues short-lived X.509 certs. Relay agent polls <strong class="chrome">SQS</strong> outbound — no inbound ports, no firewall holes. <strong class="chrome">JWT → ReBAC → cert → DB.</strong></p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">AWS SQS</span>
-            <span class="tag">IAM</span><span class="tag">HashiCorp Vault</span><span class="tag">PostgreSQL 16</span>
-            <span class="tag">Redis</span><span class="tag">ReBAC</span><span class="tag">JWT RS256</span>
-            <span class="tag">MCP</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Docker</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span>
-            <span class="tag">FIPS 140-3</span><span class="tag">NIST 800-207</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sentinel FIPS -->
-    <div class="card" id="sentinel-fips-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-fips-card')">
-        <span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-fips-card')">KMS-signed decisions, locked in S3 Object Lock — even root can't delete the evidence.</p>
-      <div class="card-details">
-        <p class="card-question">How do you prove an AI system's decisions are tamper-proof in a federally regulated environment?</p>
-        <p class="card-desc-green">AWS-native FIPS 140-3 security boundary. Tamper-proof audit trail in <strong class="chrome">S3 Object Lock</strong> COMPLIANCE mode. FedRAMP-ready.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">AWS Lambda</span><span class="tag">API Gateway</span>
-            <span class="tag">KMS</span><span class="tag">DynamoDB</span><span class="tag">Cedar/AVP</span>
-            <span class="tag">CloudTrail</span><span class="tag">S3 Object Lock</span><span class="tag">EventBridge</span>
-            <span class="tag">SNS</span><span class="tag">SecretsManager</span><span class="tag">CloudWatch</span><span class="tag">SAM</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">FIPS 140-3</span><span class="tag">FedRAMP High</span>
-            <span class="tag">SOC2</span><span class="tag">NIST 800-53</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sentinel MCP -->
-    <div class="card" id="sentinel-mcp-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mcp-card')">
-        <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">Security investigations: 45 minutes down to 60 seconds — plain English in, forensically verified answer out.</p>
-      <div class="card-details">
-        <p class="card-question">How do you cut security investigation time from 45 minutes to 60 seconds?</p>
-        <p class="card-desc-green">Conversational DevOps — <strong class="chrome">CloudTrail</strong>, <strong class="chrome">CloudWatch</strong>, <strong class="chrome">DynamoDB</strong>, and <strong class="chrome">KMS</strong> through natural language with full audit trail.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">FastMCP</span><span class="tag">Boto3</span>
-            <span class="tag">DynamoDB</span><span class="tag">CloudTrail</span><span class="tag">CloudWatch</span>
-            <span class="tag">KMS</span><span class="tag">Lambda</span><span class="tag">IAM</span><span class="tag">Token Savings</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">SOC2</span><span class="tag">OWASP A05</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RAG Knowledge Assistant -->
-    <div class="card" id="rag-knowledge-card">
-      <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
-        <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
-        <img class="card-toggle-icon" src="website-logo-v2-trimmed.png" alt="Toggle details" title="Click to expand" />
-      </div>
-      <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">Hard spend caps. Local-first retrieval. Sensitive data never leaves the building.</p>
-      <div class="card-details">
-        <p class="card-question">How do you roll out enterprise AI safely — and onboard into a new role faster without sensitive data leaving the org?</p>
-        <p class="card-desc-green">Sensitive data never reaches an external API. Onboarding accelerator — ingest docs, ADRs, runbooks. Ramp fast, stay secure.</p>
-        <div>
-          <div class="card-section-label">Stack</div>
-          <div class="tags">
-            <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span>
-            <span class="tag">JSON knowledge store</span><span class="tag">Token budgeting</span><span class="tag">Token Savings</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-section-label">Designed for</div>
-          <div class="tags compliance-tags">
-            <span class="tag">SOC2</span><span class="tag">OWASP A01</span><span class="tag">OWASP A09</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="status"><div class="status-dot"></div><span class="status-wave">Live demo upon request</span></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <hr class="footer-rule" />
-  <div class="footer">
-    &copy; 2026 Anthony James Trujillo — All rights reserved
-  </div>
-
-<!-- Shared Video Lightbox -->
-<div id="video-lightbox" onclick="closeVideoLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
-  <a onclick="event.stopPropagation();closeVideoLightbox()" style="font-size:0.82rem;text-decoration:none;cursor:pointer;align-self:flex-start;margin-left:4vw;background:linear-gradient(90deg,#8a5a85 0%,#b87ab5 25%,#dda8d8 42%,#f0dff0 50%,#dda8d8 58%,#b87ab5 75%,#8a5a85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">← Portfolio</a>
-  <video id="video-lightbox-player" onclick="event.stopPropagation()" controls preload="metadata" style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);"></video>
-</div>
-
-<!-- ATM Demo Lightbox -->
-<div id="atm-lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:1rem;">
-  <a onclick="event.stopPropagation();document.getElementById('atm-lightbox').style.display='none'" style="font-size:0.82rem;text-decoration:none;cursor:pointer;align-self:flex-start;margin-left:4vw;background:linear-gradient(90deg,#8a5a85 0%,#b87ab5 25%,#dda8d8 42%,#f0dff0 50%,#dda8d8 58%,#b87ab5 75%,#8a5a85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">← Portfolio</a>
-  <img src="zero-trust-atm-demo.png" alt="Zero Trust ATM Demo" style="max-width:92vw;max-height:85vh;border-radius:8px;border:1px solid #30363d;box-shadow:0 0 60px rgba(0,0,0,0.8);" />
-</div>
-<script>
-  function openVideoDemo(src) {
-    var v = document.getElementById('video-lightbox-player');
-    v.src = src;
-    v.currentTime = 0;
-    document.getElementById('video-lightbox').style.display = 'flex';
-    setTimeout(function(){ v.play(); }, 50);
-  }
-
-  function closeVideoLightbox() {
-    var v = document.getElementById('video-lightbox-player');
-    v.pause();
-    v.currentTime = 0;
-    document.getElementById('video-lightbox').style.display = 'none';
-  }
-
-  function toggleCardDetails(cardId) {
-    const card = document.getElementById(cardId);
-    const details = card.querySelector('.card-details');
-    const toggleIcon = card.querySelector('.card-toggle-icon');
-    const opening = !details.classList.contains('is-open');
-    details.classList.toggle('is-open');
-    toggleIcon.classList.toggle('is-open');
-    toggleIcon.title = opening ? 'Click to collapse' : 'Click to expand';
-    details.style.maxHeight = opening ? details.scrollHeight + 'px' : '0px';
-    if (card.dataset.expandedHeight) {
-      card.style.minHeight = (opening ? card.dataset.expandedHeight : card.dataset.collapsedHeight) + 'px';
-    }
-  }
-
-  function equalizeCardSizes() {
-    const cards = Array.from(document.querySelectorAll('.card')).filter(card => card.querySelector('.card-details'));
-    let maxCollapsed = 0, maxExpanded = 0;
-    cards.forEach(card => {
-      card.style.minHeight = '';
-      const details = card.querySelector('.card-details');
-      const collapsedHeight = card.offsetHeight;
-      const expandedHeight = collapsedHeight + details.scrollHeight;
-      maxCollapsed = Math.max(maxCollapsed, collapsedHeight);
-      maxExpanded = Math.max(maxExpanded, expandedHeight);
-    });
-    cards.forEach(card => {
-      const details = card.querySelector('.card-details');
-      card.dataset.collapsedHeight = maxCollapsed;
-      card.dataset.expandedHeight = maxExpanded;
-      card.style.minHeight = (details.classList.contains('is-open') ? maxExpanded : maxCollapsed) + 'px';
-    });
-  }
-
-  window.addEventListener('load', () => {
-    equalizeCardSizes();
-  });
-
-</script>
-</body>
+      window.addEventListener("load", () => {
+        equalizeCardSizes();
+      });
+    </script>
+  </body>
 </html>
