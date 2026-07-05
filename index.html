@@ -30,7 +30,7 @@
         background: #0d1117;
         color: #e6edf3;
         min-height: 100vh;
-        padding: 2rem;
+        padding: 1rem 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -45,7 +45,7 @@
         width: 100%;
         max-width: 1480px;
         margin: 0 auto 1.5rem;
-        padding: 2rem 2rem 5rem;
+        padding: 1.25rem 2rem 1.25rem;
         background:
           linear-gradient(135deg, #161b22, #1c2230) padding-box,
           linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
@@ -284,32 +284,42 @@
         border: none;
       }
 
+      .header-text {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .header-bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 0.5rem;
+        gap: 1rem;
+      }
       .demo-footer {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 0.2rem;
-        position: absolute;
-        bottom: 1.25rem;
-        left: 1.5rem;
+        flex-shrink: 0;
       }
       .social-links {
         display: flex;
         gap: 0.75rem;
         flex-wrap: wrap;
-        position: absolute;
-        bottom: 1.25rem;
-        right: 1.5rem;
+        align-items: center;
+        flex-shrink: 0;
       }
       .header-note {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        position: absolute;
-        bottom: 1.25rem;
-        left: 50%;
-        transform: translateX(-50%);
         white-space: nowrap;
+        justify-content: center;
+        flex: 1;
       }
       .header-note img {
         height: 58px;
@@ -322,11 +332,10 @@
       }
 
       @media (max-width: 1100px) {
-        .header-note {
-          position: static;
-          transform: none;
+        .header-bottom-bar {
+          flex-wrap: wrap;
           justify-content: center;
-          margin-top: 0.5rem;
+          gap: 0.75rem;
         }
       }
 
@@ -353,21 +362,19 @@
         .badges {
           justify-content: center;
         }
-        .demo-footer {
-          position: static;
+        .header-bottom-bar {
+          flex-direction: column;
           align-items: center;
-          margin-top: 0.5rem;
+          gap: 0.5rem;
+        }
+        .demo-footer {
+          align-items: center;
         }
         .social-links {
-          position: static;
           justify-content: center;
-          margin-top: 1rem;
         }
         .header-note {
-          position: static;
-          transform: none;
           justify-content: center;
-          margin-top: 0.75rem;
           white-space: normal;
           text-align: center;
           max-width: 100%;
@@ -476,10 +483,10 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         align-items: start;
-        gap: 1.5rem;
+        gap: 1rem;
         width: 100%;
         max-width: 1480px;
-        margin: 0 auto 1.5rem;
+        margin: 0 auto 1rem;
       }
 
       /* ── PoC Card ── */
@@ -488,10 +495,10 @@
         border: 1px solid #8b7fd4;
         border-left: 4px solid #b8b0f0;
         border-radius: 12px;
-        padding: 1.5rem;
+        padding: 1rem 1.25rem;
         display: flex;
         flex-direction: column;
-        gap: 0.7rem;
+        gap: 0.5rem;
         position: relative;
         transition:
           border-color 0.2s,
@@ -1287,94 +1294,91 @@
         <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
         <p class="tagline">
           <span class="word"
-            ><span style="--i: 0">P</span><span style="--i: 1">r</span><span style="--i: 2">i</span
-            ><span style="--i: 3">n</span><span style="--i: 4">c</span><span style="--i: 5">i</span
-            ><span style="--i: 6">p</span><span style="--i: 7">a</span><span style="--i: 8">l</span></span
-          ><span style="--i: 9">&nbsp;</span
+            ><span style="--i: 0">A</span><span style="--i: 1">g</span><span style="--i: 2">e</span
+            ><span style="--i: 3">n</span><span style="--i: 4">t</span><span style="--i: 5">i</span
+            ><span style="--i: 6">c</span></span
+          ><span style="--i: 7">&nbsp;</span
+          ><span class="word"><span style="--i: 8">A</span><span style="--i: 9">I</span></span
+          ><span style="--i: 10">&nbsp;</span><span style="--i: 11" class="sep">·</span
+          ><span style="--i: 12">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 10">S</span><span style="--i: 11">o</span><span style="--i: 12">f</span
-            ><span style="--i: 13">t</span><span style="--i: 14">w</span><span style="--i: 15">a</span
-            ><span style="--i: 16">r</span><span style="--i: 17">e</span></span
-          ><span style="--i: 18">&nbsp;</span
+            ><span style="--i: 13">M</span><span style="--i: 14">C</span><span style="--i: 15">P</span></span
+          ><span style="--i: 16">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 19">E</span><span style="--i: 20">n</span><span style="--i: 21">g</span
-            ><span style="--i: 22">i</span><span style="--i: 23">n</span><span style="--i: 24">e</span
-            ><span style="--i: 25">e</span><span style="--i: 26">r</span></span
-          ><span style="--i: 27">&nbsp;</span><span style="--i: 28" class="sep">·</span
-          ><span style="--i: 29">&nbsp;</span
-          ><span class="word"><span style="--i: 30">A</span><span style="--i: 31">I</span></span
+            ><span style="--i: 17">S</span><span style="--i: 18">e</span><span style="--i: 19">c</span
+            ><span style="--i: 20">u</span><span style="--i: 21">r</span><span style="--i: 22">i</span
+            ><span style="--i: 23">t</span><span style="--i: 24">y</span></span
+          ><span style="--i: 25">&nbsp;</span><span style="--i: 26" class="sep">·</span
+          ><span style="--i: 27">&nbsp;</span
+          ><span class="word"
+            ><span style="--i: 28">Z</span><span style="--i: 29">e</span><span style="--i: 30">r</span
+            ><span style="--i: 31">o</span></span
           ><span style="--i: 32">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 33">A</span><span style="--i: 34">c</span><span style="--i: 35">c</span
-            ><span style="--i: 36">e</span><span style="--i: 37">l</span><span style="--i: 38">e</span
-            ><span style="--i: 39">r</span><span style="--i: 40">a</span><span style="--i: 41">t</span
-            ><span style="--i: 42">e</span><span style="--i: 43">d</span></span
-          ><span style="--i: 44">&nbsp;</span
+            ><span style="--i: 33">T</span><span style="--i: 34">r</span><span style="--i: 35">u</span
+            ><span style="--i: 36">s</span><span style="--i: 37">t</span></span
+          ><span style="--i: 38">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 45">E</span><span style="--i: 46">n</span><span style="--i: 47">g</span
-            ><span style="--i: 48">i</span><span style="--i: 49">n</span><span style="--i: 50">e</span
-            ><span style="--i: 51">e</span><span style="--i: 52">r</span><span style="--i: 53">i</span
-            ><span style="--i: 54">n</span><span style="--i: 55">g</span></span
-          ><span style="--i: 56">&nbsp;</span><span style="--i: 57" class="sep">·</span
-          ><span style="--i: 58">&nbsp;</span
+            ><span style="--i: 39">E</span><span style="--i: 40">n</span><span style="--i: 41">g</span
+            ><span style="--i: 42">i</span><span style="--i: 43">n</span><span style="--i: 44">e</span
+            ><span style="--i: 45">e</span><span style="--i: 46">r</span><span style="--i: 47">i</span
+            ><span style="--i: 48">n</span><span style="--i: 49">g</span></span
+          ><span style="--i: 50">&nbsp;</span><span style="--i: 51" class="sep">·</span
+          ><span style="--i: 52">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 59">Z</span><span style="--i: 60">e</span><span style="--i: 61">r</span
-            ><span style="--i: 62">o</span></span
+            ><span style="--i: 53">I</span><span style="--i: 54">d</span><span style="--i: 55">e</span
+            ><span style="--i: 56">n</span><span style="--i: 57">t</span><span style="--i: 58">i</span
+            ><span style="--i: 59">t</span><span style="--i: 60">y</span></span
+          ><span style="--i: 61">&nbsp;</span><span style="--i: 62" class="sep">·</span
           ><span style="--i: 63">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 64">T</span><span style="--i: 65">r</span><span style="--i: 66">u</span
-            ><span style="--i: 67">s</span><span style="--i: 68">t</span></span
-          ><span style="--i: 69">&nbsp;</span><span style="--i: 70" class="sep">·</span
-          ><span style="--i: 71">&nbsp;</span
+            ><span style="--i: 64">A</span><span style="--i: 65">I</span></span
+          ><span style="--i: 66">&nbsp;</span
           ><span class="word"
-            ><span style="--i: 72">I</span><span style="--i: 73">d</span><span style="--i: 74">e</span
-            ><span style="--i: 75">n</span><span style="--i: 76">t</span><span style="--i: 77">i</span
-            ><span style="--i: 78">t</span><span style="--i: 79">y</span></span
-          ><span style="--i: 80">&nbsp;</span><span style="--i: 81" class="sep">·</span
-          ><span style="--i: 82">&nbsp;</span
-          ><span class="word"
-            ><span style="--i: 83">C</span><span style="--i: 84">o</span><span style="--i: 85">m</span
-            ><span style="--i: 86">p</span><span style="--i: 87">l</span><span style="--i: 88">i</span
-            ><span style="--i: 89">a</span><span style="--i: 90">n</span><span style="--i: 91">c</span
-            ><span style="--i: 92">e</span></span
+            ><span style="--i: 67">G</span><span style="--i: 68">o</span><span style="--i: 69">v</span
+            ><span style="--i: 70">e</span><span style="--i: 71">r</span><span style="--i: 72">n</span
+            ><span style="--i: 73">a</span><span style="--i: 74">n</span><span style="--i: 75">c</span
+            ><span style="--i: 76">e</span></span
           >
         </p>
-        <div class="demo-footer">
-          <span class="badge badge-green badge-demo"
-            >Running Demos
-            <div class="demo-preview">
-              <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
-              <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
-              <img src="demo.png" alt="TonyAI Portfolio demo menu" />
-              <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
-              <img src="demo-d.png" alt="Last Mile demo — DENIED" />
-            </div>
-          </span>
-          <span style="font-size: 0.8rem; color: #555; padding-left: 0.2rem"
-            >Piloted by
-            <a
-              href="https://www.linkedin.com/in/anthony-trujillo-tony-t"
-              target="_blank"
-              rel="noopener noreferrer"
-              style="font-weight: 800; color: #79c0ff; text-decoration: none"
-              >TonyAI</a
-            >, Co-piloted by
-            <a
-              href="https://claude.ai/code"
-              target="_blank"
-              rel="noopener noreferrer"
-              style="color: #79c0ff; text-decoration: none"
-              >Claude Code</a
-            ></span
-          >
-        </div>
-        <div class="header-note">
-          <img src="website-logo-v2-trimmed.png" alt="Shield" />
-          <span>Click on a shield below to expand and reveal the details.</span>
-        </div>
-        <div class="social-links">
-          <a class="social-link" href="resume.html">Resume</a>
-          <a class="social-link" href="achievements.html">Achievements</a>
+        <div class="header-bottom-bar">
+          <div class="demo-footer">
+            <span class="badge badge-green badge-demo"
+              >Running Demos
+              <div class="demo-preview">
+                <img src="Flagship-Secure-Rag-Demo.png" alt="Secure RAG — Zero Trust Demo" />
+                <img src="ietf-a2a-demo.png" alt="IETF A2A Trust PoC — Live Demo" />
+                <img src="demo.png" alt="TonyAI Portfolio demo menu" />
+                <img src="demo-a.png" alt="Last Mile demo — ALLOWED" />
+                <img src="demo-d.png" alt="Last Mile demo — DENIED" />
+              </div>
+            </span>
+            <span style="font-size: 0.8rem; padding-left: 0.2rem; background: var(--chrome); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent"
+              >Built by
+              <a
+                href="https://www.linkedin.com/in/anthony-trujillo-tony-t"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="font-weight: 800; color: #79c0ff; -webkit-text-fill-color: #79c0ff; text-decoration: none"
+                >TonyAI</a
+              > · Engineered with
+              <a
+                href="https://claude.ai/code"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: #79c0ff; -webkit-text-fill-color: #79c0ff; text-decoration: none"
+                >Claude Code</a
+              ></span
+            >
+          </div>
+          <div class="header-note">
+            <img src="website-logo-v2-trimmed.png" alt="Shield" />
+            <span>Click a shield to expand details.</span>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="resume.html">Resume</a>
+            <a class="social-link" href="achievements.html">Achievements</a>
+          </div>
         </div>
       </div>
       <div class="header-cost-badge">
@@ -1394,6 +1398,7 @@
             hard ones
           </div>
           <div><span style="color: #2ea043; font-weight: 700">▸</span> Context budgeting — 2k tokens, not 100k</div>
+          <div><span style="color: #2ea043; font-weight: 700">▸</span> Internal RAG — on-prem retrieval, zero per-query API cost</div>
         </div>
       </div>
     </div>
@@ -2160,7 +2165,7 @@
           />
         </div>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
-          <strong class="chrome">Hard spend caps</strong>. Local-first retrieval. <strong class="chrome">Sensitive data never leaves the building</strong>.
+          <strong class="chrome">Sensitive data never leaves the building</strong>. AI answers from local context — <strong class="chrome">no cloud API, no data exposure, no runaway spend</strong>.
         </p>
 
         <div class="card-details">
@@ -2169,6 +2174,7 @@
             <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
             <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
             <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
+            <li><strong class="chrome">Cost Savings at Scale:</strong> Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.</li>
           </ul>
           <div>
             <div class="card-section-label">Core Tech</div>
