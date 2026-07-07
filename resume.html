@@ -233,9 +233,26 @@
 
   @media print {
     .nav-bar { display: none; }
-    body { background: #fff; color: #000; padding: 0; }
-    a { color: #000; -webkit-text-fill-color: #000; }
+    body { background: #fff !important; color: #000 !important; padding: 0; font-size: 12px; }
     .page { max-width: 100%; }
+    * {
+      background: none !important;
+      background-image: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+      -webkit-text-fill-color: #000 !important;
+      color: #000 !important;
+      text-shadow: none !important;
+      box-shadow: none !important;
+    }
+    a {
+      color: #1a0dab !important;
+      -webkit-text-fill-color: #1a0dab !important;
+      text-decoration: underline !important;
+    }
+    h1, h2 { color: #000 !important; -webkit-text-fill-color: #000 !important; }
+    .resume-header { border-bottom: 1px solid #000; }
+    h2 { border-bottom: 1px solid #ccc; }
   }
 
   /* IETF inline link */
@@ -395,7 +412,7 @@
 </div>
 
 <div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #21262d;text-align:center;font-size:0.8rem;color:#484f58;">
-  &copy; 2026 Anthony James Trujillo — All rights reserved
+  &copy; 2026 PhalanxAI Security LLC — All rights reserved
 </div>
 
 </body>
