@@ -197,6 +197,47 @@
   }
   .back:hover { text-decoration: underline; }
 
+  /* Nav bar */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #79c0ff;
+    background: linear-gradient(180deg, #2a5298, #1a3a6c);
+    border-top: 1px solid #4a7fd4;
+    border-left: 1px solid #3a6abf;
+    border-right: 1px solid #122a52;
+    border-bottom: 2px solid #0d1e3a;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .print-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+  }
+  .print-btn:active { transform: translateY(2px); }
+
+  @media print {
+    .nav-bar { display: none; }
+    body { background: #fff; color: #000; padding: 0; }
+    a { color: #000; -webkit-text-fill-color: #000; }
+    .page { max-width: 100%; }
+  }
+
   /* IETF inline link */
   a { color: #79c0ff; -webkit-text-fill-color: #79c0ff; }
   a:hover { text-decoration: underline; }
@@ -205,7 +246,10 @@
 <body>
 <div class="page">
 
-  <a class="back" href="index.html">← Portfolio</a>
+  <div class="nav-bar">
+    <a class="back" style="margin-bottom:0" href="index.html">← Portfolio</a>
+    <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 
   <div class="resume-header">
     <h1>Anthony James Trujillo <span style="font-weight:400;color:#d8e4ee;font-size:1.1rem;">("Tony")</span></h1>
