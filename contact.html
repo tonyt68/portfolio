@@ -79,8 +79,12 @@
 
     .org {
       font-size: 0.8rem;
-      color: #8b949e;
+      font-weight: 600;
       margin-bottom: 1.6rem;
+      background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .divider {
@@ -149,20 +153,13 @@
     }
     .btn-save:active { transform: translateY(0); }
 
-    .back-link {
-      font-size: 0.75rem;
-      color: #8b949e;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .back-link:hover { color: #c9d1d9; }
+    .back { margin-top: 0.5rem; }
 
     @media (prefers-color-scheme: light) {
       /* Force dark on this page — it's a contact card, always dark */
     }
   </style>
+  <link rel="stylesheet" href="shared.css" />
 </head>
 <body>
   <div class="card">
@@ -192,7 +189,7 @@
       ＋ Save Contact
     </a>
 
-    <a class="back-link" href="https://phalanxaisec.com">← Back to Portfolio</a>
+    <a class="back" href="https://phalanxaisec.com">← Back to Portfolio</a>
   </div>
 </body>
 </html>
