@@ -96,13 +96,84 @@
         text-decoration: none;
       }
 
+      .avatar-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
       .avatar {
         width: 120px;
         height: 120px;
         border-radius: 50%;
         border: 2px solid #c8a030;
-        flex-shrink: 0;
         object-fit: cover;
+      }
+      .nameplate {
+        width: 185px;
+        padding: 0.3rem 0.6rem 0.35rem;
+        border-radius: 3px;
+        text-align: center;
+        background: linear-gradient(160deg,
+          #2a3040 0%,
+          #4a5568 12%,
+          #8a9ab0 28%,
+          #c8d4e0 44%,
+          #eef2f6 50%,
+          #c8d4e0 56%,
+          #8a9ab0 72%,
+          #4a5568 88%,
+          #2a3040 100%
+        );
+        border: 1px solid #1a2030;
+        box-shadow:
+          0 4px 8px rgba(0,0,0,0.75),
+          0 1px 2px rgba(0,0,0,0.5),
+          inset 0 1px 0 rgba(255,255,255,0.3),
+          inset 0 -1px 0 rgba(0,0,0,0.4),
+          inset 1px 0 0 rgba(255,255,255,0.12),
+          inset -1px 0 0 rgba(0,0,0,0.25);
+      }
+      .nameplate-name {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #1a2030;
+        text-shadow:
+          0 1px 0 rgba(255,255,255,0.65),
+          0 -1px 0 rgba(0,0,0,0.35);
+        line-height: 1.2;
+      }
+      .nameplate-title {
+        font-size: 0.5rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: #2d3a50;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        margin-top: 0.15rem;
+        line-height: 1.3;
+      }
+      .qr-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .qr-contact img {
+        width: 200px;
+        height: 200px;
+        border: 1.5px solid #30363d;
+        border-radius: 6px;
+        display: block;
+      }
+      .qr-contact-label {
+        font-size: 0.55rem;
+        color: #8b949e;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
       }
 
       .header-text h1 {
@@ -112,9 +183,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.3rem;
+        gap: 0.8rem;
       }
       .header-text h1 .h1-text {
+        white-space: nowrap;
         background: linear-gradient(
           180deg,
           #1a1f26 0%,
@@ -1015,6 +1087,19 @@
           transform: scale(1);
         }
       }
+      @keyframes shield-caption-breathe {
+        0%, 100% { transform: scale(1);   opacity: 0.6; }
+        50%       { transform: scale(1.18); opacity: 1;   }
+      }
+      .shield-caption {
+        font-size: 0.6rem;
+        color: #8b949e;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+        display: inline-block;
+        animation: shield-caption-breathe 3.5s ease-in-out infinite;
+        transform-origin: center;
+      }
 
       @keyframes imgzoom2 {
         0% {
@@ -1282,14 +1367,27 @@
   <body>
     <!-- Header -->
     <div class="header">
-      <img class="avatar" src="TonyAI.png" alt="TonyAI" />
+      <div class="avatar-col">
+        <img class="avatar" src="TonyAI.png" alt="TonyAI" />
+        <div class="nameplate">
+          <div class="nameplate-name">Tony Trujillo</div>
+          <div class="nameplate-title">Founder &amp; Principal Engineer</div>
+        </div>
+      </div>
+      <div style="width:1px;flex-shrink:0;align-self:stretch;background:linear-gradient(to bottom,transparent 0%,#30363d 20%,#30363d 80%,transparent 100%);margin:0 0.25rem;"></div>
       <div class="header-text">
         <h1>
-          <img src="website-logo-v2.png" alt="TonyAI Shield" style="height: 8rem; width: auto; flex-shrink: 0" /><span
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;flex-shrink:0;">
+            <img src="website-logo-v2.png" alt="TonyAI Shield" style="height: 8rem; width: auto;" />
+            <span class="shield-caption">Click a shield to expand details</span>
+          </div><span
             class="h1-text"
             ><span style="display: inline-block">PhalanxAI</span>
             <span style="display: inline-block">Security LLC</span></span
-          >
+          ><div class="qr-contact">
+            <img src="data:image/png;base64,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" alt="Scan to save contact" style="width:80px;height:80px;" />
+            <div class="qr-contact-label">Scan to connect</div>
+          </div>
         </h1>
         <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
         <p class="tagline">
@@ -1342,6 +1440,7 @@
           >
         </p>
         <div class="header-bottom-bar">
+          <!-- Running Demos + Built by — uncomment when demo videos are ready
           <div class="demo-footer">
             <span class="badge badge-green badge-demo"
               >Running Demos
@@ -1353,29 +1452,9 @@
                 <img src="demo-d.png" alt="Last Mile demo — DENIED" />
               </div>
             </span>
-            <span style="font-size: 0.8rem; padding-left: 0.2rem; background: var(--chrome); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent"
-              >Built by
-              <a
-                href="https://www.linkedin.com/in/anthony-trujillo-tony-t"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="font-weight: 800; color: #79c0ff; -webkit-text-fill-color: #79c0ff; text-decoration: none"
-                >TonyAI</a
-              > · Engineered with
-              <a
-                href="https://claude.ai/code"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="color: #79c0ff; -webkit-text-fill-color: #79c0ff; text-decoration: none"
-                >Claude Code</a
-              ></span
-            >
           </div>
-          <div class="header-note">
-            <img src="website-logo-v2-trimmed.png" alt="Shield" />
-            <span>Click a shield to expand details.</span>
-          </div>
-          <div class="social-links">
+          -->
+          <div class="social-links" style="margin-left:auto;">
             <a class="social-link" href="resume.html">Resume</a>
             <a class="social-link" href="achievements.html">Achievements</a>
           </div>
@@ -2200,7 +2279,7 @@
     </div>
 
     <hr class="footer-rule" />
-    <div class="footer">&copy; 2026 PhalanxAI Security LLC — All rights reserved</div>
+    <div class="footer">&copy; 2026 PhalanxAI Security LLC — All rights reserved &nbsp;·&nbsp; Powered by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></div>
 
     <!-- Shared Video Lightbox -->
     <div
