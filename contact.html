@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tony Trujillo — PhalanxAI Security LLC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #e6edf3;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: linear-gradient(135deg, #161b22, #1c2230);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-radius: 20px;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      box-shadow:
+        0 0 0 2px #30363d,
+        0 20px 60px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    /* Gold top accent line */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #c8a030, transparent);
+      border-radius: 2px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #c8a030;
+      object-fit: cover;
+      margin-bottom: 1.2rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .name {
+      font-size: 1.45rem;
+      font-weight: 700;
+      background: linear-gradient(180deg,
+        #7a8fa0 0%, #b8ccd8 25%, #ffffff 50%, #e0eaf2 65%, #8aaabb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .title {
+      font-size: 0.78rem;
+      color: #c8a030;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .org {
+      font-size: 0.8rem;
+      color: #8b949e;
+      margin-bottom: 1.6rem;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #30363d, transparent);
+      margin-bottom: 1.4rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.8rem;
+      text-align: left;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #c9d1d9;
+    }
+
+    .contact-list .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .contact-list a {
+      color: #79c0ff;
+      text-decoration: none;
+    }
+    .contact-list a:hover { text-decoration: underline; }
+
+    .btn-save {
+      display: block;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: linear-gradient(135deg, #c8a030, #e8c040, #c8a030);
+      color: #0d1117;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(200,160,48,0.35);
+      transition: filter 0.15s, transform 0.15s;
+      margin-bottom: 1rem;
+    }
+    .btn-save:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .btn-save:active { transform: translateY(0); }
+
+    .back-link {
+      font-size: 0.75rem;
+      color: #8b949e;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .back-link:hover { color: #c9d1d9; }
+
+    @media (prefers-color-scheme: light) {
+      /* Force dark on this page — it's a contact card, always dark */
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img class="avatar" src="TonyAI.png" alt="Tony Trujillo" />
+    <div class="name">Tony Trujillo</div>
+    <div class="title">Founder &amp; Principal Engineer</div>
+    <div class="org">PhalanxAI Security LLC</div>
+
+    <div class="divider"></div>
+
+    <ul class="contact-list">
+      <li>
+        <span class="icon">📞</span>
+        <a href="tel:4358507078">(435) 850-7078</a>
+      </li>
+      <li>
+        <span class="icon">✉️</span>
+        <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a>
+      </li>
+      <li>
+        <span class="icon">🌐</span>
+        <a href="https://phalanxaisec.com" target="_blank">phalanxaisec.com</a>
+      </li>
+    </ul>
+
+    <a class="btn-save" href="contact.vcf" download="Tony-Trujillo-PhalanxAI.vcf">
+      ＋ Save Contact
+    </a>
+
+    <a class="back-link" href="https://phalanxaisec.com">← Back to Portfolio</a>
+  </div>
+</body>
+</html>
