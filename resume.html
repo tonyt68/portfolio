@@ -245,10 +245,18 @@
     .resume-header { border-bottom: 1px solid #000; }
     h2 { border-bottom: 1px solid #ccc; }
     .no-print { display: none !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; font-weight: 400; }
   }
 
-  /* IETF inline link */
-  a { color: #79c0ff; -webkit-text-fill-color: #79c0ff; }
+  /* All links — muted blue, no gradient bleed from parent containers */
+  a {
+    color: #79c0ff;
+    -webkit-text-fill-color: #79c0ff;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    text-decoration: none;
+  }
   a:hover { text-decoration: underline; }
 </style>
 </head>
@@ -263,9 +271,9 @@
   <div class="resume-header">
     <h1>Anthony James Trujillo <span style="font-weight:400;color:#d8e4ee;font-size:1.1rem;">("Tony")</span></h1>
     <div class="contact">
-      (435) 850-7078 &nbsp;·&nbsp; <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">phalanxaisec.com</a>
+      (435) 850-7078 &nbsp;·&nbsp; <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/anthony-trujillo-tony-t" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a>
     </div>
-    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate &nbsp;·&nbsp; 10+ Years</div>
+    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate</div>
   </div>
 
   <h2>Professional Summary</h2>
@@ -273,34 +281,34 @@
     <strong>Principal Software Engineer · AI Accelerated Engineering · Architecture · Zero Trust · Identity · Compliance</strong>
     <ul style="margin-top:0.6rem;">
       <li><strong>IETF Internet-Draft Author</strong> — <em>draft-tonyai-a2a-trust-00</em> (agent-to-agent trust, AI governance; RFC track)</li>
-      <li><strong>Agentic workflows</strong> (Cursor) deliver <strong>0.04% defect rate</strong> (10+ years consistent)</li>
+      <li><strong>Agentic workflows</strong> (Cursor) deliver an industry-leading <strong>0.04% defect rate</strong> (2+ years consistent)</li>
       <li><strong>Zero critical production bugs, zero breaches, zero support calls</strong> for login/access failures (career)</li>
       <li><strong>Deep expertise:</strong> Zero Trust security, identity platforms (Auth0, Okta, Entra ID), AWS, microservices, compliance (SOC2, PCI-DSS, HIPAA)</li>
       <li><strong>Leadership:</strong> Tier-0 systems architecture, 50+ engineers mentored, cross-functional influence (Security, Legal, Product, InfoSec)</li>
-      <li><strong>Portfolio:</strong> 12 live security PoCs, running demos, certifications — <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">phalanxaisec.com/achievements.html</a></li>
+      <li><strong>Portfolio:</strong> Numerous live security PoCs, running code, Anthropic certifications at <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></li>
+      <li><strong>Agentic AI specification engineering</strong> — full architecture and security model defined before first line of code; zero requirements drift</li>
     </ul>
   </div>
 
-  <h2>Technical Core</h2>
-  <div class="tech-item"><span class="tech-label">Engineering Leadership &amp; Communication:</span> Team Leader, Scrum Master, Agile Ceremonies (Sprint Planning, Retrospectives, Standups, Reviews), Monthly 1:1s, Team Advocate (carried concerns to management), Feasibility Spikes, Technical Design Docs, Pitch &amp; Proposal, Tech Debt Management, Shift-Left Engineering (local &amp; pipeline code coverage, security scans), Code Reviews, DB Reviews, Mentorship &amp; Team Enablement, Constructive Feedback Culture, Psychological Safety &amp; Collaborative Culture, Cross-functional Communication (Engineering, Legal, Security, PM, InfoSec), Vendor Evaluation &amp; Selection, Stakeholder Management.</div>
-  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot, GitLab Duo, Gemini), Large Language Models (LLMs), Prompt &amp; Context Engineering, MCP, RAG, AI Agent Orchestration, AI Agents, MCP Servers, Agent Skills, Claude in Amazon Bedrock, A2A Trust, Agent-to-Agent Identity, AI Cost Engineering, Token Budgeting, Bedrock Knowledge Base, Bedrock Guardrails, OpenAPI/Swagger.</div>
-  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Zero Trust Architecture, Authentication (AuthN), Authorization (AuthZ), Spring Security, SAML 2.0, OAuth2, OIDC, PKCE, WebAuthn, FIDO2, Auth0, Auth0 Custom Login UI (Vue, React, JS), IdP Claims &amp; Scopes Mapping, Token Claims Customization, Okta, Entra ID, JumpCloud, Keycloak, CheckPoint, SSO Deployment &amp; Rollout, IdP Provisioning (internal &amp; enterprise DSO), M2M Identity, Customer-Facing SSO Verification, MFA, RBAC, ReBAC, SCIM, JIT Provisioning, User Federation, JWT, SOC2, PCI-DSS, Worldpay, Wireshark, Fiddler, Snyk, Pen-Test Remediation.</div>
-  <div class="tech-item"><span class="tech-label">Cloud &amp; Platform Engineering:</span> AWS EKS, ECS, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell, AWS CodeCommit; Azure (Entra ID); Terraform, YAML IaC, Bash.</div>
-  <div class="tech-item"><span class="tech-label">CI/CD &amp; Platform Engineering:</span> GitLab CI/CD, GitHub Actions, Harness, TeamCity, AWS CodeCommit, Kubernetes, Helm, Docker, Ansible, GitLab Vault, Secrets Management in Pipelines, Ephemeral Environments, YAML IaC.</div>
-  <div class="tech-item"><span class="tech-label">Backend (Java/C++/C#):</span> Python, TypeScript, Java 17, Spring Boot, Spring MVC, C, C++, C#, .NET, Go (familiar), Groovy/Grails, Node.js, Kafka (DDD/Avro), RabbitMQ, WebSockets, HL7 (Health Level 7), X12 (ASC X12 EDI — claims 837 / EOB 835), Microservices, Monolith to Microservices Migration, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
-  <div class="tech-item"><span class="tech-label">Frontend:</span> React, Vue.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
-  <div class="tech-item"><span class="tech-label">Data:</span> DDL, DML, DB Performance Tuning, Query Optimization, Schema Design, Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
-  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, CloudWatch, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
+  <h2>Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">· Between roles — running code, live demos</span></h2>
+  <div class="poc">
+    <div class="poc-title"><a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></div>
+    <div class="poc-desc">Numerous live PoCs, running demos, IETF Draft, Anthropic certifications — Co-piloted by Claude Code</div>
+  </div>
+  <div class="poc" style="margin-top:0.5rem;">
+    <div class="poc-title"><a href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">IETF A2A Trust PoC</a></div>
+    <div class="poc-desc">Working PoC: JWT chains, HMAC integrity, ReBAC, cryptographic audit trail</div>
+  </div>
 
   <h2>Experience</h2>
 
   <div class="job">
     <div class="job-company">PhalanxAI Security LLC — Remote</div>
-    <div class="job-title">Founder &amp; Principal Engineer &nbsp;|&nbsp; April 2026 – Present</div>
+    <div class="job-title">Self-Employed · Founder &amp; Principal Engineer &nbsp;|&nbsp; April 2026 – Present</div>
     <ul>
-      <li><strong>Specification-driven agentic AI development:</strong> Architecture and security model defined before code — 12 working PoCs shipped, all with live demos at <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">phalanxaisec.com</a>.</li>
-      <li><strong>MCP security enforcement stack:</strong> Built Zero Trust last-mile, ephemeral identity, ReBAC, and MCP security across the full stack — running code, not slides.</li>
-      <li><strong>IETF Internet-Draft first author:</strong> draft-tonyai-a2a-trust-00 (agent-to-agent trust; RFC track) — every clause backed by working PoC.</li>
+      <li><strong>Zero Trust AI security platform:</strong> Designed and built last-mile Zero Trust architecture — ephemeral identity, MCP security enforcement, ReBAC, full audit trail; running code, not slides.</li>
+      <li><strong>IETF Internet-Draft first author:</strong> <em>draft-tonyai-a2a-trust-00</em> — agent-to-agent trust and AI governance; every clause backed by a working PoC.</li>
+      <li><strong>Agentic AI specification engineering:</strong> Full architecture and security model defined before first line of code across numerous PoCs; zero requirements drift.</li>
     </ul>
   </div>
 
@@ -358,28 +366,46 @@
       <li><strong>Entra ID OBO platform:</strong> Greenfield flow adopted by multiple teams; support tooling used daily by support/management staff.</li>
       <li><strong>Solo platform architect (2012–2019):</strong> Owned architecture, technical strategy, code, Scrum, infrastructure simultaneously until dedicated teams stood up in 2019. Then entrusted full CI/CD pipeline ownership for entire PMS.</li>
       <li><strong>First external pen-test:</strong> Lowest finding count in company history. Zero successful breaches. SOC2 maintained.</li>
-      <li><strong>Stopped platform-taking DDoS attacks:</strong> Previously took system down; invented foundational access control (DB schema, seed rights, multi-tenancy violation checker).</li>
+      <li><strong>Stopped DDoS attacks</strong> that had previously taken the platform offline; invented foundational access control (DB schema, seed rights, multi-tenancy violation checker).</li>
       <li><strong>Full-stack tech leadership:</strong> AWS ECS → EC2 + Kubernetes, Kafka/DDD, PostgreSQL, Spring Boot, React/Vue.js/Next.js, GitLab CI/CD. Evolved frontend from jQuery/Backbone to modern platform.</li>
       <li><strong>Company-wide standards authority:</strong> Served on DB schema + standards team; patterns adopted across products. Go-to architect for security + database design.</li>
       <li><strong>Real-time platform reliability:</strong> Engineered real-time update engine, zero-conflict scheduling, multi-tenancy architecture for enterprise integrations.</li>
     </ul>
   </div>
 
-  <h2>Earlier Career <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">(See LinkedIn for full detail)</span></h2>
-  <table>
-    <tr><th>Role</th><th>Company</th><th>Dates</th><th>Stack / Keywords</th></tr>
-    <tr><td>Principal Software Engineer &amp; Tech Lead</td><td>Symantec</td><td>Oct 2004 – Jun 2010, Feb 2011 – Aug 2012</td><td>Restore Anyware (P2V/V2P DR), Protection Center (CISO console), Active Directory expertise, Patent filed <a href="https://ip.com/pat/US8103747" target="_blank" rel="noopener noreferrer">US8103747</a>, Symantec Star Award, 2× A++ performance</td></tr>
-    <tr><td>Senior Software Engineer</td><td>Kaseya</td><td>Jun 2010 – Feb 2011</td><td>Kaseya Directory Services, Kaseya Backup, C++, C#, .NET, Active Directory, LDAP, AWS S3, Windows Volume Shadow Services, COM, Unit Testing (GMOCK, CPPUnit), SQL Server</td></tr>
-    <tr><td>Senior Software Analyst</td><td>Comsys / Flying J</td><td>Jul 2004 – Oct 2004</td><td>C#, .NET, Oracle, PL/SQL, SQL Server, T-SQL, Web Services, XML, ADO.NET, Credit Card Authorization, Data Replication</td></tr>
-    <tr><td>Senior Software Analyst</td><td>Veracity Solutions / Misys Healthcare</td><td>Nov 2002 – Jun 2004</td><td>C#, C++, .NET, Oracle, ODP.NET, NUnit, ATL, STL, MSMQ, Windows Sockets, COM, Healthcare/Pharmacy Systems, PCI-adjacent</td></tr>
-    <tr><td>Programmer Analyst</td><td>Tek Systems / Misys Healthcare</td><td>Nov 2001 – Nov 2002</td><td>C++, COM+, DCOM, Visual Basic, ATL, MFC, XML, ADO, Windows 2000</td></tr>
-    <tr><td>Programmer Analyst</td><td>K-Force / Vanteon</td><td>Mar 2001 – Nov 2001</td><td>Java, C++, MFC, Swing, UNIX, Biometric Encryption, MS Crypto API, Digital Certificates, COM</td></tr>
-    <tr><td>Programmer Analyst / Team Lead</td><td>Alltel Information Services</td><td>Dec 1998 – Mar 2001</td><td>C, C++, MFC, Windows CE, Oracle, PL/SQL, UNIX, TCP/IP, Rational Rose, Team Lead — scheduling, mentoring, source control</td></tr>
-    <tr><td>Programmer Analyst</td><td>Satellite Image Systems</td><td>Oct 1996 – Dec 1998</td><td>Visual C++, Borland C++, Data Entry/Archival Systems, EDI, flat-file databases</td></tr>
-    <tr><td>Computer Operator</td><td>Eduserv Technologies</td><td>Aug 1992 – Oct 1996</td><td>VAX VMS Mainframe, Borland C++, tape backup, printer systems, IT ops</td></tr>
-    <tr><td>Satellite Systems Operator / Team Lead</td><td>US Army</td><td>Jun 1987 – Jan 1991</td><td>SATCOM, LOS, TCP/IP, RS-232, Team Lead — scheduling, mentoring, Honor Student</td></tr>
-    <tr><td>Computer / Network Operator</td><td>US Army</td><td>Jan 1991 – Aug 1992</td><td>IBM DPS 8000 Mainframe, JCL, WAN/patch panels, TCP/IP, Top Secret clearance (1987–1992)</td></tr>
-  </table>
+  <h2>Technical Core</h2>
+  <div class="tech-item"><span class="tech-label">Engineering Leadership &amp; Communication:</span> Team Leader, Scrum Master, Agile Ceremonies (Sprint Planning, Retrospectives, Standups, Reviews), Monthly 1:1s, Team Advocate (carried concerns to management), Feasibility Spikes, Technical Design Docs, Pitch &amp; Proposal, Tech Debt Management, Shift-Left Engineering (local &amp; pipeline code coverage, security scans), Code Reviews, DB Reviews, Mentorship &amp; Team Enablement, Constructive Feedback Culture, Psychological Safety &amp; Collaborative Culture, Cross-functional Communication (Engineering, Legal, Security, PM, InfoSec), Vendor Evaluation &amp; Selection, Stakeholder Management.</div>
+  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot, GitLab Duo, Gemini), Large Language Models (LLMs), Prompt &amp; Context Engineering, MCP, RAG, AI Agent Orchestration, AI Agents, MCP Servers, Agent Skills, Claude in Amazon Bedrock, A2A Trust, Agent-to-Agent Identity, AI Cost Engineering, Token Budgeting, Bedrock Knowledge Base, Bedrock Guardrails, OpenAPI/Swagger.</div>
+  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Zero Trust Architecture, Authentication (AuthN), Authorization (AuthZ), Spring Security, SAML 2.0, OAuth2, OIDC, PKCE, WebAuthn, FIDO2, Auth0, Auth0 Custom Login UI (Vue, React, JS), IdP Claims &amp; Scopes Mapping, Token Claims Customization, Okta, Entra ID, JumpCloud, Keycloak, CheckPoint, SSO Deployment &amp; Rollout, IdP Provisioning (internal &amp; enterprise DSO), M2M Identity, Customer-Facing SSO Verification, MFA, RBAC, ReBAC, SCIM, JIT Provisioning, User Federation, JWT, SOC2, PCI-DSS, Worldpay, Wireshark, Fiddler, Snyk, Pen-Test Remediation.</div>
+  <div class="tech-item"><span class="tech-label">Cloud &amp; Platform Engineering:</span> AWS EKS, ECS, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell, AWS CodeCommit; Azure (Entra ID); Terraform, YAML IaC, Bash.</div>
+  <div class="tech-item"><span class="tech-label">CI/CD &amp; Platform Engineering:</span> GitLab CI/CD, GitHub Actions, Harness, TeamCity, AWS CodeCommit, Kubernetes, Helm, Docker, Ansible, GitLab Vault, Secrets Management in Pipelines, Ephemeral Environments, YAML IaC.</div>
+  <div class="tech-item"><span class="tech-label">Backend (Java/C++/C#):</span> Python, TypeScript, Java 17, Spring Boot, Spring MVC, C, C++, C#, .NET, Go (familiar), Groovy/Grails, Node.js, Kafka (DDD/Avro), RabbitMQ, WebSockets, HL7 (Health Level 7), X12 (ASC X12 EDI — claims 837 / EOB 835), Microservices, Monolith to Microservices Migration, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
+  <div class="tech-item"><span class="tech-label">Frontend:</span> React, Vue.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
+  <div class="tech-item"><span class="tech-label">Data:</span> DDL, DML, DB Performance Tuning, Query Optimization, Schema Design, Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
+  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, CloudWatch, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
+
+  <h2>Earlier Career</h2>
+
+  <div class="job">
+    <div class="job-company">Symantec</div>
+    <div class="job-title">Principal Software Engineer &amp; Tech Lead</div>
+    <ul>
+      <li>Restore Anyware (P2V/V2P DR), Protection Center (CISO console)</li>
+      <li>Active Directory expertise, Patent filed <a href="https://ip.com/pat/US8103747" target="_blank" rel="noopener noreferrer">US8103747</a></li>
+      <li>Symantec Star Award, 2× A++ performance</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Kaseya</div>
+    <div class="job-title">Senior Software Engineer</div>
+    <ul>
+      <li>Kaseya Directory Services, Kaseya Backup</li>
+      <li>Active Directory, LDAP, AWS S3, C++, C#, .NET</li>
+    </ul>
+  </div>
+
+  <div style="font-size:0.85rem;color:#8b949e;margin-top:0.3rem;"><span class="tech-label">Additional experience:</span> Healthcare systems (Misys), fintech (Flying J), biometric security, US Army (SATCOM, Top Secret clearance, Honor Student)</div>
 
   <h2>Books That Shaped the Craft</h2>
   <p style="font-size:0.82rem;color:#8b949e;margin-bottom:0.5rem;">A self-taught engineer is only as good as the books he chose to learn from. These are still on the shelf:</p>
@@ -395,13 +421,12 @@
 
   <h2>Education &amp; Continuous Learning</h2>
   <ul class="edu-list">
-    <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills, Subagents (certifications at <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">phalanxaisec.com/achievements.html</a>)</li>
-    <li><strong>YouTube:</strong> @theseriouscto <em>(CTO strategy)</em>, @NateBJones <em>(AI)</em>, @IBMTechnology <em>(cloud computing)</em></li>
-    <li>TLS/Digital Certificates, SAML 2.0, OAuth2, OIDC, AppSec — Pluralsight &amp; Udemy</li>
-    <li>Atlantic Computrain — Sun Java 2 Programmer Certificate, 2000</li>
-    <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA, 1996</li>
-    <li>US Army Signal School — Computer Operator Certificate, 1991 <em>(Honor Student)</em></li>
-    <li>US Army Signal School — Satellite Systems Operator Certificate, 1987 <em>(Honor Student)</em></li>
+    <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills; Claude in Amazon Bedrock; Claude with Google Cloud's Vertex AI; Introduction to Subagents (certifications at <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">PhalanxAI Security — Achievements</a>)</li>
+    <li>Self-directed: CTO strategy, AI engineering, cloud architecture — YouTube, Pluralsight &amp; Udemy</li>
+    <li>Atlantic Computrain — Sun Java 2 Programmer Certificate</li>
+    <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA</li>
+    <li>US Army Signal School — Computer Operator Certificate <em>(Honor Student)</em></li>
+    <li>US Army Signal School — Satellite Systems Operator Certificate <em>(Honor Student)</em></li>
   </ul>
 
 </div>
