@@ -435,5 +435,20 @@
   &copy; 2026 PhalanxAI Security LLC — All rights reserved
 </div>
 
+<script>
+  var _originalTitle = document.title;
+  window.addEventListener('beforeprint', function () {
+    var now = new Date();
+    var d = String(now.getMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getDate()).padStart(2, '0') + '-' +
+            now.getFullYear() + '-' +
+            now.getTime();
+    // format: MM-DD-YYYY-milliseconds
+    document.title = 'Anthony-James-Trujillo-Resume-' + d;
+  });
+  window.addEventListener('afterprint', function () {
+    document.title = _originalTitle;
+  });
+</script>
 </body>
 </html>
