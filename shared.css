@@ -1,6 +1,7 @@
 .back {
   display: inline-block;
   font-size: 0.82rem;
+  color: #dda8d8;
   background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
