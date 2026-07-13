@@ -632,10 +632,10 @@
             0 0 10px rgba(255, 215, 0, 0.3);
         }
       }
-      #obo-platform-card {
+      #hitl-card {
         animation: flagship-pulse-gold 2s ease-in-out infinite;
       }
-      #obo-platform-card .card-badge-new span {
+      #hitl-card .card-badge-new span {
         animation: cert-pulse 2s ease-in-out infinite;
       }
       .card-title-gold {
@@ -686,7 +686,6 @@
         text-decoration: none;
         cursor: pointer;
       }
-
       .card-toggle-icon {
         height: 58px;
         width: auto;
@@ -1485,10 +1484,102 @@
 
     <!-- PoC Grid -->
     <div class="grid">
-      <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
-      <div class="card card-flagship" id="obo-platform-card">
+      <!-- Zero Trust HITL — autonomous agent recommends, Cedar policy decides, named human approves -->
+      <div class="card card-flagship" id="hitl-card">
         <div class="card-badge-new"><span>★ New</span></div>
 
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('hitl-card')">
+          <div class="card-title-group">
+            <span class="card-title">Zero Trust Human-in-the-Loop (HITL) Payments</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('hitl-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 2-min demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('hitl-card')">
+          The agent is <strong class="chrome">never</strong> the final authority on a financial decision. A
+          <strong class="chrome">Cedar policy</strong> decides if it needs a human; a
+          <strong class="chrome">named human</strong> decides if it clears — bound by a
+          <strong class="chrome">login-tied ceiling</strong>. <strong class="chrome">Sealed</strong> end to end.
+          <strong class="chrome">100% CDK</strong>. <strong class="chrome">Live in AWS</strong>.
+        </p>
+        <div class="card-details">
+          <p class="card-question">
+            An MCP tool lets an autonomous agent request a payment — what stops it from approving that payment too?
+          </p>
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Policy Decides, Not the Agent:</strong> The agent calls
+              <code>request_human_approval</code> over MCP. A Cedar policy in AWS Verified Permissions decides — no
+              code path lets the agent self-approve.
+            </li>
+            <li>
+              <strong class="chrome">Targeted, Ceiling-Bound Approval:</strong> Requests reach only the requester's
+              own Slack identity. Approver authority is capped at their login-tied limit — no ceiling, no request.
+            </li>
+            <li>
+              <strong class="chrome">Live in Slack, Never Blocking:</strong> The approver gets a targeted DM with
+              Approve/Modify/Deny. SNS → SQS delivers their decision — the original API call never waits, whether
+              the human responds in seconds or hours.
+            </li>
+            <li>
+              <strong class="chrome">Tamper-Evident by Construction:</strong> Every request, decision, and execution
+              is HMAC-SHA256 hash-chained — verified live at <code>/audit-ui</code>.
+            </li>
+            <li>
+              <strong class="chrome">100% IaC, Live in AWS:</strong> Every resource — Fargate, DynamoDB, SQS/SNS,
+              Verified Permissions, Cognito — is CDK-defined and running in the cloud today. GitHub Actions deploys
+              on push via short-lived OIDC, zero static keys.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">AWS Cognito</span
+              ><span class="tag">AWS Verified Permissions (Cedar)</span><span class="tag">Slack App (Bolt / Block Kit)</span>
+              <span class="tag">AWS DynamoDB</span><span class="tag">AWS SQS</span><span class="tag">AWS SNS</span>
+              <span class="tag">AWS Secrets Manager</span><span class="tag">AWS KMS</span><span class="tag">ECS Fargate</span>
+              <span class="tag">Application Load Balancer</span><span class="tag">AWS CDK (IaC)</span><span class="tag">CloudFormation</span>
+              <span class="tag">GitHub Actions (OIDC)</span><span class="tag">Amazon ECR</span><span class="tag">AWS CloudWatch Logs</span>
+              <span class="tag">TypeScript / Node / Express</span><span class="tag">React / Vite</span>
+              <span class="tag">JWT RS256 (PKCE)</span><span class="tag">HMAC-SHA256</span><span class="tag">RFC 9562 (UUIDv7)</span><span class="tag">MCP</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">ISO/IEC 42001</span><span class="tag">OWASP A01 / A03 / A04 / A07 / A08 / A09</span
+              ><span class="tag">OWASP LLM01 / LLM02 / LLM05 / LLM06</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
+      <div class="card" id="obo-platform-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
           <div class="card-title-group">
             <span class="card-title">Production-Grade Zero Trust OBO Platform</span>
