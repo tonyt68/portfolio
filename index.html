@@ -1920,70 +1920,20 @@
         </div>
       </div>
 
-      <!-- Phalanx -->
-      <div class="card" id="phalanx-card">
-        <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
-          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
-          <img
-            class="card-toggle-icon"
-            src="PhalanxAI-Security-LLC.png"
-            alt="Toggle details"
-            title="Click to expand"
-          />
-        </div>
-        <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
-          <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
-        </p>
-
-        <div class="card-details">
-          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
-            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
-            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
-            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
-            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
-          </ul>
-
-          <div>
-            <div class="card-section-label">Core Tech</div>
-            <div class="tags">
-              <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
-              ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
-              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="card-section-label">Compliance Ready</div>
-            <div class="tags compliance-tags">
-              <span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span
-              ><span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span
-              ><span class="tag">MITRE ATLAS</span>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="status-amber">
-              <div class="status-dot-amber"></div>
-              Under Construction
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Zero Trust Payments -->
       <div class="card" id="payments-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
           <div class="card-title-group">
             <span class="card-title">Zero Trust Payments with AI</span>
-            <span
+            <a
               class="card-demo-link"
               onclick="
                 event.stopPropagation();
-                document.getElementById('atm-lightbox').style.display = 'flex';
+                openVideoDemo('zero-trust-payments-demo.mp4');
+                return false;
               "
-              >📷 Preview demo</span
+              href="#"
+              >🎬 45-sec demo</a
             >
           </div>
           <img
@@ -2032,97 +1982,21 @@
         </div>
       </div>
 
-      <!-- IETF Internet-Draft -->
-      <div class="card" id="ietf-card">
-        <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
-          <div class="card-title-group">
-            <span class="card-title" style="animation: pulse 2.5s ease-in-out infinite; display: inline-block"
-              >IETF Internet-Draft — Agent-to-Agent Trust</span
-            >
-          </div>
-          <img
-            class="card-toggle-icon"
-            src="PhalanxAI-Security-LLC.png"
-            alt="Toggle details"
-            title="Click to expand"
-          />
-        </div>
-        <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">
-          First author defining the <strong class="chrome">IETF standard</strong> for <strong class="chrome">agent-to-agent trust</strong> — every clause runs as working code.
-        </p>
-
-        <div class="card-details">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 12px">
-            <span
-              style="
-                font-size: 0.72rem;
-                font-weight: 700;
-                padding: 2px 10px;
-                border-radius: 4px;
-                background: linear-gradient(135deg, #7a0000, #c0392b, #7a0000);
-                color: #fff;
-                letter-spacing: 0.05em;
-              "
-              >★ IETF AUTHOR</span
-            >
-            <div style="display: flex; gap: 1rem">
-              <a
-                class="card-ext-link"
-                href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="font-size: 0.75rem"
-                >Datatracker →</a
-              >
-              <a
-                class="card-ext-link"
-                href="https://github.com/tonyt68/ietf-a2a-trust-poc"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="font-size: 0.75rem"
-                >GitHub →</a
-              >
-            </div>
-          </div>
-
-          <p class="card-question">What does it take to define agent-to-agent trust as an Internet Standard — and ship working code that proves every clause?</p>
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Multi-Agent Trust Standard:</strong> Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.</li>
-            <li><strong class="chrome">Policy as Code — Dual Signature:</strong> Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.</li>
-            <li><strong class="chrome">50/50 Conformance + 34/34 Red-Team:</strong> 100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.</li>
-          </ul>
-
-          <div>
-            <div class="card-section-label">Core Tech</div>
-            <div class="tags">
-              <span class="tag">X.509 PKI</span><span class="tag">Cedar Policy</span><span class="tag">Python 3.12</span
-              ><span class="tag">Claude Sonnet</span><span class="tag">AWS KMS</span><span class="tag">S3</span
-              ><span class="tag">SHA-256 Audit Chain</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="card-section-label">Compliance Ready</div>
-            <div class="tags compliance-tags">
-              <span class="tag">IETF Standards Track</span><span class="tag">NIST 800-207</span
-              ><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Published · Draft 00 · Live</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Secure RAG — Flagship -->
       <div class="card" id="secure-rag-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
           <div class="card-title-group">
             <span class="card-title">Secure RAG — Zero Trust Demo</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('Secure-RAG-Zero-Trust-Demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
           </div>
           <img
             class="card-toggle-icon"
@@ -2160,6 +2034,63 @@
             </div>
           </div>
 
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAG Knowledge Assistant -->
+      <div class="card" id="rag-knowledge-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
+          <div class="card-title-group">
+            <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('rag-knowledge-assist-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
+          <strong class="chrome">Sensitive data never leaves the building</strong>. AI answers from local context — <strong class="chrome">no cloud API, no data exposure, no runaway spend</strong>.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you deploy AI-assisted onboarding without letting sensitive data escape the building or costs spiral out of control?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
+            <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
+            <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
+            <li><strong class="chrome">Cost Savings at Scale:</strong> Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.</li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span
+              ><span class="tag">JSON Knowledge Store</span><span class="tag">Token Budgeting</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
+            </div>
+          </div>
           <div class="card-footer">
             <div class="status">
               <div class="status-dot"></div>
@@ -2322,11 +2253,65 @@
         </div>
       </div>
 
-      <!-- RAG Knowledge Assistant -->
-      <div class="card" id="rag-knowledge-card">
-        <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
+      <!-- Phalanx -->
+      <div class="card" id="phalanx-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
+          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
+          <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
+            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
+            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
+            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
+            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
+              ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
+              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span
+              ><span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span
+              ><span class="tag">MITRE ATLAS</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status-amber">
+              <div class="status-dot-amber"></div>
+              Under Construction
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IETF Internet-Draft -->
+      <div class="card" id="ietf-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
           <div class="card-title-group">
-            <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
+            <span class="card-title" style="animation: pulse 2.5s ease-in-out infinite; display: inline-block"
+              >IETF Internet-Draft — Agent-to-Agent Trust</span
+            >
           </div>
           <img
             class="card-toggle-icon"
@@ -2335,35 +2320,72 @@
             title="Click to expand"
           />
         </div>
-        <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
-          <strong class="chrome">Sensitive data never leaves the building</strong>. AI answers from local context — <strong class="chrome">no cloud API, no data exposure, no runaway spend</strong>.
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">
+          First author defining the <strong class="chrome">IETF standard</strong> for <strong class="chrome">agent-to-agent trust</strong> — every clause runs as working code.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you deploy AI-assisted onboarding without letting sensitive data escape the building or costs spiral out of control?</p>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 12px">
+            <span
+              style="
+                font-size: 0.72rem;
+                font-weight: 700;
+                padding: 2px 10px;
+                border-radius: 4px;
+                background: linear-gradient(135deg, #7a0000, #c0392b, #7a0000);
+                color: #fff;
+                letter-spacing: 0.05em;
+              "
+              >★ IETF AUTHOR</span
+            >
+            <div style="display: flex; gap: 1rem">
+              <a
+                class="card-ext-link"
+                href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="font-size: 0.75rem"
+                >Datatracker →</a
+              >
+              <a
+                class="card-ext-link"
+                href="https://github.com/tonyt68/ietf-a2a-trust-poc"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="font-size: 0.75rem"
+                >GitHub →</a
+              >
+            </div>
+          </div>
+
+          <p class="card-question">What does it take to define agent-to-agent trust as an Internet Standard — and ship working code that proves every clause?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
-            <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
-            <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
-            <li><strong class="chrome">Cost Savings at Scale:</strong> Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.</li>
+            <li><strong class="chrome">Multi-Agent Trust Standard:</strong> Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.</li>
+            <li><strong class="chrome">Policy as Code — Dual Signature:</strong> Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.</li>
+            <li><strong class="chrome">50/50 Conformance + 34/34 Red-Team:</strong> 100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.</li>
           </ul>
+
           <div>
             <div class="card-section-label">Core Tech</div>
             <div class="tags">
-              <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span
-              ><span class="tag">JSON Knowledge Store</span><span class="tag">Token Budgeting</span>
+              <span class="tag">X.509 PKI</span><span class="tag">Cedar Policy</span><span class="tag">Python 3.12</span
+              ><span class="tag">Claude Sonnet</span><span class="tag">AWS KMS</span><span class="tag">S3</span
+              ><span class="tag">SHA-256 Audit Chain</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
             </div>
           </div>
+
           <div>
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
-              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
+              <span class="tag">IETF Standards Track</span><span class="tag">NIST 800-207</span
+              ><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
             </div>
           </div>
+
           <div class="card-footer">
             <div class="status">
               <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
+              <span class="status-wave">Published · Draft 00 · Live</span>
             </div>
           </div>
         </div>
@@ -2432,62 +2454,6 @@
       ></video>
     </div>
 
-    <!-- ATM Demo Lightbox -->
-    <div
-      id="atm-lightbox"
-      onclick="this.style.display = 'none'"
-      style="
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.88);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-        cursor: zoom-out;
-        flex-direction: column;
-        gap: 1rem;
-      "
-    >
-      <a
-        onclick="
-          event.stopPropagation();
-          document.getElementById('atm-lightbox').style.display = 'none';
-        "
-        style="
-          font-size: 0.82rem;
-          text-decoration: none;
-          cursor: pointer;
-          align-self: flex-start;
-          margin-left: 4vw;
-          background: linear-gradient(
-            90deg,
-            #8a5a85 0%,
-            #b87ab5 25%,
-            #dda8d8 42%,
-            #f0dff0 50%,
-            #dda8d8 58%,
-            #b87ab5 75%,
-            #8a5a85 100%
-          );
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        "
-        >← Portfolio</a
-      >
-      <img
-        src="zero-trust-atm-demo.png"
-        alt="Zero Trust ATM Demo"
-        style="
-          max-width: 92vw;
-          max-height: 85vh;
-          border-radius: 8px;
-          border: 1px solid #30363d;
-          box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-        "
-      />
-    </div>
     <script>
       function openVideoDemo(src) {
         var v = document.getElementById("video-lightbox-player");
