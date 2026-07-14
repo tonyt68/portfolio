@@ -2228,6 +2228,16 @@
         <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mcp-card')">
           <div class="card-title-group">
             <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('sentinel-mcp-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 80-sec demo</a
+            >
           </div>
           <img
             class="card-toggle-icon"
@@ -2237,14 +2247,14 @@
           />
         </div>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">
-          Security investigations: 45 minutes → 60 seconds. Plain English in, <strong class="chrome">forensically verified</strong> answer out.
+          Security investigations: 45 minutes → 80 seconds. Plain English in, <strong class="chrome">forensically verified</strong> answer out.
         </p>
 
         <div class="card-details">
           <p class="card-question">How do you let an AI agent investigate live AWS infrastructure — and guarantee every query it runs is signed, tracked, and provable?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Agentic Workflow — MCP Forensics:</strong> Natural language drives an autonomous multi-service AWS investigation. The agentic workflow spans CloudTrail + CloudWatch + DynamoDB in a single governed query.</li>
-            <li><strong class="chrome">45 min → 60 sec:</strong> Security investigations that required a senior engineer now run in under a minute — same depth, deterministic output, guardrails on every LLM action.</li>
+            <li><strong class="chrome">45 min → 80 sec:</strong> Security investigations that required a senior engineer now run in under a minute and a half — same depth, deterministic output, guardrails on every LLM action.</li>
             <li><strong class="chrome">AI Governance — KMS-Signed Queries:</strong> Every LLM-driven infrastructure query signed via AWS KMS and bound to an immutable tracking ID. No agentic action is unverifiable.</li>
           </ul>
 
@@ -2268,58 +2278,6 @@
             <div class="status">
               <div class="status-dot"></div>
               <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phalanx -->
-      <div class="card" id="phalanx-card">
-        <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
-          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
-          <img
-            class="card-toggle-icon"
-            src="PhalanxAI-Security-LLC.png"
-            alt="Toggle details"
-            title="Click to expand"
-          />
-        </div>
-        <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
-          <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
-        </p>
-
-        <div class="card-details">
-          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
-            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
-            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
-            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
-            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
-          </ul>
-
-          <div>
-            <div class="card-section-label">Core Tech</div>
-            <div class="tags">
-              <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
-              ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
-              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="card-section-label">Compliance Ready</div>
-            <div class="tags compliance-tags">
-              <span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span
-              ><span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span
-              ><span class="tag">MITRE ATLAS</span>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="status-amber">
-              <div class="status-dot-amber"></div>
-              Under Construction
             </div>
           </div>
         </div>
@@ -2406,6 +2364,58 @@
             <div class="status">
               <div class="status-dot"></div>
               <span class="status-wave">Published · Draft 00 · Live</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phalanx -->
+      <div class="card" id="phalanx-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
+          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
+          <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
+          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
+            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
+            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
+            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
+            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
+              ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
+              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">SOC2</span><span class="tag">HIPAA</span><span class="tag">PCI-DSS</span
+              ><span class="tag">FIPS 140-3</span><span class="tag">OWASP Top 10</span
+              ><span class="tag">MITRE ATLAS</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status-amber">
+              <div class="status-dot-amber"></div>
+              Under Construction
             </div>
           </div>
         </div>
