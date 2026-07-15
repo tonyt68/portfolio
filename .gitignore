@@ -31,6 +31,9 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Demo videos — hosted on S3/CloudFront now, see portfolio-video-infra/
+*.mp4
+
 # Local only — not for portfolio repo
 last-mile-zero-trust/
 ietf-a2a-trust-poc/
@@ -38,6 +41,7 @@ sentinel-rebac-poc/
 sentinel-fips/
 sentinel-mcp-poc/
 rag-knowledge-assistant/
+portfolio-video-infra/
 backup.sh
 SHIFT_LEFT.md
 .claudeignore
