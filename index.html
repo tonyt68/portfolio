@@ -632,10 +632,14 @@
             0 0 10px rgba(255, 215, 0, 0.3);
         }
       }
-      #hitl-card {
+      #hitl-card,
+      #okta-auth0-broker-card,
+      #acra-card {
         animation: flagship-pulse-gold 2s ease-in-out infinite;
       }
-      #hitl-card .card-badge-new span {
+      #hitl-card .card-badge-new span,
+      #okta-auth0-broker-card .card-badge-new span,
+      #acra-card .card-badge-new span {
         animation: cert-pulse 2s ease-in-out infinite;
       }
       .card-title-gold {
@@ -1580,7 +1584,7 @@
     <!-- PoC Grid — folder-tab navigation by solution category -->
     <div class="poc-tabbed-grid">
       <div class="poc-tab-bar" role="tablist">
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #d4af37;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="true">
+        <button type="button" class="poc-tab is-active" style="--tab-accent: #ea580c;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="true">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Zero Trust Payments & HITL</span>
           <span class="poc-tab-count">2</span>
@@ -1588,7 +1592,7 @@
         <button type="button" class="poc-tab" style="--tab-accent: #1b47a4;" data-target="cat-iam" onclick="switchPocTab('cat-iam')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IAM & Zero Trust</span>
-          <span class="poc-tab-count">5</span>
+          <span class="poc-tab-count">6</span>
         </button>
         <button type="button" class="poc-tab" style="--tab-accent: #8b5cf6;" data-target="cat-agentic-rag" onclick="switchPocTab('cat-agentic-rag')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
@@ -1601,8 +1605,8 @@
           <span class="poc-tab-count">2</span>
         </button>
       </div>
-      <div class="poc-tab-panels" style="--active-accent: #d4af37;">
-        <div class="poc-tab-panel is-active" id="cat-payments" style="--tab-accent: #d4af37;">
+      <div class="poc-tab-panels" style="--active-accent: #ea580c;">
+        <div class="poc-tab-panel is-active" id="cat-payments" style="--tab-accent: #ea580c;">
       <!-- Zero Trust HITL — autonomous agent recommends, Cedar policy decides, named human approves -->
       <div class="card card-flagship" id="hitl-card">
         <div class="card-badge-new"><span>★ New</span></div>
@@ -1761,6 +1765,105 @@
 
         </div>
         <div class="poc-tab-panel" id="cat-iam" style="--tab-accent: #1b47a4;">
+      <!-- Real Okta SAML → Auth0 identity federation broker — fail-closed kill switch, JIT provisioning -->
+      <div class="card card-flagship" id="okta-auth0-broker-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('okta-auth0-broker-card')">
+          <div class="card-title-group">
+            <span class="card-title">Okta ↔ Auth0 Identity Federation Broker</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/okta-auth0-identity-broker-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 75-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('okta-auth0-broker-card')">
+          Companies inherit new login systems — mergers, vendors, new business units. That used to mean rewiring
+          every downstream app. Not here: Okta federates through Auth0, the resource server
+          <strong class="chrome">never changes</strong>. Real SAML login. Real broker. A
+          <strong class="chrome">kill switch</strong> that can't be undone by logging back in.
+        </p>
+        <div class="card-details">
+          <p class="card-question">
+            How do you revoke a user's access the instant IT disables them — and guarantee a fresh login can't
+            quietly undo it?
+          </p>
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Federation Hub, Not a Point Integration:</strong> the post-login Action's
+              group → role → action mapping is keyed by connection name — onboarding a second IdP (an acquired
+              company's own Okta, Azure AD, PingFederate) is a new Auth0 Enterprise Connection plus a new entry in
+              the same Action, never a resource-server code change. Nothing native in Auth0 computes this claim
+              from SAML group attributes on its own, either — it's hand-written, not a dashboard toggle.
+            </li>
+            <li>
+              <strong class="chrome">Real Federation, Not Simulated:</strong> Okta (SAML IdP) → Auth0 (broker,
+              JIT provisioning + claims mapping) → Spring Boot resource server — exercised live end-to-end against
+              real Okta/Auth0 tenants, no mocked identity provider.
+            </li>
+            <li>
+              <strong class="chrome">Kill Switch That Survives Re-Authentication:</strong> a DynamoDB allow-list
+              denies by construction on any error or absent entry. A revoked user's tombstone holds even against a
+              brand-new token from re-login or silent refresh — a real authentication-bypass class found and
+              closed via a self-directed security review, not assumed away.
+            </li>
+            <li>
+              <strong class="chrome">Full Audit Trail, Two Tiers:</strong> every ALLOW/DENY decision logged with
+              sub/connection/action — the Action's own claim computation feeds straight into per-endpoint
+              enforcement; self-service own-logs vs. admin all-logs.
+            </li>
+            <li>
+              <strong class="chrome">Infrastructure as Code, Deliberately Scoped:</strong> Terraform (Okta
+              groups/users) + AWS CDK (DynamoDB, ECS Fargate + ALB + CloudFront — origin locked to CloudFront's own
+              edge IPs via a managed prefix list) + Auth0 Deploy CLI (API/resource-server, client grant).
+              Reproducible end to end except one genuinely interactive step — the two-pass SAML metadata handshake
+              — documented click-by-click for standing this up in a client's own tenant.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Java 25 LTS</span><span class="tag">Spring Boot 3.5</span
+              ><span class="tag">OAuth2 Resource Server</span><span class="tag">TypeScript / Vite</span
+              ><span class="tag">Auth0 SPA SDK</span><span class="tag">Auth0 Actions (Post-Login)</span
+              ><span class="tag">AWS CDK</span><span class="tag">ECS Fargate</span
+              ><span class="tag">Application Load Balancer</span><span class="tag">CloudFront</span
+              ><span class="tag">DynamoDB</span><span class="tag">Terraform (Okta)</span
+              ><span class="tag">Auth0 Deploy CLI</span><span class="tag">SAML 2.0</span
+              ><span class="tag">OIDC / JWT</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">OWASP A01 / A05 / A07</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- On-Behalf-Of with AWS Cognito as a Platform — hot-swappable Cedar/Zanzibar, 4 languages -->
       <div class="card" id="obo-platform-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
@@ -2142,6 +2245,93 @@
 
         </div>
         <div class="poc-tab-panel" id="cat-agentic-rag" style="--tab-accent: #8b5cf6;">
+      <!-- Autonomous Code Reviewer -->
+      <div class="card card-flagship" id="acra-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
+          <div class="card-title-group">
+            <span class="card-title">Autonomous Code Reviewer (Auth0 + MCP)</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/code-reviewer-agent.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">
+          <strong class="chrome">Autonomous AI agent</strong> with <strong class="chrome">zero standing privileges</strong>. Every PR reviewed under a verified, ephemeral machine identity — fails closed, every time.
+        </p>
+
+        <div class="card-details">
+          <p class="card-question">
+            How do you catch hardcoded secrets or injection vulnerabilities before merge using an agent with its own
+            verified cryptographic identity?
+          </p>
+
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Verified Webhook Pipe:</strong> Intercepts GitHub PR events, immediately verifying
+              payloads via secure cryptographic HMAC signatures.
+            </li>
+            <li>
+              <strong class="chrome">Workload Identity — Zero Standing Privilege:</strong> Fetches short-lived, 1-hour Auth0 M2M tokens scoped to one repo. The agent's workload identity expires — no persistent access, instant global revocation.
+            </li>
+            <li>
+              <strong class="chrome">Agentic MCP Architecture:</strong> Leverages Model Context Protocol (MCP) to supply
+              Claude with deep context, moving beyond naive regex to reason deeply about diffs.
+            </li>
+            <li>
+              <strong class="chrome">Inline Guardrails — OWASP LLM Top 10:</strong> Streams vulnerability findings directly back to GitHub, pinning OWASP violations to the exact line. LLM output governed, not trusted.
+            </li>
+            <li>
+              <strong class="chrome">Deterministic Audit Trail:</strong> Logs every agent action into an HMAC-signed
+              audit entry, strictly enforcing a fail-closed posture across all error paths.
+            </li>
+          </ul>
+
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Python / Flask</span><span class="tag">Claude API</span
+              ><span class="tag">Model Context Protocol (MCP)</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Auth0 M2M</span>
+              <span class="tag">GitHub Webhooks</span><span class="tag">Terraform (IaC)</span
+              ><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02 / A03</span><span class="tag">SOC2</span
+              ><span class="tag">Zero Trust</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Secure RAG — Flagship -->
       <div class="card" id="secure-rag-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
@@ -2255,92 +2445,6 @@
             <div class="status">
               <div class="status-dot"></div>
               <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Autonomous Code Reviewer -->
-      <div class="card" id="acra-card">
-        <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
-          <div class="card-title-group">
-            <span class="card-title">Autonomous Code Reviewer (Auth0 + MCP)</span>
-            <a
-              class="card-demo-link"
-              onclick="
-                event.stopPropagation();
-                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/code-reviewer-agent.mp4');
-                return false;
-              "
-              href="#"
-              >🎬 60-sec demo</a
-            >
-          </div>
-          <img
-            class="card-toggle-icon"
-            src="PhalanxAI-Security-LLC.png"
-            alt="Toggle details"
-            title="Click to expand"
-          />
-        </div>
-
-        <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">
-          <strong class="chrome">Autonomous AI agent</strong> with <strong class="chrome">zero standing privileges</strong>. Every PR reviewed under a verified, ephemeral machine identity — fails closed, every time.
-        </p>
-
-        <div class="card-details">
-          <p class="card-question">
-            How do you catch hardcoded secrets or injection vulnerabilities before merge using an agent with its own
-            verified cryptographic identity?
-          </p>
-
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
-          >
-            <li>
-              <strong class="chrome">Verified Webhook Pipe:</strong> Intercepts GitHub PR events, immediately verifying
-              payloads via secure cryptographic HMAC signatures.
-            </li>
-            <li>
-              <strong class="chrome">Workload Identity — Zero Standing Privilege:</strong> Fetches short-lived, 1-hour Auth0 M2M tokens scoped to one repo. The agent's workload identity expires — no persistent access, instant global revocation.
-            </li>
-            <li>
-              <strong class="chrome">Agentic MCP Architecture:</strong> Leverages Model Context Protocol (MCP) to supply
-              Claude with deep context, moving beyond naive regex to reason deeply about diffs.
-            </li>
-            <li>
-              <strong class="chrome">Inline Guardrails — OWASP LLM Top 10:</strong> Streams vulnerability findings directly back to GitHub, pinning OWASP violations to the exact line. LLM output governed, not trusted.
-            </li>
-            <li>
-              <strong class="chrome">Deterministic Audit Trail:</strong> Logs every agent action into an HMAC-signed
-              audit entry, strictly enforcing a fail-closed posture across all error paths.
-            </li>
-          </ul>
-
-          <div>
-            <div class="card-section-label">Core Tech</div>
-            <div class="tags">
-              <span class="tag">Python / Flask</span><span class="tag">Claude API</span
-              ><span class="tag">Model Context Protocol (MCP)</span>
-              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Auth0 M2M</span>
-              <span class="tag">GitHub Webhooks</span><span class="tag">Terraform (IaC)</span
-              ><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="card-section-label">Compliance Ready</div>
-            <div class="tags compliance-tags">
-              <span class="tag">OWASP Top 10</span><span class="tag">OWASP A02 / A03</span><span class="tag">SOC2</span
-              ><span class="tag">Zero Trust</span>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
