@@ -14,7 +14,7 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="https://phalanxaisec.com/TonyAI.png" />
-    <link rel="icon" type="image/png" href="TonyAI.png" />
+    <link rel="icon" type="image/png" href="TonyAI-round.png" />
     <style>
       :root {
         --chrome: linear-gradient(135deg, #4a5a6a, #8aaabb, #c8dce8, #ffffff, #c8dce8, #8aaabb, #4a5a6a);
@@ -146,6 +146,15 @@
           0 -1px 0 rgba(0,0,0,0.35);
         line-height: 1.2;
       }
+      .nameplate-handle {
+        font-size: 0.5rem;
+        font-weight: 700;
+        font-style: italic;
+        letter-spacing: 0.02em;
+        color: #35415a;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        line-height: 1.2;
+      }
       .nameplate-title {
         font-size: 0.5rem;
         font-weight: 600;
@@ -185,27 +194,11 @@
         justify-content: center;
         gap: 0.8rem;
       }
-      .header-text h1 .h1-text {
-        white-space: nowrap;
-        background: linear-gradient(
-          180deg,
-          #1a1f26 0%,
-          #3d4a58 8%,
-          #7a8fa0 18%,
-          #b8ccd8 30%,
-          #e8f2f8 42%,
-          #ffffff 50%,
-          #e0eaf2 55%,
-          #8aaabb 68%,
-          #3a4a58 82%,
-          #1a2028 92%,
-          #0d1117 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .phalanx-name-img {
+        height: 4.6rem;
+        width: auto;
+        max-width: 100%;
       }
-
       .header-text .tagline {
         font-size: 1.2rem;
         margin-bottom: 0.75rem;
@@ -284,24 +277,24 @@
         margin-bottom: 0.75rem;
         background: linear-gradient(
           180deg,
-          #0d0700 0%,
-          #5a3800 8%,
-          #aa7a00 18%,
-          #e8a800 27%,
-          #ffd000 35%,
-          #ffe44a 42%,
-          #ffffff 50%,
-          #ffe44a 58%,
-          #ffd000 65%,
-          #e8a800 73%,
-          #aa7a00 82%,
-          #5a3800 92%,
-          #0d0700 100%
+          #1a1408 0%,
+          #4a3620 8%,
+          #7a6440 18%,
+          #a68f5f 27%,
+          #c2ab7d 35%,
+          #d9c9a8 42%,
+          #f0e6cc 50%,
+          #d9c9a8 58%,
+          #c2ab7d 65%,
+          #a68f5f 73%,
+          #7a6440 82%,
+          #4a3620 92%,
+          #1a1408 100%
         );
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0 0 10px rgba(255, 180, 0, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+        filter: drop-shadow(0 0 4px rgba(180, 150, 90, 0.2)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
       }
 
       .badges {
@@ -427,6 +420,9 @@
         }
         .header-text h1 img {
           height: 5rem;
+        }
+        .phalanx-name-img {
+          height: 3rem;
         }
         .header-text .tagline {
           font-size: clamp(0.6rem, 3vw, 0.8rem);
@@ -634,12 +630,14 @@
       }
       #hitl-card,
       #okta-auth0-broker-card,
-      #acra-card {
+      #acra-card,
+      #sentinel-mesh-card {
         animation: flagship-pulse-gold 2s ease-in-out infinite;
       }
       #hitl-card .card-badge-new span,
       #okta-auth0-broker-card .card-badge-new span,
-      #acra-card .card-badge-new span {
+      #acra-card .card-badge-new span,
+      #sentinel-mesh-card .card-badge-new span {
         animation: cert-pulse 2s ease-in-out infinite;
       }
       .card-title-gold {
@@ -747,19 +745,37 @@
       }
       .poc-tab.is-active {
         background: linear-gradient(
-          180deg,
-          color-mix(in srgb, var(--tab-accent) 26%, #202836),
-          color-mix(in srgb, var(--tab-accent) 9%, #171b22)
+          160deg,
+          #2a3040 0%,
+          #4a5568 12%,
+          #8a9ab0 28%,
+          #c8d4e0 44%,
+          #eef2f6 50%,
+          #c8d4e0 56%,
+          #8a9ab0 72%,
+          #4a5568 88%,
+          #2a3040 100%
         );
-        border-color: var(--tab-accent);
-        color: #ffffff;
+        border-color: #eef2f6;
+        color: #1a2030;
+        text-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.65),
+          0 -1px 0 rgba(0, 0, 0, 0.35);
         font-weight: 800;
         opacity: 1;
         transform: translateY(0) scale(1);
         box-shadow:
           0 -6px 20px rgba(0, 0, 0, 0.35),
-          0 0 18px color-mix(in srgb, var(--tab-accent) 45%, transparent);
+          0 0 18px rgba(200, 220, 232, 0.45);
         z-index: 2;
+      }
+      .poc-tab.is-active .poc-tab-count {
+        background: rgba(26, 32, 48, 0.18);
+        color: #1a2030;
+      }
+      .poc-tab-title {
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
       .poc-tab-shield {
         height: 22px;
@@ -779,10 +795,9 @@
         font-size: 0.7rem;
       }
       .poc-tab-panels {
-        --active-accent: #58a6ff;
         background: linear-gradient(180deg, rgba(139, 127, 212, 0.05), transparent 45%);
         border: 1px solid #30363d;
-        border-top: 2px solid var(--active-accent);
+        border-top: 2px solid #c8d4e0;
         border-radius: 0 10px 10px 10px;
         padding: 1.25rem;
         position: relative;
@@ -810,11 +825,12 @@
       }
 
       .card-question {
-        font-size: 0.84rem;
-        color: #c8d4e0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #dbe4ec;
         font-style: italic;
         line-height: 1.5;
-        border-left: 2px solid #8b5cf6;
+        border-left: 3px solid #8b5cf6;
         padding-left: 0.75rem;
       }
 
@@ -1468,6 +1484,7 @@
         <img class="avatar" src="TonyAI.png" alt="TonyAI" />
         <div class="nameplate">
           <div class="nameplate-name">Tony Trujillo</div>
+          <div class="nameplate-handle">(TonyAI)</div>
           <div class="nameplate-title">Founder &amp; Principal Engineer</div>
         </div>
         <div class="qr-contact">
@@ -1481,11 +1498,8 @@
           <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;flex-shrink:0;">
             <img src="PhalanxAI-Security-LLC.png" alt="TonyAI Shield" style="height: 8rem; width: auto;" />
             <span class="shield-caption">Click a shield to expand details</span>
-          </div><span
-            class="h1-text"
-            ><span style="display: inline-block">PhalanxAI</span>
-            <span style="display: inline-block">Security LLC</span></span
-          >
+          </div>
+          <img class="phalanx-name-img" src="phalanx-name-gold.png" alt="PhalanxAI Security LLC" />
         </h1>
         <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
         <p class="tagline">
@@ -1584,29 +1598,34 @@
     <!-- PoC Grid — folder-tab navigation by solution category -->
     <div class="poc-tabbed-grid">
       <div class="poc-tab-bar" role="tablist">
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #ea580c;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="true">
+        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="true">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Zero Trust Payments & HITL</span>
           <span class="poc-tab-count">2</span>
         </button>
-        <button type="button" class="poc-tab" style="--tab-accent: #1b47a4;" data-target="cat-iam" onclick="switchPocTab('cat-iam')" role="tab" aria-selected="false">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-iam" onclick="switchPocTab('cat-iam')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
-          <span class="poc-tab-title">IAM & Zero Trust</span>
-          <span class="poc-tab-count">6</span>
+          <span class="poc-tab-title">IAM & Access</span>
+          <span class="poc-tab-count">4</span>
         </button>
-        <button type="button" class="poc-tab" style="--tab-accent: #8b5cf6;" data-target="cat-agentic-rag" onclick="switchPocTab('cat-agentic-rag')" role="tab" aria-selected="false">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-zero-trust" onclick="switchPocTab('cat-zero-trust')" role="tab" aria-selected="false">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Zero Trust</span>
+          <span class="poc-tab-count">3</span>
+        </button>
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agentic-rag" onclick="switchPocTab('cat-agentic-rag')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Agentic AI & RAG</span>
           <span class="poc-tab-count">4</span>
         </button>
-        <button type="button" class="poc-tab" style="--tab-accent: #2ea043;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
           <span class="poc-tab-count">2</span>
         </button>
       </div>
-      <div class="poc-tab-panels" style="--active-accent: #ea580c;">
-        <div class="poc-tab-panel is-active" id="cat-payments" style="--tab-accent: #ea580c;">
+      <div class="poc-tab-panels">
+        <div class="poc-tab-panel is-active" id="cat-payments" style="--tab-accent: #58a6ff;">
       <!-- Zero Trust HITL — autonomous agent recommends, Cedar policy decides, named human approves -->
       <div class="card card-flagship" id="hitl-card">
         <div class="card-badge-new"><span>★ New</span></div>
@@ -1632,17 +1651,15 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('hitl-card')">
+          An MCP tool lets an autonomous agent request a payment — what stops it from approving that payment too?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('hitl-card')">
-          The agent is <strong class="chrome">never</strong> the final authority on a financial decision. A
-          <strong class="chrome">Cedar policy</strong> decides if it needs a human; a
-          <strong class="chrome">named human</strong> decides if it clears — bound by a
-          <strong class="chrome">login-tied ceiling</strong>. <strong class="chrome">Sealed</strong> end to end.
-          <strong class="chrome">100% CDK</strong>. <strong class="chrome">Live in AWS</strong>.
+          An AI agent can <strong class="chrome">request</strong> a payment. It can
+          <strong class="chrome">never approve</strong> one — a Cedar policy routes it to a named human, capped at
+          that human's own spending limit.
         </p>
         <div class="card-details">
-          <p class="card-question">
-            An MCP tool lets an autonomous agent request a payment — what stops it from approving that payment too?
-          </p>
           <ul
             class="card-bullet-list"
             style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
@@ -1670,6 +1687,18 @@
               Verified Permissions, Cognito — is CDK-defined and running in the cloud today. GitHub Actions deploys
               on push via short-lived OIDC, zero static keys.
             </li>
+            <li>
+              <strong class="chrome">Startup-Verified, Not Just Deployed:</strong> the payment agent makes a real
+              <code>IsAuthorized</code> call to Verified Permissions at boot and crashes loudly if it fails — added
+              after a misconfigured IAM ARN once silently routed every payment into the wait path. Backed by 24 test
+              files plus a post-deploy CI smoke test that authenticates as a real Cognito user against the live ALB.
+            </li>
+            <li>
+              <strong class="chrome">Scoped Audit Access, Independently Verifiable:</strong> <code>/audit</code> is
+              scoped to the caller's own payments unless they're in the <code>hitl-admins</code> Cognito group. The
+              HMAC hash chain isn't only viewable in <code>/audit-ui</code> — a standalone CLI re-verifies it
+              independently, outside the running app.
+            </li>
           </ul>
           <div>
             <div class="card-section-label">Core Tech</div>
@@ -1682,6 +1711,7 @@
               <span class="tag">GitHub Actions (OIDC)</span><span class="tag">Amazon ECR</span><span class="tag">AWS CloudWatch Logs</span>
               <span class="tag">TypeScript / Node / Express</span><span class="tag">React / Vite</span>
               <span class="tag">JWT RS256 (PKCE)</span><span class="tag">HMAC-SHA256</span><span class="tag">RFC 9562 (UUIDv7)</span><span class="tag">MCP</span>
+              <span class="tag">zod</span><span class="tag">jose</span>
             </div>
           </div>
           <div>
@@ -1689,7 +1719,8 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">ISO/IEC 42001</span><span class="tag">OWASP A01 / A03 / A04 / A07 / A08 / A09</span
-              ><span class="tag">OWASP LLM01 / LLM02 / LLM05 / LLM06</span>
+              ><span class="tag">OWASP LLM01 / LLM02 / LLM05 / LLM06</span
+              ><span class="tag">OWASP A02 / A06</span>
             </div>
           </div>
           <div class="card-footer">
@@ -1724,24 +1755,28 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('payments-card')">How do you put AI in a payments pipeline without letting it move money on its own authority?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">
-          <strong class="chrome">AI recommends</strong>. Policy decides. Money never moves on <strong class="chrome">AI confidence alone</strong>.
+          Money doesn't move because an AI model <strong class="chrome">feels confident</strong>. A deterministic
+          guardrail checks every recommendation against policy <strong class="chrome">before execution</strong> —
+          revoke one permission and the whole transaction chain dies <strong class="chrome">instantly</strong>.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you put AI in a payments pipeline without letting it move money on its own authority?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Guardrails — Deterministic Gate:</strong> Prompt Evaluation Gate sits pre-execution. Pure Python, four checks, zero LLM variance, zero overrides. Fail one, hard stop. No AI confidence bypasses policy.</li>
             <li><strong class="chrome">Human-in-the-Loop by Design:</strong> AI recommends. Human-defined policy executes. Money never moves on model confidence alone — the architecture enforces HITL, not a setting.</li>
             <li><strong class="chrome">AI Governance Audit Trail:</strong> Every recommendation, gate decision, and outcome KMS-signed and immutably logged. Regulators get cryptographic proof, not log files.</li>
             <li><strong class="chrome">ReBAC Kill Switch:</strong> Revoke one relationship — the entire agentic transaction chain dies instantly. Least privilege enforced at the trust boundary, not the API.</li>
+            <li><strong class="chrome">Adversarial-Tested Gate:</strong> a dedicated amount-coherence check catches the model if it reports evaluating a different dollar figure than what was actually requested — the deterministic gate denies even when the LLM misreports its own inputs. Five-layer pipeline (ReBAC → PAA → PEG → Router → Executor), 26/26 unit tests passing.</li>
+            <li><strong class="chrome">Full Admin Control Plane:</strong> revoke, restore, kill, and unkill endpoints let an operator freeze or reinstate any relationship live, with a loopback-only admin-token endpoint for local control.</li>
           </ul>
 
           <div>
             <div class="card-section-label">Core Tech</div>
             <div class="tags">
               <span class="tag">Prompt Evaluation Gate</span><span class="tag">ReBAC</span
-              ><span class="tag">Python</span><span class="tag">Claude Sonnet</span><span class="tag">KMS</span
+              ><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Claude Sonnet</span><span class="tag">KMS</span
               ><span class="tag">JWT RS256</span><span class="tag">DynamoDB</span><span class="tag">Redis</span>
             </div>
           </div>
@@ -1750,7 +1785,7 @@
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
               <span class="tag">PCI-DSS</span><span class="tag">SOC2</span><span class="tag">NIST 800-207</span
-              ><span class="tag">OWASP Top 10</span>
+              ><span class="tag">OWASP Top 10</span><span class="tag">OWASP LLM06 / LLM09</span>
             </div>
           </div>
 
@@ -1764,7 +1799,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel" id="cat-iam" style="--tab-accent: #1b47a4;">
+        <div class="poc-tab-panel" id="cat-iam" style="--tab-accent: #58a6ff;">
       <!-- Real Okta SAML → Auth0 identity federation broker — fail-closed kill switch, JIT provisioning -->
       <div class="card card-flagship" id="okta-auth0-broker-card">
         <div class="card-badge-new"><span>★ New</span></div>
@@ -1789,6 +1824,10 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('okta-auth0-broker-card')">
+          How do you revoke a user's access the instant IT disables them — and guarantee a fresh login can't
+          quietly undo it?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('okta-auth0-broker-card')">
           Companies inherit new login systems — mergers, vendors, new business units. That used to mean rewiring
           every downstream app. Not here: Okta federates through Auth0, the resource server
@@ -1796,43 +1835,57 @@
           <strong class="chrome">kill switch</strong> that can't be undone by logging back in.
         </p>
         <div class="card-details">
-          <p class="card-question">
-            How do you revoke a user's access the instant IT disables them — and guarantee a fresh login can't
-            quietly undo it?
-          </p>
           <ul
             class="card-bullet-list"
             style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
             <li>
-              <strong class="chrome">Federation Hub, Not a Point Integration:</strong> the post-login Action's
-              group → role → action mapping is keyed by connection name — onboarding a second IdP (an acquired
-              company's own Okta, Azure AD, PingFederate) is a new Auth0 Enterprise Connection plus a new entry in
-              the same Action, never a resource-server code change. Nothing native in Auth0 computes this claim
-              from SAML group attributes on its own, either — it's hand-written, not a dashboard toggle.
+              <strong class="chrome">Federation Hub, Not a Point Integration:</strong> the post-login Action maps
+              group → role → action by connection name, so onboarding a second IdP (an acquired company's Okta,
+              Azure AD, PingFederate) is a new Enterprise Connection plus one Action entry — never a resource-server
+              change. Auth0 doesn't compute this claim natively; it's hand-written, not a dashboard toggle.
             </li>
             <li>
-              <strong class="chrome">Real Federation, Not Simulated:</strong> Okta (SAML IdP) → Auth0 (broker,
-              JIT provisioning + claims mapping) → Spring Boot resource server — exercised live end-to-end against
-              real Okta/Auth0 tenants, no mocked identity provider.
+              <strong class="chrome">Real Federation, Not Simulated:</strong> Okta (SAML IdP) → Auth0 (broker, JIT
+              provisioning + claims mapping) → Spring Boot resource server, exercised live end-to-end against real
+              tenants — no mocked IdP.
             </li>
             <li>
               <strong class="chrome">Kill Switch That Survives Re-Authentication:</strong> a DynamoDB allow-list
-              denies by construction on any error or absent entry. A revoked user's tombstone holds even against a
-              brand-new token from re-login or silent refresh — a real authentication-bypass class found and
-              closed via a self-directed security review, not assumed away.
+              denies by construction on any error or missing entry, so a revoked user's tombstone holds even
+              against a fresh token from re-login or silent refresh — a real bypass class found and closed via
+              self-directed security review, not assumed away.
             </li>
             <li>
-              <strong class="chrome">Full Audit Trail, Two Tiers:</strong> every ALLOW/DENY decision logged with
-              sub/connection/action — the Action's own claim computation feeds straight into per-endpoint
-              enforcement; self-service own-logs vs. admin all-logs.
+              <strong class="chrome">Full Audit Trail, Two Tiers:</strong> every ALLOW/DENY decision logs
+              sub/connection/action, feeding straight from the Action's claim computation into per-endpoint
+              enforcement — self-service own-logs vs. admin all-logs.
             </li>
             <li>
               <strong class="chrome">Infrastructure as Code, Deliberately Scoped:</strong> Terraform (Okta
-              groups/users) + AWS CDK (DynamoDB, ECS Fargate + ALB + CloudFront — origin locked to CloudFront's own
-              edge IPs via a managed prefix list) + Auth0 Deploy CLI (API/resource-server, client grant).
-              Reproducible end to end except one genuinely interactive step — the two-pass SAML metadata handshake
-              — documented click-by-click for standing this up in a client's own tenant.
+              groups/users) + AWS CDK (DynamoDB, ECS Fargate + ALB + CloudFront, origin locked to CloudFront's edge
+              IPs via a managed prefix list) + Auth0 Deploy CLI (API/resource-server, client grant) — reproducible
+              end to end except the two-pass SAML metadata handshake, documented click-by-click for a client's own
+              tenant.
+            </li>
+            <li>
+              <strong class="chrome">Kill Switch Survives Silent Refresh — Proven by a Real Bug:</strong> the
+              original implementation deleted the row on revoke, so Auth0's own silent token refresh
+              re-provisioned a revoked user and undid the revoke with zero admin action. The fix — tombstone,
+              never delete — closes that exact bypass.
+            </li>
+            <li>
+              <strong class="chrome">Role-Based, Not Binary:</strong> four named roles (Viewer/Worker/Manager/Auditor)
+              accumulate across multiple roles — Manager+Auditor unions into full CRUD plus
+              <code>logs:read:all</code>. A shared-tenant guard checks both <code>client_id</code> and connection
+              name before setting any claim, since this Action runs for every app on a tenant shared with sibling
+              PoCs.
+            </li>
+            <li>
+              <strong class="chrome">Tamper-Evident by IAM, Not Just by Design:</strong> the audit-log and
+              allow-list tables grant the ECS task role only Put/Get/Query/Scan — no Update or Delete — so a
+              compromised container literally cannot alter or erase its own audit trail. Kill-switch denials return
+              403, not 401, deliberately distinguishing "still-valid token, newly denied" from "invalid token."
             </li>
           </ul>
           <div>
@@ -1887,14 +1940,16 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('obo-platform-card')">
+          If your auth logic lives in four different languages, how do you prove they'll never quietly drift apart?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-platform-card')">
-          One <strong class="chrome">Zero Trust OBO</strong> contract. Four languages.
-          <strong class="chrome">Cryptographically sealed</strong> audit log. Built natively on AWS Cognito.
+          The same access rule, written into four different codebases — Python, Java, TypeScript, C#. Update one
+          and the others can <strong class="chrome">silently disagree</strong>. This keeps all four
+          <strong class="chrome">provably identical</strong>, with the policy engine itself
+          <strong class="chrome">swappable</strong> underneath.
         </p>
         <div class="card-details">
-          <p class="card-question">
-            How do you guarantee bulletproof authorization across a fragmented polyglot stack?
-          </p>
           <ul
             class="card-bullet-list"
             style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
@@ -1917,6 +1972,27 @@
               <strong class="chrome">100% Automated IaC:</strong> CloudFormation completely models the serverless
               infrastructure, including API Gateway, custom-branded Cognito Managed Login, and Lambdas.
             </li>
+            <li>
+              <strong class="chrome">The Real Demo Surface — a Fifth Component:</strong> a BFF (`fe`) fronts all
+              four middleware variants side-by-side in one UI, backed by Cognito Hosted UI login with full
+              server-side Authorization Code + PKCE, httpOnly cookies, and RFC 7009 token revocation on logout.
+            </li>
+            <li>
+              <strong class="chrome">Cross-Language OBO Handshake, Not Just Shared Rules:</strong> the Lambda
+              self-mints an RFC 8693 token (Cognito can't token-exchange natively) carrying a correlation ID; the
+              Java middleware independently re-validates it via a deliberately separate JWKS trust root, so the two
+              trust boundaries can never accidentally merge.
+            </li>
+            <li>
+              <strong class="chrome">Pinned Against Named CVEs:</strong> explicit dependency overrides above
+              Spring Boot's own BOM close specific CRITICAL/HIGH CVEs in Tomcat, Spring Security, and
+              Jackson — supply-chain hygiene enforced in the build, not assumed.
+            </li>
+            <li>
+              <strong class="chrome">Independent Engine Selection, Per Service:</strong> each containerized
+              middleware variant carries its own engine flag — Java defaults to Zanzibar, Python to Cedar — so the
+              demo can run different policy engines on different services simultaneously.
+            </li>
           </ul>
           <div>
             <div class="card-section-label">Core Tech</div>
@@ -1926,15 +2002,16 @@
               <span class="tag">Cedar</span><span class="tag">OpenFGA / Zanzibar</span><span class="tag">gRPC</span>
               <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">AWS Cognito</span
               ><span class="tag">AWS Lambda</span><span class="tag">API Gateway</span
+              ><span class="tag">AWS Secrets Manager</span
               ><span class="tag">AWS SAM (IaC)</span><span class="tag">Docker Compose</span>
-              <span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span><span class="tag">RFC 8693 (OBO)</span><span class="tag">RFC 9562 (UUIDv7)</span>
+              <span class="tag">JWT RS256</span><span class="tag">HMAC-SHA256</span><span class="tag">RFC 8693 (OBO)</span><span class="tag">RFC 9562 (UUIDv7)</span><span class="tag">RFC 7009</span>
             </div>
           </div>
           <div>
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
-              ><span class="tag">OWASP A01 / A07 / A09</span>
+              ><span class="tag">OWASP A01 / A07 / A09</span><span class="tag">OWASP A06</span>
             </div>
           </div>
           <div class="card-footer">
@@ -1970,14 +2047,16 @@
           />
         </div>
 
+        <p class="card-question" onclick="toggleCardDetails('obo-card')">
+          When an AI agent triggers a high-value transaction or accesses sensitive data, who actually authorized it?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('obo-card')">
-          <strong class="chrome">Agentic AI</strong> with no standing authority. The agent acts only within the human's live permissions — <strong class="chrome">cryptographic delegation</strong>, not assumed trust.
+          An AI agent acting on your behalf gets <strong class="chrome">none of its own standing power</strong> —
+          only what you, right now, are allowed to do. Every action carries
+          <strong class="chrome">cryptographic proof</strong> of whose permission it borrowed.
         </p>
 
         <div class="card-details">
-          <p class="card-question">
-            When an AI agent triggers a high-value transaction or accesses sensitive data, who actually authorized it?
-          </p>
 
           <ul
             class="card-bullet-list"
@@ -2001,6 +2080,18 @@
               <strong class="chrome">Replay Defenses:</strong> Mitigates token theft with aggressive JTI replay
               prevention, short-lived lifecycles, and RP-initiated logouts.
             </li>
+            <li>
+              <strong class="chrome">Live Okta, Not Simulated:</strong> every claim is exercised against a real
+              Okta org — OIDC Authorization Code login with ID-token verification via live remote JWKS, and real
+              RFC 8693 token exchanges (with RFC 9449 §8 DPoP nonce-retry handling) hit Okta's live token endpoint,
+              not a mock. A dedicated Okta smoke-test suite validates live readiness before every demo.
+            </li>
+            <li>
+              <strong class="chrome">Fails Closed at Every Layer:</strong> the config loader throws at startup on
+              any missing required secret — it never runs degraded. Audit-log tampering is blocked at the database
+              layer itself via a <code>BEFORE UPDATE/DELETE</code> trigger, not just app logic. Logout is
+              RP-initiated, federating back to kill the Okta SSO session, not just the local one.
+            </li>
           </ul>
 
           <div>
@@ -2014,6 +2105,7 @@
               <span class="tag">OIDC / SAML 2.0</span><span class="tag">ReBAC BFS Engine</span
               ><span class="tag">JWT RS256 / JTI</span> <span class="tag">HMAC-SHA256 Audit Chain</span
               ><span class="tag">PostgreSQL</span><span class="tag">Docker Compose</span>
+              <span class="tag">jose</span><span class="tag">SAML XML-Crypto</span><span class="tag">Vite</span><span class="tag">ngrok</span>
             </div>
           </div>
 
@@ -2058,15 +2150,17 @@
           />
         </div>
 
+        <p class="card-question" onclick="toggleCardDetails('aws-obo-card')">
+          Your identity provider can't hand out short-lived, single-purpose tokens — so how do you get that anyway,
+          on every API call?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('aws-obo-card')">
-          <strong class="chrome">Custom token exchange engine</strong> on AWS Cognito. Issues <strong class="chrome">15-minute scope-locked OBO JWTs</strong> where the IdP won't — stateless enforcement at every API call.
+          AWS Cognito can't natively mint a <strong class="chrome">short-lived, single-action token</strong> — so
+          this engine does it instead. 15 minutes, one permission, <strong class="chrome">gone the instant</strong>
+          it expires or gets revoked.
         </p>
 
         <div class="card-details">
-          <p class="card-question">
-            How do you enforce short-TTL, granular permissions on every API call when using an IdP that lacks native
-            token exchange support?
-          </p>
 
           <ul
             class="card-bullet-list"
@@ -2089,17 +2183,35 @@
               OAuth2 Resource Servers, running sub-millisecond local cryptographic signature checks with zero runtime
               IdP overhead.
             </li>
+            <li>
+              <strong class="chrome">Encrypted, Immutable, and Watched:</strong> TLS 1.3 enforced at the ALB, S3
+              audit bucket encrypted at rest with Object Lock in COMPLIANCE mode — a WORM audit trail even root
+              can't alter during retention — backed by a dedicated multi-region CloudTrail with log-file validation
+              and a CloudWatch alarm wired to SNS on any burst of REBAC_DENIED events.
+            </li>
+            <li>
+              <strong class="chrome">Real Kubernetes Runtime, Not Just Lambda:</strong> the resource server runs as
+              a 2-replica EKS Deployment with IRSA (no static AWS creds in the pod), fronted by GitHub Actions CI/CD
+              that gates every deploy behind Maven + Jest tests — plus an ArchUnit fitness test that fails the
+              build outright if <code>@EnableMethodSecurity</code> is ever removed.
+            </li>
+            <li>
+              <strong class="chrome">Fails Closed, Guarded Teardown:</strong> any DynamoDB read error on revocation
+              status defaults to deny, never allow. Tearing the stack down requires typing <code>DESTROY</code> —
+              no accidental prod deletion. 29 Lambda Jest tests pass with zero AWS dependency.
+            </li>
           </ul>
 
           <div>
             <div class="card-section-label">Core Tech</div>
             <div class="tags">
               <span class="tag">Java 17 / Spring Boot 3</span><span class="tag">Spring Security</span
-              ><span class="tag">OAuth2 Resource Server</span>
+              ><span class="tag">Spring Data JPA</span><span class="tag">OAuth2 Resource Server</span>
               <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">AWS Cognito</span>
               <span class="tag">AWS Lambda (Custom RFC 8693 Engine)</span><span class="tag">DynamoDB Global Tables</span
               ><span class="tag">Amazon ElastiCache Redis</span> <span class="tag">TypeScript / React</span
               ><span class="tag">JWT RS256 / JTI Blocklist</span><span class="tag">ReBAC BFS Engine</span><span class="tag">Vite HMR</span><span class="tag">AWS SAM (IaC)</span>
+              <span class="tag">Amazon EKS</span><span class="tag">GitHub Actions (CI/CD)</span><span class="tag">ArchUnit</span><span class="tag">Amazon API Gateway</span><span class="tag">AWS Secrets Manager</span>
             </div>
           </div>
 
@@ -2111,6 +2223,113 @@
             </div>
           </div>
 
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        </div>
+        <div class="poc-tab-panel" id="cat-zero-trust" style="--tab-accent: #58a6ff;">
+      <!-- Sentinel Mesh — two independent kind/Istio clusters, no federation, mTLS + ReBAC as two independent fail-closed layers -->
+      <div class="card card-flagship" id="sentinel-mesh-card">
+        <div class="card-badge-new"><span>● New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mesh-card')">
+          <div class="card-title-group">
+            <span class="card-title">Sentinel Mesh — Cross-Cluster Zero Trust Isolation</span>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('sentinel-mesh-card')">
+          How do you prove mesh-level isolation between two independently-run Kubernetes clusters actually
+          holds — cryptographically, not just because a firewall happens to block the path?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mesh-card')">
+          Two Kubernetes clusters with a real network path between them, that have
+          <strong class="chrome">never shared a trust anchor</strong>. This forces an actual login attempt
+          between them and watches it get <strong class="chrome">cryptographically rejected</strong> — in both
+          directions.
+        </p>
+        <div class="card-details">
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Two Independent Failure Modes, Proven Symmetrically:</strong> a same-cluster
+              call with a revoked ReBAC grant fails at the app layer despite the mesh trusting it; a cross-cluster
+              call fails at the mTLS handshake before ReBAC is even consulted — <strong class="chrome">both
+              directions</strong> verified.
+            </li>
+            <li>
+              <strong class="chrome">Genuine mTLS Rejection, Not Incidental Isolation:</strong> each sidecar
+              actually originates an <code>ISTIO_MUTUAL</code> handshake toward the other cluster's NodePort —
+              Envoy's own logs show
+              <code>CERTIFICATE_VERIFY_FAILED: self_signed_certificate_in_certificate_chain</code>, a real
+              root-CA rejection, not a plaintext-hits-TLS-listener accident.
+            </li>
+            <li>
+              <strong class="chrome">Identity From the Cert, Never From Config:</strong> the ReBAC subject is
+              parsed from Envoy's own <code>X-Forwarded-Client-Cert</code> on every hop — verified against three
+              spoofing attempts (forged value, smuggled element, duplicate header), none forged it.
+            </li>
+            <li>
+              <strong class="chrome">Grants Provisioned Through the Same Zero-Trust Stack:</strong>
+              <code>/grant</code> and <code>/revoke</code> run through the identical mTLS +
+              <code>AuthorizationPolicy</code> + identity-match check as every enforcement path — no admin
+              side-channel. Revoke is a live kill switch: the next check denies, zero redeploy.
+            </li>
+            <li>
+              <strong class="chrome">Iterative BFS, Fail-Closed Everywhere:</strong> the relationship-graph
+              traversal is an explicit-queue BFS — shortest chain returned, no recursion-limit risk on long
+              delegation chains. Redis/ReBAC unreachable, malformed identity, or any unhandled exception all
+              default to <strong class="chrome">deny</strong>.
+            </li>
+            <li>
+              <strong class="chrome">Red-Teamed, Not Just Built:</strong> three rounds of shift-left review on
+              this exact PoC caught and fixed a CRITICAL (Redis writable by any pod, bypassing the fail-closed
+              ReBAC check), a HIGH (an identity-spoofing gap inherited by <code>/grant</code>), and a CVE chain
+              from a stale Spring Boot parent — documented, not hidden.
+            </li>
+            <li>
+              <strong class="chrome">Redis Locked Down Too:</strong> password sourced from a Kubernetes Secret via
+              <code>secretKeyRef</code> (never a literal value in a pod spec), plus an
+              <code>AuthorizationPolicy</code> restricting inbound Redis connections to the rebac-service identity
+              alone — defense-in-depth on the data store itself, not just the API.
+            </li>
+            <li>
+              <strong class="chrome">~52 Unit Tests Across the Stack:</strong> JUnit on the approve/deploy
+              services, pytest with fakeredis on the rebac service, plus a separate live smoke-test suite —
+              tested, not just built.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Java 21 (Temurin)</span><span class="tag">Spring Boot 3</span
+              ><span class="tag">Python</span><span class="tag">gunicorn</span
+              ><span class="tag">Kubernetes (kind)</span>
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Istio 1.30.x</span>
+              <span class="tag">Envoy Proxy</span><span class="tag">SPIFFE</span
+              ><span class="tag">Sentinel ReBAC (BFS)</span><span class="tag">Redis</span
+              ><span class="tag">Helm (IaC)</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">OWASP A01 / A02 / A05</span><span class="tag">Fail-Closed by Design</span>
+            </div>
+          </div>
           <div class="card-footer">
             <div class="status">
               <div class="status-dot"></div>
@@ -2143,17 +2362,20 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('lastmile-card')">How do you connect a cloud MCP agent to an on-prem database with zero static credentials and zero inbound firewall rules?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">
-          <strong class="chrome">No static credentials</strong>. No inbound firewall holes. Every hop enforced, <strong class="chrome">no hop trusted</strong>.
+          A cloud AI agent needs a database sitting behind <strong class="chrome">your own firewall</strong> —
+          normally that means a VPN or an open inbound port. This needs <strong class="chrome">neither</strong>:
+          it authenticates with a certificate that expires in minutes, never a stored password.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you connect a cloud MCP agent to an on-prem database with zero static credentials and zero inbound firewall rules?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Outbound-Only Transport:</strong> On-prem relay polls AWS SQS — no inbound ports, no VPN, no firewall hole. Trust boundary is architectural, not a rule.</li>
             <li><strong class="chrome">Vault PKI — Least Privilege Credentials:</strong> Short-lived X.509 certs replace every static DB credential. Scoped to read or write — nothing broader. Cert expires, access is gone.</li>
             <li><strong class="chrome">JWT → ReBAC → DB Trust Chain:</strong> Agentic workflow enforces identity at every hop. JWT claims → ReBAC evaluation → cert-gated DB access. No hop trusted, no step skipped.</li>
             <li><strong class="chrome">AI Governance Audit Trail:</strong> Every agentic request logged — identity, resource, scope, outcome. ALLOWED or DENIED. Full chain of custody, nothing silent.</li>
+            <li><strong class="chrome">A Second Proof, Same Stack — HIPAA/PHI:</strong> a working Bedrock-agent demo (Claude 3.5 Sonnet via Bedrock's <code>converse_stream</code>, prompt-caching) runs the identical relay/Vault/Postgres enforcement chain against a physician/patient-record scenario — authorized physicians read PHI, unauthorized staff are denied, same trust chain end to end.</li>
           </ul>
 
           <div>
@@ -2162,6 +2384,7 @@
               <span class="tag">HashiCorp Vault</span><span class="tag">AWS SQS</span><span class="tag">ReBAC</span
               ><span class="tag">JWT RS256</span><span class="tag">PostgreSQL 16</span><span class="tag">MCP</span
               ><span class="tag">Python</span><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
+              <span class="tag">AWS Bedrock</span><span class="tag">HMAC-SHA256</span>
             </div>
           </div>
 
@@ -2169,7 +2392,7 @@
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
               <span class="tag">SOC2</span><span class="tag">PCI DSS v4</span><span class="tag">FIPS 140-3</span
-              ><span class="tag">NIST 800-207</span>
+              ><span class="tag">NIST 800-207</span><span class="tag">HIPAA</span>
             </div>
           </div>
 
@@ -2205,16 +2428,21 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('sentinel-fips-card')">How do you prove a decision log is untouched — even against someone holding your own root AWS credentials?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-fips-card')">
-          <strong class="chrome">KMS-signed decisions</strong>, locked in <strong class="chrome">S3 Object Lock</strong> — even root can't delete the evidence.
+          Every authorization decision is cryptographically signed and locked away —
+          <strong class="chrome">not even an AWS root account</strong> can edit or delete the record afterward.
+          Auditors get mathematical proof, not a log file someone could have altered.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you prove an authorization decision was made correctly — and that no one, including root, can alter the record after the fact?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">AI Governance — Immutable by Design:</strong> Decisions committed as hashes to S3 Object Lock (COMPLIANCE mode). Root cannot delete. Regulators get cryptographic proof of every authorization decision.</li>
             <li><strong class="chrome">FIPS 140-3 KMS Signatures:</strong> Every auth decision and audit entry signed in real time with validated KMS keys. Cryptographic proof, not a log statement — FedRAMP High ready.</li>
             <li><strong class="chrome">Policy as Code — Cedar + AVP:</strong> Authorization logic in Cedar, evaluated serverless in Lambda. Microsecond multi-tenant policy gate — least privilege enforced at the decision layer, not the perimeter.</li>
+            <li><strong class="chrome">Independent Re-Check Before Signing:</strong> the sign Lambda independently re-runs the authorization check before ever calling KMS — two-of-two required, surviving any compromise of the orchestrator, whether from prompt injection, a code bug, or a malicious actor with orchestrator-only access.</li>
+            <li><strong class="chrome">Self-Policing, Not Just Logging:</strong> a dedicated <code>Sentinel.AgentMisbehavior</code> event fires (distinct from <code>AuthChainBroken</code>) if the AI ever goes off-script, with a CloudWatch alarm on any burst of REBAC_DENIED events — plus a <code>DRY_RUN</code> mode for building trust before flipping a new capability live.</li>
+            <li><strong class="chrome">Mapped to Named FedRAMP Controls:</strong> AC-3, AC-6, AU-9, IA-3, SC-8, SI-7 — not just a generic "FedRAMP High" badge.</li>
           </ul>
 
           <div>
@@ -2223,6 +2451,7 @@
               <span class="tag">AWS KMS</span><span class="tag">S3 Object Lock</span><span class="tag">Cedar / AVP</span
               ><span class="tag">AWS Lambda</span><span class="tag">DynamoDB</span><span class="tag">CloudTrail</span
               ><span class="tag">Python</span><span class="tag">AWS SAM (IaC)</span>
+              <span class="tag">Claude Opus</span><span class="tag">Amazon EventBridge</span><span class="tag">Amazon SNS</span><span class="tag">AWS Secrets Manager</span><span class="tag">Amazon API Gateway</span>
             </div>
           </div>
 
@@ -2231,6 +2460,7 @@
             <div class="tags compliance-tags">
               <span class="tag">FIPS 140-3</span><span class="tag">FedRAMP High</span
               ><span class="tag">NIST 800-53</span><span class="tag">SOC2</span>
+              <span class="tag">NIST 800-207</span><span class="tag">OWASP LLM Top 10</span>
             </div>
           </div>
 
@@ -2244,7 +2474,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel" id="cat-agentic-rag" style="--tab-accent: #8b5cf6;">
+        <div class="poc-tab-panel" id="cat-agentic-rag" style="--tab-accent: #58a6ff;">
       <!-- Autonomous Code Reviewer -->
       <div class="card card-flagship" id="acra-card">
         <div class="card-badge-new"><span>★ New</span></div>
@@ -2270,15 +2500,15 @@
           />
         </div>
 
+        <p class="card-question" onclick="toggleCardDetails('acra-card')">
+          How do you catch hardcoded secrets or injection vulnerabilities before merge using an agent with its own
+          verified cryptographic identity?
+        </p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('acra-card')">
           <strong class="chrome">Autonomous AI agent</strong> with <strong class="chrome">zero standing privileges</strong>. Every PR reviewed under a verified, ephemeral machine identity — fails closed, every time.
         </p>
 
         <div class="card-details">
-          <p class="card-question">
-            How do you catch hardcoded secrets or injection vulnerabilities before merge using an agent with its own
-            verified cryptographic identity?
-          </p>
 
           <ul
             class="card-bullet-list"
@@ -2302,6 +2532,22 @@
               <strong class="chrome">Deterministic Audit Trail:</strong> Logs every agent action into an HMAC-signed
               audit entry, strictly enforcing a fail-closed posture across all error paths.
             </li>
+            <li>
+              <strong class="chrome">Pre-Commit Shift-Left, Before It Ever Leaves the Machine:</strong> a
+              zero-network regex scanner blocks hardcoded secrets, TLS bypasses, and SQL injection at commit
+              time — the PR-time agent is the second of three layers (pre-commit → CI linter → PR review), not
+              the only one.
+            </li>
+            <li>
+              <strong class="chrome">Tested, Not Just Demoed:</strong> 58 passed / 11 skipped (skips require the
+              live agent running). ~6s end-to-end review with Haiku, ~18s with Sonnet for deeper reasoning — model
+              swappable per review.
+            </li>
+            <li>
+              <strong class="chrome">Two Verified Identities, One Formal Gate:</strong> a distinct provisioning
+              identity and agent identity let the bot post a real "Changes Requested" review that blocks the
+              GitHub merge button via branch protection — not just an advisory comment.
+            </li>
           </ul>
 
           <div>
@@ -2312,6 +2558,7 @@
               <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Auth0 M2M</span>
               <span class="tag">GitHub Webhooks</span><span class="tag">Terraform (IaC)</span
               ><span class="tag">HMAC-SHA256</span><span class="tag">ngrok</span>
+              <span class="tag">PyJWT / JWKS</span><span class="tag">Server-Sent Events</span><span class="tag">FastMCP</span>
             </div>
           </div>
 
@@ -2355,16 +2602,19 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('secure-rag-card')">How do you serve the right data to the right identity — and prove the wrong identity never saw it?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('secure-rag-card')">
           Same AI, same query, different <strong class="chrome">identity</strong> — different answer. <strong class="chrome">Zero Trust</strong> enforces it, not the prompt.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you serve the right data to the right identity — and prove the wrong identity never saw it?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Identity-Gated RAG:</strong> JWT claims map to ReBAC policies that filter Bedrock Knowledge Base lookups at query time. Least privilege enforced at the retrieval layer — Claude never sees data it's not cleared for.</li>
             <li><strong class="chrome">Guardrails Before the LLM:</strong> Enforcement stack strips unauthorized context before a single token reaches Claude. OWASP LLM Top 10 — no prompt-level workaround, no jailbreak path to PHI.</li>
             <li><strong class="chrome">AI Governance — Full Chain of Custody:</strong> Every query, retrieval, and response bound to a single immutable correlation ID. Audit trail proves the right identity got the right data. Nothing silent.</li>
+            <li><strong class="chrome">Training-Data-Leak Detection Gate:</strong> if Bedrock answers with zero KB citations but claims data was returned, the relay denies it outright — catches the model answering from training data instead of the knowledge base, not just missing context.</li>
+            <li><strong class="chrome">Document-Level Enforcement, Not Keyword Filtering:</strong> an innocuous question about a file named <code>project-overview.md</code> is blocked anyway because financial data is buried inside it — proving the ReBAC/metadata filter enforces at the document level, not by scanning for sensitive words.</li>
+            <li><strong class="chrome">Encrypted, Replay-Resistant Transport:</strong> S3 source docs encrypted at rest (AES256) with versioning and blocked public access; UUIDv7 request IDs plus an in-process replay guard reject duplicate or malformed requests before they reach the enforcement chain.</li>
           </ul>
 
           <div>
@@ -2373,6 +2623,7 @@
               <span class="tag">AWS Bedrock KB</span><span class="tag">Pinecone</span><span class="tag">ReBAC</span
               ><span class="tag">JWT RS256</span><span class="tag">Python</span><span class="tag">MCP Resources</span
               ><span class="tag">Claude Code</span><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span>
+              <span class="tag">AWS SQS</span><span class="tag">DynamoDB</span><span class="tag">AWS CloudWatch Logs</span><span class="tag">Amazon S3</span><span class="tag">AWS Secrets Manager</span>
             </div>
           </div>
 
@@ -2416,23 +2667,27 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('rag-knowledge-card')">How do you give new hires an AI assistant without sensitive data ever leaving the building — or costs spiraling out of control?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
           <strong class="chrome">Sensitive data never leaves the building</strong>. AI answers from local context — <strong class="chrome">no cloud API, no data exposure, no runaway spend</strong>.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you deploy AI-assisted onboarding without letting sensitive data escape the building or costs spiral out of control?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
             <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
             <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
             <li><strong class="chrome">Cost Savings at Scale:</strong> Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.</li>
+            <li><strong class="chrome">Real Logged Economics:</strong> 4 real queries, 1 free guardrail block, $0.023 total spend — hard-capped with an 80% warning and a 100% block, not just a soft budget.</li>
+            <li><strong class="chrome">Restricted-Topic Guardrail, Zero Token Cost:</strong> a 27-keyword DLP-style filter blocks sensitive topics (salary, PII, financial forecasts) before any LLM call — $0.00 spent, no data ever reaches the model.</li>
+            <li><strong class="chrome">Transparent Reasoning:</strong> Claude's extended-thinking output is captured and shown in the CLI, not hidden — a trust/explainability feature. A parallel browser demo and a cost-dashboard CLI (per-call token/cost/cache-hit breakdown) both ship alongside the terminal tool.</li>
           </ul>
           <div>
             <div class="card-section-label">Core Tech</div>
             <div class="tags">
               <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Anthropic SDK</span
               ><span class="tag">JSON Knowledge Store</span><span class="tag">Token Budgeting</span>
+              <span class="tag">Extended Thinking</span><span class="tag">Node Test Runner</span>
             </div>
           </div>
           <div>
@@ -2473,16 +2728,19 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('sentinel-mcp-card')">How do you let an AI agent investigate live AWS infrastructure — and guarantee every query it runs is signed, tracked, and provable?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">
           Security investigations: 45 minutes → 80 seconds. Plain English in, <strong class="chrome">forensically verified</strong> answer out.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you let an AI agent investigate live AWS infrastructure — and guarantee every query it runs is signed, tracked, and provable?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Agentic Workflow — MCP Forensics:</strong> Natural language drives an autonomous multi-service AWS investigation. The agentic workflow spans CloudTrail + CloudWatch + DynamoDB in a single governed query.</li>
             <li><strong class="chrome">45 min → 80 sec:</strong> Security investigations that required a senior engineer now run in under a minute and a half — same depth, deterministic output, guardrails on every LLM action.</li>
             <li><strong class="chrome">AI Governance — KMS-Signed Queries:</strong> Every LLM-driven infrastructure query signed via AWS KMS and bound to an immutable tracking ID. No agentic action is unverifiable.</li>
+            <li><strong class="chrome">Same Production Key as Sentinel FIPS:</strong> every tool response is signed with the identical FIPS-validated KMS key backing sentinel-fips — not a toy demo key.</li>
+            <li><strong class="chrome">Don't Trust Me, Verify Me:</strong> a dedicated <code>verify_setup</code> tool proves the server's own IAM identity and DynamoDB connectivity before any investigation runs. Read-only least privilege — the IAM role can Get/Scan/Filter/Verify, never write or sign.</li>
+            <li><strong class="chrome">Real Production Telemetry:</strong> reads the live rebac and orchestrator log tables from the actual running sentinel-fips stack. Confirmed 2026-07-14: a real <code>Sentinel.AuthChainBroken</code> alert fired and reached the real inbox from exactly this interaction.</li>
           </ul>
 
           <div>
@@ -2497,7 +2755,8 @@
           <div>
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
-              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">NIST 800-207</span>
+              <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">NIST 800-207</span
+              ><span class="tag">FIPS 140-3</span>
             </div>
           </div>
 
@@ -2511,7 +2770,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #2ea043;">
+        <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #58a6ff;">
       <!-- IETF Internet-Draft -->
       <div class="card" id="ietf-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
@@ -2527,6 +2786,7 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('ietf-card')">IETF drafts are usually just words on paper — what does it take to back every clause with working, testable code?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">
           First author defining the <strong class="chrome">IETF standard</strong> for <strong class="chrome">agent-to-agent trust</strong> — every clause runs as working code.
         </p>
@@ -2565,11 +2825,12 @@
             </div>
           </div>
 
-          <p class="card-question">What does it take to define agent-to-agent trust as an Internet Standard — and ship working code that proves every clause?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Multi-Agent Trust Standard:</strong> Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.</li>
             <li><strong class="chrome">Policy as Code — Dual Signature:</strong> Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.</li>
             <li><strong class="chrome">50/50 Conformance + 34/34 Red-Team:</strong> 100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.</li>
+            <li><strong class="chrome">34 Attacks, Named by Category:</strong> not just a flat pass rate — Scope Escalation 6/6, Replay 5/5, Cert Attacks 6/6, Dual-Sig Bypass 4/4, Cross-Org Trust 2/2, Audit Integrity 1/1, OWASP General 7/7, A06 Components 1/1 (live dependency-CVE check), A10 SSRF 2/2.</li>
+            <li><strong class="chrome">Cert Lifecycle, Not Just Issuance:</strong> ACTIVE → DISABLED → DELETED with a mandatory 300-second cooling-off period before irreversible deletion. Cross-org grants are TTL-limited, spawn-capped, version-pinned, and unilaterally revocable.</li>
           </ul>
 
           <div>
@@ -2578,6 +2839,7 @@
               <span class="tag">X.509 PKI</span><span class="tag">Cedar Policy</span><span class="tag">Python 3.12</span
               ><span class="tag">Claude Sonnet</span><span class="tag">AWS KMS</span><span class="tag">S3</span
               ><span class="tag">SHA-256 Audit Chain</span><span class="tag">Terraform (IaC)</span><span class="tag">Docker Compose</span>
+              <span class="tag">FastAPI / Pydantic</span><span class="tag">AWS Secrets Manager</span><span class="tag">DynamoDB</span><span class="tag">AWS CloudWatch</span>
             </div>
           </div>
 
@@ -2609,18 +2871,19 @@
             title="Click to expand"
           />
         </div>
+        <p class="card-question" onclick="toggleCardDetails('phalanx-card')">An agent spun up five seconds ago — how do you prove it isn't already trusted with something it shouldn't be?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
           <strong class="chrome">Cryptographic identity</strong> at birth for every AI agent — <strong class="chrome">zero standing access</strong>, policy-locked from first call.
         </p>
 
         <div class="card-details">
-          <p class="card-question">How do you give every AI agent a verifiable identity at birth — and guarantee it has zero standing access from first call?</p>
           <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
             <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
             <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
             <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
             <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
             <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
+            <li><strong class="chrome">Structurally Immutable Identity:</strong> agent_id, cert_serial, and cert_fingerprint sit in a hard-coded immutable-fields set — only a separate, dual-signed policy update can touch a distinct modifiable-fields set, enforced and tested 9/9. Cryptographic identity at birth isn't just a policy promise — the fields can't be edited without CA reissuance.</li>
           </ul>
 
           <div>
@@ -2628,7 +2891,7 @@
             <div class="tags">
               <span class="tag">IETF A2A</span><span class="tag">MCP Security Gate</span><span class="tag">Vault</span
               ><span class="tag">ReBAC</span><span class="tag">mTLS</span><span class="tag">JWT/JWK</span
-              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span>
+              ><span class="tag">HMAC-SHA256</span><span class="tag">Python</span><span class="tag">FastAPI</span>
             </div>
           </div>
 
@@ -2783,14 +3046,6 @@
         document.querySelectorAll(".poc-tab-panel").forEach((panel) => {
           panel.classList.toggle("is-active", panel.id === slug);
         });
-        const activeTab = document.querySelector(`.poc-tab[data-target="${slug}"]`);
-        const panels = document.querySelector(".poc-tab-panels");
-        if (activeTab && panels) {
-          panels.style.setProperty(
-            "--active-accent",
-            getComputedStyle(activeTab).getPropertyValue("--tab-accent"),
-          );
-        }
         equalizePanel(document.getElementById(slug));
       }
 
