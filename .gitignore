@@ -42,6 +42,15 @@ sentinel-fips/
 sentinel-mcp-poc/
 rag-knowledge-assistant/
 portfolio-video-infra/
+hack-my-own-code/
+sentinel-mesh-zero-trust/
+zero-trust-payments/
+hitl/
+agentic-obo-okta/
+aws-obo-permissions/
+obo-as-a-platform/
+okta-auth0-identity-broker/
+autonomous-code-reviewer-agent/
 backup.sh
 SHIFT_LEFT.md
 .claudeignore

@@ -1598,7 +1598,7 @@
     <!-- PoC Grid — folder-tab navigation by solution category -->
     <div class="poc-tabbed-grid">
       <div class="poc-tab-bar" role="tablist">
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="true">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-payments" onclick="switchPocTab('cat-payments')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Zero Trust Payments & HITL</span>
           <span class="poc-tab-count">2</span>
@@ -1618,14 +1618,14 @@
           <span class="poc-tab-title">Agentic AI & RAG</span>
           <span class="poc-tab-count">4</span>
         </button>
-        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
+        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="true">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
-          <span class="poc-tab-count">2</span>
+          <span class="poc-tab-count">3</span>
         </button>
       </div>
       <div class="poc-tab-panels">
-        <div class="poc-tab-panel is-active" id="cat-payments" style="--tab-accent: #58a6ff;">
+        <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
       <!-- Zero Trust HITL — autonomous agent recommends, Cedar policy decides, named human approves -->
       <div class="card card-flagship" id="hitl-card">
         <div class="card-badge-new"><span>★ New</span></div>
@@ -2780,7 +2780,125 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #58a6ff;">
+        <div class="poc-tab-panel is-active" id="cat-ietf" style="--tab-accent: #58a6ff;">
+      <!-- Hack My Own Code — adaptive AI red-team tool that IMPLEMENTS and ATTACKS the draft-tonyai-a2a-trust IETF draft.
+           TODO before publish: (1) swap the placeholder demo-video URL below once recorded,
+           (2) fill in the GitHub repo URL once the repo is pushed public. -->
+      <div class="card card-flagship" id="hack-my-own-code-card">
+        <div class="card-badge-new"><span>● New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('hack-my-own-code-card')">
+          <div class="card-title-group">
+            <span class="card-title">Hack My Own Code — Adaptive AI Red-Team Orchestrator</span>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/hack-my-own-code-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 2-min demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('hack-my-own-code-card')">
+          How do you prove an autonomous AI attacker can't escape its own sandbox — while it's actively
+          reasoning its way toward a real exploit?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('hack-my-own-code-card')">
+          An adaptive, <strong class="chrome">reasoning</strong> red-team agent that
+          <strong class="chrome">implements and attacks its own IETF draft</strong> — every identity, spawn,
+          and revocation clause of <strong class="chrome">draft-tonyai-a2a-trust</strong> runs as enforced,
+          load-bearing code, then gets red-teamed under adversarial pressure.
+        </p>
+        <div class="card-details">
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Reference Implementation of the IETF Draft:</strong> every in-scope
+              normative <code>MUST</code> of <strong class="chrome">draft-tonyai-a2a-trust</strong> enforced and
+              verified in real code — a live X.509 CA (root → per-role template intermediates → per-instance
+              certs), the two-check spawn rule, strict scope-subset at every hop, template-revocation cascade,
+              nonce + timestamp replay protection, and a tamper-evident hash-chained audit log.
+            </li>
+            <li>
+              <strong class="chrome">Adaptive vs. Deterministic, Side by Side:</strong> A1 (Intruder)
+              <strong class="chrome">reasons</strong> with Claude about how to chain individually-fine steps into
+              an unauthorized outcome; A2 (Scanner) runs a deterministic OWASP Agentic/LLM Top&nbsp;10 + MITRE
+              ATLAS sweep — creativity and coverage as two distinct agents.
+            </li>
+            <li>
+              <strong class="chrome">Sandbox Enforced by Architecture, Not Policy:</strong> spawned agents run
+              <code>--cap-drop=ALL</code>, read-only root, non-root, no Docker socket, and
+              <strong class="chrome">zero internet egress</strong> (Docker <code>internal: true</code> network) —
+              even mid-attack they cannot phone home or exfiltrate. Proven, not promised.
+            </li>
+            <li>
+              <strong class="chrome">Kill Switch That Never Trusts the Thing Under Test:</strong> an external,
+              unconditional <code>docker stop</code> is the real safety mechanism; a separate tool-owned ReBAC
+              revoke runs alongside, and whether the agent <em>honors</em> it is itself a reported finding — never
+              the safety net.
+            </li>
+            <li>
+              <strong class="chrome">Dogfooded the Spec:</strong> attacking its own use of the draft's model
+              surfaced real spec-vs-implementation gaps — fed straight back into the draft revision. Author,
+              implementer, and adversary of the same standard.
+            </li>
+            <li>
+              <strong class="chrome">Fail-Closed, Even About Itself:</strong> a dead LLM key can no longer fake a
+              green run — a network-target run is refused (503) if reasoning can't actually run, and the state is
+              loud at boot. Five shift-left passes + a full file-by-file review; every backend endpoint
+              auth-gated, every third-party call timeout-bounded.
+            </li>
+            <li>
+              <strong class="chrome">Red-Teamed, Not Just Built:</strong> 59 unit tests plus a live end-to-end
+              smoke suite — tested, not just built.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">FastAPI</span
+              ><span class="tag">MCP (Streamable HTTP)</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Anthropic Claude</span
+              ><span class="tag">X.509 / cryptography</span><span class="tag">Docker (sandbox isolation)</span
+              ><span class="tag">PostgreSQL (hash-chained)</span><span class="tag">Trivy</span
+              ><span class="tag">pip-audit</span><span class="tag">Uvicorn</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span
+              ><span class="tag">OWASP LLM Top 10</span><span class="tag">MITRE ATLAS</span
+              ><span class="tag">Fail-Closed by Design</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">IETF draft-tonyai-a2a-trust</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">
+                <!-- IETF datatracker link is the real, public draft. Repo link is live; repo itself is still private until launch — see repo TODO below. -->
+                Open source (Apache-2.0) &middot;
+                <a href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener">IETF draft</a>
+                &middot;
+                <!-- TODO: repo is private — flip GitHub repo to public before/at the same time this card ships live. -->
+                <a href="https://github.com/tonyt68/hack-my-own-code" target="_blank" rel="noopener">GitHub</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- IETF Internet-Draft -->
       <div class="card" id="ietf-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
