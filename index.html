@@ -18,6 +18,7 @@
     <style>
       :root {
         --chrome: linear-gradient(135deg, #4a5a6a, #8aaabb, #c8dce8, #ffffff, #c8dce8, #8aaabb, #4a5a6a);
+        --gold-accent: #c2ab7d;
       }
       * {
         box-sizing: border-box;
@@ -39,7 +40,7 @@
       /* ── Header ── */
       .header {
         display: flex;
-        align-items: center;
+        align-items: stretch;
         flex-wrap: wrap;
         gap: 2rem;
         width: 100%;
@@ -53,47 +54,30 @@
         border-radius: 16px;
         position: relative;
       }
-      .header-cost-badge {
-        margin-left: auto;
-        flex-shrink: 0;
-        width: 280px;
-        padding: 0.65rem 0.8rem;
-        background:
-          linear-gradient(135deg, #161b22, #1c2230) padding-box,
-          linear-gradient(135deg, #1e2830, #6a7a88, #bcccd8, #ffffff, #bcccd8, #6a7a88, #1e2830) border-box;
-        border: 1px solid transparent;
-        border-radius: 10px;
-        transform: perspective(900px) rotateY(-9deg) rotateX(2deg);
-        box-shadow:
-          4px 5px 0 0 #0d1117,
-          7px 9px 0 0 #2a3038,
-          16px 20px 30px rgba(0, 0, 0, 0.5);
+      .engineering-note {
+        max-width: 680px;
+        margin: 0 auto 2rem;
+        padding: 1rem 1.3rem;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        background: #12161d;
       }
-      .header-cost-badge-title {
-        font-size: 0.92rem;
-        font-weight: 900;
-        letter-spacing: 0.02em;
-        margin-bottom: 0.4rem;
-        background: var(--chrome);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .engineering-note-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8b95ab;
+        margin-bottom: 0.5rem;
       }
-      .header-cost-badge-list {
-        font-size: 0.74rem;
-        color: #b8bec4;
-        line-height: 1.55;
+      .engineering-note-list {
+        font-size: 0.78rem;
+        color: #8b95ab;
+        line-height: 1.6;
       }
-      .powered-by {
-        position: absolute;
-        bottom: 0.6rem;
-        right: 1rem;
-        font-size: 0.7rem;
-        color: #555;
-      }
-      .powered-by a {
-        color: #79c0ff;
-        text-decoration: none;
+      .engineering-note-list span.dot {
+        color: #2ea043;
+        font-weight: 700;
       }
 
       .avatar-col {
@@ -297,14 +281,6 @@
         filter: drop-shadow(0 0 4px rgba(180, 150, 90, 0.2)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
       }
 
-      .badges {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-      }
-
       .badge {
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
@@ -320,35 +296,6 @@
         background-clip: text;
         border: none;
       }
-      .badge-blue {
-        background: linear-gradient(135deg, #1f6feb, #79c0ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        border: none;
-      }
-      .badge-purple {
-        background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        border: none;
-      }
-      .badge-orange {
-        background: linear-gradient(135deg, #bd561d, #ffa657);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        border: none;
-      }
-      .badge-red {
-        background: linear-gradient(135deg, #c0392b, #ff6b6b);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        border: none;
-      }
-
       .header-text {
         flex: 1 1 0;
         min-width: 0;
@@ -361,7 +308,7 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin-top: 0.5rem;
+        margin-top: auto;
         gap: 1rem;
       }
       .demo-footer {
@@ -378,24 +325,6 @@
         align-items: center;
         flex-shrink: 0;
       }
-      .header-note {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        white-space: nowrap;
-        justify-content: center;
-        flex: 1;
-      }
-      .header-note img {
-        height: 58px;
-        width: auto;
-        flex-shrink: 0;
-      }
-      .header-note span {
-        font-size: 0.95rem;
-        color: #8b949e;
-      }
-
       @media (max-width: 1100px) {
         .header-bottom-bar {
           flex-wrap: wrap;
@@ -427,9 +356,6 @@
         .header-text .tagline {
           font-size: clamp(0.6rem, 3vw, 0.8rem);
         }
-        .badges {
-          justify-content: center;
-        }
         .header-bottom-bar {
           flex-direction: column;
           align-items: center;
@@ -441,24 +367,15 @@
         .social-links {
           justify-content: center;
         }
-        .header-note {
-          justify-content: center;
-          white-space: normal;
-          text-align: center;
-          max-width: 100%;
-        }
-        .header-note span {
-          white-space: normal;
-        }
       }
 
       .social-link {
         color: #79c0ff;
         text-decoration: none;
-        font-size: 0.78rem;
+        font-size: 0.6rem;
         font-weight: 700;
-        padding: 0.3rem 0.9rem;
-        border-radius: 6px;
+        padding: 0.18rem 0.55rem;
+        border-radius: 5px;
         background: linear-gradient(180deg, #2a5298, #1a3a6c);
         border-top: 1px solid #4a7fd4;
         border-left: 1px solid #3a6abf;
@@ -480,72 +397,27 @@
         color: #fff;
       }
 
+      .social-link-gold {
+        font-family: Georgia, "Times New Roman", serif;
+        font-style: italic;
+        color: #1a1408;
+        background: linear-gradient(180deg, #f0e6cc, #c2ab7d);
+        border-top: 1px solid #f0e6cc;
+        border-left: 1px solid #c2ab7d;
+        border-right: 1px solid #7a6440;
+        border-bottom: 2px solid #4a3620;
+      }
+      .social-link-gold:hover {
+        color: #1a1408;
+        filter: brightness(1.08);
+      }
+
       .social-link:active {
         transform: translateY(2px);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
       }
 
       /* ── IETF Feature ── */
-      .ietf-feature {
-        width: 100%;
-        max-width: 1480px;
-        margin: 1.5rem auto 1.5rem;
-        padding: 1.5rem 2rem;
-        background: linear-gradient(135deg, #153528, #201a3a);
-        border: 1px solid #8b7fd4;
-        border-left: 4px solid #b8b0f0;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        transition:
-          border-color 0.2s,
-          transform 0.2s;
-      }
-
-      .ietf-feature:hover {
-        border-color: #58a6ff;
-        transform: translateY(-2px);
-      }
-
-      .ietf-icon {
-        font-size: 2.25rem;
-        flex-shrink: 0;
-      }
-
-      .ietf-body .ietf-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #9b8fe0;
-        margin-bottom: 0.3rem;
-      }
-
-      .ietf-body .ietf-title {
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: #c9d1d9;
-        margin-bottom: 0.4rem;
-      }
-
-      .ietf-body p {
-        font-size: 0.875rem;
-        color: #8b949e;
-        line-height: 1.5;
-      }
-
-      .ietf-body a {
-        color: #79c0ff;
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      .ietf-body a:hover {
-        color: #d0caff;
-        text-decoration: underline;
-      }
-
       /* ── Grid ── */
       .grid {
         display: grid;
@@ -574,14 +446,14 @@
           min-height 0.35s ease;
       }
 
-      .card-flagship {
+      .card-new {
         border: 1px solid #b8860b;
         border-left: 4px solid #ffd700;
         box-shadow:
           0 0 18px rgba(255, 215, 0, 0.12),
           0 0 4px rgba(255, 215, 0, 0.08);
       }
-      .card-flagship:hover {
+      .card-new:hover {
         border-color: #ffd700 !important;
         box-shadow:
           0 0 28px rgba(255, 215, 0, 0.22),
@@ -611,9 +483,9 @@
         -webkit-text-fill-color: transparent;
       }
 
-      /* First card only — pulsing gold border/glow + pulsing "New" badge, not shared with the
-       other flagship cards. */
-      @keyframes flagship-pulse-gold {
+      /* Every .card-new card gets the pulsing gold border/glow + pulsing "New" badge —
+       applied via the shared class so any card marked new automatically gets it. */
+      @keyframes card-new-pulse-gold {
         0%,
         100% {
           border-left-color: #ffd700;
@@ -628,16 +500,10 @@
             0 0 10px rgba(255, 215, 0, 0.3);
         }
       }
-      #hitl-card,
-      #okta-auth0-broker-card,
-      #acra-card,
-      #sentinel-mesh-card {
-        animation: flagship-pulse-gold 2s ease-in-out infinite;
+      .card-new {
+        animation: card-new-pulse-gold 2s ease-in-out infinite;
       }
-      #hitl-card .card-badge-new span,
-      #okta-auth0-broker-card .card-badge-new span,
-      #acra-card .card-badge-new span,
-      #sentinel-mesh-card .card-badge-new span {
+      .card-new .card-badge-new span {
         animation: cert-pulse 2s ease-in-out infinite;
       }
       .card-title-gold {
@@ -746,17 +612,21 @@
       .poc-tab.is-active {
         background: linear-gradient(
           160deg,
-          #2a3040 0%,
-          #4a5568 12%,
-          #8a9ab0 28%,
-          #c8d4e0 44%,
-          #eef2f6 50%,
-          #c8d4e0 56%,
-          #8a9ab0 72%,
-          #4a5568 88%,
-          #2a3040 100%
+          #1a1408 0%,
+          #4a3620 8%,
+          #7a6440 18%,
+          #a68f5f 27%,
+          #c2ab7d 35%,
+          #d9c9a8 42%,
+          #f0e6cc 50%,
+          #d9c9a8 58%,
+          #c2ab7d 65%,
+          #a68f5f 73%,
+          #7a6440 82%,
+          #4a3620 92%,
+          #1a1408 100%
         );
-        border-color: #eef2f6;
+        border-color: #f0e6cc;
         color: #1a2030;
         text-shadow:
           0 1px 0 rgba(255, 255, 255, 0.65),
@@ -766,8 +636,12 @@
         transform: translateY(0) scale(1);
         box-shadow:
           0 -6px 20px rgba(0, 0, 0, 0.35),
-          0 0 18px rgba(200, 220, 232, 0.45);
+          0 0 18px rgba(194, 171, 125, 0.45);
         z-index: 2;
+      }
+      .poc-tab.is-active .poc-tab-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-style: italic;
       }
       .poc-tab.is-active .poc-tab-count {
         background: rgba(26, 32, 48, 0.18);
@@ -812,6 +686,37 @@
         gap: 1rem;
       }
 
+      .card-title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .card-inquire-icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        line-height: 1;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: #58a6ff;
+        text-decoration: none;
+        background: rgba(88, 166, 255, 0.1);
+        border: 1px solid #2a5298;
+        border-radius: 100px;
+        padding: 0.24rem 0.6rem 0.24rem 0.45rem;
+        transition: background 0.15s, transform 0.15s;
+      }
+      .card-inquire-icon svg {
+        width: 0.85rem;
+        height: 0.85rem;
+        flex-shrink: 0;
+      }
+      .card-inquire-icon:hover {
+        background: rgba(88, 166, 255, 0.22);
+        transform: translateY(-1px);
+      }
       .card-title {
         font-size: 1rem;
         font-weight: 700;
@@ -830,7 +735,7 @@
         color: #dbe4ec;
         font-style: italic;
         line-height: 1.5;
-        border-left: 3px solid #8b5cf6;
+        border-left: 3px solid var(--gold-accent);
         padding-left: 0.75rem;
       }
 
@@ -885,17 +790,6 @@
         border: 1px solid #6a7a8a;
       }
 
-      .mcp-tools {
-        font-size: 0.68rem;
-        color: #b8bec4;
-        font-family: "SF Mono", "Fira Code", monospace;
-        line-height: 1.7;
-      }
-
-      .mcp-tools span {
-        font-weight: 700;
-      }
-
       .compliance-tags .tag {
         background: #1a3a5c;
         background: linear-gradient(135deg, #c0392b, #ff6b6b);
@@ -903,17 +797,6 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         border-color: #c0392b;
-      }
-
-      .trust-pill {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        padding: 0.2rem 0.6rem;
-        border-radius: 6px;
-        background: #161b22;
-        border: 1px solid #f85149;
-        color: #f85149;
       }
 
       .card-footer {
@@ -955,24 +838,6 @@
         font-size: 0.75rem;
         color: #3fb950;
         font-weight: 600;
-      }
-
-      .status-wave-amber {
-        background: linear-gradient(
-          90deg,
-          #e3b341 0%,
-          #e3b341 20%,
-          #ffd97a 45%,
-          #ffffff 55%,
-          #ffd97a 65%,
-          #e3b341 80%,
-          #e3b341 100%
-        );
-        background-size: 300% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: wave-shimmer 2.5s linear infinite;
       }
 
       .status-wave {
@@ -1252,16 +1117,6 @@
       }
 
       @media (max-width: 640px) {
-        .cost-card {
-          flex-direction: column;
-        }
-        .cost-card-img {
-          width: 100% !important;
-          max-width: 100% !important;
-        }
-        .cost-card-text {
-          padding: 1rem 1rem !important;
-        }
         .badge-demo {
           animation: none !important;
         }
@@ -1310,154 +1165,6 @@
         animation: shake 0.4s ease;
       }
 
-      /* ── HSO Production Proof ── */
-      .hso-section {
-        width: 100%;
-        max-width: 1480px;
-        margin: 0 auto 0;
-        padding: 1.25rem 2rem;
-        background: linear-gradient(135deg, #153528, #201a3a);
-        border: 1px solid #8b7fd4;
-        border-left: 4px solid #b8b0f0;
-        border-radius: 12px;
-        transition:
-          border-color 0.2s,
-          transform 0.2s;
-      }
-
-      .hso-section:hover {
-        border-color: #58a6ff;
-        transform: translateY(-2px);
-      }
-
-      .hso-section h3 {
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: linear-gradient(
-          90deg,
-          #4a5a6a 0%,
-          #8aaabb 20%,
-          #c8dce8 38%,
-          #ffffff 50%,
-          #c8dce8 62%,
-          #8aaabb 80%,
-          #4a5a6a 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.85rem;
-      }
-
-      .hso-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-      }
-
-      .hso-link {
-        display: inline-block;
-        padding: 0.35rem 0.8rem;
-        background: #21262d;
-        border: 1px solid #30363d;
-        border-radius: 8px;
-        color: #79c0ff;
-        text-decoration: none;
-        font-size: 0.775rem;
-        font-weight: 500;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-      }
-
-      .hso-link:hover {
-        border-color: #3fb950;
-        color: #3fb950;
-      }
-
-      /* ── Cost Savings Tag ── */
-      .cost-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        color: #2ea043;
-        border: 1px solid #2ea043;
-        border-radius: 4px;
-        padding: 1px 6px;
-      }
-
-      /* ── Certifications ── */
-      .certs-section {
-        width: 100%;
-        max-width: 1480px;
-        margin: 0 auto 1.5rem;
-        padding: 1.25rem 2rem;
-        background: linear-gradient(135deg, #13203a, #1a1530);
-        border: 1px solid #5a6acf;
-        border-left: 4px solid #7b8cf0;
-        border-radius: 10px;
-        box-sizing: border-box;
-      }
-      .certs-section h3 {
-        margin: 0 0 0.85rem 0;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: linear-gradient(
-          90deg,
-          #4a5a6a 0%,
-          #8aaabb 20%,
-          #c8dce8 38%,
-          #ffffff 50%,
-          #c8dce8 62%,
-          #8aaabb 80%,
-          #4a5a6a 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .certs-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-      .cert-badge {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        padding: 0.6rem 1rem;
-        flex: 1;
-        min-width: 180px;
-        background: #0d1117;
-        border: 1px solid #5a6acf;
-        border-radius: 8px;
-        text-decoration: none;
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
-        box-sizing: border-box;
-      }
-      .cert-badge:hover {
-        border-color: #7b8cf0;
-        box-shadow: 0 0 10px rgba(123, 140, 240, 0.3);
-      }
-      .cert-name {
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: #b8bec4;
-      }
-      .cert-meta {
-        font-size: 0.72rem;
-        color: #79c0ff;
-      }
-
       /* ── Footer ── */
       .footer {
         max-width: 1480px;
@@ -1501,7 +1208,7 @@
           </div>
           <img class="phalanx-name-img" src="phalanx-name-gold.png" alt="PhalanxAI Security LLC" />
         </h1>
-        <p class="gold-saying">Zero Trust doesn't slow AI down. It makes AI trustworthy.</p>
+        <p class="gold-saying">Browse the pattern. I build it on your infrastructure.</p>
         <p class="tagline">
           <span class="word"
             ><span style="--i: 0">A</span><span style="--i: 1">g</span><span style="--i: 2">e</span
@@ -1567,29 +1274,10 @@
           </div>
           -->
           <div class="social-links" style="margin-left:auto;">
+            <a class="social-link social-link-gold" href="contact.vcf" download="Tony-Trujillo-PhalanxAI.vcf">＋ Save Contact</a>
             <a class="social-link" href="resume.html">Resume</a>
             <a class="social-link" href="achievements.html">Achievements</a>
           </div>
-        </div>
-      </div>
-      <div class="header-cost-badge">
-        <div class="header-cost-badge-title">
-          <span style="-webkit-text-fill-color: initial; font-size: 1.3rem">💰</span> AI Cost Engineering
-        </div>
-        <div class="header-cost-badge-list">
-          <div>
-            <span style="color: #2ea043; font-weight: 700">▸</span> RAG pre-filter — retrieve only what's needed
-          </div>
-          <div>
-            <span style="color: #2ea043; font-weight: 700">▸</span> Prompt caching — stop paying for repeated context
-          </div>
-          <div><span style="color: #2ea043; font-weight: 700">▸</span> Spend caps — hard limits, no surprise bills</div>
-          <div>
-            <span style="color: #2ea043; font-weight: 700">▸</span> Model tiering — Haiku for simple tasks, Opus for
-            hard ones
-          </div>
-          <div><span style="color: #2ea043; font-weight: 700">▸</span> Context budgeting — 2k tokens, not 100k</div>
-          <div><span style="color: #2ea043; font-weight: 700">▸</span> Internal RAG — on-prem retrieval, zero per-query API cost</div>
         </div>
       </div>
     </div>
@@ -1627,12 +1315,12 @@
       <div class="poc-tab-panels">
         <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
       <!-- Zero Trust HITL — autonomous agent recommends, Cedar policy decides, named human approves -->
-      <div class="card card-flagship" id="hitl-card">
+      <div class="card card-new" id="hitl-card">
         <div class="card-badge-new"><span>★ New</span></div>
 
         <div class="card-header is-collapsible" onclick="toggleCardDetails('hitl-card')">
           <div class="card-title-group">
-            <span class="card-title">Zero Trust Human-in-the-Loop (HITL) Payments</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Zero%20Trust%20Human-in-the-Loop%20%28HITL%29%20Payments" title="Inquire about Zero Trust Human-in-the-Loop (HITL) Payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Zero Trust Human-in-the-Loop (HITL) Payments</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -1736,7 +1424,7 @@
       <div class="card" id="payments-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('payments-card')">
           <div class="card-title-group">
-            <span class="card-title">Zero Trust Payments with AI</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Zero%20Trust%20Payments%20with%20AI" title="Inquire about Zero Trust Payments with AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Zero Trust Payments with AI</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -1801,11 +1489,11 @@
         </div>
         <div class="poc-tab-panel" id="cat-iam" style="--tab-accent: #58a6ff;">
       <!-- Real Okta SAML → Auth0 identity federation broker — fail-closed kill switch, JIT provisioning -->
-      <div class="card card-flagship" id="okta-auth0-broker-card">
+      <div class="card card-new" id="okta-auth0-broker-card">
         <div class="card-badge-new"><span>★ New</span></div>
         <div class="card-header is-collapsible" onclick="toggleCardDetails('okta-auth0-broker-card')">
           <div class="card-title-group">
-            <span class="card-title">Okta ↔ Auth0 Identity Federation Broker</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Okta%20%E2%86%94%20Auth0%20Identity%20Federation%20Broker" title="Inquire about Okta ↔ Auth0 Identity Federation Broker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Okta ↔ Auth0 Identity Federation Broker</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -1921,7 +1609,7 @@
       <div class="card" id="obo-platform-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-platform-card')">
           <div class="card-title-group">
-            <span class="card-title">Production-Grade Zero Trust OBO Platform</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Production-Grade%20Zero%20Trust%20OBO%20Platform" title="Inquire about Production-Grade Zero Trust OBO Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Production-Grade Zero Trust OBO Platform</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2027,7 +1715,7 @@
       <div id="obo-card" class="card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('obo-card')">
           <div class="card-title-group">
-            <span class="card-title card-title-gold">Autonomous Agentic OBO (Okta)</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Autonomous%20Agentic%20OBO%20%28Okta%29" title="Inquire about Autonomous Agentic OBO (Okta)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title card-title-gold">Autonomous Agentic OBO (Okta)</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2130,7 +1818,7 @@
       <div class="card" id="aws-obo-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('aws-obo-card')">
           <div class="card-title-group">
-            <span class="card-title">Custom Token Exchange Engine (AWS Cognito)</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Custom%20Token%20Exchange%20Engine%20%28AWS%20Cognito%29" title="Inquire about Custom Token Exchange Engine (AWS Cognito)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Custom Token Exchange Engine (AWS Cognito)</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2235,11 +1923,11 @@
         </div>
         <div class="poc-tab-panel" id="cat-zero-trust" style="--tab-accent: #58a6ff;">
       <!-- Sentinel Mesh — two independent kind/Istio clusters, no federation, mTLS + ReBAC as two independent fail-closed layers -->
-      <div class="card card-flagship" id="sentinel-mesh-card">
+      <div class="card card-new" id="sentinel-mesh-card">
         <div class="card-badge-new"><span>● New</span></div>
         <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mesh-card')">
           <div class="card-title-group">
-            <span class="card-title">Sentinel Mesh — Cross-Cluster Zero Trust Isolation</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Sentinel%20Mesh%20%E2%80%94%20Cross-Cluster%20Zero%20Trust%20Isolation" title="Inquire about Sentinel Mesh — Cross-Cluster Zero Trust Isolation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Sentinel Mesh — Cross-Cluster Zero Trust Isolation</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2353,7 +2041,7 @@
       <div class="card" id="lastmile-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('lastmile-card')">
           <div class="card-title-group">
-            <span class="card-title">Last Mile Zero Trust — Platform</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Last%20Mile%20Zero%20Trust%20%E2%80%94%20Platform" title="Inquire about Last Mile Zero Trust — Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Last Mile Zero Trust — Platform</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2419,7 +2107,7 @@
       <div class="card" id="sentinel-fips-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-fips-card')">
           <div class="card-title-group">
-            <span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Sentinel%20FIPS%20%E2%80%94%20AWS-Native%20FIPS%20140-3" title="Inquire about Sentinel FIPS — AWS-Native FIPS 140-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Sentinel FIPS — AWS-Native FIPS 140-3</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2486,11 +2174,11 @@
         </div>
         <div class="poc-tab-panel" id="cat-agentic-rag" style="--tab-accent: #58a6ff;">
       <!-- Autonomous Code Reviewer -->
-      <div class="card card-flagship" id="acra-card">
+      <div class="card card-new" id="acra-card">
         <div class="card-badge-new"><span>★ New</span></div>
         <div class="card-header is-collapsible" onclick="toggleCardDetails('acra-card')">
           <div class="card-title-group">
-            <span class="card-title">Autonomous Code Reviewer (Auth0 + MCP)</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Autonomous%20Code%20Reviewer%20%28Auth0%20%2B%20MCP%29" title="Inquire about Autonomous Code Reviewer (Auth0 + MCP)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Autonomous Code Reviewer (Auth0 + MCP)</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2593,7 +2281,7 @@
       <div class="card" id="secure-rag-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('secure-rag-card')">
           <div class="card-title-group">
-            <span class="card-title">Secure RAG — Zero Trust Demo</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Secure%20RAG%20%E2%80%94%20Zero%20Trust%20Demo" title="Inquire about Secure RAG — Zero Trust Demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Secure RAG — Zero Trust Demo</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2658,7 +2346,7 @@
       <div class="card" id="rag-knowledge-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('rag-knowledge-card')">
           <div class="card-title-group">
-            <span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20RAG%20Knowledge%20Assistant%20%E2%80%94%20Enterprise%20AI%20Adoption" title="Inquire about RAG Knowledge Assistant — Enterprise AI Adoption"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">RAG Knowledge Assistant — Enterprise AI Adoption</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2719,7 +2407,7 @@
       <div class="card" id="sentinel-mcp-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-mcp-card')">
           <div class="card-title-group">
-            <span class="card-title">Sentinel MCP — AWS Ops Toolkit</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Sentinel%20MCP%20%E2%80%94%20AWS%20Ops%20Toolkit" title="Inquire about Sentinel MCP — AWS Ops Toolkit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Sentinel MCP — AWS Ops Toolkit</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2784,11 +2472,11 @@
       <!-- Hack My Own Code — adaptive AI red-team tool that IMPLEMENTS and ATTACKS the draft-tonyai-a2a-trust IETF draft.
            TODO before publish: (1) swap the placeholder demo-video URL below once recorded,
            (2) fill in the GitHub repo URL once the repo is pushed public. -->
-      <div class="card card-flagship" id="hack-my-own-code-card">
+      <div class="card card-new" id="hack-my-own-code-card">
         <div class="card-badge-new"><span>● New</span></div>
         <div class="card-header is-collapsible" onclick="toggleCardDetails('hack-my-own-code-card')">
           <div class="card-title-group">
-            <span class="card-title">Hack My Own Code — Adaptive AI Red-Team Orchestrator</span>
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Hack%20My%20Own%20Code%20%E2%80%94%20Adaptive%20AI%20Red-Team%20Orchestrator" title="Inquire about Hack My Own Code — Adaptive AI Red-Team Orchestrator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Hack My Own Code — Adaptive AI Red-Team Orchestrator</span></div>
             <a
               class="card-demo-link"
               onclick="
@@ -2903,9 +2591,7 @@
       <div class="card" id="ietf-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('ietf-card')">
           <div class="card-title-group">
-            <span class="card-title" style="animation: pulse 2.5s ease-in-out infinite; display: inline-block"
-              >IETF Internet-Draft — Agent-to-Agent Trust</span
-            >
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20IETF%20Internet-Draft%20%E2%80%94%20Agent-to-Agent%20Trust" title="Inquire about IETF Internet-Draft — Agent-to-Agent Trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">IETF Internet-Draft — Agent-to-Agent Trust</span></div>
           </div>
           <img
             class="card-toggle-icon"
@@ -2991,7 +2677,9 @@
       <!-- Phalanx -->
       <div class="card" id="phalanx-card">
         <div class="card-header is-collapsible" onclick="toggleCardDetails('phalanx-card')">
-          <span class="card-title">Phalanx — IETF A2A Certificate Implementation</span>
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Phalanx%20%E2%80%94%20IETF%20A2A%20Certificate%20Implementation" title="Inquire about Phalanx — IETF A2A Certificate Implementation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Phalanx — IETF A2A Certificate Implementation</span></div>
+          </div>
           <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
@@ -3042,6 +2730,15 @@
       </div>
 
         </div>
+      </div>
+    </div>
+
+    <div class="engineering-note">
+      <div class="engineering-note-title">Engineering note — AI cost discipline</div>
+      <div class="engineering-note-list">
+        <span class="dot">▸</span> RAG pre-filter, prompt caching, spend caps, model tiering, context budgeting,
+        on-prem internal RAG — the same cost controls that matter most when it's <em>your</em> AI license/token bill,
+        not mine. Covered in detail during the SOW call for any engagement where that's a factor.
       </div>
     </div>
 
