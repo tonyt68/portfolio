@@ -1306,10 +1306,15 @@
           <span class="poc-tab-title">Agentic AI & RAG</span>
           <span class="poc-tab-count">4</span>
         </button>
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="true">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
           <span class="poc-tab-count">3</span>
+        </button>
+        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="true">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Agent Governance & Autonomy</span>
+          <span class="poc-tab-count">1</span>
         </button>
       </div>
       <div class="poc-tab-panels">
@@ -2468,7 +2473,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel is-active" id="cat-ietf" style="--tab-accent: #58a6ff;">
+        <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #58a6ff;">
       <!-- Hack My Own Code — adaptive AI red-team tool that IMPLEMENTS and ATTACKS the draft-tonyai-a2a-trust IETF draft.
            TODO before publish: (1) swap the placeholder demo-video URL below once recorded,
            (2) fill in the GitHub repo URL once the repo is pushed public. -->
@@ -2729,6 +2734,121 @@
         </div>
       </div>
 
+        </div>
+        <div class="poc-tab-panel is-active" id="cat-agentops" style="--tab-accent: #58a6ff;">
+      <!-- Sentinel Triage Agent Harness — local-model triage that earns autonomy through HITL grading, plus an
+           independent Watcher agent that autonomously monitors and quarantines misbehaving agents. -->
+      <div class="card card-new" id="sentinel-triage-card">
+        <div class="card-badge-new"><span>● New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-triage-card')">
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Sentinel%20Triage%20Agent%20Harness%20%E2%80%94%20Earned%20Autonomy%20%26%20System%20Health" title="Inquire about Sentinel Triage Agent Harness — Earned Autonomy & System Health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Sentinel Triage Agent Harness — Earned Autonomy & System Health</span></div>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/sentinel-triage-agent-harness-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 2.5-min demo</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('sentinel-triage-card')">
+          How do you let an agentic AI system earn the right to act autonomously — and prove, cryptographically,
+          that a human can still catch it the moment it's wrong?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-triage-card')">
+          A <strong class="chrome">local model</strong> (Ollama) triages signals live; a deterministic Zero Trust
+          gate rules escalate-or-close; a human grades every call over Telegram. Three straight correct grades plus
+          two cryptographic signatures — never a config flag — earn <strong class="chrome">unsupervised</strong>
+          autonomy. Cross the line, and an independent Watcher trips the <strong class="chrome">kill switch</strong>:
+          no process killed, every call refused at the gateway until a human clears it.
+        </p>
+        <div class="card-details">
+          <ul
+            class="card-bullet-list"
+            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li>
+              <strong class="chrome">Real Identity, Real Kill Switch:</strong> every pool agent, the Watcher, and the
+              autonomous Worker carry a genuine X.509 cert from a dedicated CA — not a role flag. The Watcher trips
+              its own deterministic rule (no model, no gate) in parallel with the scoring pipeline, quarantining
+              within a capped blast radius. No process dies: the cert is refused at the gateway until 4 real
+              gates — dual signature, Watcher re-check, token introspection, human decision — clear it.
+            </li>
+            <li>
+              <strong class="chrome">Local Model, Zero Decision Authority:</strong> Ollama (Qwen2.5 1.5B) writes only
+              the reasoning string. Band, confidence, escalate-or-close are 100% deterministic code — rebuilt after
+              the model banded a 0.25/s denial rate wrong 5/5 times, so a bad model answer can't become a bad
+              security decision.
+            </li>
+            <li>
+              <strong class="chrome">Autonomy Is Earned, Not Configured:</strong> 3 straight human-confirmed correct
+              calls, then two distinct people's signatures, before a pattern skips a human — demoted instantly, no
+              vote, on the next wrong one.
+            </li>
+            <li>
+              <strong class="chrome">Tamper-Evident, Red-Teamed Twice:</strong> every decision seals into an
+              HMAC-SHA256 hash chain. Two full adversarial passes hunted it anyway and caught 3 CRITICAL,
+              live-exploited holes: an unauthenticated endpoint that forged a chain entry clean past verification, a
+              stored-XSS proven executing in a real headless browser, and a type-confusion bug that silently killed
+              the human-paging guarantee. Fixed, not hidden.
+            </li>
+            <li>
+              <strong class="chrome">Fail-Closed, Never Fail-Silent:</strong> a dead dependency, an unreachable
+              model, a Telegram gap — all degrade to escalate, never to silence. An unanswered alert still hits a
+              hard 5-minute ceiling, safe because a still-live incident re-alerts on its own.
+            </li>
+            <li>
+              <strong class="chrome">Continuous Authorization-Layer Monitoring:</strong> denials and scope-usage
+              growth are banded by exact numeric rule; one Cedar policy engine is the sole arbiter of
+              close-vs-escalate; an optional Istio mesh — Kiali and Grafana live in the dashboard — extends the same
+              pipeline to mesh-level denials, zero new app code.
+            </li>
+            <li>
+              <strong class="chrome">Every Trigger Cryptographically Attributable to a Human:</strong> a real Okta
+              OIDC login, an RFC 8693 token exchange, an RFC 9449 DPoP proof of possession — re-verified server-side
+              on every presentation, never trusted once at issuance — gate the system's most sensitive action.
+              Auditing every service call behind it found and closed a keypair race condition, a silent
+              token-audience mismatch, and CORS gaps blocking the very requests the new gates required.
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Java 21 (Virtual Threads)</span><span class="tag">Spring Boot 3</span
+              ><span class="tag">Python (FastAPI)</span><span class="tag">TypeScript (Express)</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Ollama (Qwen2.5)</span
+              ><span class="tag">AWS DynamoDB</span><span class="tag">Cedar Policy Engine</span
+              ><span class="tag">Docker Compose</span><span class="tag">Istio Service Mesh</span
+              ><span class="tag">Kiali</span><span class="tag">Grafana</span
+              ><span class="tag">Okta OIDC</span><span class="tag">RFC 8693 OBO</span
+              ><span class="tag">RFC 9449 DPoP</span><span class="tag">Telegram Bot API</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">OWASP Top 10</span><span class="tag">Fail-Closed by Design</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">Live demo available upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
