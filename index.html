@@ -790,6 +790,10 @@
         border: 1px solid #6a7a8a;
       }
 
+      .compliance-tags {
+        margin-bottom: 0.5rem;
+      }
+
       .compliance-tags .tag {
         background: #1a3a5c;
         background: linear-gradient(135deg, #c0392b, #ff6b6b);
@@ -829,6 +833,65 @@
       .card-details.is-open {
         max-height: 600px;
         opacity: 1;
+      }
+
+      /* ── Collapsible bullet items (chevron accordion) ── */
+      .bullet-accordion {
+        list-style: none;
+        max-height: 280px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(88, 166, 255, 0.4) transparent;
+        flex-shrink: 0;
+      }
+      .bullet-accordion::-webkit-scrollbar {
+        width: 6px;
+      }
+      .bullet-accordion::-webkit-scrollbar-thumb {
+        background: rgba(88, 166, 255, 0.4);
+        border-radius: 3px;
+      }
+      .bullet-accordion::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .bullet-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .bullet-item:last-child {
+        border-bottom: none;
+      }
+      .bullet-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 0.45rem 0;
+        cursor: pointer;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+      }
+      .bullet-chevron {
+        flex-shrink: 0;
+        width: 14px;
+        height: 14px;
+        color: #58a6ff;
+        transition: transform 0.25s ease;
+      }
+      .bullet-toggle.is-open .bullet-chevron {
+        transform: rotate(90deg);
+      }
+      .bullet-body {
+        display: none;
+        padding-left: 1.35rem;
+      }
+      .bullet-body.is-open {
+        display: block;
+        margin-bottom: 0.5rem;
       }
 
       .status {
@@ -873,6 +936,18 @@
         border-radius: 50%;
         background: #3fb950;
         animation: pulse 2s infinite;
+      }
+
+      .live-demo-banner {
+        max-width: 1480px;
+        margin: 0 auto 1rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(63, 185, 80, 0.35);
+        border-radius: 10px;
+        background: rgba(63, 185, 80, 0.06);
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 0 16px rgba(63, 185, 80, 0.08);
       }
 
       .status-amber {
@@ -1282,6 +1357,13 @@
       </div>
     </div>
 
+    <div class="live-demo-banner">
+      <div class="status" style="font-size: 1rem; gap: 0.6rem;">
+        <div class="status-dot" style="width: 11px; height: 11px;"></div>
+        <span class="status-wave">Live demos available upon request — for any solution below</span>
+      </div>
+    </div>
+
     <!-- PoC Grid -->
     <!-- PoC Grid — folder-tab navigation by solution category -->
     <div class="poc-tabbed-grid">
@@ -1353,44 +1435,85 @@
           that human's own spending limit.
         </p>
         <div class="card-details">
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Policy Decides, Not the Agent:</strong> The agent calls
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Policy Decides, Not the Agent</strong>
+              </button>
+              <div class="bullet-body">
+                The agent calls
               <code>request_human_approval</code> over MCP. A Cedar policy in AWS Verified Permissions decides — no
               code path lets the agent self-approve.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Targeted, Ceiling-Bound Approval:</strong> Requests reach only the requester's
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Targeted, Ceiling-Bound Approval</strong>
+              </button>
+              <div class="bullet-body">
+                Requests reach only the requester's
               own Slack identity. Approver authority is capped at their login-tied limit — no ceiling, no request.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Live in Slack, Never Blocking:</strong> The approver gets a targeted DM with
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Live in Slack, Never Blocking</strong>
+              </button>
+              <div class="bullet-body">
+                The approver gets a targeted DM with
               Approve/Modify/Deny. SNS → SQS delivers their decision — the original API call never waits, whether
               the human responds in seconds or hours.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Tamper-Evident by Construction:</strong> Every request, decision, and execution
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Tamper-Evident by Construction</strong>
+              </button>
+              <div class="bullet-body">
+                Every request, decision, and execution
               is HMAC-SHA256 hash-chained — verified live at <code>/audit-ui</code>.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">100% IaC, Live in AWS:</strong> Every resource — Fargate, DynamoDB, SQS/SNS,
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">100% IaC, Live in AWS</strong>
+              </button>
+              <div class="bullet-body">
+                Every resource — Fargate, DynamoDB, SQS/SNS,
               Verified Permissions, Cognito — is CDK-defined and running in the cloud today. GitHub Actions deploys
               on push via short-lived OIDC, zero static keys.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Startup-Verified, Not Just Deployed:</strong> the payment agent makes a real
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Startup-Verified, Not Just Deployed</strong>
+              </button>
+              <div class="bullet-body">
+                the payment agent makes a real
               <code>IsAuthorized</code> call to Verified Permissions at boot and crashes loudly if it fails — added
               after a misconfigured IAM ARN once silently routed every payment into the wait path. Backed by 24 test
               files plus a post-deploy CI smoke test that authenticates as a real Cognito user against the live ALB.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Scoped Audit Access, Independently Verifiable:</strong> <code>/audit</code> is
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Scoped Audit Access, Independently Verifiable</strong>
+              </button>
+              <div class="bullet-body">
+                <code>/audit</code> is
               scoped to the caller's own payments unless they're in the <code>hitl-admins</code> Cognito group. The
               HMAC hash chain isn't only viewable in <code>/audit-ui</code> — a standalone CLI re-verifies it
               independently, outside the running app.
+              </div>
             </li>
           </ul>
           <div>
@@ -1414,12 +1537,6 @@
               ><span class="tag">ISO/IEC 42001</span><span class="tag">OWASP A01 / A03 / A04 / A07 / A08 / A09</span
               ><span class="tag">OWASP LLM01 / LLM02 / LLM05 / LLM06</span
               ><span class="tag">OWASP A02 / A06</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
@@ -1456,13 +1573,61 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Guardrails — Deterministic Gate:</strong> Prompt Evaluation Gate sits pre-execution. Pure Python, four checks, zero LLM variance, zero overrides. Fail one, hard stop. No AI confidence bypasses policy.</li>
-            <li><strong class="chrome">Human-in-the-Loop by Design:</strong> AI recommends. Human-defined policy executes. Money never moves on model confidence alone — the architecture enforces HITL, not a setting.</li>
-            <li><strong class="chrome">AI Governance Audit Trail:</strong> Every recommendation, gate decision, and outcome KMS-signed and immutably logged. Regulators get cryptographic proof, not log files.</li>
-            <li><strong class="chrome">ReBAC Kill Switch:</strong> Revoke one relationship — the entire agentic transaction chain dies instantly. Least privilege enforced at the trust boundary, not the API.</li>
-            <li><strong class="chrome">Adversarial-Tested Gate:</strong> a dedicated amount-coherence check catches the model if it reports evaluating a different dollar figure than what was actually requested — the deterministic gate denies even when the LLM misreports its own inputs. Five-layer pipeline (ReBAC → PAA → PEG → Router → Executor), 26/26 unit tests passing.</li>
-            <li><strong class="chrome">Full Admin Control Plane:</strong> revoke, restore, kill, and unkill endpoints let an operator freeze or reinstate any relationship live, with a loopback-only admin-token endpoint for local control.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Guardrails — Deterministic Gate</strong>
+              </button>
+              <div class="bullet-body">
+                Prompt Evaluation Gate sits pre-execution. Pure Python, four checks, zero LLM variance, zero overrides. Fail one, hard stop. No AI confidence bypasses policy.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Human-in-the-Loop by Design</strong>
+              </button>
+              <div class="bullet-body">
+                AI recommends. Human-defined policy executes. Money never moves on model confidence alone — the architecture enforces HITL, not a setting.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance Audit Trail</strong>
+              </button>
+              <div class="bullet-body">
+                Every recommendation, gate decision, and outcome KMS-signed and immutably logged. Regulators get cryptographic proof, not log files.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">ReBAC Kill Switch</strong>
+              </button>
+              <div class="bullet-body">
+                Revoke one relationship — the entire agentic transaction chain dies instantly. Least privilege enforced at the trust boundary, not the API.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Adversarial-Tested Gate</strong>
+              </button>
+              <div class="bullet-body">
+                a dedicated amount-coherence check catches the model if it reports evaluating a different dollar figure than what was actually requested — the deterministic gate denies even when the LLM misreports its own inputs. Five-layer pipeline (ReBAC → PAA → PEG → Router → Executor), 26/26 unit tests passing.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Full Admin Control Plane</strong>
+              </button>
+              <div class="bullet-body">
+                revoke, restore, kill, and unkill endpoints let an operator freeze or reinstate any relationship live, with a loopback-only admin-token endpoint for local control.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -1482,12 +1647,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1528,57 +1687,104 @@
           <strong class="chrome">kill switch</strong> that can't be undone by logging back in.
         </p>
         <div class="card-details">
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Federation Hub, Not a Point Integration:</strong> the post-login Action maps
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Federation Hub, Not a Point Integration</strong>
+              </button>
+              <div class="bullet-body">
+                the post-login Action maps
               group → role → action by connection name, so onboarding a second IdP (an acquired company's Okta,
               Azure AD, PingFederate) is a new Enterprise Connection plus one Action entry — never a resource-server
               change. Auth0 doesn't compute this claim natively; it's hand-written, not a dashboard toggle.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Real Federation, Not Simulated:</strong> Okta (SAML IdP) → Auth0 (broker, JIT
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Federation, Not Simulated</strong>
+              </button>
+              <div class="bullet-body">
+                Okta (SAML IdP) → Auth0 (broker, JIT
               provisioning + claims mapping) → Spring Boot resource server, exercised live end-to-end against real
               tenants — no mocked IdP.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Kill Switch That Survives Re-Authentication:</strong> a DynamoDB allow-list
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Kill Switch That Survives Re-Authentication</strong>
+              </button>
+              <div class="bullet-body">
+                a DynamoDB allow-list
               denies by construction on any error or missing entry, so a revoked user's tombstone holds even
               against a fresh token from re-login or silent refresh — a real bypass class found and closed via
               self-directed security review, not assumed away.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Full Audit Trail, Two Tiers:</strong> every ALLOW/DENY decision logs
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Full Audit Trail, Two Tiers</strong>
+              </button>
+              <div class="bullet-body">
+                every ALLOW/DENY decision logs
               sub/connection/action, feeding straight from the Action's claim computation into per-endpoint
               enforcement — self-service own-logs vs. admin all-logs.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Infrastructure as Code, Deliberately Scoped:</strong> Terraform (Okta
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Infrastructure as Code, Deliberately Scoped</strong>
+              </button>
+              <div class="bullet-body">
+                Terraform (Okta
               groups/users) + AWS CDK (DynamoDB, ECS Fargate + ALB + CloudFront, origin locked to CloudFront's edge
               IPs via a managed prefix list) + Auth0 Deploy CLI (API/resource-server, client grant) — reproducible
               end to end except the two-pass SAML metadata handshake, documented click-by-click for a client's own
               tenant.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Kill Switch Survives Silent Refresh — Proven by a Real Bug:</strong> the
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Kill Switch Survives Silent Refresh — Proven by a Real Bug</strong>
+              </button>
+              <div class="bullet-body">
+                the
               original implementation deleted the row on revoke, so Auth0's own silent token refresh
               re-provisioned a revoked user and undid the revoke with zero admin action. The fix — tombstone,
               never delete — closes that exact bypass.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Role-Based, Not Binary:</strong> four named roles (Viewer/Worker/Manager/Auditor)
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Role-Based, Not Binary</strong>
+              </button>
+              <div class="bullet-body">
+                four named roles (Viewer/Worker/Manager/Auditor)
               accumulate across multiple roles — Manager+Auditor unions into full CRUD plus
               <code>logs:read:all</code>. A shared-tenant guard checks both <code>client_id</code> and connection
               name before setting any claim, since this Action runs for every app on a tenant shared with sibling
               PoCs.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Tamper-Evident by IAM, Not Just by Design:</strong> the audit-log and
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Tamper-Evident by IAM, Not Just by Design</strong>
+              </button>
+              <div class="bullet-body">
+                the audit-log and
               allow-list tables grant the ECS task role only Put/Get/Query/Scan — no Update or Delete — so a
               compromised container literally cannot alter or erase its own audit trail. Kill-switch denials return
               403, not 401, deliberately distinguishing "still-valid token, newly denied" from "invalid token."
+              </div>
             </li>
           </ul>
           <div>
@@ -1599,12 +1805,6 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">OWASP A01 / A05 / A07</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
@@ -1643,48 +1843,101 @@
           <strong class="chrome">swappable</strong> underneath.
         </p>
         <div class="card-details">
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">4 Native Implementations:</strong> Shared auth contract running seamlessly across
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">4 Native Implementations</strong>
+              </button>
+              <div class="bullet-body">
+                Shared auth contract running seamlessly across
               Python, Java, TypeScript, and C#.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Policy as Code — Hot-Swappable:</strong> Cedar (sub-millisecond in-memory) and OpenFGA/Zanzibar (gRPC) toggled via feature flags. Authorization logic lives in code, not config files.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Policy as Code — Hot-Swappable</strong>
+              </button>
+              <div class="bullet-body">
+                Cedar (sub-millisecond in-memory) and OpenFGA/Zanzibar (gRPC) toggled via feature flags. Authorization logic lives in code, not config files.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Tamper-Proof Auditing:</strong> Every lifecycle event hits an HMAC-SHA256
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Tamper-Proof Auditing</strong>
+              </button>
+              <div class="bullet-body">
+                Every lifecycle event hits an HMAC-SHA256
               hash-chained log. Tampering instantly breaks the chain; verified live via <code>GET /audit</code>.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Least Privilege by Default:</strong> Zero-trust JWT validation enforces minimum-scope access across all four runtimes. Trust boundary defined in code, not firewall rules. Backed by 240+ integration tests.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Least Privilege by Default</strong>
+              </button>
+              <div class="bullet-body">
+                Zero-trust JWT validation enforces minimum-scope access across all four runtimes. Trust boundary defined in code, not firewall rules. Backed by 240+ integration tests.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">100% Automated IaC:</strong> CloudFormation completely models the serverless
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">100% Automated IaC</strong>
+              </button>
+              <div class="bullet-body">
+                CloudFormation completely models the serverless
               infrastructure, including API Gateway, custom-branded Cognito Managed Login, and Lambdas.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">The Real Demo Surface — a Fifth Component:</strong> a BFF (`fe`) fronts all
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">The Real Demo Surface — a Fifth Component</strong>
+              </button>
+              <div class="bullet-body">
+                a BFF (`fe`) fronts all
               four middleware variants side-by-side in one UI, backed by Cognito Hosted UI login with full
               server-side Authorization Code + PKCE, httpOnly cookies, and RFC 7009 token revocation on logout.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Cross-Language OBO Handshake, Not Just Shared Rules:</strong> the Lambda
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Cross-Language OBO Handshake, Not Just Shared Rules</strong>
+              </button>
+              <div class="bullet-body">
+                the Lambda
               self-mints an RFC 8693 token (Cognito can't token-exchange natively) carrying a correlation ID; the
               Java middleware independently re-validates it via a deliberately separate JWKS trust root, so the two
               trust boundaries can never accidentally merge.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Pinned Against Named CVEs:</strong> explicit dependency overrides above
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Pinned Against Named CVEs</strong>
+              </button>
+              <div class="bullet-body">
+                explicit dependency overrides above
               Spring Boot's own BOM close specific CRITICAL/HIGH CVEs in Tomcat, Spring Security, and
               Jackson — supply-chain hygiene enforced in the build, not assumed.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Independent Engine Selection, Per Service:</strong> each containerized
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Independent Engine Selection, Per Service</strong>
+              </button>
+              <div class="bullet-body">
+                each containerized
               middleware variant carries its own engine flag — Java defaults to Zanzibar, Python to Cedar — so the
               demo can run different policy engines on different services simultaneously.
+              </div>
             </li>
           </ul>
           <div>
@@ -1705,12 +1958,6 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">OWASP A01 / A07 / A09</span><span class="tag">OWASP A06</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
@@ -1751,39 +1998,80 @@
 
         <div class="card-details">
 
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Cryptographic Delegation:</strong> Uses RFC 8693 Token Exchange to mint highly
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Cryptographic Delegation</strong>
+              </button>
+              <div class="bullet-body">
+                Uses RFC 8693 Token Exchange to mint highly
               scoped tokens containing explicit actor context (<code>sub=user, act=agent</code>).
+              </div>
             </li>
-            <li>
-              <strong class="chrome">DPoP Protection:</strong> Binds access tokens to the runtime client via RFC 9449,
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">DPoP Protection</strong>
+              </button>
+              <div class="bullet-body">
+                Binds access tokens to the runtime client via RFC 9449,
               rendering intercepted tokens completely useless to attackers.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Agentic Workflow Gate:</strong> 6-step enforcement — Okta OIDC → ReBAC → token exchange → DPoP binding → JTI check → kill switch. Every step in the agentic workflow is a trust boundary.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Agentic Workflow Gate</strong>
+              </button>
+              <div class="bullet-body">
+                6-step enforcement — Okta OIDC → ReBAC → token exchange → DPoP binding → JTI check → kill switch. Every step in the agentic workflow is a trust boundary.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">AI Governance Audit Chain:</strong> Streams every agentic action into an append-only HMAC-SHA256 log. Non-repudiation — provable who authorized what, when, and under which permissions.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance Audit Chain</strong>
+              </button>
+              <div class="bullet-body">
+                Streams every agentic action into an append-only HMAC-SHA256 log. Non-repudiation — provable who authorized what, when, and under which permissions.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Replay Defenses:</strong> Mitigates token theft with aggressive JTI replay
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Replay Defenses</strong>
+              </button>
+              <div class="bullet-body">
+                Mitigates token theft with aggressive JTI replay
               prevention, short-lived lifecycles, and RP-initiated logouts.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Live Okta, Not Simulated:</strong> every claim is exercised against a real
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Live Okta, Not Simulated</strong>
+              </button>
+              <div class="bullet-body">
+                every claim is exercised against a real
               Okta org — OIDC Authorization Code login with ID-token verification via live remote JWKS, and real
               RFC 8693 token exchanges (with RFC 9449 §8 DPoP nonce-retry handling) hit Okta's live token endpoint,
               not a mock. A dedicated Okta smoke-test suite validates live readiness before every demo.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Fails Closed at Every Layer:</strong> the config loader throws at startup on
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Fails Closed at Every Layer</strong>
+              </button>
+              <div class="bullet-body">
+                the config loader throws at startup on
               any missing required secret — it never runs degraded. Audit-log tampering is blocked at the database
               layer itself via a <code>BEFORE UPDATE/DELETE</code> trigger, not just app logic. Logout is
               RP-initiated, federating back to kill the Okta SSO session, not just the local one.
+              </div>
             </li>
           </ul>
 
@@ -1810,12 +2098,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1855,43 +2137,84 @@
 
         <div class="card-details">
 
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Custom RFC 8693 Plane:</strong> Engineered a lightweight AWS Lambda Layer that
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Custom RFC 8693 Plane</strong>
+              </button>
+              <div class="bullet-body">
+                Engineered a lightweight AWS Lambda Layer that
               intercepts user tokens and self-mints independent, cryptographically isolated RS256 OBO tokens.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Least Privilege at the Exchange Layer:</strong> Real-time ReBAC graph traversal at token issuance — permissions scoped to exactly the target action, nothing broader. Trust boundary enforced before the token leaves the gate.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Least Privilege at the Exchange Layer</strong>
+              </button>
+              <div class="bullet-body">
+                Real-time ReBAC graph traversal at token issuance — permissions scoped to exactly the target action, nothing broader. Trust boundary enforced before the token leaves the gate.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Dual-Layer Fail-Closed Lock:</strong> Enforces instant global revocation via a
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Dual-Layer Fail-Closed Lock</strong>
+              </button>
+              <div class="bullet-body">
+                Enforces instant global revocation via a
               synchronized system that writes the unique <code>jti</code> to a DynamoDB blocklist while wiping active
               sessions from ElastiCache Redis.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Ultra-Fast Validation:</strong> Downstream Spring Boot microservices act as lean
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Ultra-Fast Validation</strong>
+              </button>
+              <div class="bullet-body">
+                Downstream Spring Boot microservices act as lean
               OAuth2 Resource Servers, running sub-millisecond local cryptographic signature checks with zero runtime
               IdP overhead.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Encrypted, Immutable, and Watched:</strong> TLS 1.3 enforced at the ALB, S3
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Encrypted, Immutable, and Watched</strong>
+              </button>
+              <div class="bullet-body">
+                TLS 1.3 enforced at the ALB, S3
               audit bucket encrypted at rest with Object Lock in COMPLIANCE mode — a WORM audit trail even root
               can't alter during retention — backed by a dedicated multi-region CloudTrail with log-file validation
               and a CloudWatch alarm wired to SNS on any burst of REBAC_DENIED events.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Real Kubernetes Runtime, Not Just Lambda:</strong> the resource server runs as
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Kubernetes Runtime, Not Just Lambda</strong>
+              </button>
+              <div class="bullet-body">
+                the resource server runs as
               a 2-replica EKS Deployment with IRSA (no static AWS creds in the pod), fronted by GitHub Actions CI/CD
               that gates every deploy behind Maven + Jest tests — plus an ArchUnit fitness test that fails the
               build outright if <code>@EnableMethodSecurity</code> is ever removed.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Fails Closed, Guarded Teardown:</strong> any DynamoDB read error on revocation
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Fails Closed, Guarded Teardown</strong>
+              </button>
+              <div class="bullet-body">
+                any DynamoDB read error on revocation
               status defaults to deny, never allow. Tearing the stack down requires typing <code>DESTROY</code> —
               no accidental prod deletion. 29 Lambda Jest tests pass with zero AWS dependency.
+              </div>
             </li>
           </ul>
 
@@ -1916,12 +2239,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1962,56 +2279,102 @@
           directions.
         </p>
         <div class="card-details">
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Two Independent Failure Modes, Proven Symmetrically:</strong> a same-cluster
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Two Independent Failure Modes, Proven Symmetrically</strong>
+              </button>
+              <div class="bullet-body">
+                a same-cluster
               call with a revoked ReBAC grant fails at the app layer despite the mesh trusting it; a cross-cluster
               call fails at the mTLS handshake before ReBAC is even consulted — <strong class="chrome">both
               directions</strong> verified.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Genuine mTLS Rejection, Not Incidental Isolation:</strong> each sidecar
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Genuine mTLS Rejection, Not Incidental Isolation</strong>
+              </button>
+              <div class="bullet-body">
+                each sidecar
               actually originates an <code>ISTIO_MUTUAL</code> handshake toward the other cluster's NodePort —
               Envoy's own logs show
               <code>CERTIFICATE_VERIFY_FAILED: self_signed_certificate_in_certificate_chain</code>, a real
               root-CA rejection, not a plaintext-hits-TLS-listener accident.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Identity From the Cert, Never From Config:</strong> the ReBAC subject is
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Identity From the Cert, Never From Config</strong>
+              </button>
+              <div class="bullet-body">
+                the ReBAC subject is
               parsed from Envoy's own <code>X-Forwarded-Client-Cert</code> on every hop — verified against three
               spoofing attempts (forged value, smuggled element, duplicate header), none forged it.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Grants Provisioned Through the Same Zero-Trust Stack:</strong>
-              <code>/grant</code> and <code>/revoke</code> run through the identical mTLS +
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Grants Provisioned Through the Same Zero-Trust Stack</strong>
+              </button>
+              <div class="bullet-body">
+                <code>/grant</code> and <code>/revoke</code> run through the identical mTLS +
               <code>AuthorizationPolicy</code> + identity-match check as every enforcement path — no admin
               side-channel. Revoke is a live kill switch: the next check denies, zero redeploy.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Iterative BFS, Fail-Closed Everywhere:</strong> the relationship-graph
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Iterative BFS, Fail-Closed Everywhere</strong>
+              </button>
+              <div class="bullet-body">
+                the relationship-graph
               traversal is an explicit-queue BFS — shortest chain returned, no recursion-limit risk on long
               delegation chains. Redis/ReBAC unreachable, malformed identity, or any unhandled exception all
               default to <strong class="chrome">deny</strong>.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Red-Teamed, Not Just Built:</strong> three rounds of shift-left review on
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Red-Teamed, Not Just Built</strong>
+              </button>
+              <div class="bullet-body">
+                three rounds of shift-left review on
               this exact PoC caught and fixed a CRITICAL (Redis writable by any pod, bypassing the fail-closed
               ReBAC check), a HIGH (an identity-spoofing gap inherited by <code>/grant</code>), and a CVE chain
               from a stale Spring Boot parent — documented, not hidden.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Redis Locked Down Too:</strong> password sourced from a Kubernetes Secret via
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Redis Locked Down Too</strong>
+              </button>
+              <div class="bullet-body">
+                password sourced from a Kubernetes Secret via
               <code>secretKeyRef</code> (never a literal value in a pod spec), plus an
               <code>AuthorizationPolicy</code> restricting inbound Redis connections to the rebac-service identity
               alone — defense-in-depth on the data store itself, not just the API.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">~52 Unit Tests Across the Stack:</strong> JUnit on the approve/deploy
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">~52 Unit Tests Across the Stack</strong>
+              </button>
+              <div class="bullet-body">
+                JUnit on the approve/deploy
               services, pytest with fakeredis on the rebac service, plus a separate live smoke-test suite —
               tested, not just built.
+              </div>
             </li>
           </ul>
           <div>
@@ -2031,12 +2394,6 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">OWASP A01 / A02 / A05</span><span class="tag">Fail-Closed by Design</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
@@ -2073,12 +2430,52 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Outbound-Only Transport:</strong> On-prem relay polls AWS SQS — no inbound ports, no VPN, no firewall hole. Trust boundary is architectural, not a rule.</li>
-            <li><strong class="chrome">Vault PKI — Least Privilege Credentials:</strong> Short-lived X.509 certs replace every static DB credential. Scoped to read or write — nothing broader. Cert expires, access is gone.</li>
-            <li><strong class="chrome">JWT → ReBAC → DB Trust Chain:</strong> Agentic workflow enforces identity at every hop. JWT claims → ReBAC evaluation → cert-gated DB access. No hop trusted, no step skipped.</li>
-            <li><strong class="chrome">AI Governance Audit Trail:</strong> Every agentic request logged — identity, resource, scope, outcome. ALLOWED or DENIED. Full chain of custody, nothing silent.</li>
-            <li><strong class="chrome">A Second Proof, Same Stack — HIPAA/PHI:</strong> a working Bedrock-agent demo (Claude 3.5 Sonnet via Bedrock's <code>converse_stream</code>, prompt-caching) runs the identical relay/Vault/Postgres enforcement chain against a physician/patient-record scenario — authorized physicians read PHI, unauthorized staff are denied, same trust chain end to end.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Outbound-Only Transport</strong>
+              </button>
+              <div class="bullet-body">
+                On-prem relay polls AWS SQS — no inbound ports, no VPN, no firewall hole. Trust boundary is architectural, not a rule.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Vault PKI — Least Privilege Credentials</strong>
+              </button>
+              <div class="bullet-body">
+                Short-lived X.509 certs replace every static DB credential. Scoped to read or write — nothing broader. Cert expires, access is gone.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">JWT → ReBAC → DB Trust Chain</strong>
+              </button>
+              <div class="bullet-body">
+                Agentic workflow enforces identity at every hop. JWT claims → ReBAC evaluation → cert-gated DB access. No hop trusted, no step skipped.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance Audit Trail</strong>
+              </button>
+              <div class="bullet-body">
+                Every agentic request logged — identity, resource, scope, outcome. ALLOWED or DENIED. Full chain of custody, nothing silent.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">A Second Proof, Same Stack — HIPAA/PHI</strong>
+              </button>
+              <div class="bullet-body">
+                a working Bedrock-agent demo (Claude 3.5 Sonnet via Bedrock's <code>converse_stream</code>, prompt-caching) runs the identical relay/Vault/Postgres enforcement chain against a physician/patient-record scenario — authorized physicians read PHI, unauthorized staff are denied, same trust chain end to end.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2099,12 +2496,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2139,13 +2530,61 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">AI Governance — Immutable by Design:</strong> Decisions committed as hashes to S3 Object Lock (COMPLIANCE mode). Root cannot delete. Regulators get cryptographic proof of every authorization decision.</li>
-            <li><strong class="chrome">FIPS 140-3 KMS Signatures:</strong> Every auth decision and audit entry signed in real time with validated KMS keys. Cryptographic proof, not a log statement — FedRAMP High ready.</li>
-            <li><strong class="chrome">Policy as Code — Cedar + AVP:</strong> Authorization logic in Cedar, evaluated serverless in Lambda. Microsecond multi-tenant policy gate — least privilege enforced at the decision layer, not the perimeter.</li>
-            <li><strong class="chrome">Independent Re-Check Before Signing:</strong> the sign Lambda independently re-runs the authorization check before ever calling KMS — two-of-two required, surviving any compromise of the orchestrator, whether from prompt injection, a code bug, or a malicious actor with orchestrator-only access.</li>
-            <li><strong class="chrome">Self-Policing, Not Just Logging:</strong> a dedicated <code>Sentinel.AgentMisbehavior</code> event fires (distinct from <code>AuthChainBroken</code>) if the AI ever goes off-script, with a CloudWatch alarm on any burst of REBAC_DENIED events — plus a <code>DRY_RUN</code> mode for building trust before flipping a new capability live.</li>
-            <li><strong class="chrome">Mapped to Named FedRAMP Controls:</strong> AC-3, AC-6, AU-9, IA-3, SC-8, SI-7 — not just a generic "FedRAMP High" badge.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance — Immutable by Design</strong>
+              </button>
+              <div class="bullet-body">
+                Decisions committed as hashes to S3 Object Lock (COMPLIANCE mode). Root cannot delete. Regulators get cryptographic proof of every authorization decision.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">FIPS 140-3 KMS Signatures</strong>
+              </button>
+              <div class="bullet-body">
+                Every auth decision and audit entry signed in real time with validated KMS keys. Cryptographic proof, not a log statement — FedRAMP High ready.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Policy as Code — Cedar + AVP</strong>
+              </button>
+              <div class="bullet-body">
+                Authorization logic in Cedar, evaluated serverless in Lambda. Microsecond multi-tenant policy gate — least privilege enforced at the decision layer, not the perimeter.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Independent Re-Check Before Signing</strong>
+              </button>
+              <div class="bullet-body">
+                the sign Lambda independently re-runs the authorization check before ever calling KMS — two-of-two required, surviving any compromise of the orchestrator, whether from prompt injection, a code bug, or a malicious actor with orchestrator-only access.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Self-Policing, Not Just Logging</strong>
+              </button>
+              <div class="bullet-body">
+                a dedicated <code>Sentinel.AgentMisbehavior</code> event fires (distinct from <code>AuthChainBroken</code>) if the AI ever goes off-script, with a CloudWatch alarm on any burst of REBAC_DENIED events — plus a <code>DRY_RUN</code> mode for building trust before flipping a new capability live.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Mapped to Named FedRAMP Controls</strong>
+              </button>
+              <div class="bullet-body">
+                AC-3, AC-6, AU-9, IA-3, SC-8, SI-7 — not just a generic "FedRAMP High" badge.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2167,12 +2606,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2213,43 +2646,90 @@
 
         <div class="card-details">
 
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Verified Webhook Pipe:</strong> Intercepts GitHub PR events, immediately verifying
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Verified Webhook Pipe</strong>
+              </button>
+              <div class="bullet-body">
+                Intercepts GitHub PR events, immediately verifying
               payloads via secure cryptographic HMAC signatures.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Workload Identity — Zero Standing Privilege:</strong> Fetches short-lived, 1-hour Auth0 M2M tokens scoped to one repo. The agent's workload identity expires — no persistent access, instant global revocation.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Workload Identity — Zero Standing Privilege</strong>
+              </button>
+              <div class="bullet-body">
+                Fetches short-lived, 1-hour Auth0 M2M tokens scoped to one repo. The agent's workload identity expires — no persistent access, instant global revocation.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Agentic MCP Architecture:</strong> Leverages Model Context Protocol (MCP) to supply
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Agentic MCP Architecture</strong>
+              </button>
+              <div class="bullet-body">
+                Leverages Model Context Protocol (MCP) to supply
               Claude with deep context, moving beyond naive regex to reason deeply about diffs.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Inline Guardrails — OWASP LLM Top 10:</strong> Streams vulnerability findings directly back to GitHub, pinning OWASP violations to the exact line. LLM output governed, not trusted.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Inline Guardrails — OWASP LLM Top 10</strong>
+              </button>
+              <div class="bullet-body">
+                Streams vulnerability findings directly back to GitHub, pinning OWASP violations to the exact line. LLM output governed, not trusted.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Deterministic Audit Trail:</strong> Logs every agent action into an HMAC-signed
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Deterministic Audit Trail</strong>
+              </button>
+              <div class="bullet-body">
+                Logs every agent action into an HMAC-signed
               audit entry, strictly enforcing a fail-closed posture across all error paths.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Pre-Commit Shift-Left, Before It Ever Leaves the Machine:</strong> a
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Pre-Commit Shift-Left, Before It Ever Leaves the Machine</strong>
+              </button>
+              <div class="bullet-body">
+                a
               zero-network regex scanner blocks hardcoded secrets, TLS bypasses, and SQL injection at commit
               time — the PR-time agent is the second of three layers (pre-commit → CI linter → PR review), not
               the only one.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Tested, Not Just Demoed:</strong> 58 passed / 11 skipped (skips require the
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Tested, Not Just Demoed</strong>
+              </button>
+              <div class="bullet-body">
+                58 passed / 11 skipped (skips require the
               live agent running). ~6s end-to-end review with Haiku, ~18s with Sonnet for deeper reasoning — model
               swappable per review.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Two Verified Identities, One Formal Gate:</strong> a distinct provisioning
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Two Verified Identities, One Formal Gate</strong>
+              </button>
+              <div class="bullet-body">
+                a distinct provisioning
               identity and agent identity let the bot post a real "Changes Requested" review that blocks the
               GitHub merge button via branch protection — not just an advisory comment.
+              </div>
             </li>
           </ul>
 
@@ -2273,12 +2753,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2311,13 +2785,61 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Identity-Gated RAG:</strong> JWT claims map to ReBAC policies that filter Bedrock Knowledge Base lookups at query time. Least privilege enforced at the retrieval layer — Claude never sees data it's not cleared for.</li>
-            <li><strong class="chrome">Guardrails Before the LLM:</strong> Enforcement stack strips unauthorized context before a single token reaches Claude. OWASP LLM Top 10 — no prompt-level workaround, no jailbreak path to PHI.</li>
-            <li><strong class="chrome">AI Governance — Full Chain of Custody:</strong> Every query, retrieval, and response bound to a single immutable correlation ID. Audit trail proves the right identity got the right data. Nothing silent.</li>
-            <li><strong class="chrome">Training-Data-Leak Detection Gate:</strong> if Bedrock answers with zero KB citations but claims data was returned, the relay denies it outright — catches the model answering from training data instead of the knowledge base, not just missing context.</li>
-            <li><strong class="chrome">Document-Level Enforcement, Not Keyword Filtering:</strong> an innocuous question about a file named <code>project-overview.md</code> is blocked anyway because financial data is buried inside it — proving the ReBAC/metadata filter enforces at the document level, not by scanning for sensitive words.</li>
-            <li><strong class="chrome">Encrypted, Replay-Resistant Transport:</strong> S3 source docs encrypted at rest (AES256) with versioning and blocked public access; UUIDv7 request IDs plus an in-process replay guard reject duplicate or malformed requests before they reach the enforcement chain.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Identity-Gated RAG</strong>
+              </button>
+              <div class="bullet-body">
+                JWT claims map to ReBAC policies that filter Bedrock Knowledge Base lookups at query time. Least privilege enforced at the retrieval layer — Claude never sees data it's not cleared for.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Guardrails Before the LLM</strong>
+              </button>
+              <div class="bullet-body">
+                Enforcement stack strips unauthorized context before a single token reaches Claude. OWASP LLM Top 10 — no prompt-level workaround, no jailbreak path to PHI.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance — Full Chain of Custody</strong>
+              </button>
+              <div class="bullet-body">
+                Every query, retrieval, and response bound to a single immutable correlation ID. Audit trail proves the right identity got the right data. Nothing silent.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Training-Data-Leak Detection Gate</strong>
+              </button>
+              <div class="bullet-body">
+                if Bedrock answers with zero KB citations but claims data was returned, the relay denies it outright — catches the model answering from training data instead of the knowledge base, not just missing context.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Document-Level Enforcement, Not Keyword Filtering</strong>
+              </button>
+              <div class="bullet-body">
+                an innocuous question about a file named <code>project-overview.md</code> is blocked anyway because financial data is buried inside it — proving the ReBAC/metadata filter enforces at the document level, not by scanning for sensitive words.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Encrypted, Replay-Resistant Transport</strong>
+              </button>
+              <div class="bullet-body">
+                S3 source docs encrypted at rest (AES256) with versioning and blocked public access; UUIDv7 request IDs plus an in-process replay guard reject duplicate or malformed requests before they reach the enforcement chain.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2338,12 +2860,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2376,14 +2892,70 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Local-First RAG — Trust Boundary:</strong> Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.</li>
-            <li><strong class="chrome">Auto-Ingestion Pipeline:</strong> Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.</li>
-            <li><strong class="chrome">Guardrails + Hard Spend Caps:</strong> AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.</li>
-            <li><strong class="chrome">Cost Savings at Scale:</strong> Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.</li>
-            <li><strong class="chrome">Real Logged Economics:</strong> 4 real queries, 1 free guardrail block, $0.023 total spend — hard-capped with an 80% warning and a 100% block, not just a soft budget.</li>
-            <li><strong class="chrome">Restricted-Topic Guardrail, Zero Token Cost:</strong> a 27-keyword DLP-style filter blocks sensitive topics (salary, PII, financial forecasts) before any LLM call — $0.00 spent, no data ever reaches the model.</li>
-            <li><strong class="chrome">Transparent Reasoning:</strong> Claude's extended-thinking output is captured and shown in the CLI, not hidden — a trust/explainability feature. A parallel browser demo and a cost-dashboard CLI (per-call token/cost/cache-hit breakdown) both ship alongside the terminal tool.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Local-First RAG — Trust Boundary</strong>
+              </button>
+              <div class="bullet-body">
+                Context parsing and retrieval stay entirely on-prem. The trust boundary is architectural — sensitive records never touch an external API, not a policy promise.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Auto-Ingestion Pipeline</strong>
+              </button>
+              <div class="bullet-body">
+                Corporate docs, internal ADRs, and runbooks parsed and indexed automatically. New engineers productive in hours, not weeks.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Guardrails + Hard Spend Caps</strong>
+              </button>
+              <div class="bullet-body">
+                AI governance built in — programmatic token budgeting, hard cost ceilings, and inference guardrails. Predictable spend, no runaway LLM costs.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Cost Savings at Scale</strong>
+              </button>
+              <div class="bullet-body">
+                Local retrieval eliminates per-query cloud API costs entirely. At enterprise scale, internal RAG cuts AI inference spend by 60–80% versus cloud-only retrieval — architectural savings, not a promise.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Logged Economics</strong>
+              </button>
+              <div class="bullet-body">
+                4 real queries, 1 free guardrail block, $0.023 total spend — hard-capped with an 80% warning and a 100% block, not just a soft budget.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Restricted-Topic Guardrail, Zero Token Cost</strong>
+              </button>
+              <div class="bullet-body">
+                a 27-keyword DLP-style filter blocks sensitive topics (salary, PII, financial forecasts) before any LLM call — $0.00 spent, no data ever reaches the model.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Transparent Reasoning</strong>
+              </button>
+              <div class="bullet-body">
+                Claude's extended-thinking output is captured and shown in the CLI, not hidden — a trust/explainability feature. A parallel browser demo and a cost-dashboard CLI (per-call token/cost/cache-hit breakdown) both ship alongside the terminal tool.
+              </div>
+            </li>
           </ul>
           <div>
             <div class="card-section-label">Core Tech</div>
@@ -2397,12 +2969,6 @@
             <div class="card-section-label">Compliance Ready</div>
             <div class="tags compliance-tags">
               <span class="tag">SOC2</span><span class="tag">OWASP Top 10</span><span class="tag">Zero Trust</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
             </div>
           </div>
         </div>
@@ -2437,13 +3003,61 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Agentic Workflow — MCP Forensics:</strong> Natural language drives an autonomous multi-service AWS investigation. The agentic workflow spans CloudTrail + CloudWatch + DynamoDB in a single governed query.</li>
-            <li><strong class="chrome">45 min → 80 sec:</strong> Security investigations that required a senior engineer now run in under a minute and a half — same depth, deterministic output, guardrails on every LLM action.</li>
-            <li><strong class="chrome">AI Governance — KMS-Signed Queries:</strong> Every LLM-driven infrastructure query signed via AWS KMS and bound to an immutable tracking ID. No agentic action is unverifiable.</li>
-            <li><strong class="chrome">Same Production Key as Sentinel FIPS:</strong> every tool response is signed with the identical FIPS-validated KMS key backing sentinel-fips — not a toy demo key.</li>
-            <li><strong class="chrome">Don't Trust Me, Verify Me:</strong> a dedicated <code>verify_setup</code> tool proves the server's own IAM identity and DynamoDB connectivity before any investigation runs. Read-only least privilege — the IAM role can Get/Scan/Filter/Verify, never write or sign.</li>
-            <li><strong class="chrome">Real Production Telemetry:</strong> reads the live rebac and orchestrator log tables from the actual running sentinel-fips stack. Confirmed 2026-07-14: a real <code>Sentinel.AuthChainBroken</code> alert fired and reached the real inbox from exactly this interaction.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Agentic Workflow — MCP Forensics</strong>
+              </button>
+              <div class="bullet-body">
+                Natural language drives an autonomous multi-service AWS investigation. The agentic workflow spans CloudTrail + CloudWatch + DynamoDB in a single governed query.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">45 min → 80 sec</strong>
+              </button>
+              <div class="bullet-body">
+                Security investigations that required a senior engineer now run in under a minute and a half — same depth, deterministic output, guardrails on every LLM action.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">AI Governance — KMS-Signed Queries</strong>
+              </button>
+              <div class="bullet-body">
+                Every LLM-driven infrastructure query signed via AWS KMS and bound to an immutable tracking ID. No agentic action is unverifiable.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Same Production Key as Sentinel FIPS</strong>
+              </button>
+              <div class="bullet-body">
+                every tool response is signed with the identical FIPS-validated KMS key backing sentinel-fips — not a toy demo key.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Don't Trust Me, Verify Me</strong>
+              </button>
+              <div class="bullet-body">
+                a dedicated <code>verify_setup</code> tool proves the server's own IAM identity and DynamoDB connectivity before any investigation runs. Read-only least privilege — the IAM role can Get/Scan/Filter/Verify, never write or sign.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Production Telemetry</strong>
+              </button>
+              <div class="bullet-body">
+                reads the live rebac and orchestrator log tables from the actual running sentinel-fips stack. Confirmed 2026-07-14: a real <code>Sentinel.AuthChainBroken</code> alert fired and reached the real inbox from exactly this interaction.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2463,12 +3077,6 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo upon request</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2511,49 +3119,90 @@
           load-bearing code, then gets red-teamed under adversarial pressure.
         </p>
         <div class="card-details">
-          <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Reference Implementation of the IETF Draft:</strong> every in-scope
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Reference Implementation of the IETF Draft</strong>
+              </button>
+              <div class="bullet-body">
+                every in-scope
               normative <code>MUST</code> of <strong class="chrome">draft-tonyai-a2a-trust</strong> enforced and
               verified in real code — a live X.509 CA (root → per-role template intermediates → per-instance
               certs), the two-check spawn rule, strict scope-subset at every hop, template-revocation cascade,
               nonce + timestamp replay protection, and a tamper-evident hash-chained audit log.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Adaptive vs. Deterministic, Side by Side:</strong> A1 (Intruder)
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Adaptive vs. Deterministic, Side by Side</strong>
+              </button>
+              <div class="bullet-body">
+                A1 (Intruder)
               <strong class="chrome">reasons</strong> with Claude about how to chain individually-fine steps into
               an unauthorized outcome; A2 (Scanner) runs a deterministic OWASP Agentic/LLM Top&nbsp;10 + MITRE
               ATLAS sweep — creativity and coverage as two distinct agents.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Sandbox Enforced by Architecture, Not Policy:</strong> spawned agents run
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Sandbox Enforced by Architecture, Not Policy</strong>
+              </button>
+              <div class="bullet-body">
+                spawned agents run
               <code>--cap-drop=ALL</code>, read-only root, non-root, no Docker socket, and
               <strong class="chrome">zero internet egress</strong> (Docker <code>internal: true</code> network) —
               even mid-attack they cannot phone home or exfiltrate. Proven, not promised.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Kill Switch That Never Trusts the Thing Under Test:</strong> an external,
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Kill Switch That Never Trusts the Thing Under Test</strong>
+              </button>
+              <div class="bullet-body">
+                an external,
               unconditional <code>docker stop</code> is the real safety mechanism; a separate tool-owned ReBAC
               revoke runs alongside, and whether the agent <em>honors</em> it is itself a reported finding — never
               the safety net.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Dogfooded the Spec:</strong> attacking its own use of the draft's model
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Dogfooded the Spec</strong>
+              </button>
+              <div class="bullet-body">
+                attacking its own use of the draft's model
               surfaced real spec-vs-implementation gaps — fed straight back into the draft revision. Author,
               implementer, and adversary of the same standard.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Fail-Closed, Even About Itself:</strong> a dead LLM key can no longer fake a
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Fail-Closed, Even About Itself</strong>
+              </button>
+              <div class="bullet-body">
+                a dead LLM key can no longer fake a
               green run — a network-target run is refused (503) if reasoning can't actually run, and the state is
               loud at boot. Five shift-left passes + a full file-by-file review; every backend endpoint
               auth-gated, every third-party call timeout-bounded.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Red-Teamed, Not Just Built:</strong> 59 unit tests plus a live end-to-end
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Red-Teamed, Not Just Built</strong>
+              </button>
+              <div class="bullet-body">
+                59 unit tests plus a live end-to-end
               smoke suite — tested, not just built.
+              </div>
             </li>
           </ul>
           <div>
@@ -2644,12 +3293,52 @@
             </div>
           </div>
 
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Multi-Agent Trust Standard:</strong> Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.</li>
-            <li><strong class="chrome">Policy as Code — Dual Signature:</strong> Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.</li>
-            <li><strong class="chrome">50/50 Conformance + 34/34 Red-Team:</strong> 100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.</li>
-            <li><strong class="chrome">34 Attacks, Named by Category:</strong> not just a flat pass rate — Scope Escalation 6/6, Replay 5/5, Cert Attacks 6/6, Dual-Sig Bypass 4/4, Cross-Org Trust 2/2, Audit Integrity 1/1, OWASP General 7/7, A06 Components 1/1 (live dependency-CVE check), A10 SSRF 2/2.</li>
-            <li><strong class="chrome">Cert Lifecycle, Not Just Issuance:</strong> ACTIVE → DISABLED → DELETED with a mandatory 300-second cooling-off period before irreversible deletion. Cross-org grants are TTL-limited, spawn-capped, version-pinned, and unilaterally revocable.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Multi-Agent Trust Standard</strong>
+              </button>
+              <div class="bullet-body">
+                Defines how agents verify each other's identity across agentic workflows — X.509 chain validation, CRL lookup, file-locked replay protection. 8-stage fail-closed, no fallback.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Policy as Code — Dual Signature</strong>
+              </button>
+              <div class="bullet-body">
+                Policy updates require both the template owner's signature and the Policy Authority countersign. Governance enforced in code, not process.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">50/50 Conformance + 34/34 Red-Team</strong>
+              </button>
+              <div class="bullet-body">
+                100% pass rate against every IETF draft vector and every attack scenario. OWASP LLM Top 10 and MITRE ATLAS attack patterns covered. No known gaps.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">34 Attacks, Named by Category</strong>
+              </button>
+              <div class="bullet-body">
+                not just a flat pass rate — Scope Escalation 6/6, Replay 5/5, Cert Attacks 6/6, Dual-Sig Bypass 4/4, Cross-Org Trust 2/2, Audit Integrity 1/1, OWASP General 7/7, A06 Components 1/1 (live dependency-CVE check), A10 SSRF 2/2.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Cert Lifecycle, Not Just Issuance</strong>
+              </button>
+              <div class="bullet-body">
+                ACTIVE → DISABLED → DELETED with a mandatory 300-second cooling-off period before irreversible deletion. Cross-org grants are TTL-limited, spawn-capped, version-pinned, and unilaterally revocable.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2698,13 +3387,61 @@
         </p>
 
         <div class="card-details">
-          <ul class="card-bullet-list" style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4">
-            <li><strong class="chrome">Multi-Agent Trust — IETF A2A:</strong> Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.</li>
-            <li><strong class="chrome">MCP Security Gate:</strong> Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.</li>
-            <li><strong class="chrome">Credential-Blind Agents:</strong> HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.</li>
-            <li><strong class="chrome">HMAC-SHA256 Audit Chain:</strong> Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.</li>
-            <li><strong class="chrome">Guardrails — Pre-LLM:</strong> Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.</li>
-            <li><strong class="chrome">Structurally Immutable Identity:</strong> agent_id, cert_serial, and cert_fingerprint sit in a hard-coded immutable-fields set — only a separate, dual-signed policy update can touch a distinct modifiable-fields set, enforced and tested 9/9. Cryptographic identity at birth isn't just a policy promise — the fields can't be edited without CA reissuance.</li>
+          <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Multi-Agent Trust — IETF A2A</strong>
+              </button>
+              <div class="bullet-body">
+                Every agent receives an X.509 cert at birth. Multi-agent workflows enforced at the identity layer — no cert, no call, no exceptions.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">MCP Security Gate</strong>
+              </button>
+              <div class="bullet-body">
+                Verifies identity + ReBAC on every invocation in the agentic workflow. No bypass path — least privilege enforced at the trust boundary.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Credential-Blind Agents</strong>
+              </button>
+              <div class="bullet-body">
+                HashiCorp Vault owns all secrets. Agents never hold credentials — workload identity is ephemeral, scoped, and revocable.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">HMAC-SHA256 Audit Chain</strong>
+              </button>
+              <div class="bullet-body">
+                Every decision hashed and chained. AI governance built in — full chain of custody across every agent action.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Guardrails — Pre-LLM</strong>
+              </button>
+              <div class="bullet-body">
+                Poison pill detection kills injected payloads before the LLM processes them. OWASP LLM Top 10 enforcement at the gate, not the prompt.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Structurally Immutable Identity</strong>
+              </button>
+              <div class="bullet-body">
+                agent_id, cert_serial, and cert_fingerprint sit in a hard-coded immutable-fields set — only a separate, dual-signed policy update can touch a distinct modifiable-fields set, enforced and tested 9/9. Cryptographic identity at birth isn't just a policy promise — the fields can't be edited without CA reissuance.
+              </div>
+            </li>
           </ul>
 
           <div>
@@ -2774,51 +3511,93 @@
         </p>
         <div class="card-details">
           <ul
-            class="card-bullet-list"
-            style="margin: 0 0 1rem 1.2rem; padding: 0; font-size: 0.85rem; line-height: 1.4"
+            class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
           >
-            <li>
-              <strong class="chrome">Real Identity, Real Kill Switch:</strong> every pool agent, the Watcher, and the
-              autonomous Worker carry a genuine X.509 cert from a dedicated CA — not a role flag. The Watcher trips
-              its own deterministic rule (no model, no gate) in parallel with the scoring pipeline, quarantining
-              within a capped blast radius. No process dies: the cert is refused at the gateway until 4 real
-              gates — dual signature, Watcher re-check, token introspection, human decision — clear it.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Identity, Real Kill Switch</strong>
+              </button>
+              <div class="bullet-body">
+                every pool agent, the Watcher, and the
+                autonomous Worker carry a genuine X.509 cert from a dedicated CA — not a role flag. The Watcher trips
+                its own deterministic rule (no model, no gate) in parallel with the scoring pipeline, quarantining
+                within a capped blast radius. No process dies: the cert is refused at the gateway until 4 real
+                gates — dual signature, Watcher re-check, token introspection, human decision — clear it.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Local Model, Zero Decision Authority:</strong> Ollama (Qwen2.5 1.5B) writes only
-              the reasoning string. Band, confidence, escalate-or-close are 100% deterministic code — rebuilt after
-              the model banded a 0.25/s denial rate wrong 5/5 times, so a bad model answer can't become a bad
-              security decision.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Local Model, Zero Decision Authority</strong>
+              </button>
+              <div class="bullet-body">
+                Ollama (Qwen2.5 1.5B) writes only
+                the reasoning string. Band, confidence, escalate-or-close are 100% deterministic code — rebuilt after
+                the model banded a 0.25/s denial rate wrong 5/5 times, so a bad model answer can't become a bad
+                security decision.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Autonomy Is Earned, Not Configured:</strong> 3 straight human-confirmed correct
-              calls, then two distinct people's signatures, before a pattern skips a human — demoted instantly, no
-              vote, on the next wrong one.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Autonomy Is Earned, Not Configured</strong>
+              </button>
+              <div class="bullet-body">
+                3 straight human-confirmed correct
+                calls, then two distinct people's signatures, before a pattern skips a human — demoted instantly, no
+                vote, on the next wrong one.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Tamper-Evident, Red-Teamed Twice:</strong> every decision seals into an
-              HMAC-SHA256 hash chain. Two full adversarial passes hunted it anyway and caught 3 CRITICAL,
-              live-exploited holes: an unauthenticated endpoint that forged a chain entry clean past verification, a
-              stored-XSS proven executing in a real headless browser, and a type-confusion bug that silently killed
-              the human-paging guarantee. Fixed, not hidden.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Tamper-Evident, Red-Teamed Twice</strong>
+              </button>
+              <div class="bullet-body">
+                every decision seals into an
+                HMAC-SHA256 hash chain. Two full adversarial passes hunted it anyway and caught 3 CRITICAL,
+                live-exploited holes: an unauthenticated endpoint that forged a chain entry clean past verification, a
+                stored-XSS proven executing in a real headless browser, and a type-confusion bug that silently killed
+                the human-paging guarantee. Fixed, not hidden.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Fail-Closed, Never Fail-Silent:</strong> a dead dependency, an unreachable
-              model, a Telegram gap — all degrade to escalate, never to silence. An unanswered alert still hits a
-              hard 5-minute ceiling, safe because a still-live incident re-alerts on its own.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Fail-Closed, Never Fail-Silent</strong>
+              </button>
+              <div class="bullet-body">
+                a dead dependency, an unreachable
+                model, a Telegram gap — all degrade to escalate, never to silence. An unanswered alert still hits a
+                hard 5-minute ceiling, safe because a still-live incident re-alerts on its own.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Continuous Authorization-Layer Monitoring:</strong> denials and scope-usage
-              growth are banded by exact numeric rule; one Cedar policy engine is the sole arbiter of
-              close-vs-escalate; an optional Istio mesh — Kiali and Grafana live in the dashboard — extends the same
-              pipeline to mesh-level denials, zero new app code.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Continuous Authorization-Layer Monitoring</strong>
+              </button>
+              <div class="bullet-body">
+                denials and scope-usage
+                growth are banded by exact numeric rule; one Cedar policy engine is the sole arbiter of
+                close-vs-escalate; an optional Istio mesh — Kiali and Grafana live in the dashboard — extends the same
+                pipeline to mesh-level denials, zero new app code.
+              </div>
             </li>
-            <li>
-              <strong class="chrome">Every Trigger Cryptographically Attributable to a Human:</strong> a real Okta
-              OIDC login, an RFC 8693 token exchange, an RFC 9449 DPoP proof of possession — re-verified server-side
-              on every presentation, never trusted once at issuance — gate the system's most sensitive action.
-              Auditing every service call behind it found and closed a keypair race condition, a silent
-              token-audience mismatch, and CORS gaps blocking the very requests the new gates required.
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Every Trigger Cryptographically Attributable to a Human</strong>
+              </button>
+              <div class="bullet-body">
+                a real Okta
+                OIDC login, an RFC 8693 token exchange, an RFC 9449 DPoP proof of possession — re-verified server-side
+                on every presentation, never trusted once at issuance — gate the system's most sensitive action.
+                Auditing every service call behind it found and closed a keypair race condition, a silent
+                token-audience mismatch, and CORS gaps blocking the very requests the new gates required.
+              </div>
             </li>
           </ul>
           <div>
@@ -2839,12 +3618,6 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">OWASP Top 10</span><span class="tag">Fail-Closed by Design</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="status">
-              <div class="status-dot"></div>
-              <span class="status-wave">Live demo available upon request</span>
             </div>
           </div>
         </div>
@@ -2951,14 +3724,51 @@
         details.classList.toggle("is-open");
         toggleIcon.classList.toggle("is-open");
         toggleIcon.title = opening ? "Click to collapse" : "Click to expand";
-        details.style.maxHeight = opening ? details.scrollHeight + "px" : "0px";
-        if (card.dataset.expandedHeight) {
-          card.style.minHeight = (opening ? card.dataset.expandedHeight : card.dataset.collapsedHeight) + "px";
+
+        if (opening) {
+          details.style.maxHeight = details.scrollHeight + "px";
+          // Once the open animation finishes, drop the exact pixel cap
+          // entirely — internal bullet-accordion expand/collapse can then
+          // never clip Core Tech/Compliance below it, no recalculation
+          // needed ever again. (A precise-then-unbounded pattern; the
+          // bullet list still self-caps via its own max-height.)
+          details.addEventListener("transitionend", function onEnd(e) {
+            if (e.propertyName !== "max-height") return; // .card-details also transitions opacity, which finishes first — ignore it
+            if (details.classList.contains("is-open")) {
+              details.style.maxHeight = "none";
+            }
+            details.removeEventListener("transitionend", onEnd);
+          });
+        } else {
+          // Transitioning FROM "none" doesn't animate — snap to an exact
+          // pixel value first (forcing a reflow so the browser registers
+          // it), then let the collapse animate down to 0 normally.
+          details.style.maxHeight = details.scrollHeight + "px";
+          void details.offsetHeight;
+          details.style.maxHeight = "0px";
         }
+
+        equalizePanel(card.closest(".poc-tab-panel"));
+      }
+
+      function toggleBulletItem(header) {
+        // Plain instant show/hide — no height measurement, no animation, no
+        // resizing anything outside the bullet. .bullet-accordion's own
+        // fixed max-height + scrollbar absorbs whatever this reveals;
+        // .card-details is unbounded once open (see toggleCardDetails) so
+        // nothing below the list ever needs to move either. Sibling cards
+        // in the same tab are then re-equalized so they stay height-matched
+        // even as bullets expand asymmetrically between them.
+        const item = header.closest(".bullet-item");
+        const body = item.querySelector(".bullet-body");
+        const opening = !body.classList.contains("is-open");
+        header.classList.toggle("is-open", opening);
+        body.classList.toggle("is-open", opening);
+        equalizePanel(item.closest(".poc-tab-panel"));
       }
 
       function equalizePanel(panel) {
-        if (!panel || panel.dataset.equalized) return;
+        if (!panel) return;
         const cards = Array.from(panel.querySelectorAll(".card")).filter((card) =>
           card.querySelector(".card-details"),
         );
@@ -2968,8 +3778,13 @@
         cards.forEach((card) => {
           card.style.minHeight = "";
           const details = card.querySelector(".card-details");
-          const collapsedHeight = card.offsetHeight;
-          const expandedHeight = collapsedHeight + details.scrollHeight;
+          // card.offsetHeight already includes details' CURRENT rendered
+          // height if it happens to be open right now — measuring "chrome"
+          // (everything except details) separately avoids double-counting
+          // that when this card is mid-interaction, not just freshly closed.
+          const chromeHeight = card.offsetHeight - details.getBoundingClientRect().height;
+          const collapsedHeight = chromeHeight;
+          const expandedHeight = chromeHeight + details.scrollHeight;
           maxCollapsed = Math.max(maxCollapsed, collapsedHeight);
           maxExpanded = Math.max(maxExpanded, expandedHeight);
         });
@@ -2979,7 +3794,6 @@
           card.dataset.expandedHeight = maxExpanded;
           card.style.minHeight = (details.classList.contains("is-open") ? maxExpanded : maxCollapsed) + "px";
         });
-        panel.dataset.equalized = "true";
       }
 
       function switchPocTab(slug) {
