@@ -58,3 +58,4 @@ portfolio.py
 requirements.txt
 TonyAI-Rebranding.md
 *.original.md
+sentinel-agent-drift-scanner/
