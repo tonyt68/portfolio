@@ -244,7 +244,30 @@
       ＋ Save Contact
     </a>
 
-    <a class="back" href="https://phalanxaisec.com">← Back to Portfolio</a>
+    <a class="back" href="https://phalanxaisec.com" onclick="return goBackSmart(event)">← Back to Portfolio</a>
   </div>
+  <script>
+    (function () {
+      var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };
+      var from = new URLSearchParams(location.search).get('from');
+      var label = PAGES[from];
+      if (label) {
+        var backLink = document.querySelector('a.back');
+        if (backLink) {
+          backLink.textContent = '← Back to ' + label;
+          backLink.setAttribute('href', from + '.html');
+        }
+      }
+    })();
+
+    function goBackSmart(e) {
+      if (history.length > 1) {
+        e.preventDefault();
+        history.back();
+        return false;
+      }
+      return true; // opened directly, no history — let the href fallback navigate normally
+    }
+  </script>
 </body>
 </html>

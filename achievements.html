@@ -188,7 +188,7 @@
 <body>
 <div class="page">
 
-  <a class="back" href="index.html">← Portfolio</a>
+  <a class="back" href="index.html" onclick="return goBackSmart(event)">← Portfolio</a>
 
   <div class="page-title">Achievements</div>
   <div class="page-sub">Anthony James Trujillo &nbsp;·&nbsp; Founder &amp; Principal Engineer &nbsp;·&nbsp; Agentic AI &nbsp;·&nbsp; MCP Security &nbsp;·&nbsp; Zero Trust Engineering &nbsp;·&nbsp; Identity &nbsp;·&nbsp; AI Governance</div>
@@ -245,6 +245,30 @@
 <div class="footer">
   &copy; 2026 PhalanxAI Security LLC — All rights reserved
 </div>
+
+<script>
+  (function () {
+    var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };
+    var from = new URLSearchParams(location.search).get('from');
+    var label = PAGES[from];
+    if (label) {
+      var backLink = document.querySelector('a.back');
+      if (backLink) {
+        backLink.textContent = '← ' + label;
+        backLink.setAttribute('href', from + '.html');
+      }
+    }
+  })();
+
+  function goBackSmart(e) {
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+      return false;
+    }
+    return true; // opened directly, no history — let the href fallback navigate normally
+  }
+</script>
 
 </body>
 </html>

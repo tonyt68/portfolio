@@ -264,7 +264,7 @@
 <div class="page">
 
   <div class="nav-bar">
-    <a class="back" style="margin-bottom:0" href="index.html">← Portfolio</a>
+    <a class="back" style="margin-bottom:0" href="index.html" onclick="return goBackSmart(event)">← Portfolio</a>
     <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
   </div>
 
@@ -449,6 +449,28 @@
   window.addEventListener('afterprint', function () {
     document.title = _originalTitle;
   });
+
+  (function () {
+    var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };
+    var from = new URLSearchParams(location.search).get('from');
+    var label = PAGES[from];
+    if (label) {
+      var backLink = document.querySelector('a.back');
+      if (backLink) {
+        backLink.textContent = '← ' + label;
+        backLink.setAttribute('href', from + '.html');
+      }
+    }
+  })();
+
+  function goBackSmart(e) {
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+      return false;
+    }
+    return true; // opened directly, no history — let the href fallback navigate normally
+  }
 </script>
 </body>
 </html>
