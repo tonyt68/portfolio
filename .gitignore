@@ -59,3 +59,12 @@ requirements.txt
 TonyAI-Rebranding.md
 *.original.md
 sentinel-agent-drift-scanner/
+sentinel-triage-agent-harness/
+hmoc-demo-target/
+hmoc-demo-vuln-target/
+ui-check-out/
+c++/
+RAGvsAgenticRAGvsGraphRAG.rtfd/
+backup-keys.sh
+website-robot.png
+*.bak
