@@ -419,6 +419,90 @@
         filter: brightness(1.08);
       }
 
+      .insured-badge {
+        color: #b8f5c0;
+        text-decoration: none;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 0.18rem 0.55rem;
+        border-radius: 5px;
+        background: linear-gradient(180deg, #2a5240, #1a3a28);
+        border-top: 1px solid #4ad47f;
+        border-left: 1px solid #3ab56a;
+        border-right: 1px solid #124a2c;
+        border-bottom: 2px solid #0d3a20;
+        box-shadow:
+          0 4px 8px rgba(0, 0, 0, 0.5),
+          0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .insured-badge:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 6px 12px rgba(0, 0, 0, 0.6),
+          0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        color: #fff;
+      }
+      .insured-badge:active {
+        transform: translateY(2px);
+      }
+
+      #insured-dialog {
+        background: #161b22;
+        color: #e6edf3;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        max-width: 340px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+      }
+      #insured-dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+      }
+      #insured-dialog h3 {
+        margin: 0 0 0.6rem;
+        font-size: 0.95rem;
+        color: #b8f5c0;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      #insured-dialog dl {
+        margin: 0 0 0.9rem;
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+      #insured-dialog dt {
+        color: #8b949e;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-top: 0.5rem;
+      }
+      #insured-dialog dd {
+        margin: 0;
+        color: #e6edf3;
+      }
+      #insured-dialog .insured-close {
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 700;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+      #insured-dialog .insured-close:hover {
+        text-decoration: underline;
+      }
+
       .social-link:active {
         transform: translateY(2px);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -1356,6 +1440,7 @@
           </div>
           -->
           <div class="social-links" style="margin-left:auto;">
+            <button type="button" class="insured-badge" onclick="document.getElementById('insured-dialog').showModal()">🛡️ Insured &amp; Bonded</button>
             <a class="social-link social-link-gold" href="contact.html?from=index">Contact</a>
             <a class="social-link" href="resume.html?from=index">Resume</a>
             <a class="social-link" href="achievements.html?from=index">Achievements</a>
@@ -3825,6 +3910,24 @@
 
       window.addEventListener("load", () => {
         equalizePanel(document.querySelector(".poc-tab-panel.is-active"));
+      });
+    </script>
+
+    <dialog id="insured-dialog">
+      <h3>🛡️ Insured &amp; Bonded</h3>
+      <dl>
+        <dt>Coverage</dt>
+        <dd>Professional Liability (E&amp;O) &middot; General Liability &middot; Cyber Liability</dd>
+        <dt>Carrier</dt>
+        <dd>Next Insurance US Company</dd>
+        <dt>Certificate of Insurance</dt>
+        <dd>Available on request &mdash; <a href="contact.html?from=index" style="color:#79c0ff;">contact me</a></dd>
+      </dl>
+      <button type="button" class="insured-close" onclick="document.getElementById('insured-dialog').close()">Close</button>
+    </dialog>
+    <script>
+      document.getElementById('insured-dialog').addEventListener('click', function (e) {
+        if (e.target === this) this.close();
       });
     </script>
   </body>
