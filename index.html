@@ -1493,9 +1493,14 @@
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
           <span class="poc-tab-count">3</span>
         </button>
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="true">
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Agent Governance & Autonomy</span>
+          <span class="poc-tab-count">1</span>
+        </button>
+        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-tools" onclick="switchPocTab('cat-tools')" role="tab" aria-selected="true">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Tools</span>
           <span class="poc-tab-count">1</span>
         </button>
       </div>
@@ -3572,7 +3577,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel is-active" id="cat-agentops" style="--tab-accent: #58a6ff;">
+        <div class="poc-tab-panel" id="cat-agentops" style="--tab-accent: #58a6ff;">
       <!-- Sentinel Triage Agent Harness — local-model triage that earns autonomy through HITL grading, plus an
            independent Watcher agent that autonomously monitors and quarantines misbehaving agents. -->
       <div class="card card-new" id="sentinel-triage-card">
@@ -3718,6 +3723,186 @@
             <div class="tags compliance-tags">
               <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
               ><span class="tag">OWASP Top 10</span><span class="tag">Fail-Closed by Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="poc-tab-panel is-active" id="cat-tools" style="--tab-accent: #58a6ff;">
+      <!-- Sentinel Agent Drift Scanner -->
+      <div class="card card-new" id="sentinel-drift-card">
+        <div class="card-badge-new"><span>★ New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('sentinel-drift-card')">
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Sentinel%20Agent%20Drift%20Scanner" title="Inquire about Sentinel Agent Drift Scanner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Sentinel Agent Drift Scanner</span></div>
+            <a
+              class="card-demo-link"
+              onclick="event.stopPropagation();"
+              href="sentinel-drift-sample-report.pdf"
+              target="_blank"
+              rel="noopener"
+              >📄 Sample report</a
+            >
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('sentinel-drift-card')">
+          Your AI agent's IAM permissions and security posture were reviewed once, at launch — how would you know
+          if they've silently drifted since?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-drift-card')">
+          A compiled C++ CLI that scans for exactly the drift that matters —
+          <strong class="chrome">leaked secrets</strong>, <strong class="chrome">over-privileged IAM</strong>,
+          <strong class="chrome">unbounded token cost</strong> — across local source AND five live IdP/cloud APIs,
+          gated by a credential scope diff that <strong class="chrome">refuses to even run</strong> against a
+          credential broader than documented.
+        </p>
+        <div class="card-details">
+          <ul
+            class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">8 Checks, 5 Categories, Zero Guesswork</strong>
+              </button>
+              <div class="bullet-body">
+                Secrets/CVE hygiene, IAM permissions drift,
+                egress/token-lifecycle anomalies, agent execution scope, prompt injection risk. Every finding cites
+                the exact file/line or live API call that triggered it — never a vague "looks risky."
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">No Surprise on a Large Token Bill</strong>
+              </button>
+              <div class="bullet-body">
+                The Unbounded Loop Check flags any
+                LLM API call with no <code>max_tokens</code>-equivalent parameter or token-budget check nearby, and
+                any retry loop with no bounded count or backoff ceiling — the exact pattern behind a runaway agent
+                quietly burning through a token budget with nobody watching, caught before it ever reaches
+                production.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">One Compiled Binary, Three Platforms — Zero Runtime Dependencies</strong>
+              </button>
+              <div class="bullet-body">
+                Native macOS, Linux, and
+                Windows builds. No Python, no Node, no Docker required to run it — copy the binary, point it at a
+                project or credential, get a report.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">5 Live Providers, Each Gated Before a Single Check Runs</strong>
+              </button>
+              <div class="bullet-body">
+                AWS, GCP, Okta, Auth0, Entra ID. A
+                credential scope gate diffs what's actually granted against a documented least-privilege shape
+                first — wildcard, write-verb, or unlisted action all refuse identically, before any check touches
+                the account.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Credential Broader Than Documented? It Refuses to Run.</strong>
+              </button>
+              <div class="bullet-body">
+                Not a warning — a hard stop. The
+                scope gate is a directly testable claim: hand it a deliberately over-broad credential and watch it
+                refuse, on all 5 providers, every time.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Silent Refresh Check — the Drift Class Most Scanners Miss</strong>
+              </button>
+              <div class="bullet-body">
+                Catches a
+                <code>refresh_token</code> grant with no absolute lifetime cap — meaning an IT-revoked user's agent
+                can keep silently re-authenticating long after the human's own access was pulled.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Run-Gated by a Self-Signed License Token</strong>
+              </button>
+              <div class="bullet-body">
+                Ed25519 JWT, fully
+                offline-verified against a public key embedded in the binary — full checklist, no cached state,
+                re-verified on every single invocation.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Every Outbound Call, Independently Observable</strong>
+              </button>
+              <div class="bullet-body">
+                <code>[NET] &lt;timestamp&gt;
+                &lt;host&gt; (&lt;purpose&gt;) -&gt; &lt;status&gt;</code> streams live to stdout the instant it
+                happens, and lands in the report too — the same "prove it, don't claim it" posture as the scope
+                gate.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome"><code>--local-only --network none</code>: Provably Zero Network</strong>
+              </button>
+              <div class="bullet-body">
+                A Docker
+                kernel guarantee, not a self-reported claim — independently verifiable with <code>tcpdump</code>
+                from outside the container.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real Office Open XML Report, Not a Shelled-Out Pandoc Call</strong>
+              </button>
+              <div class="bullet-body">
+                Hand-rolled
+                <code>.docx</code> generation — a genuine ZIP of WordprocessingML XML parts — so a non-technical
+                stakeholder gets a real Word document with colored severity findings and real tables, zero extra
+                tooling required.
+              </div>
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">C++17</span
+              ><span class="tag">CMake</span><span class="tag">vcpkg</span><span class="tag">OpenSSL</span>
+              <span class="tag">AWS SDK for C++</span><span class="tag">google-cloud-cpp</span>
+              <span class="tag">jwt-cpp</span><span class="tag">nlohmann/json</span><span class="tag">yaml-cpp</span>
+              <span class="tag">cpr (libcurl)</span><span class="tag">libzip</span><span class="tag">Ed25519</span>
+              <span class="tag">RFC 9449 (DPoP)</span><span class="tag">RFC 7523 (private_key_jwt)</span>
+              <span class="tag">Docker</span><span class="tag">GitHub Actions</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">ISO/IEC 42001</span
+              ><span class="tag">OWASP A01 / A02 / A05 / A06 / A07 / A08 / A09</span
+              ><span class="tag">OWASP LLM01 / LLM02 / LLM06 / LLM10</span
+              ><span class="tag">Fail-Closed by Design</span>
             </div>
           </div>
         </div>
