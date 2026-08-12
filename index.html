@@ -3862,11 +3862,12 @@
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome"><code>--local-only</code>: Provably Zero Network</strong>
+                <strong class="chrome">No <code>--target</code> Needed: Provably Zero Network</strong>
               </button>
               <div class="bullet-body">
-                Runs natively, no
-                Docker required — but for a skeptical stakeholder, running it inside a container with
+                Leave out <code>--target</code> and the scanner accepts zero
+                cloud/IdP credential input — zero network calls, by construction, no flag required. Runs
+                natively, no Docker needed — but for a skeptical stakeholder, running it inside a container with
                 <code>--network none</code> turns the zero-network claim into a kernel-level guarantee, not a
                 self-reported one: independently verifiable with <code>tcpdump</code> from outside the container.
               </div>
