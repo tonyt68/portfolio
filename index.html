@@ -3760,7 +3760,7 @@
           <strong class="chrome">leaked secrets</strong>, <strong class="chrome">over-privileged IAM</strong>,
           <strong class="chrome">unbounded token cost</strong> — across local source AND five live IdP/cloud APIs,
           gated by a credential scope diff that <strong class="chrome">refuses to even run</strong> against a
-          credential broader than documented.
+          credential broader than documented. Full flag reference via <code>--help</code>.
         </p>
         <div class="card-details">
           <ul
@@ -3799,7 +3799,7 @@
               <div class="bullet-body">
                 Native macOS, Linux, and
                 Windows builds. No Python, no Node, no Docker required to run it — copy the binary, point it at a
-                project or credential, get a report.
+                source dir or a cloud/IdP credential, get a report.
               </div>
             </li>
             <li class="bullet-item">
@@ -3862,24 +3862,24 @@
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome"><code>--local-only --network none</code>: Provably Zero Network</strong>
+                <strong class="chrome"><code>--local-only</code>: Provably Zero Network</strong>
               </button>
               <div class="bullet-body">
-                A Docker
-                kernel guarantee, not a self-reported claim — independently verifiable with <code>tcpdump</code>
-                from outside the container.
+                Runs natively, no
+                Docker required — but for a skeptical stakeholder, running it inside a container with
+                <code>--network none</code> turns the zero-network claim into a kernel-level guarantee, not a
+                self-reported one: independently verifiable with <code>tcpdump</code> from outside the container.
               </div>
             </li>
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome">Real Office Open XML Report, Not a Shelled-Out Pandoc Call</strong>
+                <strong class="chrome">A Real Word Document Report, Not Just a Log Dump</strong>
               </button>
               <div class="bullet-body">
-                Hand-rolled
-                <code>.docx</code> generation — a genuine ZIP of WordprocessingML XML parts — so a non-technical
-                stakeholder gets a real Word document with colored severity findings and real tables, zero extra
-                tooling required.
+                A genuine
+                <code>.docx</code> a non-technical stakeholder can open straight in Word — colored severity findings
+                and real tables, zero extra tooling required.
               </div>
             </li>
           </ul>
