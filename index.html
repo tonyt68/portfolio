@@ -2119,11 +2119,11 @@
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome">DPoP Protection</strong>
+                <strong class="chrome">DPoP Sender-Constrained Tokens</strong>
               </button>
               <div class="bullet-body">
-                Binds access tokens to the runtime client via RFC 9449,
-              rendering intercepted tokens completely useless to attackers.
+                Mints RFC 9449 proof-of-possession tokens bound to the runtime client's key, including the §8
+              nonce challenge, against Okta's live token endpoint.
               </div>
             </li>
             <li class="bullet-item">
@@ -2548,10 +2548,10 @@
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome">Vault PKI — Least Privilege Credentials</strong>
+                <strong class="chrome">Vault Dynamic Credentials — Least Privilege</strong>
               </button>
               <div class="bullet-body">
-                Short-lived X.509 certs replace every static DB credential. Scoped to read or write — nothing broader. Cert expires, access is gone.
+                Short-lived Vault-issued database credentials replace every static password. Scoped to read or write through NOLOGIN privilege roles — nothing broader. Credential expires, access is gone.
               </div>
             </li>
             <li class="bullet-item">
@@ -2805,13 +2805,12 @@
             <li class="bullet-item">
               <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                 <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                <strong class="chrome">Pre-Commit Shift-Left, Before It Ever Leaves the Machine</strong>
+                <strong class="chrome">Zero-Network Secret Scanning, Before Review</strong>
               </button>
               <div class="bullet-body">
-                a
-              zero-network regex scanner blocks hardcoded secrets, TLS bypasses, and SQL injection at commit
-              time — the PR-time agent is the second of three layers (pre-commit → CI linter → PR review), not
-              the only one.
+                A zero-network regex scanner flags hardcoded secrets, TLS bypasses, and SQL injection before code
+              reaches review — no source leaves the machine to do it. The PR-time agent is one layer of a
+              defense-in-depth model, not the only one.
               </div>
             </li>
             <li class="bullet-item">

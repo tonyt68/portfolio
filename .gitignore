@@ -68,3 +68,12 @@ RAGvsAgenticRAGvsGraphRAG.rtfd/
 backup-keys.sh
 website-robot.png
 *.bak
+
+# Biz/idea design docs — source of truth lives in ~/biz/ideas/, never committed
+# to any repo (contains non-compete analysis, client names, interview-IP claims)
+idea-*.md
+idea-governed-writeback-gateway.md
+governed-writeback-gateway/
+
+# Portfolio tech-debt register — NEVER commit (catalogs vulns in published solutions)
+tech-debt/
