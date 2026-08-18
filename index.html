@@ -454,6 +454,12 @@
       }
 
       #insured-dialog {
+        position: fixed;
+        top: auto;
+        bottom: 4.5rem;
+        left: auto;
+        right: 2rem;
+        margin: 0;
         background: #161b22;
         color: #e6edf3;
         border: 1px solid #30363d;
@@ -461,6 +467,13 @@
         padding: 1.25rem 1.5rem;
         max-width: 340px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+      }
+      @media (max-width: 640px) {
+        #insured-dialog {
+          right: 1rem;
+          left: 1rem;
+          max-width: none;
+        }
       }
       #insured-dialog::backdrop {
         background: rgba(0, 0, 0, 0.6);
@@ -1440,7 +1453,7 @@
           </div>
           -->
           <div class="social-links" style="margin-left:auto;">
-            <button type="button" class="insured-badge" onclick="document.getElementById('insured-dialog').showModal()">🛡️ Insured &amp; Bonded</button>
+            <button type="button" class="insured-badge" onclick="openInsuredDialog(this)">🛡️ Insured &amp; Bonded</button>
             <a class="social-link social-link-gold" href="contact.html?from=index">Contact</a>
             <a class="social-link" href="resume.html?from=index">Resume</a>
             <a class="social-link" href="achievements.html?from=index">Achievements</a>
@@ -4116,6 +4129,24 @@
       document.getElementById('insured-dialog').addEventListener('click', function (e) {
         if (e.target === this) this.close();
       });
+
+      function openInsuredDialog(button) {
+        var dialog = document.getElementById('insured-dialog');
+        dialog.showModal();
+        var btnRect = button.getBoundingClientRect();
+        var dlgRect = dialog.getBoundingClientRect();
+        var margin = 8;
+        var top = btnRect.top - dlgRect.height - margin;
+        if (top < margin) top = btnRect.bottom + margin;
+        var left = btnRect.right - dlgRect.width;
+        if (left < margin) left = margin;
+        var maxLeft = window.innerWidth - dlgRect.width - margin;
+        if (left > maxLeft) left = maxLeft;
+        dialog.style.top = top + 'px';
+        dialog.style.left = left + 'px';
+        dialog.style.right = 'auto';
+        dialog.style.bottom = 'auto';
+      }
     </script>
   </body>
 </html>
