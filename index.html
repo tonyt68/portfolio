@@ -1504,7 +1504,7 @@
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
-          <span class="poc-tab-count">3</span>
+          <span class="poc-tab-count">4</span>
         </button>
         <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="true">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
@@ -3195,6 +3195,143 @@
 
         </div>
         <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #58a6ff;">
+      <!-- A2A Trust Playground — browser implementation of draft-tonyai-a2a-trust-02.
+           This implementation drove -02: building it against -01 and attacking it
+           surfaced an exploitable replay present in both existing implementations. -->
+      <div class="card card-new" id="a2a-playground-card">
+        <div class="card-badge-new"><span>&#9733; New</span></div>
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('a2a-playground-card')">
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20A2A%20Trust%20Playground" title="Inquire about the A2A Trust Playground"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">A2A Trust Playground — Try the IETF Draft in Your Browser</span></div>
+            <a class="card-demo-link" href="a2a/index.html" onclick="event.stopPropagation();" target="_blank" rel="noopener">&#9654; Open the tool</a>
+          </div>
+          <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('a2a-playground-card')">
+          Two valid signatures. The right owner. A matching content hash. Why is this policy
+          change still refused?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('a2a-playground-card')">
+          A <strong class="chrome">browser implementation</strong> of
+          <strong class="chrome">draft-tonyai-a2a-trust-02</strong> &mdash; mint an agent identity
+          chain, edit it, and watch the draft refuse it,
+          <strong class="chrome">citing the clause that refused it</strong>. No install, no backend,
+          nothing transmitted. Building this against <code>-01</code> and attacking it is what
+          produced <code>-02</code>.
+        </p>
+        <div class="card-details">
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">It Found an Exploitable Replay in the Spec</strong>
+              </button>
+              <div class="bullet-body">
+                <code>-01</code> listed the policy version as a value stored <em>alongside</em> the
+                signature and never required the signature to <em>cover</em> it. An attacker holding
+                no key could take a superseded but validly signed policy, increment one integer, and
+                have it accepted &mdash; both signatures verify, the content hash matches, the version
+                reads as current. <strong class="chrome">Both existing implementations had it</strong>,
+                because neither had been told to sign the version. Closed in <code>-02</code> &sect;9.6.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">A Chain That Verifies Is Not a Chain That Contains</strong>
+              </button>
+              <div class="bullet-body">
+                Three certificates that <code>openssl verify</code> returns <code>OK</code> for were
+                accepted as agent identities &mdash; including one asserting <code>cA=TRUE</code>, an
+                agent structurally able to issue its own children, which routes around the spawn rule
+                without breaking a single signature. X.509 establishes identity; it carries no notion
+                of scope. <code>-02</code> &sect;6.3 adds the certificate profile and &sect;16.7 says
+                so outright.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Signatures Alone Never Raise the Ceiling</strong>
+              </button>
+              <div class="bullet-body">
+                The two-lane model: the template certificate is the guardrail, dynamic policy is the
+                fast lane. A policy update carrying two valid signatures from two independent keys is
+                still refused when it grants a scope beyond the certificate's ceiling &mdash;
+                <code>ERR_POLICY_EXCEEDS_TEMPLATE &middot; &sect;7.2</code>. The page has buttons for
+                changes the draft <em>permits</em> as well as ones it refuses, because a wall with no
+                door teaches nothing about where the door is.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Nothing Leaves the Browser &mdash; Checkably</strong>
+              </button>
+              <div class="bullet-body">
+                One static file with everything inlined: no external scripts, stylesheets, fonts or
+                images. Save it, disconnect from the network, open it from your filesystem &mdash; it
+                still mints a chain and validates it. The CSP pins the inline script by SHA-256, so a
+                rogue extension or a rewriting proxy cannot alter it and still have it run. That is
+                what makes &ldquo;nothing is transmitted&rdquo; checkable rather than promised.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Verified Against Standards, Not Against Itself</strong>
+              </button>
+              <div class="bullet-body">
+                465 unit tests, 123 end-to-end assertions run offline against the built file, and an
+                18-check round-trip. Canonicalization is checked against RFC&nbsp;8785's own vectors
+                plus an independent Python implementation. Certificate fixtures are built by OpenSSL,
+                not by this code &mdash; a validator tested only against certificates it produced
+                itself proves that two copies of one bug agree.
+              </div>
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Vanilla JS (no framework)</span><span class="tag">Web Crypto API</span
+              ><span class="tag">PKI.js / asn1js</span><span class="tag">X.509 / RSA-2048</span
+              ><span class="tag">RFC 8785 (JCS)</span><span class="tag">Vitest</span
+              ><span class="tag">Playwright</span><span class="tag">esbuild</span
+              ><span class="tag">CSP (SHA-256 pinned)</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">RFC 5280</span><span class="tag">RFC 8785</span
+              ><span class="tag">NIST SP 800-57</span><span class="tag">Zero Trust</span
+              ><span class="tag">Fail-Closed by Design</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">IETF draft-tonyai-a2a-trust-02</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">
+                Open source (Apache-2.0) &middot;
+                <a href="a2a/index.html" target="_blank" rel="noopener">Open the tool</a>
+                &middot;
+                <a href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener">IETF draft</a>
+                &middot;
+                <a href="https://github.com/tonyt68/a2a-trust-playground" target="_blank" rel="noopener">GitHub</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Hack My Own Code — adaptive AI red-team tool that IMPLEMENTS and ATTACKS the draft-tonyai-a2a-trust IETF draft.
            TODO before publish: (1) swap the placeholder demo-video URL below once recorded,
            (2) fill in the GitHub repo URL once the repo is pushed public. -->
