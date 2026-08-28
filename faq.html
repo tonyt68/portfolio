@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — PhalanxAI Security LLC</title>
+  <link rel="icon" type="image/png" href="TonyAI-round.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #e6edf3;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: #dda8d8;
+      background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .back:hover { text-decoration: underline; }
+
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(180deg, #1a1408 0%, #4a3620 8%, #7a6440 18%, #a68f5f 27%, #c2ab7d 35%, #d9c9a8 42%, #f0e6cc 50%, #d9c9a8 58%, #c2ab7d 65%, #a68f5f 73%, #7a6440 82%, #4a3620 92%, #1a1408 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .faq-item {
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      margin-bottom: 0.85rem;
+      background: linear-gradient(135deg, #161b22, #1c2230);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e6edf3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: "+";
+      font-size: 1.3rem;
+      color: #c8a030;
+      flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+
+    .faq-item summary:hover { color: #c8a030; }
+
+    .faq-answer {
+      padding: 0 1.2rem 1.1rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #c9d1d9;
+    }
+
+    .faq-answer a { color: #79c0ff; }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #8b949e;
+    }
+    footer a { color: #79c0ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html" onclick="return goBackSmart(event)">← Back to Portfolio</a>
+    <h1>Frequently Asked Questions</h1>
+
+    <details class="faq-item">
+      <summary>What am I actually looking at — is this a product I can buy?</summary>
+      <div class="faq-answer">No — the solution templates on this site are proof-of-capability demos, not off-the-shelf products. Each one shows a real pattern running in my own sandbox. The actual deliverable is that pattern implemented on <em>your</em> infrastructure, scoped to your environment through a Statement of Work.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How does an engagement actually work?</summary>
+      <div class="faq-answer">Four steps: you inquire about a specific template → we have a discovery call to scope what it'd take on your actual infrastructure → I draft a Statement of Work → once signed, I build, test in your environment, and hand you the keys.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Who owns the code after you build it?</summary>
+      <div class="faq-answer">The general pattern (the template itself) stays my IP — I reuse it across clients. Everything built specifically on <em>your</em> infrastructure for your engagement, including any custom integration work, is yours. Documentation of the finished setup is included in the base price.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What happens after the build is done — am I on my own?</summary>
+      <div class="faq-answer">Your choice. Once it's tested and running in your environment, you're handed the keys and in charge. From there you can add a maintenance contract (covers ongoing support) or staff training (so your team can run it independently) — both separately priced, neither mandatory. Declining both is a legitimate choice; it just means any future work goes through a new SOW.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How is this priced?</summary>
+      <div class="faq-answer">Fixed-price for templated deployments, scoped during the discovery call based on your actual environment — not hourly billing for well-defined work. Custom or open-ended engagements are scoped and priced individually.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How fast can you actually deliver?</summary>
+      <div class="faq-answer">Typical templated deployments run 2-4 weeks from signed SOW to tested handoff, depending on scope. Discussed and locked in during the SOW conversation, not a one-size-fits-all promise.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do I need to provide cloud/dev infrastructure for you to work in?</summary>
+      <div class="faq-answer">Yes — I work inside your environment using scoped, time-boxed access. If your infrastructure is costly to run and you can't provide a sandbox/dev tenant, that cost gets scoped into the SOW rather than absorbed silently — we'll cover this explicitly during discovery.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my infrastructure safe while you're working in it?</summary>
+      <div class="faq-answer">My own access to your environment follows the same Zero Trust principles I build for you — scoped to only what the engagement needs, time-boxed, logged, and revoked at handoff. Not just a policy — it's proof by example.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What compliance frameworks do you build to?</summary>
+      <div class="faq-answer">SOC2, PCI-DSS, HIPAA, and NIST 800-207 (Zero Trust Architecture) are the frameworks most of these patterns are already mapped against — relevant compliance requirements get confirmed and built into the SOW scope for your specific engagement.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>I don't see a template for what I need — can you still help?</summary>
+      <div class="faq-answer">Likely yes. The templates are proof-of-capability, not a limit on what I build. If you have a specific security/identity/AI-governance problem that isn't represented here, <a href="contact.html?from=faq">reach out</a> and we can scope it as a custom engagement.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you work on-site, or only remote?</summary>
+      <div class="faq-answer">Both — remote is the default delivery model, but on-site engagements are available where it makes sense. Worth raising during discovery if it's a requirement.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is this a full team, or just you?</summary>
+      <div class="faq-answer">Just me — PhalanxAI Security LLC is a single-member firm. Every engagement is delivered personally, not handed off to a bench of junior contractors. Capacity is managed by taking on engagements deliberately rather than overcommitting.</div>
+    </details>
+
+    <footer>
+      Still have a question? <a href="contact.html?from=faq">Get in touch</a>.
+    </footer>
+  </div>
+  <script>
+    (function () {
+      var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };
+      var from = new URLSearchParams(location.search).get('from');
+      var label = PAGES[from];
+      if (label) {
+        var backLink = document.querySelector('a.back');
+        if (backLink) {
+          backLink.textContent = '← Back to ' + label;
+          backLink.setAttribute('href', from + '.html');
+        }
+      }
+    })();
+
+    function goBackSmart(e) {
+      if (history.length > 1) {
+        e.preventDefault();
+        history.back();
+        return false;
+      }
+      return true; // opened directly, no history — let the href fallback navigate normally
+    }
+  </script>
+</body>
+</html>

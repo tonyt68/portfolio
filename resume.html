@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anthony James Trujillo — Resume</title>
+<link rel="icon" type="image/png" href="TonyAI-round.png" />
+  <link rel="stylesheet" href="shared.css" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #b8bec4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .resume-header {
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .resume-header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.25rem;
+  }
+
+  .contact {
+    font-size: 0.82rem;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .contact a { color: #79c0ff; -webkit-text-fill-color: #79c0ff; text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+
+  /* Section headings */
+  h2 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 0.3rem;
+    margin: 1.8rem 0 0.9rem;
+  }
+
+  /* Summary */
+  .summary {
+    color: #b8bec4;
+    font-size: 0.88rem;
+  }
+  .summary strong {
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Portfolio items */
+  .poc {
+    margin-bottom: 0.9rem;
+  }
+  .poc-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    background: linear-gradient(180deg, #1a1f26 0%, #3d4a58 8%, #7a8fa0 18%, #b8ccd8 30%, #e8f2f8 42%, #ffffff 50%, #e0eaf2 55%, #8aaabb 68%, #3a4a58 82%, #1a2028 92%, #0d1117 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .poc-desc {
+    color: #b8bec4;
+    font-size: 0.85rem;
+  }
+  .poc-stack {
+    color: #a85f32;
+    font-size: 0.78rem;
+    margin-top: 0.1rem;
+  }
+  .poc-link a { color: #79c0ff; -webkit-text-fill-color: #79c0ff; font-size: 0.8rem; text-decoration: none; }
+  .poc-link a:hover { text-decoration: underline; }
+
+  /* Experience */
+  .job { margin-bottom: 1.4rem; }
+  .job-company {
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.1rem;
+  }
+  .job-title {
+    font-size: 0.82rem;
+    background: linear-gradient(180deg, #252c34 0%, #505c68 12%, #8a98a8 26%, #bcccd8 40%, #e4eff5 47%, #ffffff 51%, #e4eff5 55%, #aabcc8 67%, #6a7a88 80%, #424e58 92%, #1e2830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  ul {
+    padding-left: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+  li {
+    font-size: 0.85rem;
+    color: #b8bec4;
+    margin-bottom: 0.3rem;
+  }
+  li strong {
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Earlier career table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+  th {
+    text-align: left;
+    color: #8b949e;
+    font-weight: 600;
+    border-bottom: 1px solid #21262d;
+    padding: 0.3rem 0.5rem 0.3rem 0;
+  }
+  td {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    border-bottom: 1px solid #161b22;
+    color: #b8bec4;
+    vertical-align: top;
+  }
+  td:first-child, td:nth-child(2) {
+    background: linear-gradient(90deg, #4a5a6a 0%, #8aaabb 20%, #c8dce8 38%, #ffffff 50%, #c8dce8 62%, #8aaabb 80%, #4a5a6a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
+
+  /* Technical Core */
+  .tech-item { margin-bottom: 0.4rem; font-size: 0.85rem; }
+  .tech-label {
+    font-weight: 700;
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Books */
+  .book-list { font-size: 0.85rem; }
+  .book-list li { margin-bottom: 0.2rem; }
+
+  /* Education */
+  .edu-list { font-size: 0.85rem; }
+  .edu-list li strong {
+    background: linear-gradient(90deg, #8a5a85 0%, #b87ab5 25%, #dda8d8 42%, #f0dff0 50%, #dda8d8 58%, #b87ab5 75%, #8a5a85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .edu-list li { margin-bottom: 0.2rem; }
+
+  /* Back link */
+  .back { margin-bottom: 1.5rem; }
+
+  /* Nav bar */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #79c0ff;
+    background: linear-gradient(180deg, #2a5298, #1a3a6c);
+    border-top: 1px solid #4a7fd4;
+    border-left: 1px solid #3a6abf;
+    border-right: 1px solid #122a52;
+    border-bottom: 2px solid #0d1e3a;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .print-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+  }
+  .print-btn:active { transform: translateY(2px); }
+
+  @media print {
+    .nav-bar { display: none; }
+    body { background: #fff !important; color: #000 !important; padding: 0; font-size: 12px; }
+    .page { max-width: 100%; }
+    * {
+      background: none !important;
+      background-image: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+      -webkit-text-fill-color: #000 !important;
+      color: #000 !important;
+      text-shadow: none !important;
+      box-shadow: none !important;
+    }
+    a {
+      color: #1a0dab !important;
+      -webkit-text-fill-color: #1a0dab !important;
+      text-decoration: underline !important;
+    }
+    h1, h2 { color: #000 !important; -webkit-text-fill-color: #000 !important; }
+    .resume-header { border-bottom: 1px solid #000; }
+    h2 { border-bottom: 1px solid #ccc; }
+    .no-print { display: none !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; font-weight: 400; }
+  }
+
+  /* All links — muted blue, no gradient bleed from parent containers */
+  a {
+    color: #79c0ff;
+    -webkit-text-fill-color: #79c0ff;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="nav-bar">
+    <a class="back" style="margin-bottom:0" href="index.html" onclick="return goBackSmart(event)">← Portfolio</a>
+    <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+
+  <div class="resume-header">
+    <h1>Anthony James Trujillo</h1>
+    <div class="contact">
+      (435) 850-7078 &nbsp;·&nbsp; <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/phalanxai-security-llc" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a>
+    </div>
+    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate</div>
+  </div>
+
+  <h2>Professional Summary</h2>
+  <div class="summary">
+    <strong>Principal AI Software Engineer · Agentic AI &amp; Zero Trust Architecture · Identity · Compliance</strong>
+    <ul style="margin-top:0.6rem;">
+      <li><strong>IETF Internet-Draft Author</strong> — <em>draft-tonyai-a2a-trust-01</em> (agent-to-agent trust, AI governance; RFC track)</li>
+      <li><strong>Hands-on builder, full lifecycle:</strong> Agentic workflows (Cursor, Claude Code) deliver an industry-leading <strong>0.04% defect rate</strong> (2+ years consistent) — I design, code, and implement every system myself, then own it operationally day-to-day, not handed off after a design doc</li>
+      <li><strong>Zero critical production bugs, zero breaches, zero support calls</strong> for login/access failures (career)</li>
+      <li><strong>Deep expertise:</strong> Zero Trust security, identity platforms (Auth0, Okta, Entra ID), AWS, microservices, compliance (SOC2, PCI-DSS, HIPAA)</li>
+      <li><strong>Database architecture expert:</strong> Schema design, DDL/DML, indexing, and query tuning across Oracle, PostgreSQL, and MSSQL — not tied to one engine</li>
+      <li><strong>No vendor services, ever:</strong> Every OAuth2/OIDC/SAML identity implementation across my entire career — Auth0, Okta, Entra ID alike — built and delivered myself, without vendor professional services. Literal track record, not a slogan</li>
+      <li><strong>Leadership:</strong> Tier-0 systems architecture, 50+ engineers mentored, cross-functional influence (Security, Legal, Product, InfoSec) — without stepping away from the keyboard</li>
+      <li><strong>Portfolio:</strong> Numerous live PhalanxAI solutions, running code, Anthropic certifications at <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></li>
+      <li><strong>Agentic AI specification engineering</strong> — full architecture and security model defined before first line of code; zero requirements drift</li>
+    </ul>
+  </div>
+
+  <h2>Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">· Between roles — running code, live demos</span></h2>
+  <div class="poc">
+    <div class="poc-title"><a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></div>
+    <div class="poc-desc">Numerous live PhalanxAI solutions, running demos, IETF Draft, Anthropic certifications — Co-piloted by Claude Code</div>
+  </div>
+  <div class="poc" style="margin-top:0.5rem;">
+    <div class="poc-title"><a href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">IETF A2A Trust Solution</a></div>
+    <div class="poc-desc">Live solution: JWT chains, HMAC integrity, ReBAC, cryptographic audit trail</div>
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="job">
+    <div class="job-company">PhalanxAI Security LLC — Remote</div>
+    <div class="job-title">Self-Employed · Founder &amp; Principal AI Security Engineer &nbsp;|&nbsp; April 2026 – Present</div>
+    <ul>
+      <li><strong>Zero Trust AI security platform:</strong> Designed and built last-mile Zero Trust architecture in Python (FastAPI, Pydantic) — ephemeral identity, MCP security enforcement, on-behalf-of (OBO) delegation, a token broker, policy enforcement, ReBAC, full cryptographic audit trail; integrates with AWS, GCP, Okta, and Entra ID as IdPs. Running code, not slides.</li>
+      <li><strong>IETF Internet-Draft first author:</strong> <em>draft-tonyai-a2a-trust-01</em> — agent-to-agent trust and AI governance; X.509 certificate chains, time-boxed revocation, 100% pass rate across 50 conformance tests + 34 red-team attack vectors, reference implementation in Python. Every clause backed by running code.</li>
+      <li><strong>Identity &amp; token infrastructure:</strong> Built an Okta↔Auth0 identity federation broker (Java/Spring Boot resource server, TypeScript thin-client + CDK infra) with a fail-closed DynamoDB kill-switch checked on every request, and a custom RFC 8693 token exchange engine (AWS Lambda + Cognito, DynamoDB-backed revocation) — designed the token lifecycle strategy (minting, rotation, expiry, sub-second revocation) across both.</li>
+      <li><strong>Infrastructure security:</strong> Built cross-cluster Zero Trust mesh isolation in Python with mTLS rejection (52+ automated tests) and an AWS-native FIPS 140-3 compliance boundary — S3 Object Lock plus KMS-signed audit logs.</li>
+      <li><strong>Agentic AI specification engineering:</strong> Full architecture and security model defined before first line of code across numerous PhalanxAI solutions; zero requirements drift.</li>
+      <li><strong>Cross-platform C++ build &amp; CI:</strong> Built a C++17 security scanner (CMake, vcpkg) shipping as native macOS, Linux, and Windows executables — GitHub Actions matrix build runs on real native hardware per platform (no QEMU emulation), vcpkg binary-cached for fast rebuilds, automated CTest suite, artifact publishing per platform. Real dependency stack: AWS SDK C++, Google Cloud C++, OpenSSL, jwt-cpp, yaml-cpp, cpr, nlohmann_json.</li>
+      <li><strong>AWS depth, verified across the portfolio:</strong> Hands-on, production or PoC-level implementation across 30+ AWS services — EKS, ECS, Fargate, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, Amazon Verified Permissions, Cedar, Cognito, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, CodeBuild, CodePipeline, DynamoDB, RDS, Aurora, ElastiCache, Redis, Secrets Manager, Parameter Store, Step Functions, PrivateLink, CloudFront, Kinesis, Glue, X-Ray, Bedrock, SageMaker — plus Azure (Entra ID), GCP, Terraform. Not surface-level familiarity.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Henry Schein One — Herriman, UT</div>
+    <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; July 2023 – April 2026</div>
+    <ul>
+      <li><strong>Agentic AI adoption, hands-on:</strong> Built and personally used Cursor workflows adopted team-wide; set company record with 17 story points in a single sprint. Evaluated Cursor, GitHub Copilot, GitLab Duo, and Claude hands-on before recommending Cursor for company-wide rollout — ranked top 50 company-wide for adoption. Sustained 0.04% defect rate across 10+ years, recognized by SVP of Engineering and CTO as highest-performing on velocity, output, and defect rate.</li>
+      <li><strong>Safe AI at scale:</strong> Designed and personally built the AI Safety &amp; Deployment Framework used across HSO — shift-left review, isolated contexts, atomic changes, human gates. Delivered zero production defects; replicable pattern for any org scaling AI safely.</li>
+      <li><strong>85k+ Auth0 users at scale:</strong> Sole architect + implementer + rollout owner — hand-coded the custom login UI, adaptive MFA, SMS integration, and a WebAuthn/FIDO2 pilot myself, no vendor pro services. Platform sustained 3× daily concurrent logins with zero rate-limit errors.</li>
+      <li><strong>Repeatable hardening pattern library (build-once, reuse-many):</strong> Wrote the M2M (OAuth2 client credentials) and Entra ID OBO patterns once, reused them for every subsequent 3rd-party integration (Worldpay, partner APIs); session hardening (Session Kill Switch) reused platform-wide, custom Auth0 login UI reused as the FE/UI hardening baseline elsewhere.</li>
+      <li><strong>SAML/Entra ID migration, 200+ users, SOC2-driven:</strong> Wrote the SAML 2.0 golden path myself (adopted by 3 other HSO products), then led the migration off manual DB-based logins onto full SSO with Entra ID SP flow, RBAC, and JIT provisioning — personally defined the role/entitlement mapping. Cutover was compliance-driven (SOC2), not optional; IT adopted my role framework organization-wide.</li>
+      <li><strong>IAM operations, standing escalation point:</strong> Owned the internal support tool our techs used daily — fixed bugs, shipped features, was paged directly when SSO broke in production. Built the access/eligibility reporting (bot/ban, Auth0 eligibility, migration tracking) presented to leadership every sprint demo; that data-driven track record is what earned me ownership of the broader auth/security modernization effort.</li>
+      <li><strong>Enterprise DSO federation:</strong> Designed and built the Auth0 IdP federation for the largest DSO customers myself — mapped each DSO organization to the PMS so customers bring and use their own IdP/users. Proposal accepted first presentation; SOC2 maintained throughout.</li>
+      <li><strong>Real-time threat response:</strong> Neutralized 2 simultaneous live attacks (DDoS + data exfiltration) hands-on, kept the platform online. <strong>Greenfield inventions:</strong> Session Kill Switch, Magic Mint (token binding), Actions Mapping Engine, Email Bounce Engine (AWS SES/SQS/SNS, cut support tickets 90% company-wide), PIN Step-Up Auth.</li>
+      <li><strong>Technical leadership, department-wide:</strong> The recognized security authority for the department for an extended period — evaluated and personally built what was chosen (Auth0, Okta, Entra ID), not just signed off on it. Team's mandate grew from bug-fixing to owning AppSec outright; personally trained the CISO's cloud engineering team on Auth0 and my pen-test remediation approach. Authored HSO-wide security patterns and mentored 90%+ of the team.</li>
+      <li><strong>Legacy impact:</strong> Post-departure, HSO stood up a dedicated AppSec team to replace one engineer's security work. All Auth0 code still bug-free, zero login/access failure support calls.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">KeSTA I.T. — State of Utah — Salt Lake City, UT</div>
+    <div class="job-title">Lead Java Developer &nbsp;|&nbsp; October 2022 – July 2023</div>
+    <ul>
+      <li><strong>Minutes → seconds:</strong> Oracle-to-PostgreSQL migration (zero data loss); cut query response time via targeted indexing + refactoring. Two senior architects: "Never seen that volume and quality from one engineer in that timeframe."</li>
+      <li><strong>Stack modernization:</strong> Java 8 / AngularJS → Java 17 / Spring Boot / Angular in high-security government environment.</li>
+      <li><strong>Automated quality gates:</strong> GitHub Actions pipelines + OpenAPI/Swagger specs eliminated cross-team integration friction.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Henry Schein One — Herriman, UT</div>
+    <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; June 2021 – October 2022</div>
+    <ul>
+      <li><strong>eRx & clinical platform integrations:</strong> Designed the role-based access model for the DoseSpot (electronic prescribing) integration — separate Clinician (prescriber) and Proxy (staff/dentist) roles alongside doctor-portal and patient logins — where Proxy users queue a prescription via delegated access, gated by the EPCS-compliant controlled-substance workflow (DEA-mandated two-factor signing) before the Clinician can sign and transmit it. Wrote the eRx business logic myself (later adopted platform-wide by the team), helped implement multi-tenancy directly in DoseSpot's own codebase, delivered non-eRx PMS integrations, and helped the clinical team implement Veradigm (EHR/clinical platform).</li>
+      <li><strong>92% faster deployments:</strong> Personally led and coded the Grails 3 → Java 17 / Spring Boot monolith-to-microservices decomposition (1.5 hrs → 13 mins). Wrote the OpenFeign service-to-service integration pattern myself; it became the chosen standard for the rest of the Grails/Groovy → Java migration, not a one-off.</li>
+      <li><strong>100% remediation rate:</strong> Wrote the fixes to close all critical + medium pen-test findings in 3 sprints; zero findings on SSO/auth flows — Security-by-Design.</li>
+      <li><strong>Automated security gates:</strong> Built GitLab/Harness pipelines (Snyk, SpotBugs, CheckStyle, JaCoCo, Jest) on every commit myself.</li>
+      <li><strong>Infrastructure as code:</strong> Wrote the Terraform IaC for the Spring Security gateway myself — provisioned, versioned, auditable from day one.</li>
+      <li><strong>Team onboarding:</strong> Trained engineering + QA on Kafka patterns, identity standards, Event Storming; reduced event-driven service design time.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Henry Schein One / Henry Schein Practice Solutions — Herriman, UT</div>
+    <div class="job-title">Full-Stack Staff Engineer / Founding Integration Architect / Team Lead &nbsp;|&nbsp; August 2012 – June 2021</div>
+    <ul>
+      <li><strong>Auth stack evolution:</strong> Architected <em>and personally wrote</em> the PMS identity layer from scratch; evolved: Basic Auth → OAuth2 → SAML 2.0 → M2M → JWT/Bearer. Every auth paradigm today traces to this work.</li>
+      <li><strong>10k+ enterprise SSO users:</strong> Designed and hand-coded the Enterprise SAML 2.0 (IdP + SP) integration with Okta + Entra ID. By 2018, 3 other HSO products adopted it — one investment, cross-product revenue.</li>
+      <li><strong>Entra ID OBO platform:</strong> Designed and built a greenfield OBO flow from zero, wrote the code end-to-end; adopted by multiple teams, support tooling used daily by support/management staff.</li>
+      <li><strong>Solo platform architect (2012–2019):</strong> Owned architecture, technical strategy, <em>and wrote the code</em> — plus Scrum and infrastructure — simultaneously until dedicated teams stood up in 2019. Then entrusted full CI/CD pipeline ownership for entire PMS.</li>
+      <li><strong>First external pen-test:</strong> Lowest finding count in company history. Zero successful breaches. SOC2 maintained.</li>
+      <li><strong>Stopped DDoS attacks</strong> that had previously taken the platform offline; invented and personally coded the foundational access control (DB schema, seed rights, multi-tenancy violation checker).</li>
+      <li><strong>Full-stack tech leadership:</strong> AWS ECS → EC2 + Kubernetes, Kafka/DDD, PostgreSQL, Spring Boot, React/Vue/Next.js, GitLab CI/CD — wrote production code across every layer. Rebuilt the frontend by hand from jQuery/Backbone to a modern stack.</li>
+      <li><strong>Company-wide database authority:</strong> Served on the DB schema + standards team; personally designed schema patterns adopted across products. Go-to engineer company-wide for both security and database architecture, hands-on not just advisory.</li>
+      <li><strong>Real-time platform reliability:</strong> Engineered real-time update engine, zero-conflict scheduling, multi-tenancy architecture for enterprise integrations.</li>
+    </ul>
+  </div>
+
+  <h2>Technical Core</h2>
+  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot, GitLab Duo, Gemini), Claude Opus, Claude Sonnet, Extended Thinking, Large Language Models (LLMs), Prompt &amp; Context Engineering, Prompt Evaluation Gates, MCP, FastMCP, RAG, Pinecone, AI Agent Orchestration, AI Agents, MCP Servers, Agent Skills, Claude in Amazon Bedrock, A2A Trust, Agent-to-Agent Identity, AI Cost Engineering, Token Budgeting, Bedrock Knowledge Base, Bedrock Guardrails, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001, OpenAPI/Swagger.</div>
+  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Zero Trust Architecture, Authentication (AuthN), Authorization (AuthZ), Spring Security, SAML 2.0, OAuth2, OIDC, PKCE, WebAuthn, FIDO2, Auth0, Auth0 Deploy CLI, Auth0 SPA SDK, Auth0 Custom Login UI (Vue, React, JS), IdP Claims &amp; Scopes Mapping, Token Claims Customization, SAML→OIDC IdP Federation (Okta SAML into Auth0 Enterprise Connection), Okta, Entra ID, JumpCloud, Keycloak, CheckPoint, SSO Deployment &amp; Rollout, IdP Provisioning (internal &amp; enterprise DSO), M2M Identity, Customer-Facing SSO Verification, MFA, RBAC, ReBAC (OpenFGA / Zanzibar, BFS graph traversal), SCIM, JIT Provisioning, User Federation, JWT (RS256), RFC 8693 Token Exchange, RFC 9449 DPoP, RFC 7009 Token Revocation, RFC 9562 (UUIDv7), Token Broker Architecture, HashiCorp Vault, mTLS, X.509 / PKI Certificate Chains, SOC2, PCI-DSS, OWASP Top 10, NIST 800-53, Worldpay, Wireshark, Fiddler, Snyk, pip-audit, Pen-Test Remediation.</div>
+  <div class="tech-item"><span class="tech-label">Cloud &amp; Platform Engineering:</span> AWS EKS, ECS, Fargate, S3, S3 Object Lock, SES, SQS, SNS, Lambda, API Gateway, Application Load Balancer, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, AWS CDK, AWS SAM, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell, AWS CodeCommit, CodeBuild, CodePipeline, Amazon ECR, DynamoDB, RDS, Aurora, ElastiCache, Redis, Secrets Manager, Parameter Store, Step Functions, PrivateLink, CloudFront, Kinesis, Glue, X-Ray, Bedrock, SageMaker; Azure (Entra ID), GCP; Terraform, YAML IaC, Bash.</div>
+  <div class="tech-item"><span class="tech-label">CI/CD &amp; Platform Engineering:</span> VS Code, Git, GitLab CI/CD, GitHub Actions (cross-platform matrix builds), Harness, TeamCity, AWS CodeCommit, Kubernetes, Helm, Docker, Ansible, CMake, vcpkg, CTest, GitLab Vault, Secrets Management in Pipelines, Ephemeral Environments, YAML IaC.</div>
+  <div class="tech-item"><span class="tech-label">Backend (Java/C++/C#):</span> Python, FastAPI, Pydantic, TypeScript, Java 17, Spring Boot, Spring MVC, C, C++, C#, .NET, Go (familiar), Groovy/Grails, Node.js, Kafka/Confluent (DDD/Avro), RabbitMQ, WebSockets, HL7 (Health Level 7), X12 (ASC X12 EDI — claims 837 / EOB 835), Microservices, Monolith to Microservices Migration, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
+  <div class="tech-item"><span class="tech-label">Frontend:</span> React, Vue.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
+  <div class="tech-item"><span class="tech-label">Data:</span> DDL, DML, DB Performance Tuning, Query Optimization, Schema Design, Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
+  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, CloudWatch, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
+  <div class="tech-item"><span class="tech-label">Engineering Leadership:</span> Team Leader, Scrum Master, Agile Ceremonies, Technical Design Docs, Shift-Left Engineering, Code/DB Reviews, Mentorship, Cross-Functional Communication (Engineering, Legal, Security, PM, InfoSec), Vendor Evaluation, Stakeholder Management.</div>
+
+  <h2>Earlier Career</h2>
+
+  <div class="job">
+    <div class="job-company">Symantec</div>
+    <div class="job-title">Principal Software Engineer &amp; Tech Lead</div>
+    <ul>
+      <li>Restore Anyware (P2V/V2P DR), Protection Center (CISO console)</li>
+      <li>Active Directory expertise, Patent filed <a href="https://ip.com/pat/US8103747" target="_blank" rel="noopener noreferrer">US8103747</a></li>
+      <li>Symantec Star Award, 2× A++ performance</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">Kaseya</div>
+    <div class="job-title">Senior Software Engineer</div>
+    <ul>
+      <li>Kaseya Directory Services, Kaseya Backup</li>
+      <li>Active Directory, LDAP, AWS S3, C++, C#, .NET</li>
+    </ul>
+  </div>
+
+  <div style="font-size:0.85rem;color:#8b949e;margin-top:0.3rem;"><span class="tech-label">Additional experience:</span> Healthcare systems (Misys), fintech (Flying J), biometric security, US Army (SATCOM, Top Secret clearance, Honor Student)</div>
+
+  <h2>Books That Shaped the Craft</h2>
+  <p style="font-size:0.82rem;color:#8b949e;margin-bottom:0.5rem;">A self-taught engineer is only as good as the books he chose to learn from. These are still on the shelf:</p>
+  <ul class="book-list">
+    <li><em>Design Patterns: Elements of Reusable Object-Oriented Software</em> — Gamma, Helm, Johnson, Vlissides (Gang of Four), 1994</li>
+    <li><em>The C++ Programming Language: Special Edition (3rd Edition)</em> — Bjarne Stroustrup, 1997</li>
+    <li><em>Object-Oriented Programming in C++</em> — Robert LaFore, 1998</li>
+    <li><em>19 Deadly Sins of Software Security</em> — Howard, LeBlanc &amp; Viega, McGraw-Hill, 2005</li>
+    <li><em>The Pragmatic Programmer: Your Journey to Mastery</em> (20th Anniversary Ed.) — Thomas &amp; Hunt, 2019</li>
+    <li><em>Refactoring: Improving the Design of Existing Code</em> (2nd Ed.) — Martin Fowler, 2018</li>
+    <li><em>Becoming an Indispensable Employee in a Disposable World</em> — Neal Whitten, Prentice Hall, 1994</li>
+  </ul>
+
+  <h2>Education &amp; Continuous Learning</h2>
+  <ul class="edu-list">
+    <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills; Claude in Amazon Bedrock; Claude with Google Cloud's Vertex AI; Introduction to Subagents (certifications at <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">PhalanxAI Security — Achievements</a>)</li>
+    <li>Self-directed: CTO strategy, AI engineering, cloud architecture — YouTube, Pluralsight &amp; Udemy</li>
+    <li>Atlantic Computrain — Sun Java 2 Programmer Certificate</li>
+    <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA</li>
+    <li>US Army Signal School — Computer Operator Certificate <em>(Honor Student)</em></li>
+    <li>US Army Signal School — Satellite Systems Operator Certificate <em>(Honor Student)</em></li>
+  </ul>
+
+</div>
+
+<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #21262d;text-align:center;font-size:0.8rem;color:#484f58;" class="no-print">
+  &copy; 2026 PhalanxAI Security LLC — All rights reserved
+</div>
+
+<script>
+  var _originalTitle = document.title;
+  window.addEventListener('beforeprint', function () {
+    var now = new Date();
+    var d = String(now.getMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getDate()).padStart(2, '0') + '-' +
+            now.getFullYear() + '-' +
+            now.getTime();
+    // format: MM-DD-YYYY-milliseconds
+    document.title = 'Anthony-James-Trujillo-Resume-' + d;
+  });
+  window.addEventListener('afterprint', function () {
+    document.title = _originalTitle;
+  });
+
+  (function () {
+    var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };
+    var from = new URLSearchParams(location.search).get('from');
+    var label = PAGES[from];
+    if (label) {
+      var backLink = document.querySelector('a.back');
+      if (backLink) {
+        backLink.textContent = '← ' + label;
+        backLink.setAttribute('href', from + '.html');
+      }
+    }
+  })();
+
+  function goBackSmart(e) {
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+      return false;
+    }
+    return true; // opened directly, no history — let the href fallback navigate normally
+  }
+</script>
+</body>
+</html>

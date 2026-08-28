@@ -1,0 +1,81 @@
+# Secrets & Credentials
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+service-account.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform.lock.hcl
+*.tfvars
+*.tfvars.json
+
+# Certificates
+certs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Demo videos — hosted on S3/CloudFront now, see portfolio-video-infra/
+*.mp4
+
+# Local only — not for portfolio repo
+last-mile-zero-trust/
+ietf-a2a-trust-poc/
+sentinel-rebac-poc/
+sentinel-fips/
+sentinel-mcp-poc/
+rag-knowledge-assistant/
+portfolio-video-infra/
+hack-my-own-code/
+a2a-trust-playground/
+sentinel-mesh-zero-trust/
+zero-trust-payments/
+hitl/
+agentic-obo-okta/
+aws-obo-permissions/
+obo-as-a-platform/
+okta-auth0-identity-broker/
+autonomous-code-reviewer-agent/
+awshound/
+backup.sh
+SHIFT_LEFT.md
+.claudeignore
+portfolio.py
+requirements.txt
+TonyAI-Rebranding.md
+*.original.md
+sentinel-agent-drift-scanner/
+sentinel-triage-agent-harness/
+hmoc-demo-target/
+hmoc-demo-vuln-target/
+ui-check-out/
+c++/
+RAGvsAgenticRAGvsGraphRAG.rtfd/
+backup-keys.sh
+website-robot.png
+*.bak
+
+# Biz/idea design docs — source of truth lives in ~/biz/ideas/, never committed
+# to any repo (contains non-compete analysis, client names, interview-IP claims)
+idea-*.md
+idea-governed-writeback-gateway.md
+governed-writeback-gateway/
+
+# Portfolio tech-debt register — NEVER commit (catalogs vulns in published solutions)
+tech-debt/
