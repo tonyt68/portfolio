@@ -302,13 +302,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
       }
       .header-bottom-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin-top: auto;
+        margin-top: 1.5rem;
         gap: 1rem;
       }
       .demo-footer {
@@ -420,17 +421,17 @@
       }
 
       .insured-badge {
-        color: #b8f5c0;
+        color: #79c0ff;
         text-decoration: none;
         font-size: 0.6rem;
         font-weight: 700;
         padding: 0.18rem 0.55rem;
         border-radius: 5px;
-        background: linear-gradient(180deg, #2a5240, #1a3a28);
-        border-top: 1px solid #4ad47f;
-        border-left: 1px solid #3ab56a;
-        border-right: 1px solid #124a2c;
-        border-bottom: 2px solid #0d3a20;
+        background: linear-gradient(180deg, #2a5298, #1a3a6c);
+        border-top: 1px solid #4a7fd4;
+        border-left: 1px solid #3a6abf;
+        border-right: 1px solid #122a52;
+        border-bottom: 2px solid #0d1e3a;
         box-shadow:
           0 4px 8px rgba(0, 0, 0, 0.5),
           0 1px 0 rgba(255, 255, 255, 0.07) inset;
@@ -658,11 +659,17 @@
         text-decoration: none;
         cursor: pointer;
       }
+      .card-toggle-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
       .card-toggle-icon {
         height: 58px;
         width: auto;
-        flex-shrink: 0;
-        margin-left: auto;
         cursor: pointer;
         transition:
           transform 0.25s ease,
@@ -672,6 +679,21 @@
       .card-toggle-icon.is-open {
         transform: rotate(180deg);
         filter: drop-shadow(0 0 6px rgba(88, 166, 255, 0.65));
+      }
+      /* Explicit label, not a hover tooltip — this is what actually tells a
+         visitor the shield does something, on mobile exactly the same as
+         desktop, since it never depends on a pointer being present. Same
+         blue as the icon's own open-state glow, so the two read as one
+         signal rather than two unrelated colors. */
+      .card-toggle-label {
+        font-size: 0.58rem;
+        font-weight: 800;
+        text-transform: lowercase;
+        letter-spacing: 0.04em;
+        color: #3fb950;
+        text-shadow: 0 0 8px rgba(63, 185, 80, 0.55);
+        white-space: nowrap;
+        cursor: pointer;
       }
 
       /* ── PoC folder tabs ── */
@@ -691,6 +713,7 @@
       }
       .poc-tab {
         --tab-accent: #58a6ff;
+        position: relative;
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -771,6 +794,62 @@
         background: color-mix(in srgb, var(--tab-accent) 30%, transparent);
         color: #e6edf3;
         font-size: 0.7rem;
+      }
+      /* ── Tab description tooltip — tap-to-toggle, not hover-only ──────────
+         Native `title` tooltips never fire on touch, so mobile visitors would
+         get nothing. This uses a real tap target (min 24px, meets mobile
+         touch-target guidance) with its own click handler that stops
+         propagation, so tapping it shows the description WITHOUT switching
+         the tab — the same trick as .card-inquire-icon elsewhere on this
+         page, adapted since popovertarget can't be used here (it requires a
+         <button>, and nesting one inside the outer .poc-tab <button> is
+         invalid HTML). Works identically on mouse and touch. */
+      .poc-tab-info {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.3rem;
+        height: 1.3rem;
+        min-width: 24px;
+        min-height: 24px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font-size: 0.72rem;
+        font-weight: 700;
+        font-style: normal;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .poc-tab-info:hover,
+      .poc-tab-info:focus-visible {
+        background: color-mix(in srgb, var(--tab-accent) 45%, transparent);
+        outline: none;
+      }
+      .poc-tab-tooltip {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 240px;
+        background: #1c2129;
+        border: 1px solid #333a45;
+        border-radius: 8px;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: none;
+        letter-spacing: normal;
+        color: #c9d1d9;
+        line-height: 1.4;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        z-index: 20;
+      }
+      .poc-tab-tooltip.is-open {
+        display: block;
       }
       .poc-tab-panels {
         background: linear-gradient(180deg, rgba(139, 127, 212, 0.05), transparent 45%);
@@ -1042,16 +1121,21 @@
         animation: pulse 2s infinite;
       }
 
-      .live-demo-banner {
-        max-width: 1480px;
-        margin: 0 auto 1rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid rgba(63, 185, 80, 0.35);
-        border-radius: 10px;
-        background: rgba(63, 185, 80, 0.06);
-        display: flex;
-        justify-content: center;
-        box-shadow: 0 0 16px rgba(63, 185, 80, 0.08);
+      /* This one instance only — .status-wave is shared with the "Published
+         · Draft NN · Live" card badges elsewhere, which keep their shimmer.
+         Scoped by ancestor so those are untouched. */
+      .header-live-demo {
+        flex-shrink: 1;
+        min-width: 0;
+      }
+      .header-live-demo .status-wave {
+        animation: none;
+        background: none;
+        color: #3fb950;
+        -webkit-text-fill-color: initial;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .status-amber {
@@ -1241,20 +1325,6 @@
           transform: scale(1);
         }
       }
-      @keyframes shield-caption-breathe {
-        0%, 100% { transform: scale(1);   opacity: 0.6; }
-        50%       { transform: scale(1.18); opacity: 1;   }
-      }
-      .shield-caption {
-        font-size: 0.6rem;
-        color: #8b949e;
-        letter-spacing: 0.04em;
-        white-space: nowrap;
-        display: inline-block;
-        animation: shield-caption-breathe 3.5s ease-in-out infinite;
-        transform-origin: center;
-      }
-
       @keyframes imgzoom2 {
         0% {
           transform: scale(1);
@@ -1383,11 +1453,19 @@
         <h1>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;flex-shrink:0;">
             <img src="PhalanxAI-Security-LLC.png" alt="TonyAI Shield" style="height: 8rem; width: auto;" />
-            <span class="shield-caption">Click a shield to expand details</span>
           </div>
           <img class="phalanx-name-img" src="phalanx-name-gold.png" alt="PhalanxAI Security LLC" />
         </h1>
-        <p class="gold-saying">Browse the pattern. I build it on your infrastructure.</p>
+        <p id="gold-saying-text" class="gold-saying">Browse the pattern. I build it on your infrastructure.</p>
+        <script>
+          // Feature flag — this static site has no build step, so this is a
+          // plain JS constant standing in for what would be an env var.
+          // Flip to true to bring the line back. Runs inline, immediately
+          // after the element, so there is no flash of visible text before
+          // it hides.
+          const SHOW_GOLD_SAYING = false;
+          if (!SHOW_GOLD_SAYING) document.getElementById("gold-saying-text").style.display = "none";
+        </script>
         <p class="tagline">
           <span class="word"
             ><span style="--i: 0">A</span><span style="--i: 1">g</span><span style="--i: 2">e</span
@@ -1452,9 +1530,24 @@
             </span>
           </div>
           -->
-          <div class="social-links" style="margin-left:auto;">
-            <button type="button" class="insured-badge" onclick="openInsuredDialog(this)">🛡️ Insured &amp; Bonded</button>
+          <div class="header-left-actions" style="display:flex; align-items:center; gap:0.75rem;">
             <a class="social-link social-link-gold" href="contact.html?from=index">Contact</a>
+            <div id="header-live-demo" class="status header-live-demo" style="font-size: 0.85rem; gap: 0.5rem;">
+              <div class="status-dot" style="width: 9px; height: 9px;"></div>
+              <span class="status-wave">Live demos available upon request — for any solution below</span>
+            </div>
+          </div>
+          <script>
+            // Feature flag — same pattern as SHOW_GOLD_SAYING above; this
+            // static site has no build step, so a plain JS constant stands
+            // in for what would be an env var. Flip to true to bring the
+            // line back. Runs inline, immediately after the element, so
+            // there is no flash of visible text before it hides.
+            const SHOW_LIVE_DEMO_BANNER = false;
+            if (!SHOW_LIVE_DEMO_BANNER) document.getElementById("header-live-demo").style.display = "none";
+          </script>
+          <div class="social-links">
+            <button type="button" class="insured-badge" onclick="openInsuredDialog(this)">🛡️ Insured &amp; Bonded</button>
             <a class="social-link" href="resume.html?from=index">Resume</a>
             <a class="social-link" href="achievements.html?from=index">Achievements</a>
             <a class="social-link" href="faq.html?from=index" title="Frequently Asked Questions" style="display:inline-flex;align-items:center;gap:0.35rem;">
@@ -1470,13 +1563,6 @@
       </div>
     </div>
 
-    <div class="live-demo-banner">
-      <div class="status" style="font-size: 1rem; gap: 0.6rem;">
-        <div class="status-dot" style="width: 11px; height: 11px;"></div>
-        <span class="status-wave">Live demos available upon request — for any solution below</span>
-      </div>
-    </div>
-
     <!-- PoC Grid -->
     <!-- PoC Grid — folder-tab navigation by solution category -->
     <div class="poc-tabbed-grid">
@@ -1485,37 +1571,37 @@
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Zero Trust Payments & HITL</span>
           <span class="poc-tab-count">2</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-payments')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-payments');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-payments">Zero-trust payment flows with human-in-the-loop approval before money moves.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-iam" onclick="switchPocTab('cat-iam')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IAM & Access</span>
           <span class="poc-tab-count">3</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-iam')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-iam');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-iam">Identity federation, token exchange, and delegated access between real providers.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-zero-trust" onclick="switchPocTab('cat-zero-trust')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Zero Trust</span>
           <span class="poc-tab-count">3</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-zero-trust')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-zero-trust');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-zero-trust">Cross-cluster isolation and FIPS-compliant zero-trust platforms.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agentic-rag" onclick="switchPocTab('cat-agentic-rag')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Agentic AI & RAG</span>
           <span class="poc-tab-count">4</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agentic-rag')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agentic-rag');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agentic-rag">RAG assistants and autonomous code-review agents, run under zero trust.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
           <span class="poc-tab-count">4</span>
-        </button>
-        <button type="button" class="poc-tab is-active" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="true">
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-ietf')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-ietf');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-ietf">A browser playground and working implementations of my IETF draft on agent identity.</span></button>
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agentops" onclick="switchPocTab('cat-agentops')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Agent Governance & Autonomy</span>
           <span class="poc-tab-count">2</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agentops')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agentops');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agentops">Measuring whether human oversight of AI agents is real, not just claimed.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-tools" onclick="switchPocTab('cat-tools')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Tools</span>
           <span class="poc-tab-count">1</span>
-        </button>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-tools')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-tools');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-tools">A drift scanner that catches an agent quietly gaining access it wasn't granted.</span></button>
       </div>
       <div class="poc-tab-panels">
         <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
@@ -1536,12 +1622,15 @@
               >🎬 2-min demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('hitl-card')">
           An MCP tool lets an autonomous agent request a payment — what stops it from approving that payment too?
@@ -1675,12 +1764,15 @@
               >🎬 45-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('payments-card')">How do you put AI in a payments pipeline without letting it move money on its own authority?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('payments-card')">
@@ -1785,12 +1877,15 @@
               >🎬 75-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('okta-auth0-broker-card')">
           How do you revoke a user's access the instant IT disables them — and guarantee a fresh login can't
@@ -1942,12 +2037,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('obo-platform-card')">
           If your auth logic lives in four different languages, how do you prove they'll never quietly drift apart?
@@ -2095,12 +2193,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
 
         <p class="card-question" onclick="toggleCardDetails('obo-card')">
@@ -2233,12 +2334,15 @@
               >🎬 45-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
 
         <p class="card-question" onclick="toggleCardDetails('aws-obo-card')">
@@ -2376,12 +2480,15 @@
               >🎬 38-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('sentinel-mesh-card')">
           How do you prove mesh-level isolation between two independently-run Kubernetes clusters actually
@@ -2530,12 +2637,15 @@
               >🎬 45-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('lastmile-card')">How do you connect a cloud MCP agent to an on-prem database with zero static credentials and zero inbound firewall rules?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('lastmile-card')">
@@ -2630,12 +2740,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('sentinel-fips-card')">How do you prove a decision log is untouched — even against someone holding your own root AWS credentials?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-fips-card')">
@@ -2742,12 +2855,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
 
         <p class="card-question" onclick="toggleCardDetails('acra-card')">
@@ -2885,12 +3001,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('secure-rag-card')">How do you serve the right data to the right identity — and prove the wrong identity never saw it?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('secure-rag-card')">
@@ -2992,12 +3111,15 @@
               >🎬 60-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('rag-knowledge-card')">How do you give new hires an AI assistant without sensitive data ever leaving the building — or costs spiraling out of control?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('rag-knowledge-card')">
@@ -3103,12 +3225,15 @@
               >🎬 80-sec demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('sentinel-mcp-card')">How do you let an AI agent investigate live AWS infrastructure — and guarantee every query it runs is signed, tracked, and provable?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('sentinel-mcp-card')">
@@ -3205,12 +3330,15 @@
             <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20A2A%20Trust%20Playground" title="Inquire about the A2A Trust Playground"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">A2A Trust Playground — Try the IETF Draft in Your Browser</span></div>
             <a class="card-demo-link" href="a2a/index.html" onclick="event.stopPropagation();" target="_blank" rel="noopener">&#9654; Open the tool</a>
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('a2a-playground-card')">
           Two valid signatures. The right owner. A matching content hash. Why is this policy
@@ -3350,12 +3478,15 @@
               >🎬 2-min demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('hack-my-own-code-card')">
           How do you prove an autonomous AI attacker can't escape its own sandbox — while it's actively
@@ -3496,12 +3627,15 @@
           <div class="card-title-group">
             <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20IETF%20Internet-Draft%20%E2%80%94%20Agent-to-Agent%20Trust" title="Inquire about IETF Internet-Draft — Agent-to-Agent Trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">IETF Internet-Draft — Agent-to-Agent Trust</span></div>
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('ietf-card')">IETF drafts are usually just words on paper — what does it take to back every clause with working, testable code?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('ietf-card')">
@@ -3623,12 +3757,15 @@
           <div class="card-title-group">
             <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Phalanx%20%E2%80%94%20IETF%20A2A%20Certificate%20Implementation" title="Inquire about Phalanx — IETF A2A Certificate Implementation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Phalanx — IETF A2A Certificate Implementation</span></div>
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('phalanx-card')">An agent spun up five seconds ago — how do you prove it isn't already trusted with something it shouldn't be?</p>
         <p class="card-desc-green card-punch" onclick="toggleCardDetails('phalanx-card')">
@@ -3721,7 +3858,7 @@
       </div>
 
         </div>
-        <div class="poc-tab-panel is-active" id="cat-agentops" style="--tab-accent: #58a6ff;">
+        <div class="poc-tab-panel" id="cat-agentops" style="--tab-accent: #58a6ff;">
       <!-- Sentinel Triage Agent Harness — local-model triage that earns autonomy through HITL grading, plus an
            independent Watcher agent that autonomously monitors and quarantines misbehaving agents. -->
       <!-- Governed Writeback Gateway - human-governed data writeback, measured oversight, all local -->
@@ -3741,12 +3878,15 @@
               >🎬 3-min demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('gwg-card')">
           Everyone says a human reviews it. Almost nobody can show whether that review is doing anything —
@@ -3889,12 +4029,15 @@ Six of the seven conditions that make oversight a control are implemented and me
               >🎬 2.5-min demo</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('sentinel-triage-card')">
           How do you let an agentic AI system earn the right to act autonomously — and prove, cryptographically,
@@ -4036,12 +4179,15 @@ Six of the seven conditions that make oversight a control are implemented and me
               >📄 Sample report</a
             >
           </div>
-          <img
+          <div class="card-toggle-group">
+            <img
             class="card-toggle-icon"
             src="PhalanxAI-Security-LLC.png"
             alt="Toggle details"
             title="Click to expand"
           />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
         </div>
         <p class="card-question" onclick="toggleCardDetails('sentinel-drift-card')">
           Your AI agent's IAM permissions and security posture were reviewed once, at launch — how would you know
@@ -4278,6 +4424,7 @@ Six of the seven conditions that make oversight a control are implemented and me
       ></video>
     </div>
 
+    <script type="module" src="tab-deep-link.js"></script>
     <script>
       function openVideoDemo(src) {
         var v = document.getElementById("video-lightbox-player");
@@ -4376,6 +4523,23 @@ Six of the seven conditions that make oversight a control are implemented and me
         });
       }
 
+      /**
+       * Tap-to-toggle tab description. Works identically on mouse and touch
+       * — unlike a hover-only tooltip, which never fires on a phone.
+       * event.stopPropagation() at the call site is what stops this from
+       * also triggering the outer tab's onclick.
+       */
+      function toggleTabTooltip(event, slug) {
+        const target = document.getElementById(`tooltip-${slug}`);
+        const alreadyOpen = target.classList.contains("is-open");
+        document.querySelectorAll(".poc-tab-tooltip.is-open").forEach((t) => t.classList.remove("is-open"));
+        if (!alreadyOpen) target.classList.add("is-open");
+      }
+      document.addEventListener("click", (e) => {
+        if (e.target.closest(".poc-tab-info, .poc-tab-tooltip")) return;
+        document.querySelectorAll(".poc-tab-tooltip.is-open").forEach((t) => t.classList.remove("is-open"));
+      });
+
       function switchPocTab(slug) {
         document.querySelectorAll(".poc-tab").forEach((tab) => {
           const active = tab.dataset.target === slug;
@@ -4389,7 +4553,23 @@ Six of the seven conditions that make oversight a control are implemented and me
       }
 
       window.addEventListener("load", () => {
-        equalizePanel(document.querySelector(".poc-tab-panel.is-active"));
+        // Single code path for both deep links and the default landing tab —
+        // see tab-deep-link.js. The markup carries no hardcoded "active" tab,
+        // so this is what actually activates a tab on first load.
+        //
+        // Defense in depth: if tab-deep-link.js failed to load for any reason
+        // (blocked module script, CDN hiccup, ad blocker) window.resolveTab
+        // would be undefined and this whole callback would throw, silently
+        // leaving every panel inactive — a blank-looking page for a real
+        // visitor with no error shown. The try/catch guarantees a tab is
+        // always selected even in that failure mode.
+        try {
+          const validSlugs = Array.from(document.querySelectorAll(".poc-tab-panel")).map((p) => p.id);
+          switchPocTab(window.resolveTab(window.location.search, window.location.hash, validSlugs));
+        } catch (err) {
+          console.error("tab-deep-link.js unavailable, falling back to default tab:", err);
+          switchPocTab("cat-agentops");
+        }
       });
     </script>
 

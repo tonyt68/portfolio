@@ -1,0 +1,11 @@
+{
+  "name": "phalanxaisec-site",
+  "private": true,
+  "description": "phalanxaisec.com — static portfolio site. package.json exists only to run the tab deep-link unit tests.",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "3.2.4"
+  }
+}

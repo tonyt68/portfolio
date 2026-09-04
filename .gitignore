@@ -31,6 +31,12 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Node (tab-deep-link.js unit tests only — no build step for the site itself)
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+pnpm-workspace.yaml
+
 # Demo videos — hosted on S3/CloudFront now, see portfolio-video-infra/
 *.mp4
 
