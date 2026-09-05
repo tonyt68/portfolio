@@ -851,6 +851,9 @@
       .poc-tab-tooltip.is-open {
         display: block;
       }
+      .poc-tab:has(.poc-tab-tooltip.is-open) {
+        z-index: 30;
+      }
       .poc-tab-panels {
         background: linear-gradient(180deg, rgba(139, 127, 212, 0.05), transparent 45%);
         border: 1px solid #30363d;
