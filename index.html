@@ -1603,8 +1603,8 @@
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-tools" onclick="switchPocTab('cat-tools')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Tools</span>
-          <span class="poc-tab-count">1</span>
-        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-tools')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-tools');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-tools">A drift scanner that catches an agent quietly gaining access it wasn't granted.</span></button>
+          <span class="poc-tab-count">2</span>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-tools')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-tools');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-tools">A drift scanner that catches an agent quietly gaining access it wasn't granted, and a self-serve template catalog gated by real IAM.</span></button>
       </div>
       <div class="poc-tab-panels">
         <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
@@ -4346,6 +4346,207 @@ Six of the seven conditions that make oversight a control are implemented and me
               ><span class="tag">OWASP A01 / A02 / A05 / A06 / A07 / A08 / A09</span
               ><span class="tag">OWASP LLM01 / LLM02 / LLM06 / LLM10</span
               ><span class="tag">Fail-Closed by Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coding Template Vending Machine — IAM-gated self-serve template catalog -->
+      <div class="card" id="tvm-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('tvm-card')">
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Coding%20Template%20Vending%20Machine" title="Inquire about Coding Template Vending Machine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Coding Template Vending Machine</span></div>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/template-vending-machine-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 60-sec demo</a
+            >
+          </div>
+          <div class="card-toggle-group">
+            <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('tvm-card')">
+          Auth wiring. IAM scope. Security boundaries. Every new service re-litigates all three in code review —
+          from scratch, every time. What happens to that review cycle when the starter template already got them
+          right?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('tvm-card')">
+          <strong class="chrome">A governed self-service vending machine</strong>:
+          <strong class="chrome">AWS IAM itself</strong> decides which hardened, approved template each role can
+          pull — no ticket, no manual review, no ad-hoc scaffolding drifting from company standards. Guardrails
+          like Keycloak login, JWT validation, and a pre-execution ReBAC gate are already built into what's
+          delivered, so <strong class="chrome">dev team velocity doesn't come at the cost of governance</strong>.
+          An <strong class="chrome">Architect role</strong> holds the broader, reviewed reach across the full
+          catalog, so nothing ships without a path for architectural sign-off.
+        </p>
+        <div class="card-details">
+          <ul
+            class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Built Solo, AI as the Platform-Engineering Force Multiplier</strong>
+              </button>
+              <div class="bullet-body">
+                Designed, built, and deployed end-to-end by one engineer paired with Claude Code — the CDK stack,
+                three hardened templates, the CLI, and the dashboard, in a single engagement. This is the exact
+                capability a platform team is hiring for: using AI as a force multiplier to ship a self-serve
+                internal developer platform, not just consume one someone else built.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">IAM Decides, Not Application Code</strong>
+              </button>
+              <div class="bullet-body">
+                The CLI and dashboard both just presign a URL and relay whatever AWS actually returns — neither one
+                contains an authorization branch that could have a bug in it. The access decision itself is made
+                entirely by the S3 bucket policy and the caller's IAM role.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Strict 1:1 by Default, One Deliberate Exception</strong>
+              </button>
+              <div class="bullet-body">
+                FE Eng, BE Eng, and Security Eng roles are each scoped to exactly one template's S3 prefix, no
+                overlap. A fourth Architect role is explicitly granted all three — a documented, tested exception,
+                not a broader policy that crept in unreviewed.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Role Changes, Access Follows Automatically</strong>
+              </button>
+              <div class="bullet-body">
+                Access isn't a one-time grant checked at hire — it's resolved fresh from whatever IAM role a
+                caller currently assumes. Move an engineer from FE Eng to Security Eng and their vending-machine
+                access updates immediately: no re-onboarding, no manual re-grant, and the old role's access is
+                revoked the same way it was granted — through IAM, not a support ticket.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Every Denial Is a Real AWS AccessDenied</strong>
+              </button>
+              <div class="bullet-body">
+                Verified live, end-to-end, across all four roles and three templates: a locked-out fetch fails with
+                an actual STS/S3-issued AccessDenied response, never a mocked or client-side "you can't do that."
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Three Templates, Each Hardened on Arrival</strong>
+              </button>
+              <div class="bullet-body">
+                React UI ships with Keycloak OIDC login wired in; the Java API validates Keycloak-issued JWTs via
+                Spring Security's OAuth2 resource server; the MCP Security Gateway enforces a real pre-execution
+                ReBAC gate via Spring AOP — hardening baked into the template, not left as a TODO.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">The Gate Actually Blocks the Call</strong>
+              </button>
+              <div class="bullet-body">
+                The MCP Security Gateway's pre-execution advice runs before the tool executes. A denied verdict
+                means the tool call never happens — not a warning logged alongside a call that runs anyway.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Every Fetch Attempt, Logged</strong>
+              </button>
+              <div class="bullet-body">
+                S3 data events flow to CloudTrail server-side, and the dashboard keeps its own local audit log of
+                every allow/deny with the resolved AWS identity, template, and HTTP status — visible in real time
+                as roles switch.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">100% Infrastructure as Code — Setup and Teardown Both Automated</strong>
+              </button>
+              <div class="bullet-body">
+                Every AWS resource — S3, IAM, Lambda, CloudTrail — is defined in AWS CDK, nothing clicked into
+                place by hand. One script deploys the whole stack and re-syncs every fresh ARN and bucket name into
+                <code>.env</code> files and local AWS profiles; a matching teardown script tears it all back down
+                right after a demo, so nothing is ever left running — and billing — unnoticed.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Dependency CVEs Found and Patched, Not Just Assumed Away</strong>
+              </button>
+              <div class="bullet-body">
+                A dependency audit against live CVE databases caught 3 CRITICAL Tomcat CVEs baked into Spring
+                Boot's default dependency BOM and a MODERATE esbuild CVE — fixed by pinning the exact patched
+                versions rather than waiting on upstream. A verified, closed finding, not a theoretical hardening
+                claim.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">CLI and Dashboard, One Mechanism</strong>
+              </button>
+              <div class="bullet-body">
+                <code>tvm get &lt;template&gt;</code> and the dashboard's role picker both presign and fetch through
+                the exact same path — no separate, divergent authorization logic to keep in sync between the two.
+              </div>
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">TypeScript</span><span class="tag">AWS CDK</span><span class="tag">AWS S3</span
+              ><span class="tag">AWS IAM</span><span class="tag">RBAC</span><span class="tag">AWS Lambda</span
+              ><span class="tag">AWS CloudTrail</span><span class="tag">AWS STS</span
+              ><span class="tag">AWS CloudFormation</span
+              ><span class="tag">AWS SDK for JavaScript (v3)</span><span class="tag">AWS SigV4 Signing</span
+              ><span class="tag">Next.js</span><span class="tag">React 19</span
+              ><span class="tag">NextAuth</span><span class="tag">Keycloak</span><span class="tag">OIDC</span
+              ><span class="tag">oclif</span
+              ><span class="tag">Node.js 22</span><span class="tag">pnpm</span><span class="tag">Vitest</span
+              ><span class="tag">Jest</span><span class="tag">adm-zip</span><span class="tag">dotenv</span
+              ><span class="tag">Java 21</span><span class="tag">Spring Boot</span
+              ><span class="tag">Spring AI (MCP)</span><span class="tag">Spring Security</span
+              ><span class="tag">OAuth2 Resource Server</span><span class="tag">JWT Validation</span
+              ><span class="tag">Spring AOP (AspectJ)</span><span class="tag">ReBAC</span
+              ><span class="tag">fflate</span><span class="tag">Docker</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span><span class="tag">SOC2</span
+              ><span class="tag">ISO/IEC 42001</span
+              ><span class="tag">OWASP A01 / A05 / A06 / A07 / A09</span
+              ><span class="tag">OWASP LLM06</span
+              ><span class="tag">Least Privilege</span><span class="tag">Fail-Closed by Design</span>
             </div>
           </div>
         </div>
