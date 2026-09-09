@@ -171,7 +171,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      color: #79c0ff;
       flex-shrink: 0;
     }
 
@@ -185,27 +185,138 @@
       display: block;
       width: 100%;
       padding: 0.85rem 1rem;
-      background: linear-gradient(135deg, #c8a030, #e8c040, #c8a030);
-      color: #0d1117;
+      color: #1c1608;
       font-size: 0.95rem;
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      border: none;
       border-radius: 10px;
+      background: linear-gradient(160deg,
+        #4a3818 0%,
+        #6b5228 16%,
+        #8f7248 32%,
+        #ab8c66 46%,
+        #c2a166 52%,
+        #ab8c66 58%,
+        #8f7248 74%,
+        #6b5228 88%,
+        #4a3818 100%
+      );
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.4),
+        0 -1px 0 rgba(0, 0, 0, 0.25);
+      border: 1px solid #241c0c;
       text-decoration: none;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(200,160,48,0.35);
-      transition: filter 0.15s, transform 0.15s;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 1px 2px rgba(45, 30, 10, 0.35),
+        0 6px 14px rgba(45, 30, 10, 0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
       margin-bottom: 1rem;
     }
     .btn-save:hover {
+      transform: translateY(-2px);
       filter: brightness(1.08);
-      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 2px 3px rgba(45, 30, 10, 0.4),
+        0 10px 20px rgba(45, 30, 10, 0.45);
     }
-    .btn-save:active { transform: translateY(0); }
+    .btn-save:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
 
     .back { margin-top: 0.5rem; }
+
+    .btn-insured {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.7rem 1rem;
+      color: #1a2030;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: 10px;
+      background: linear-gradient(160deg,
+        #242e42 0%,
+        #3a4a68 16%,
+        #5a7292 32%,
+        #7a94b4 46%,
+        #94aec8 52%,
+        #7a94b4 58%,
+        #5a7292 74%,
+        #3a4a68 88%,
+        #242e42 100%
+      );
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.4),
+        0 -1px 0 rgba(0, 0, 0, 0.3);
+      border: 1px solid #161c28;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 1px 2px rgba(5, 10, 20, 0.35),
+        0 6px 14px rgba(5, 10, 20, 0.4);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      margin-bottom: 1rem;
+    }
+    .btn-insured:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 2px 3px rgba(5, 10, 20, 0.4),
+        0 10px 20px rgba(5, 10, 20, 0.45);
+    }
+    .btn-insured:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    #insured-dialog {
+      margin: auto;
+      background: #161b22;
+      color: #e6edf3;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      max-width: 340px;
+      width: calc(100% - 2rem);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    }
+    #insured-dialog::backdrop { background: rgba(0,0,0,0.6); }
+    #insured-dialog h3 {
+      margin: 0 0 0.6rem;
+      font-size: 0.95rem;
+      color: #b8f5c0;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    #insured-dialog dl { margin: 0 0 0.9rem; font-size: 0.8rem; line-height: 1.6; }
+    #insured-dialog dt {
+      color: #8b949e;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-top: 0.5rem;
+    }
+    #insured-dialog dd { margin: 0; color: #e6edf3; }
+    #insured-dialog .insured-close {
+      color: #79c0ff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    #insured-dialog .insured-close:hover { text-decoration: underline; }
 
     @media (prefers-color-scheme: light) {
       /* Force dark on this page — it's a contact card, always dark */
@@ -227,15 +338,21 @@
 
     <ul class="contact-list">
       <li>
-        <span class="icon">📞</span>
+        <span class="icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
         <a href="tel:4358507078">(435) 850-7078</a>
       </li>
       <li>
-        <span class="icon">✉️</span>
+        <span class="icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </span>
         <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a>
       </li>
       <li>
-        <span class="icon">🌐</span>
+        <span class="icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </span>
         <a href="https://phalanxaisec.com" target="_blank">phalanxaisec.com</a>
       </li>
     </ul>
@@ -244,8 +361,29 @@
       ＋ Save Contact
     </a>
 
+    <button type="button" class="btn-insured" onclick="document.getElementById('insured-dialog').showModal()">🛡️ Insured &amp; Bonded</button>
+
     <a class="back" href="https://phalanxaisec.com" onclick="return goBackSmart(event)">← Back to Portfolio</a>
   </div>
+
+  <dialog id="insured-dialog">
+    <h3>🛡️ Insured &amp; Bonded</h3>
+    <dl>
+      <dt>Coverage</dt>
+      <dd>Professional Liability (E&amp;O) &middot; General Liability &middot; Cyber Liability</dd>
+      <dt>Carrier</dt>
+      <dd>Next Insurance US Company</dd>
+      <dt>Certificate of Insurance</dt>
+      <dd>Available on request &mdash; <a href="mailto:founder@phalanxaisec.com" style="color:#79c0ff;">contact me</a></dd>
+    </dl>
+    <button type="button" class="insured-close" onclick="document.getElementById('insured-dialog').close()">Close</button>
+  </dialog>
+
+  <script>
+    document.getElementById('insured-dialog').addEventListener('click', function (e) {
+      if (e.target === this) this.close();
+    });
+  </script>
   <script>
     (function () {
       var PAGES = { index: 'Portfolio', faq: 'FAQ', contact: 'Contact', achievements: 'Achievements', resume: 'Resume' };

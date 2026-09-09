@@ -185,6 +185,7 @@
       }
       .header-text .tagline {
         font-size: 1.2rem;
+        margin-top: 2.5rem;
         margin-bottom: 0.75rem;
         text-align: center;
       }
@@ -309,7 +310,7 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin-top: 1.5rem;
+        margin-top: auto;
         gap: 1rem;
       }
       .demo-footer {
@@ -321,7 +322,7 @@
       }
       .social-links {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.7rem;
         flex-wrap: wrap;
         align-items: center;
         flex-shrink: 0;
@@ -378,148 +379,83 @@
       }
 
       .social-link {
-        color: #79c0ff;
+        color: #1a2030;
         text-decoration: none;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
         font-weight: 700;
-        padding: 0.18rem 0.55rem;
-        border-radius: 5px;
-        background: linear-gradient(180deg, #2a5298, #1a3a6c);
-        border-top: 1px solid #4a7fd4;
-        border-left: 1px solid #3a6abf;
-        border-right: 1px solid #122a52;
-        border-bottom: 2px solid #0d1e3a;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: linear-gradient(160deg,
+          #242e42 0%,
+          #3a4a68 16%,
+          #5a7292 32%,
+          #7a94b4 46%,
+          #94aec8 52%,
+          #7a94b4 58%,
+          #5a7292 74%,
+          #3a4a68 88%,
+          #242e42 100%
+        );
+        text-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.4),
+          0 -1px 0 rgba(0, 0, 0, 0.3);
+        border: 1px solid #161c28;
         box-shadow:
-          0 4px 8px rgba(0, 0, 0, 0.5),
-          0 1px 0 rgba(255, 255, 255, 0.07) inset;
+          inset 0 1px 0 rgba(255, 255, 255, 0.4),
+          0 1px 2px rgba(5, 10, 20, 0.35),
+          0 6px 14px rgba(5, 10, 20, 0.4);
         transition:
-          transform 0.1s,
-          box-shadow 0.1s;
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          filter 0.15s ease;
+        display: inline-flex;
+        align-items: center;
       }
 
       .social-link:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        filter: brightness(1.08);
         box-shadow:
-          0 6px 12px rgba(0, 0, 0, 0.6),
-          0 1px 0 rgba(255, 255, 255, 0.07) inset;
-        color: #fff;
+          inset 0 1px 0 rgba(255, 255, 255, 0.5),
+          0 2px 3px rgba(5, 10, 20, 0.4),
+          0 10px 20px rgba(5, 10, 20, 0.45);
+        color: #1a2030;
       }
 
       .social-link-gold {
         font-family: Georgia, "Times New Roman", serif;
         font-style: italic;
-        color: #1a1408;
-        background: linear-gradient(180deg, #f0e6cc, #c2ab7d);
-        border-top: 1px solid #f0e6cc;
-        border-left: 1px solid #c2ab7d;
-        border-right: 1px solid #7a6440;
-        border-bottom: 2px solid #4a3620;
+        color: #1c1608;
+        background: linear-gradient(160deg,
+          #4a3818 0%,
+          #6b5228 16%,
+          #8f7248 32%,
+          #ab8c66 46%,
+          #c2a166 52%,
+          #ab8c66 58%,
+          #8f7248 74%,
+          #6b5228 88%,
+          #4a3818 100%
+        );
+        text-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.4),
+          0 -1px 0 rgba(0, 0, 0, 0.25);
+        border: 1px solid #241c0c;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.45),
+          0 1px 2px rgba(45, 30, 10, 0.35),
+          0 6px 14px rgba(45, 30, 10, 0.4);
       }
       .social-link-gold:hover {
-        color: #1a1408;
+        color: #1c1608;
         filter: brightness(1.08);
       }
 
-      .insured-badge {
-        color: #79c0ff;
-        text-decoration: none;
-        font-size: 0.6rem;
-        font-weight: 700;
-        padding: 0.18rem 0.55rem;
-        border-radius: 5px;
-        background: linear-gradient(180deg, #2a5298, #1a3a6c);
-        border-top: 1px solid #4a7fd4;
-        border-left: 1px solid #3a6abf;
-        border-right: 1px solid #122a52;
-        border-bottom: 2px solid #0d1e3a;
-        box-shadow:
-          0 4px 8px rgba(0, 0, 0, 0.5),
-          0 1px 0 rgba(255, 255, 255, 0.07) inset;
-        transition:
-          transform 0.1s,
-          box-shadow 0.1s;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-      .insured-badge:hover {
-        transform: translateY(-1px);
-        box-shadow:
-          0 6px 12px rgba(0, 0, 0, 0.6),
-          0 1px 0 rgba(255, 255, 255, 0.07) inset;
-        color: #fff;
-      }
-      .insured-badge:active {
-        transform: translateY(2px);
-      }
-
-      #insured-dialog {
-        position: fixed;
-        top: auto;
-        bottom: 4.5rem;
-        left: auto;
-        right: 2rem;
-        margin: 0;
-        background: #161b22;
-        color: #e6edf3;
-        border: 1px solid #30363d;
-        border-radius: 10px;
-        padding: 1.25rem 1.5rem;
-        max-width: 340px;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-      }
-      @media (max-width: 640px) {
-        #insured-dialog {
-          right: 1rem;
-          left: 1rem;
-          max-width: none;
-        }
-      }
-      #insured-dialog::backdrop {
-        background: rgba(0, 0, 0, 0.6);
-      }
-      #insured-dialog h3 {
-        margin: 0 0 0.6rem;
-        font-size: 0.95rem;
-        color: #b8f5c0;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-      }
-      #insured-dialog dl {
-        margin: 0 0 0.9rem;
-        font-size: 0.8rem;
-        line-height: 1.6;
-      }
-      #insured-dialog dt {
-        color: #8b949e;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        margin-top: 0.5rem;
-      }
-      #insured-dialog dd {
-        margin: 0;
-        color: #e6edf3;
-      }
-      #insured-dialog .insured-close {
-        color: #79c0ff;
-        text-decoration: none;
-        font-size: 0.75rem;
-        font-weight: 700;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-      }
-      #insured-dialog .insured-close:hover {
-        text-decoration: underline;
-      }
-
       .social-link:active {
-        transform: translateY(2px);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        transform: translateY(1px);
+        box-shadow:
+          0 3px 6px rgba(0, 0, 0, 0.4),
+          inset 0 2px 5px rgba(0, 0, 0, 0.4);
       }
 
       /* ── IETF Feature ── */
@@ -1534,7 +1470,6 @@
           </div>
           -->
           <div class="header-left-actions" style="display:flex; align-items:center; gap:0.75rem;">
-            <a class="social-link social-link-gold" href="contact.html?from=index">Contact</a>
             <div id="header-live-demo" class="status header-live-demo" style="font-size: 0.85rem; gap: 0.5rem;">
               <div class="status-dot" style="width: 9px; height: 9px;"></div>
               <span class="status-wave">Live demos available upon request — for any solution below</span>
@@ -1550,11 +1485,11 @@
             if (!SHOW_LIVE_DEMO_BANNER) document.getElementById("header-live-demo").style.display = "none";
           </script>
           <div class="social-links">
-            <button type="button" class="insured-badge" onclick="openInsuredDialog(this)">🛡️ Insured &amp; Bonded</button>
+            <a class="social-link social-link-gold" href="contact.html?from=index">Contact</a>
             <a class="social-link" href="resume.html?from=index">Resume</a>
             <a class="social-link" href="achievements.html?from=index">Achievements</a>
-            <a class="social-link" href="faq.html?from=index" title="Frequently Asked Questions" style="display:inline-flex;align-items:center;gap:0.35rem;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a class="social-link" href="faq.html?from=index" title="Frequently Asked Questions" style="display:inline-flex;align-items:center;gap:0.4rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
@@ -4774,42 +4709,6 @@ Six of the seven conditions that make oversight a control are implemented and me
           switchPocTab("cat-agentops");
         }
       });
-    </script>
-
-    <dialog id="insured-dialog">
-      <h3>🛡️ Insured &amp; Bonded</h3>
-      <dl>
-        <dt>Coverage</dt>
-        <dd>Professional Liability (E&amp;O) &middot; General Liability &middot; Cyber Liability</dd>
-        <dt>Carrier</dt>
-        <dd>Next Insurance US Company</dd>
-        <dt>Certificate of Insurance</dt>
-        <dd>Available on request &mdash; <a href="contact.html?from=index" style="color:#79c0ff;">contact me</a></dd>
-      </dl>
-      <button type="button" class="insured-close" onclick="document.getElementById('insured-dialog').close()">Close</button>
-    </dialog>
-    <script>
-      document.getElementById('insured-dialog').addEventListener('click', function (e) {
-        if (e.target === this) this.close();
-      });
-
-      function openInsuredDialog(button) {
-        var dialog = document.getElementById('insured-dialog');
-        dialog.showModal();
-        var btnRect = button.getBoundingClientRect();
-        var dlgRect = dialog.getBoundingClientRect();
-        var margin = 8;
-        var top = btnRect.top - dlgRect.height - margin;
-        if (top < margin) top = btnRect.bottom + margin;
-        var left = btnRect.right - dlgRect.width;
-        if (left < margin) left = margin;
-        var maxLeft = window.innerWidth - dlgRect.width - margin;
-        if (left > maxLeft) left = maxLeft;
-        dialog.style.top = top + 'px';
-        dialog.style.left = left + 'px';
-        dialog.style.right = 'auto';
-        dialog.style.bottom = 'auto';
-      }
     </script>
   </body>
 </html>
