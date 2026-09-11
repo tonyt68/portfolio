@@ -1540,6 +1540,11 @@
           <span class="poc-tab-title">Tools</span>
           <span class="poc-tab-count">2</span>
         <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-tools')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-tools');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-tools">A drift scanner that catches an agent quietly gaining access it wasn't granted, and a self-serve template catalog gated by real IAM.</span></button>
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agent-zero-trust-sso" onclick="switchPocTab('cat-agent-zero-trust-sso')" role="tab" aria-selected="false">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Agent Zero-Trust SSO</span>
+          <span class="poc-tab-count">1</span>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agent-zero-trust-sso')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agent-zero-trust-sso');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agent-zero-trust-sso">Real SSO into AI agent apps, gated by a real mTLS + Cedar security gateway — the agent can ask, only the gateway can act.</span></button>
       </div>
       <div class="poc-tab-panels">
         <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
@@ -4482,6 +4487,172 @@ Six of the seven conditions that make oversight a control are implemented and me
               ><span class="tag">OWASP A01 / A05 / A06 / A07 / A09</span
               ><span class="tag">OWASP LLM06</span
               ><span class="tag">Least Privilege</span><span class="tag">Fail-Closed by Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="poc-tab-panel" id="cat-agent-zero-trust-sso" style="--tab-accent: #58a6ff;">
+      <!-- Agent SSO Catalog — real Keycloak SSO into 3 real AI agent products, gated by a real mTLS + Cedar gateway -->
+      <div class="card" id="agent-sso-catalog-card">
+        <div class="card-header is-collapsible" onclick="toggleCardDetails('agent-sso-catalog-card')">
+          <div class="card-title-group">
+            <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Zero-Trust%20Agent%20SSO%20Catalog" title="Inquire about Zero-Trust Agent SSO Catalog — Check the Cert, Not the Agent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Zero-Trust Agent SSO Catalog — Check the Cert, Not the Agent</span></div>
+            <a
+              class="card-demo-link"
+              onclick="
+                event.stopPropagation();
+                openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/agent-sso-catalog-demo.mp4');
+                return false;
+              "
+              href="#"
+              >🎬 2-min demo</a
+            >
+          </div>
+          <div class="card-toggle-group">
+            <img
+            class="card-toggle-icon"
+            src="PhalanxAI-Security-LLC.png"
+            alt="Toggle details"
+            title="Click to expand"
+          />
+            <span class="card-toggle-label">Tap to expand</span>
+          </div>
+        </div>
+        <p class="card-question" onclick="toggleCardDetails('agent-sso-catalog-card')">
+          Why can't AI agents be company-approved applications — assigned by your role, gated by identity, not by
+          the agent's own word?
+        </p>
+        <p class="card-desc-green card-punch" onclick="toggleCardDetails('agent-sso-catalog-card')">
+          A real SSO-gated catalog of three independently-shipped AI agent products — click a tile, land in that
+          agent's own already-running app, same as any real IdP's "My Apps." Each agent's identity is a real X.509
+          certificate issued under the same model I proposed to the IETF
+          (<strong class="chrome">draft-tonyai-a2a-trust</strong>), presented over real mTLS on every request. But
+          the agent never decides what it's allowed to do: a real <strong class="chrome">mTLS + Cedar security
+          gateway</strong>, a process the agent's operator doesn't control, is the only party that ever decides
+          <em>and executes</em> a duty. The agent can ask. It cannot act.
+        </p>
+        <div class="card-details">
+          <ul class="card-bullet-list bullet-accordion"
+            style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4"
+          >
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real SSO, Real IdP Shape</strong>
+              </button>
+              <div class="bullet-body">
+                Keycloak OIDC — PKCE for the catalog, Authorization Code for each agent's own confidential client
+              — role-trimmed tiles (<code>security</code>/<code>eng</code>/<code>devops</code>/<code>architect</code>),
+              silent re-auth off one shared session. Not a login mockup.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">100% Local — Nothing Reaches the Internet</strong>
+              </button>
+              <div class="bullet-body">
+                Keycloak, the mTLS gateway, all three agent backends, and the LLM all run on one machine — no AWS,
+              no cloud IdP, no hosted API. The self-issued CA, the delegated-credential store, and every duty target
+              are local files and local processes, not external services standing in for the real thing.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Three Real Products, Wrapped, Not Mocked</strong>
+              </button>
+              <div class="bullet-body">
+                Sentinel Agent Drift Scanner (a real compiled C++ static-analysis binary), autonomous-code-reviewer-agent,
+              and rag-knowledge-assistant — each its own standalone app with its own port and its own Keycloak client.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">mTLS + Cedar Gateway, RFC 8693 Delegation</strong>
+              </button>
+              <div class="bullet-body">
+                Two real TLS client-cert handshakes per duty. The agent's long-lived cert gets it a narrow,
+              single-use delegated cert+token pair (300s TTL, Cedar-evaluated); only the <em>second</em> call, using
+              that delegated credential, actually executes — the agent never touches the real target directly.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">IETF-Grade Agent Identity</strong>
+              </button>
+              <div class="bullet-body">
+                Every agent cert follows the same X.509 identity model proposed in my own IETF Internet-Draft,
+              <strong class="chrome">draft-tonyai-a2a-trust</strong> — not a textbook cert example, the same pattern
+              submitted to the IETF, running real agent authorization.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Real On-Behalf-Of Token Exchange</strong>
+              </button>
+              <div class="bullet-body">
+                drift-agent presents the logged-in user's own verified Keycloak access token as the
+              <code>subject_token</code> in a real OBO exchange to mint its scanner's license token — bound to who's
+              actually asking, not a static shared secret.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Local LLM, Zero External Dependency</strong>
+              </button>
+              <div class="bullet-body">
+                Ollama (<code>llama3.2:1b</code>), no API key, fully self-contained. A real hallucination (a
+              fabricated answer with a fake citation) was found live and fixed with a
+              <strong class="chrome">deterministic gate in front of the model</strong>, not a stronger prompt — the
+              prompt-only fix alone still failed 1 run in 3.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                <strong class="chrome">Shift-Left Red-Teamed, Not Just Designed</strong>
+              </button>
+              <div class="bullet-body">
+                A security review pass against the running app found and fixed real issues: ungitignored mTLS
+              private keys, a type-confusion crash from an adversarial payload, and a dark-mode white-on-white
+              rendering bug. 63 automated tests (unit + live smoke, zero mocks) guard against regressions.
+              </div>
+            </li>
+          </ul>
+          <div>
+            <div class="card-section-label">Core Tech</div>
+            <div class="tags">
+              <span class="tag">Python (Flask)</span><span class="tag">Java / Spring Boot</span
+              ><span class="tag">Cedar</span><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Keycloak (OIDC)</span
+              ><span class="tag">RBAC</span><span class="tag">X.509 / mTLS</span
+              ><span class="tag">RFC 8693</span><span class="tag">Docker</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">Ollama (local LLM)</span
+              ><span class="tag">Playwright</span><span class="tag">pytest</span>
+            </div>
+          </div>
+          <div>
+            <div class="card-section-label">Compliance Ready</div>
+            <div class="tags compliance-tags">
+              <span class="tag">NIST 800-207</span><span class="tag">Zero Trust</span
+              ><span class="tag">OWASP Top 10</span><span class="tag">OWASP LLM Top 10</span
+              ><span class="tag">Fail-Closed by Design</span><span class="tag">IAM &amp; Access</span
+              ><span class="tag" style="border-color: #c8a030; -webkit-text-fill-color: #c8a030">IETF draft-tonyai-a2a-trust</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="status">
+              <div class="status-dot"></div>
+              <span class="status-wave">
+                <!-- TODO: add "· GitHub" once pushed public (see pocs-to-github-plan). -->
+                Same X.509 identity model as my
+                <a href="https://datatracker.ietf.org/doc/draft-tonyai-a2a-trust/" target="_blank" rel="noopener">IETF draft</a>
+              </span>
             </div>
           </div>
         </div>

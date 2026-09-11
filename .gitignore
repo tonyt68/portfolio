@@ -20,6 +20,10 @@ service-account.json
 # Certificates
 certs/
 
+# CA key material (agent-sso-catalog's own CA — different literal name from
+# certs/ above, not covered by that rule; see docs/agent-sso-catalog-design.md)
+ca/
+
 # Python
 __pycache__/
 *.pyc
@@ -83,5 +87,17 @@ idea-*.md
 idea-governed-writeback-gateway.md
 governed-writeback-gateway/
 
+# Other local-only PoC directories at ~/dev root — each is its own future repo
+# (see pocs-to-github-plan), not part of the portfolio site's own repo. Found
+# completely unprotected during a pre-push safety check, 2026-09-11 -- neither
+# was covered by any existing rule, only accidentally untracked so far.
+agent-sso-catalog/
+template-vending-machine/
+
 # Portfolio tech-debt register — NEVER commit (catalogs vulns in published solutions)
 tech-debt/
+
+# agent-sso-catalog runtime state (start.sh/stop.sh) — PIDs and logs,
+# never anything to commit
+run/
+logs/
