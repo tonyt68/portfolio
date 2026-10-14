@@ -9,3 +9,11 @@
   text-decoration: none;
 }
 .back:hover { text-decoration: underline; }
+
+/* The profile picture's gold ring: one definition for every page.
+   Each page sets only the size. */
+.avatar {
+  border-radius: 50%;
+  border: 3px solid #c8a030;
+  object-fit: cover;
+}
