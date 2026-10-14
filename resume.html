@@ -258,6 +258,13 @@
     text-decoration: none;
   }
   a:hover { text-decoration: underline; }
+
+  .headline { font-size: 0.9rem; font-weight: 600; color: #dde3ea; margin: 0.15rem 0 0.35rem; }
+  .engage { margin-top: 0.6rem; font-size: 0.8rem; color: #8b949e; }
+  .engage strong { color: #e8a800; -webkit-text-fill-color: #e8a800; }
+  .summary p { margin: 0.5rem 0 0.2rem; font-size: 0.86rem; }
+  .job-intro { font-size: 0.82rem; color: #8b949e; font-style: italic; margin-bottom: 0.5rem; }
+  .problem-tags { font-size: 0.78rem; color: #8b949e; margin-bottom: 0.4rem; }
 </style>
 </head>
 <body>
@@ -269,52 +276,114 @@
   </div>
 
   <div class="resume-header">
-    <h1>Anthony James Trujillo</h1>
+    <h1>Anthony James Trujillo (TonyAI)</h1>
+    <div class="headline">Founder &amp; Principal AI Security Architect, PhalanxAI Security LLC</div>
     <div class="contact">
-      (435) 850-7078 &nbsp;·&nbsp; <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/phalanxai-security-llc" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a>
+      Herriman, UT &nbsp;·&nbsp; (435) 850-7078 &nbsp;·&nbsp; <a href="mailto:founder@phalanxaisec.com">founder@phalanxaisec.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/phalanxai-security-llc" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a>
     </div>
-    <div style="margin-top:0.5rem;font-size:0.78rem;font-weight:700;color:#e8a800;letter-spacing:0.03em;">0.04% Escaped Defect Rate</div>
+    <div class="engage"><strong>Engagements:</strong> corp-to-corp through PhalanxAI Security LLC, direct or via your staffing partner. Registered Utah LLC, insured for professional and general liability. W-9 and certificate of insurance on request.</div>
   </div>
 
   <h2>Professional Summary</h2>
   <div class="summary">
-    <strong>Principal AI Software Engineer · Agentic AI &amp; Zero Trust Architecture · Identity · Compliance</strong>
-    <ul style="margin-top:0.6rem;">
-      <li><strong>IETF Internet-Draft Author</strong> — <em>draft-tonyai-a2a-trust-01</em> (agent-to-agent trust, AI governance; RFC track)</li>
-      <li><strong>Hands-on builder, full lifecycle:</strong> Agentic workflows (Cursor, Claude Code) deliver an industry-leading <strong>0.04% defect rate</strong> (2+ years consistent) — I design, code, and implement every system myself, then own it operationally day-to-day, not handed off after a design doc</li>
-      <li><strong>Zero critical production bugs, zero breaches, zero support calls</strong> for login/access failures (career)</li>
-      <li><strong>Deep expertise:</strong> Zero Trust security, identity platforms (Auth0, Okta, Entra ID), AWS, microservices, compliance (SOC2, PCI-DSS, HIPAA)</li>
-      <li><strong>Database architecture expert:</strong> Schema design, DDL/DML, indexing, and query tuning across Oracle, PostgreSQL, and MSSQL — not tied to one engine</li>
-      <li><strong>No vendor services, ever:</strong> Every OAuth2/OIDC/SAML identity implementation across my entire career — Auth0, Okta, Entra ID alike — built and delivered myself, without vendor professional services. Literal track record, not a slogan</li>
-      <li><strong>Leadership:</strong> Tier-0 systems architecture, 50+ engineers mentored, cross-functional influence (Security, Legal, Product, InfoSec) — without stepping away from the keyboard</li>
-      <li><strong>Portfolio:</strong> Numerous live PhalanxAI solutions, running code, Anthropic certifications at <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></li>
-      <li><strong>Agentic AI specification engineering</strong> — full architecture and security model defined before first line of code; zero requirements drift</li>
+    <strong>Identity, Zero Trust and governance for AI agents and the enterprises deploying them</strong>
+    <p>PhalanxAI Security is a new firm built for a new problem: AI agents are moving into the enterprise faster than security can follow. The firm secures the newest identities a company has: AI agents, workloads and other non-human identities (NHI). The problem is new. The discipline behind the answer is proven: the same identity and Zero Trust engineering that protected 100,000+ users on MFA and 10,000+ enterprise SSO users, with zero production security breaches, now applied to AI.</p>
+    <ul>
+      <li><strong>One practice, six problem areas:</strong> identity and access management, non-human and agent identity, Zero Trust for AI, AI governance, AI security testing, and security compliance.</li>
+      <li><strong>Running code, not slides:</strong> 20+ published solutions with recorded demos at <a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">phalanxaisec.com</a>, each built to deploy inside the client's own cloud account or data center.</li>
+      <li><strong>Standards author:</strong> first author of IETF Internet-Draft <em>draft-tonyai-a2a-trust-03</em>, on how AI agents prove identity and delegated authority to each other, with a public reference implementation.</li>
+      <li><strong>Proven in regulated environments:</strong> SOC 2, PCI-DSS, HIPAA and FIPS 140-3 work across healthcare, payments and state government.</li>
+      <li><strong>Hands-on principal:</strong> architecture, code, infrastructure as code and hand-off. Every OAuth 2.0, OIDC and SAML implementation across Auth0, Okta, Entra ID and Keycloak was built and delivered directly, with no vendor professional services.</li>
+      <li><strong>Leaves teams stronger:</strong> 50+ engineers mentored, security patterns adopted across products, and a CISO's cloud engineering team trained on identity and remediation.</li>
+      <li><strong>Measured quality:</strong> 0.04% escaped defect rate, sustained with spec-driven development and shift-left review gates on AI-assisted work.</li>
     </ul>
   </div>
 
-  <h2>Security Portfolio <span style="text-transform:none;font-size:0.75rem;color:#8b949e;letter-spacing:0;">· Between roles — running code, live demos</span></h2>
-  <div class="poc">
-    <div class="poc-title"><a href="https://phalanxaisec.com" target="_blank" rel="noopener noreferrer">PhalanxAI Security</a></div>
-    <div class="poc-desc">Numerous live PhalanxAI solutions, running demos, IETF Draft, Anthropic certifications — Co-piloted by Claude Code</div>
+  <h2>The Problems Companies Hire PhalanxAI to Solve</h2>
+
+  <div class="job">
+    <div class="job-company">1. AI agents are in production without real identities</div>
+    <div class="problem-tags">non-human identity, agent identity, workload identity</div>
+    <ul>
+      <li><strong>What I deliver:</strong> an identity for every agent, workload and service, managed across its full lifecycle: issuance, credential rotation, expiry, revocation and decommissioning. Delegated authorization so an agent acts on behalf of a user with only that user's rights (OAuth 2.0 token exchange, RFC 8693). Identity federation with Okta, Entra ID, Auth0 and Keycloak.</li>
+      <li><strong>Proof:</strong> IETF Internet-Draft and public reference implementation (X.509 agent certificate chains, time-boxed revocation; 50 conformance tests and 34 red-team attack vectors, all passing). Token exchange engine with sub-second revocation. Okta-to-Auth0 federation broker with a fail-closed kill switch checked on every request.</li>
+    </ul>
   </div>
-  <div class="poc" style="margin-top:0.5rem;">
-    <div class="poc-title"><a href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">IETF A2A Trust Solution</a></div>
-    <div class="poc-desc">Live solution: JWT chains, HMAC integrity, ReBAC, cryptographic audit trail</div>
+
+  <div class="job">
+    <div class="job-company">2. Agents can reach tools and data nobody approved</div>
+    <div class="problem-tags">Zero Trust for AI, MCP security, least privilege</div>
+    <ul>
+      <li><strong>What I deliver:</strong> least-privilege, policy-driven access between agents and enterprise APIs, data and tools. An AI gateway in front of Model Context Protocol (MCP) servers. Mutual TLS (mTLS) and short-lived credentials in place of static secrets. Fine-grained authorization (RBAC, ABAC, ReBAC) written as policy as code.</li>
+      <li><strong>Proof:</strong> Last Mile Zero Trust platform enforcing MCP tool access, ephemeral identity and policy decisions across AWS, GCP, Okta and Entra ID. MCP security gate with runtime threat detection. Cross-cluster service mesh isolation with mTLS rejection (52+ automated tests). Identity-gated RAG that restricts vector database retrieval by the caller's identity.</li>
+    </ul>
   </div>
+
+  <div class="job">
+    <div class="job-company">3. Nobody can prove what the AI did</div>
+    <div class="problem-tags">AI governance, human-in-the-loop, auditability</div>
+    <ul>
+      <li><strong>What I deliver:</strong> every agent action authenticated, authorized, attributable and auditable. Human-in-the-loop approval gates for high-risk actions. Append-only, cryptographically verifiable audit trails. Guardrails enforced by deterministic checks, so the model proposes and policy decides.</li>
+      <li><strong>Proof:</strong> Governed Writeback Gateway, where routine changes apply automatically and sensitive ones wait for a reviewer with authority over that data. I then measured whether the review was real: the same reviewers escalated 9.6% of cases reviewing blind and 4.8% when shown the AI's recommendation, and I published the number. 6,721 audit entries verified.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">4. Workforce and customer identity has to scale and pass audit</div>
+    <div class="problem-tags">IAM, CIAM, SSO, MFA, federation</div>
+    <ul>
+      <li><strong>What I deliver:</strong> single sign-on, adaptive MFA, federation and provisioning (SAML 2.0, OIDC, SCIM, JIT) on Okta, Auth0, Entra ID and Keycloak. Role and entitlement design (RBAC). Migrations to SSO that are driven by compliance deadlines and land without locking users out.</li>
+      <li><strong>Proof:</strong> 100,000+ users on Auth0 with adaptive MFA, sustaining 3x daily concurrent logins with zero rate-limit errors. 10,000+ enterprise SSO users on a SAML 2.0 integration with Okta and Entra ID that three other products adopted. Customer-owned identity provider federation for the largest enterprise customers, accepted on first presentation.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">5. Compliance evidence is gathered by hand, once a year</div>
+    <div class="problem-tags">security compliance, policy as code, audit readiness</div>
+    <ul>
+      <li><strong>What I deliver:</strong> controls built into the platform and the pipeline, so evidence is produced continuously: policy as code, automated security gates on every commit, signed and immutable audit logs, and infrastructure as code an auditor can read.</li>
+      <li><strong>Proof:</strong> SOC 2 maintained through every identity rollout. PCI-DSS-compliant MFA and machine-to-machine (M2M) authentication. FIPS 140-3 compliance boundary on AWS (S3 Object Lock, KMS-signed audit logs). 100% of critical and medium penetration-test findings closed in three sprints, with zero findings on SSO and authentication flows.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-company">6. AI-assisted development is outrunning security review</div>
+    <div class="problem-tags">secure AI-native SDLC, AI red teaming, supply chain</div>
+    <ul>
+      <li><strong>What I deliver:</strong> shift-left review gates for AI-generated code, spec-driven development, isolated contexts and human approval before merge. Automated adversarial testing and red teaming. Drift detection for AI agents and their tool supply chain. Team enablement on Claude Code and Cursor.</li>
+      <li><strong>Proof:</strong> AI Safety &amp; Deployment Framework adopted across a 100,000-user platform's engineering organization, with zero production defects. An adaptive red-team orchestrator that attacks its own code. The Sentinel agent drift scanner, shipped as a licensed executable for macOS, Linux and Windows.</li>
+    </ul>
+  </div>
+
+  <h2>How an Engagement Works</h2>
+    <ul>
+      <li><strong>Embedded principal architect or engineer</strong> on your team for a fixed term, direct or through your staffing partner.</li>
+      <li><strong>Solution deployment:</strong> a PhalanxAI reference solution implemented, tested and documented inside your own cloud account or on your own hardware. Nothing is hosted by us and nothing phones home.</li>
+      <li><strong>Greenfield build:</strong> scoped in a statement of work, delivered as infrastructure as code, and handed off to your team.</li>
+      <li><strong>Training and enablement:</strong> secure use of AI coding agents, identity patterns, and Zero Trust for agents.</li>
+      <li><strong>Fits your team, at the size you need:</strong> works in your backlog and process and takes direction from your technical lead. The scope can be one hard problem, one sprint or one platform.</li>
+      <li><strong>Every engagement ends with knowledge transfer:</strong> documentation and code your team owns and can run without us.</li>
+    </ul>
 
   <h2>Experience</h2>
 
   <div class="job">
-    <div class="job-company">PhalanxAI Security LLC — Remote</div>
-    <div class="job-title">Self-Employed · Founder &amp; Principal AI Security Engineer &nbsp;|&nbsp; April 2026 – Present</div>
+    <div class="job-company">PhalanxAI Security LLC — Herriman, UT</div>
+    <div class="job-title">Founder &amp; Principal AI Security Architect &nbsp;|&nbsp; April 2026 – Present</div>
+    <div class="job-intro">Security infrastructure for AI agents. "Making it safer to move fast with AI." Utah LLC carrying professional liability and general liability coverage. Solutions are deployed and proven inside the client's own environment.</div>
     <ul>
-      <li><strong>Zero Trust AI security platform:</strong> Designed and built last-mile Zero Trust architecture in Python (FastAPI, Pydantic) — ephemeral identity, MCP security enforcement, on-behalf-of (OBO) delegation, a token broker, policy enforcement, ReBAC, full cryptographic audit trail; integrates with AWS, GCP, Okta, and Entra ID as IdPs. Running code, not slides.</li>
-      <li><strong>IETF Internet-Draft first author:</strong> <em>draft-tonyai-a2a-trust-01</em> — agent-to-agent trust and AI governance; X.509 certificate chains, time-boxed revocation, 100% pass rate across 50 conformance tests + 34 red-team attack vectors, reference implementation in Python. Every clause backed by running code.</li>
-      <li><strong>Identity &amp; token infrastructure:</strong> Built an Okta↔Auth0 identity federation broker (Java/Spring Boot resource server, TypeScript thin-client + CDK infra) with a fail-closed DynamoDB kill-switch checked on every request, and a custom RFC 8693 token exchange engine (AWS Lambda + Cognito, DynamoDB-backed revocation) — designed the token lifecycle strategy (minting, rotation, expiry, sub-second revocation) across both.</li>
-      <li><strong>Infrastructure security:</strong> Built cross-cluster Zero Trust mesh isolation in Python with mTLS rejection (52+ automated tests) and an AWS-native FIPS 140-3 compliance boundary — S3 Object Lock plus KMS-signed audit logs.</li>
-      <li><strong>Agentic AI specification engineering:</strong> Full architecture and security model defined before first line of code across numerous PhalanxAI solutions; zero requirements drift.</li>
-      <li><strong>Cross-platform C++ build &amp; CI:</strong> Built a C++17 security scanner (CMake, vcpkg) shipping as native macOS, Linux, and Windows executables — GitHub Actions matrix build runs on real native hardware per platform (no QEMU emulation), vcpkg binary-cached for fast rebuilds, automated CTest suite, artifact publishing per platform. Real dependency stack: AWS SDK C++, Google Cloud C++, OpenSSL, jwt-cpp, yaml-cpp, cpr, nlohmann_json.</li>
-      <li><strong>AWS depth, verified across the portfolio:</strong> Hands-on, production or PoC-level implementation across 30+ AWS services — EKS, ECS, Fargate, S3, SES, SQS, SNS, Lambda, API Gateway, KMS, IAM, Amazon Verified Permissions, Cedar, Cognito, CloudFormation, EventBridge, CloudTrail, CloudWatch, GuardDuty, CodeBuild, CodePipeline, DynamoDB, RDS, Aurora, ElastiCache, Redis, Secrets Manager, Parameter Store, Step Functions, PrivateLink, CloudFront, Kinesis, Glue, X-Ray, Bedrock, SageMaker — plus Azure (Entra ID), GCP, Terraform. Not surface-level familiarity.</li>
+      <li><strong>Founded the firm and built its solution portfolio:</strong> technical strategy, architecture, implementation, cloud infrastructure, CI/CD, demos and client-facing material for 20+ published solutions.</li>
+      <li><strong>Last Mile Zero Trust (flagship):</strong> a security layer for AI agents (Python, FastAPI, Pydantic) that enforces MCP tool access, ephemeral identity, on-behalf-of (OBO) delegation, token brokering, policy decisions and ReBAC authorization, with a full cryptographic audit trail. Federates AWS, GCP, Okta and Entra ID as identity providers.</li>
+      <li><strong>Agent identity and token infrastructure:</strong> Okta-to-Auth0 federation broker (Java, Spring Boot, TypeScript, AWS CDK) with a fail-closed DynamoDB kill switch, plus an RFC 8693 token exchange engine (Lambda, Cognito) covering the full token lifecycle: minting, rotation, expiry and sub-second revocation.</li>
+      <li><strong>Governed Writeback Gateway:</strong> human-in-the-loop oversight system (Java 25, Spring Boot, Next.js 16 backend-for-frontend, MCP agent front door). Authority is a ReBAC graph. Storage is append-only at the database (row triggers refusing UPDATE and DELETE for every role, forced row-level security).</li>
+      <li><strong>Runs on the client's own hardware:</strong> Keycloak 26 as a self-hosted identity provider (realm as code, PKCE, DPoP enforced at the token endpoint, refresh-token rotation with reuse detection), a local model runner (Ollama), HashiCorp Vault (PKI and Transit), PostgreSQL 18 and Redis 8 Streams. This is what makes regulated and air-gapped engagements possible.</li>
+      <li><strong>Sentinel family:</strong> agent drift scanner; AWS operations toolkit fronted by MCP; cross-cluster Zero Trust mesh isolation; AWS-native FIPS 140-3 compliance boundary; and a triage agent harness built on earned autonomy and measured system health.</li>
+      <li><strong>Policy as code:</strong> authorization policies written in Cedar with Amazon Verified Permissions, versioned and reviewed like application code.</li>
+      <li><strong>AI red teaming and secure RAG:</strong> autonomous red-team orchestrator, identity-gated RAG pipeline (ReBAC graph and JWT claims restricting retrieval), an enterprise RAG knowledge assistant, and an autonomous code reviewer integrated through Auth0 and MCP.</li>
+      <li><strong>Standards authorship with tests behind every clause:</strong> IETF Internet-Draft <em>draft-tonyai-a2a-trust-03</em> with three implementations and a public conformance suite.</li>
+      <li><strong>Ships like a product company:</strong> C++17 security scanner released as native macOS, Linux and Windows executables through GitHub Actions matrix builds, with per-client license tokens and password-protected delivery packaging.</li>
+      <li><strong>Reproducible from committed infrastructure as code:</strong> Helm and CRDs for Kubernetes and Istio; CDK, SAM and Terraform for cloud. No client infrastructure is stood up by hand.</li>
+      <li><strong>AWS depth across 30+ services:</strong> EKS, ECS, Fargate, Lambda, API Gateway, KMS, IAM, Amazon Verified Permissions, Cognito, DynamoDB, RDS, Aurora, S3, SQS, SNS, SES, EventBridge, Step Functions, CloudTrail, CloudWatch, GuardDuty, Secrets Manager, PrivateLink, CloudFront, Bedrock and SageMaker, plus Azure (Entra ID), GCP and Cloudflare.</li>
     </ul>
   </div>
 
@@ -322,26 +391,25 @@
     <div class="job-company">Henry Schein One — Herriman, UT</div>
     <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; July 2023 – April 2026</div>
     <ul>
-      <li><strong>Agentic AI adoption, hands-on:</strong> Built and personally used Cursor workflows adopted team-wide; set company record with 17 story points in a single sprint. Evaluated Cursor, GitHub Copilot, GitLab Duo, and Claude hands-on before recommending Cursor for company-wide rollout — ranked top 50 company-wide for adoption. Sustained 0.04% defect rate across 10+ years, recognized by SVP of Engineering and CTO as highest-performing on velocity, output, and defect rate.</li>
-      <li><strong>Safe AI at scale:</strong> Designed and personally built the AI Safety &amp; Deployment Framework used across HSO — shift-left review, isolated contexts, atomic changes, human gates. Delivered zero production defects; replicable pattern for any org scaling AI safely.</li>
-      <li><strong>100k+ Auth0 users at scale:</strong> Sole architect + implementer + rollout owner — hand-coded the custom login UI, adaptive MFA, SMS integration, and a WebAuthn/FIDO2 pilot myself, no vendor pro services. Platform sustained 3× daily concurrent logins with zero rate-limit errors.</li>
-      <li><strong>Repeatable hardening pattern library (build-once, reuse-many):</strong> Wrote the M2M (OAuth2 client credentials) and Entra ID OBO patterns once, reused them for every subsequent 3rd-party integration (Worldpay, partner APIs); session hardening (Session Kill Switch) reused platform-wide, custom Auth0 login UI reused as the FE/UI hardening baseline elsewhere.</li>
-      <li><strong>SAML/Entra ID migration, 200+ users, SOC2-driven:</strong> Wrote the SAML 2.0 golden path myself (adopted by 3 other HSO products), then led the migration off manual DB-based logins onto full SSO with Entra ID SP flow, RBAC, and JIT provisioning — personally defined the role/entitlement mapping. Cutover was compliance-driven (SOC2), not optional; IT adopted my role framework organization-wide.</li>
-      <li><strong>IAM operations, standing escalation point:</strong> Owned the internal support tool our techs used daily — fixed bugs, shipped features, was paged directly when SSO broke in production. Built the access/eligibility reporting (bot/ban, Auth0 eligibility, migration tracking) presented to leadership every sprint demo; that data-driven track record is what earned me ownership of the broader auth/security modernization effort.</li>
-      <li><strong>Enterprise DSO federation:</strong> Designed and built the Auth0 IdP federation for the largest DSO customers myself — mapped each DSO organization to the PMS so customers bring and use their own IdP/users. Proposal accepted first presentation; SOC2 maintained throughout.</li>
-      <li><strong>Real-time threat response:</strong> Neutralized 2 simultaneous live attacks (DDoS + data exfiltration) hands-on, kept the platform online. <strong>Greenfield inventions:</strong> Session Kill Switch, Magic Mint (token binding), Actions Mapping Engine, Email Bounce Engine (AWS SES/SQS/SNS, cut support tickets 90% company-wide), PIN Step-Up Auth.</li>
-      <li><strong>Technical leadership, department-wide:</strong> The recognized security authority for the department for an extended period — evaluated and personally built what was chosen (Auth0, Okta, Entra ID), not just signed off on it. Team's mandate grew from bug-fixing to owning AppSec outright; personally trained the CISO's cloud engineering team on Auth0 and my pen-test remediation approach. Authored HSO-wide security patterns and mentored 90%+ of the team.</li>
-      <li><strong>Legacy impact:</strong> Post-departure, HSO stood up a dedicated AppSec team to replace one engineer's security work. All Auth0 code still bug-free, zero login/access failure support calls.</li>
+      <li><strong>Customer identity at scale:</strong> architect, implementer and rollout owner for 100,000+ users on Auth0: custom login UI, adaptive MFA, SMS integration and a WebAuthn/FIDO2 pilot. The platform sustained 3x daily concurrent logins with zero rate-limit errors.</li>
+      <li><strong>Reusable identity patterns:</strong> wrote the M2M (OAuth 2.0 client credentials) and Entra ID on-behalf-of patterns once, then reused them for every third-party integration, including Worldpay and partner APIs.</li>
+      <li><strong>Compliance-driven SSO migration:</strong> wrote the SAML 2.0 golden path (paved road) adopted by three other products, then led 200+ internal users to SSO with Entra ID, RBAC and JIT provisioning under a SOC 2 deadline. IT adopted the role framework organization-wide.</li>
+      <li><strong>Enterprise federation:</strong> designed and built Auth0 identity provider federation so the largest enterprise customers bring their own IdP and users. Proposal accepted on first presentation; SOC 2 maintained throughout.</li>
+      <li><strong>Safe AI adoption:</strong> designed and built the AI Safety &amp; Deployment Framework used across the engineering organization (shift-left review, isolated contexts, atomic changes, human approval gates). Evaluated Cursor, GitHub Copilot, GitLab Duo and Claude hands-on before recommending Cursor for company-wide rollout.</li>
+      <li><strong>Incident response:</strong> neutralized two simultaneous live attacks (DDoS and data exfiltration) and kept the platform online.</li>
+      <li><strong>Greenfield builds:</strong> session kill switch, token binding, actions mapping engine, PIN step-up authentication, and an email bounce engine (AWS SES, SQS, SNS) that cut support tickets 90% company-wide.</li>
+      <li><strong>Identity operations:</strong> owned the internal support tool used daily by support staff, was the standing escalation point for production SSO, and built the access and migration reporting presented to leadership every sprint.</li>
+      <li><strong>Security leadership:</strong> the department's recognized security authority. Trained the CISO's cloud engineering team on Auth0 and penetration-test remediation, authored company-wide security patterns, and mentored 90%+ of the team.</li>
     </ul>
   </div>
 
   <div class="job">
-    <div class="job-company">KeSTA I.T. — State of Utah — Salt Lake City, UT</div>
+    <div class="job-company">KeSTA I.T. — State of Utah (contract) — Salt Lake City, UT</div>
     <div class="job-title">Lead Java Developer &nbsp;|&nbsp; October 2022 – July 2023</div>
     <ul>
-      <li><strong>Minutes → seconds:</strong> Oracle-to-PostgreSQL migration (zero data loss); cut query response time via targeted indexing + refactoring. Two senior architects: "Never seen that volume and quality from one engineer in that timeframe."</li>
-      <li><strong>Stack modernization:</strong> Java 8 / AngularJS → Java 17 / Spring Boot / Angular in high-security government environment.</li>
-      <li><strong>Automated quality gates:</strong> GitHub Actions pipelines + OpenAPI/Swagger specs eliminated cross-team integration friction.</li>
+      <li><strong>Minutes to seconds:</strong> wrote and executed the Oracle-to-PostgreSQL migration with zero data loss, and cut query response time through targeted indexing and refactoring.</li>
+      <li><strong>Stack modernization:</strong> delivered the Java 8 and AngularJS to Java 17, Spring Boot and Angular migration in a high-security government environment.</li>
+      <li><strong>Automated quality gates:</strong> built GitHub Actions pipelines and OpenAPI/Swagger specifications that removed cross-team integration friction.</li>
     </ul>
   </div>
 
@@ -349,86 +417,61 @@
     <div class="job-company">Henry Schein One — Herriman, UT</div>
     <div class="job-title">Principal Software Engineer / Team Lead &nbsp;|&nbsp; June 2021 – October 2022</div>
     <ul>
-      <li><strong>eRx & clinical platform integrations:</strong> Designed the role-based access model for the DoseSpot (electronic prescribing) integration — separate Clinician (prescriber) and Proxy (staff/dentist) roles alongside doctor-portal and patient logins — where Proxy users queue a prescription via delegated access, gated by the EPCS-compliant controlled-substance workflow (DEA-mandated two-factor signing) before the Clinician can sign and transmit it. Wrote the eRx business logic myself (later adopted platform-wide by the team), helped implement multi-tenancy directly in DoseSpot's own codebase, delivered non-eRx PMS integrations, and helped the clinical team implement Veradigm (EHR/clinical platform).</li>
-      <li><strong>92% faster deployments:</strong> Personally led and coded the Grails 3 → Java 17 / Spring Boot monolith-to-microservices decomposition (1.5 hrs → 13 mins). Wrote the OpenFeign service-to-service integration pattern myself; it became the chosen standard for the rest of the Grails/Groovy → Java migration, not a one-off.</li>
-      <li><strong>100% remediation rate:</strong> Wrote the fixes to close all critical + medium pen-test findings in 3 sprints; zero findings on SSO/auth flows — Security-by-Design.</li>
-      <li><strong>Automated security gates:</strong> Built GitLab/Harness pipelines (Snyk, SpotBugs, CheckStyle, JaCoCo, Jest) on every commit myself.</li>
-      <li><strong>Infrastructure as code:</strong> Wrote the Terraform IaC for the Spring Security gateway myself — provisioned, versioned, auditable from day one.</li>
-      <li><strong>Team onboarding:</strong> Trained engineering + QA on Kafka patterns, identity standards, Event Storming; reduced event-driven service design time.</li>
+      <li><strong>Delegated access for electronic prescribing:</strong> designed the role-based access model for the DoseSpot integration, with separate Clinician and Proxy roles and a controlled-substance workflow that meets DEA two-factor signing requirements (EPCS).</li>
+      <li><strong>92% faster deployments:</strong> led the Grails 3 to Java 17 and Spring Boot monolith-to-microservices decomposition (1.5 hours to 13 minutes). The OpenFeign service-to-service pattern became the standard for the rest of the migration.</li>
+      <li><strong>100% remediation:</strong> closed all critical and medium penetration-test findings in three sprints, with zero findings on SSO and authentication flows.</li>
+      <li><strong>Security scanner rollout, twice:</strong> chosen by the CISO to implement code and dependency scanning across the main platform monorepo, more than a decade of code and millions of lines, and four microservice repositories, first with Check Point and then with Snyk when the company changed tools. Built the scans into the GitLab pipelines, added static analysis and dependency pinning, and got other team leads to bring their teams on, including local scans before commit.</li>
+      <li><strong>Merge gates tied to SOC 2:</strong> merge gates kept high and critical CVEs out of the main codebase, alongside SpotBugs, CheckStyle, JaCoCo and Jest in GitLab and Harness pipelines.</li>
+      <li><strong>Infrastructure as code:</strong> wrote the Terraform for the Spring Security gateway, provisioned and auditable from day one.</li>
+      <li><strong>Team enablement:</strong> trained engineering and QA on Kafka patterns, identity standards and Event Storming.</li>
     </ul>
   </div>
 
   <div class="job">
-    <div class="job-company">Henry Schein One / Henry Schein Practice Solutions — Herriman, UT</div>
-    <div class="job-title">Full-Stack Staff Engineer / Founding Integration Architect / Team Lead &nbsp;|&nbsp; August 2012 – June 2021</div>
+    <div class="job-company">Henry Schein One (formerly Henry Schein Practice Solutions) — Herriman, UT</div>
+    <div class="job-title">Founding Architect &amp; Technical Lead, Enterprise Identity &nbsp;|&nbsp; August 2012 – June 2021</div>
+    <div class="job-intro">Founding architect on Dentrix Ascend, a cloud practice management platform. Joined Henry Schein Practice Solutions in 2012; the business became part of Henry Schein One when it launched as a new company in July 2018. Built the platform's identity and integration layer, then the enterprise authentication stack the new company needed.</div>
     <ul>
-      <li><strong>Auth stack evolution:</strong> Architected <em>and personally wrote</em> the PMS identity layer from scratch; evolved: Basic Auth → OAuth2 → SAML 2.0 → M2M → JWT/Bearer. Every auth paradigm today traces to this work.</li>
-      <li><strong>10k+ enterprise SSO users:</strong> Designed and hand-coded the Enterprise SAML 2.0 (IdP + SP) integration with Okta + Entra ID. By 2018, 3 other HSO products adopted it — one investment, cross-product revenue.</li>
-      <li><strong>Entra ID OBO platform:</strong> Designed and built a greenfield OBO flow from zero, wrote the code end-to-end; adopted by multiple teams, support tooling used daily by support/management staff.</li>
-      <li><strong>Solo platform architect (2012–2019):</strong> Owned architecture, technical strategy, <em>and wrote the code</em> — plus Scrum and infrastructure — simultaneously until dedicated teams stood up in 2019. Then entrusted full CI/CD pipeline ownership for entire PMS.</li>
-      <li><strong>First external pen-test:</strong> Lowest finding count in company history. Zero successful breaches. SOC2 maintained.</li>
-      <li><strong>Stopped DDoS attacks</strong> that had previously taken the platform offline; invented and personally coded the foundational access control (DB schema, seed rights, multi-tenancy violation checker).</li>
-      <li><strong>Full-stack tech leadership:</strong> AWS ECS → EC2 + Kubernetes, Kafka/DDD, PostgreSQL, Spring Boot, React/Vue/Next.js, GitLab CI/CD — wrote production code across every layer. Rebuilt the frontend by hand from jQuery/Backbone to a modern stack.</li>
-      <li><strong>Company-wide database authority:</strong> Served on the DB schema + standards team; personally designed schema patterns adopted across products. Go-to engineer company-wide for both security and database architecture, hands-on not just advisory.</li>
-      <li><strong>Real-time platform reliability:</strong> Engineered real-time update engine, zero-conflict scheduling, multi-tenancy architecture for enterprise integrations.</li>
+      <li><strong>Authentication stack from first principles:</strong> architected and wrote the platform's identity layer and evolved it from Basic Auth to OAuth 2.0, SAML 2.0, M2M and JWT bearer tokens.</li>
+      <li><strong>10,000+ enterprise SSO users:</strong> designed and built the enterprise SAML 2.0 integration (identity provider and service provider) with Okta and Entra ID. Three other products adopted it.</li>
+      <li><strong>On-behalf-of delegation platform:</strong> designed and built a greenfield Entra ID OBO flow adopted by multiple teams, with support tooling used daily by support and management staff.</li>
+      <li><strong>Secure third-party integrations:</strong> built the integration layer connecting the platform to partner systems, with one identity, authorization and data-exchange security model that every partner inherited.</li>
+      <li><strong>Security that held under test and under attack:</strong> the first external penetration test in company history returned the lowest finding count recorded, with zero successful breaches and SOC 2 maintained throughout. Stopped live DDoS attacks and kept the platform online.</li>
+      <li><strong>Access control model:</strong> designed and built the foundational authorization model: database schema, seed rights and a multi-tenancy violation checker.</li>
+      <li><strong>Platform ownership through hand-off:</strong> owned architecture, code, infrastructure and Scrum from 2012 until dedicated teams stood up in 2019, then took on CI/CD pipeline ownership for the whole platform.</li>
+      <li><strong>Database authority:</strong> served on the company's schema and standards team; designed schema patterns adopted across products.</li>
+      <li><strong>Full-stack technical leadership:</strong> AWS ECS, EC2 and Kubernetes; Kafka and domain-driven design; PostgreSQL; Spring Boot; React, Vue and Next.js; GitLab CI/CD; plus the real-time update engine, zero-conflict scheduling and multi-tenancy architecture behind enterprise integrations.</li>
     </ul>
   </div>
 
   <h2>Technical Core</h2>
-  <div class="tech-item"><span class="tech-label">AI &amp; GenAI (SME):</span> Agentic Workflows (Cursor, Claude Code, GitHub Copilot, GitLab Duo, Gemini), Claude Opus, Claude Sonnet, Extended Thinking, Large Language Models (LLMs), Prompt &amp; Context Engineering, Prompt Evaluation Gates, MCP, FastMCP, RAG, Pinecone, AI Agent Orchestration, AI Agents, MCP Servers, Agent Skills, Claude in Amazon Bedrock, A2A Trust, Agent-to-Agent Identity, AI Cost Engineering, Token Budgeting, Bedrock Knowledge Base, Bedrock Guardrails, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001, OpenAPI/Swagger.</div>
-  <div class="tech-item"><span class="tech-label">Identity &amp; Security (SME):</span> Zero Trust Architecture, Authentication (AuthN), Authorization (AuthZ), Spring Security, SAML 2.0, OAuth2, OIDC, PKCE, WebAuthn, FIDO2, Auth0, Auth0 Deploy CLI, Auth0 SPA SDK, Auth0 Custom Login UI (Vue, React, JS), IdP Claims &amp; Scopes Mapping, Token Claims Customization, SAML→OIDC IdP Federation (Okta SAML into Auth0 Enterprise Connection), Okta, Entra ID, JumpCloud, Keycloak, CheckPoint, SSO Deployment &amp; Rollout, IdP Provisioning (internal &amp; enterprise DSO), M2M Identity, Customer-Facing SSO Verification, MFA, RBAC, ReBAC (OpenFGA / Zanzibar, BFS graph traversal), SCIM, JIT Provisioning, User Federation, JWT (RS256), RFC 8693 Token Exchange, RFC 9449 DPoP, RFC 7009 Token Revocation, RFC 9562 (UUIDv7), Token Broker Architecture, HashiCorp Vault, mTLS, X.509 / PKI Certificate Chains, SOC2, PCI-DSS, OWASP Top 10, NIST 800-53, Worldpay, Wireshark, Fiddler, Snyk, pip-audit, Pen-Test Remediation.</div>
-  <div class="tech-item"><span class="tech-label">Cloud &amp; Platform Engineering:</span> AWS EKS, ECS, Fargate, S3, S3 Object Lock, SES, SQS, SNS, Lambda, API Gateway, Application Load Balancer, KMS, IAM, IAM Policies, Amazon Verified Permissions, Cedar, Cognito, Amplify, Organizations, CloudFormation, AWS CDK, AWS SAM, EventBridge, CloudTrail, CloudWatch, GuardDuty, Config, Audit Manager, AWS CloudShell, AWS CodeCommit, CodeBuild, CodePipeline, Amazon ECR, DynamoDB, RDS, Aurora, ElastiCache, Redis, Secrets Manager, Parameter Store, Step Functions, PrivateLink, CloudFront, Kinesis, Glue, X-Ray, Bedrock, SageMaker; Azure (Entra ID), GCP; Terraform, YAML IaC, Bash.</div>
-  <div class="tech-item"><span class="tech-label">CI/CD &amp; Platform Engineering:</span> VS Code, Git, GitLab CI/CD, GitHub Actions (cross-platform matrix builds), Harness, TeamCity, AWS CodeCommit, Kubernetes, Helm, Docker, Ansible, CMake, vcpkg, CTest, GitLab Vault, Secrets Management in Pipelines, Ephemeral Environments, YAML IaC.</div>
-  <div class="tech-item"><span class="tech-label">Backend (Java/C++/C#):</span> Python, FastAPI, Pydantic, TypeScript, Java 17, Spring Boot, Spring MVC, C, C++, C#, .NET, Go (familiar), Groovy/Grails, Node.js, Kafka/Confluent (DDD/Avro), RabbitMQ, WebSockets, HL7 (Health Level 7), X12 (ASC X12 EDI — claims 837 / EOB 835), Microservices, Monolith to Microservices Migration, Distributed Computing, Asynchronous Systems, Event-Driven Architecture, Software Architecture and Design, DDD, REST, Apigee, OpenFeign, Twilio, Maven, Gradle, JUnit, Spock, Mockito, JaCoCo, Software Testing, SOLID, DRY, Agile, Scrum.</div>
-  <div class="tech-item"><span class="tech-label">Frontend:</span> React, Vue.js, JavaScript, jQuery, Backbone, HTML5, CSS3, SASS.</div>
-  <div class="tech-item"><span class="tech-label">Data:</span> DDL, DML, DB Performance Tuning, Query Optimization, Schema Design, Oracle 19c, PostgreSQL, MySQL, MSSQL, Azure SQL Edge, NoSQL, Liquibase, Flyway, Hibernate, GORM, JPA, Spring Data.</div>
-  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, CloudWatch, Spring Boot Actuator, Performance Tuning, SLA/SLO Monitoring.</div>
-  <div class="tech-item"><span class="tech-label">Engineering Leadership:</span> Team Leader, Scrum Master, Agile Ceremonies, Technical Design Docs, Shift-Left Engineering, Code/DB Reviews, Mentorship, Cross-Functional Communication (Engineering, Legal, Security, PM, InfoSec), Vendor Evaluation, Stakeholder Management.</div>
+  <div class="tech-item"><span class="tech-label">Identity &amp; Access Management (IAM, CIAM):</span> Authentication (AuthN), Authorization (AuthZ), Single Sign-On (SSO), Multi-Factor Authentication (MFA), Adaptive MFA, WebAuthn, FIDO2, SAML 2.0, OAuth 2.0, OpenID Connect (OIDC), PKCE, SCIM, JIT Provisioning, Identity Federation, User Federation, Identity Lifecycle, RBAC, ABAC, ReBAC (OpenFGA, Zanzibar), Fine-Grained Authorization, Delegated Authorization, Okta, Auth0 (Okta Customer Identity Cloud), Microsoft Entra ID, Keycloak 26, JumpCloud, Active Directory, LDAP, Spring Security, IdP Claims and Scopes Mapping, SAML-to-OIDC IdP Federation, Auth0 Deploy CLI, Auth0 Custom Login UI.</div>
+  <div class="tech-item"><span class="tech-label">Non-Human Identity (NHI) &amp; Agent Identity:</span> Machine Identity, Workload Identity, Service Accounts, Service-to-Service Authentication, M2M (OAuth 2.0 Client Credentials), AI Agent Identity, Agent-to-Agent (A2A) Trust, On-Behalf-Of (OBO), Token Exchange (RFC 8693), DPoP (RFC 9449), Token Revocation (RFC 7009), JWT (RS256), Token Broker Architecture, Credential Rotation, Ephemeral Credentials, Secrets Management, HashiCorp Vault, AWS Secrets Manager, mTLS, X.509, PKI Certificate Chains.</div>
+  <div class="tech-item"><span class="tech-label">AI Security &amp; Zero Trust:</span> Zero Trust Architecture, Least Privilege, Policy Enforcement, AI Gateway, Model Context Protocol (MCP), MCP Servers, FastMCP, Secure Tool Invocation, AI Guardrails, Deterministic Guardrails, Prompt Injection Defense, AI Threat Modeling, AI Red Teaming, Adversarial Testing, Secure RAG, Vector Database Access Control, Pinecone, AI Supply Chain Security, Agent Drift Detection, OWASP LLM Top 10, MITRE ATLAS, OWASP Top 10, Service Mesh (Istio), Network Isolation.</div>
+  <div class="tech-item"><span class="tech-label">AI Governance &amp; Compliance:</span> AI Governance, Human-in-the-Loop (HITL), Approval Gates, Auditability, Cryptographic Audit Trail, Append-Only Audit Logging, Policy as Code (Cedar, Amazon Verified Permissions), Compliance as Code, Audit Evidence, Continuous Compliance, ISO/IEC 42001, SOC 2, PCI-DSS, HIPAA, FIPS 140-3, NIST 800-53, Penetration-Test Remediation, Security Architecture Review, Reference Architecture.</div>
+  <div class="tech-item"><span class="tech-label">AI Engineering:</span> Agentic AI, AI Agents, Multi-Agent Systems, AI Agent Orchestration, Large Language Models (LLMs), Claude, Claude Code, Cursor, GitHub Copilot, GitLab Duo, Gemini, Prompt and Context Engineering, Spec-Driven Development, AI-Native SDLC, Retrieval-Augmented Generation (RAG), Amazon Bedrock, Bedrock Knowledge Base, Bedrock Guardrails, Agent Skills, Ollama, AI Cost Engineering.</div>
+  <div class="tech-item"><span class="tech-label">Cloud &amp; Platform Engineering:</span> AWS (EKS, ECS, Fargate, Lambda, API Gateway, KMS, IAM, Cognito, DynamoDB, RDS, Aurora, S3, S3 Object Lock, SQS, SNS, SES, EventBridge, Step Functions, CloudTrail, CloudWatch, GuardDuty, PrivateLink, CloudFront, CloudFormation, CDK, SAM), Azure, GCP, Kubernetes, Helm, Docker, Terraform, Infrastructure as Code, Ansible, Cloudflare.</div>
+  <div class="tech-item"><span class="tech-label">CI/CD &amp; DevSecOps:</span> Shift-Left Security, Security Scanner Rollout, Snyk, Check Point, Static Analysis (SAST), Dependency Scanning (SCA), CVE Gating, Merge Request Gates, GitHub Actions, GitLab CI/CD, Harness, SpotBugs, JaCoCo, pip-audit, Secrets Management in Pipelines, Ephemeral Environments, CMake, vcpkg, CTest.</div>
+  <div class="tech-item"><span class="tech-label">Backend &amp; Languages:</span> Java 25, Java 17, Spring Boot, Python, FastAPI, Pydantic, TypeScript, Node.js, Go, C++, C#, .NET, Groovy/Grails, Kafka (DDD, Avro), RabbitMQ, WebSockets, REST, OpenAPI/Swagger, Microservices, Event-Driven Architecture, Distributed Systems, Domain-Driven Design, HL7, X12 EDI.</div>
+  <div class="tech-item"><span class="tech-label">Frontend:</span> React, Next.js, Vue.js, JavaScript, HTML5, CSS3.</div>
+  <div class="tech-item"><span class="tech-label">Data:</span> PostgreSQL 18 (row-level security), Oracle, MSSQL, MySQL, DynamoDB, Redis, Schema Design, Query Optimization, Liquibase, Flyway, Hibernate, JPA.</div>
+  <div class="tech-item"><span class="tech-label">Observability:</span> Dynatrace, Splunk, AppDynamics, CloudWatch, SLA/SLO Monitoring.</div>
+  <div class="tech-item"><span class="tech-label">Leadership &amp; Delivery:</span> Technical Leadership, Team Lead, Mentorship, Technical Design Documents, Statements of Work, Stakeholder Management, Vendor Evaluation, Knowledge Transfer, Cross-Functional Collaboration (Security, Legal, Product, InfoSec), Agile, Scrum.</div>
 
-  <h2>Earlier Career</h2>
-
-  <div class="job">
-    <div class="job-company">Symantec</div>
-    <div class="job-title">Principal Software Engineer &amp; Tech Lead</div>
+  <h2>Patent &amp; Standards</h2>
     <ul>
-      <li>Restore Anyware (P2V/V2P DR), Protection Center (CISO console)</li>
-      <li>Active Directory expertise, Patent filed <a href="https://ip.com/pat/US8103747" target="_blank" rel="noopener noreferrer">US8103747</a></li>
-      <li>Symantec Star Award, 2× A++ performance</li>
+      <li><strong>Named inventor, US Patent 8,103,747</strong> — <a href="https://ip.com/pat/US8103747" target="_blank" rel="noopener noreferrer">https://ip.com/pat/US8103747</a></li>
+      <li><strong>First author, IETF Internet-Draft</strong> <em>draft-tonyai-a2a-trust-03</em> — agent-to-agent trust and AI governance</li>
+      <li><strong>Public reference implementation:</strong> <a href="https://github.com/tonyt68/ietf-a2a-trust-poc" target="_blank" rel="noopener noreferrer">https://github.com/tonyt68/ietf-a2a-trust-poc</a></li>
     </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-company">Kaseya</div>
-    <div class="job-title">Senior Software Engineer</div>
-    <ul>
-      <li>Kaseya Directory Services, Kaseya Backup</li>
-      <li>Active Directory, LDAP, AWS S3, C++, C#, .NET</li>
+  <h2>Education</h2>
+    <ul class="edu-list">
+      <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills; Claude in Amazon Bedrock; Claude with Google Cloud's Vertex AI; Introduction to Subagents (certifications at <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">https://phalanxaisec.com/achievements.html</a>)</li>
+      <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA</li>
+      <li>US Army Signal School — Computer Operator Certificate <em>(Honor Student)</em></li>
+      <li>US Army Signal School — Satellite Systems Operator Certificate <em>(Honor Student)</em></li>
     </ul>
-  </div>
-
-  <div style="font-size:0.85rem;color:#8b949e;margin-top:0.3rem;"><span class="tech-label">Additional experience:</span> Healthcare systems (Misys), fintech (Flying J), biometric security, US Army (SATCOM, Top Secret clearance, Honor Student)</div>
-
-  <h2>Books That Shaped the Craft</h2>
-  <p style="font-size:0.82rem;color:#8b949e;margin-bottom:0.5rem;">A self-taught engineer is only as good as the books he chose to learn from. These are still on the shelf:</p>
-  <ul class="book-list">
-    <li><em>Design Patterns: Elements of Reusable Object-Oriented Software</em> — Gamma, Helm, Johnson, Vlissides (Gang of Four), 1994</li>
-    <li><em>The C++ Programming Language: Special Edition (3rd Edition)</em> — Bjarne Stroustrup, 1997</li>
-    <li><em>Object-Oriented Programming in C++</em> — Robert LaFore, 1998</li>
-    <li><em>19 Deadly Sins of Software Security</em> — Howard, LeBlanc &amp; Viega, McGraw-Hill, 2005</li>
-    <li><em>The Pragmatic Programmer: Your Journey to Mastery</em> (20th Anniversary Ed.) — Thomas &amp; Hunt, 2019</li>
-    <li><em>Refactoring: Improving the Design of Existing Code</em> (2nd Ed.) — Martin Fowler, 2018</li>
-    <li><em>Becoming an Indispensable Employee in a Disposable World</em> — Neal Whitten, Prentice Hall, 1994</li>
-  </ul>
-
-  <h2>Education &amp; Continuous Learning</h2>
-  <ul class="edu-list">
-    <li><strong>Anthropic Academy</strong> — AI Agents, RAG, MCP Servers, Agent Skills; Claude in Amazon Bedrock; Claude with Google Cloud's Vertex AI; Introduction to Subagents (certifications at <a href="https://phalanxaisec.com/achievements.html" target="_blank" rel="noopener noreferrer">PhalanxAI Security — Achievements</a>)</li>
-    <li>Self-directed: CTO strategy, AI engineering, cloud architecture — YouTube, Pluralsight &amp; Udemy</li>
-    <li>Atlantic Computrain — Sun Java 2 Programmer Certificate</li>
-    <li>Certified Careers Institute — AOS, Computer Science, 3.8 GPA</li>
-    <li>US Army Signal School — Computer Operator Certificate <em>(Honor Student)</em></li>
-    <li>US Army Signal School — Satellite Systems Operator Certificate <em>(Honor Student)</em></li>
-  </ul>
 
 </div>
 

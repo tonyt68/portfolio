@@ -185,7 +185,7 @@
       }
       .header-text .tagline {
         font-size: 1.2rem;
-        margin-top: 2.5rem;
+        margin-top: 1rem;
         margin-bottom: 0.75rem;
         text-align: center;
       }
@@ -251,6 +251,12 @@
         }
       }
 
+      /* The shield grows with the window to fill the header's spare height;
+         8rem is the floor, so phones keep the size they had. */
+      .hero-shield {
+        height: clamp(8rem, 12vw, 11.5rem);
+        width: auto;
+      }
       .gold-saying {
         font-family: Georgia, "Times New Roman", serif;
         font-size: 1.3rem;
@@ -258,8 +264,8 @@
         font-style: italic;
         letter-spacing: 0.03em;
         text-align: center;
-        margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
         background: linear-gradient(
           180deg,
           #1a1408 0%,
@@ -358,6 +364,9 @@
         }
         .header-text h1 img {
           height: 5rem;
+        }
+        .header-text h1 .hero-shield {
+          height: 8rem;
         }
         .phalanx-name-img {
           height: 3rem;
@@ -1391,20 +1400,10 @@
       <div class="header-text">
         <h1>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;flex-shrink:0;">
-            <img src="PhalanxAI-Security-LLC.png" alt="TonyAI Shield" style="height: 8rem; width: auto;" />
+            <img class="hero-shield" src="PhalanxAI-Security-LLC.png" alt="TonyAI Shield" />
           </div>
           <img class="phalanx-name-img" src="phalanx-name-gold.png" alt="PhalanxAI Security LLC" />
         </h1>
-        <p id="gold-saying-text" class="gold-saying">Browse the pattern. I build it on your infrastructure.</p>
-        <script>
-          // Feature flag — this static site has no build step, so this is a
-          // plain JS constant standing in for what would be an env var.
-          // Flip to true to bring the line back. Runs inline, immediately
-          // after the element, so there is no flash of visible text before
-          // it hides.
-          const SHOW_GOLD_SAYING = false;
-          if (!SHOW_GOLD_SAYING) document.getElementById("gold-saying-text").style.display = "none";
-        </script>
         <p class="tagline">
           <span class="word"
             ><span style="--i: 0">A</span><span style="--i: 1">g</span><span style="--i: 2">e</span
@@ -1454,6 +1453,16 @@
             ><span style="--i: 76">e</span></span
           >
         </p>
+        <p id="gold-saying-text" class="gold-saying">Proven AI security, built inside your environment. Nothing phones home.</p>
+        <script>
+          // Feature flag — this static site has no build step, so this is a
+          // plain JS constant standing in for what would be an env var.
+          // Flip to true to bring the line back. Runs inline, immediately
+          // after the element, so there is no flash of visible text before
+          // it hides.
+          const SHOW_GOLD_SAYING = true;
+          if (!SHOW_GOLD_SAYING) document.getElementById("gold-saying-text").style.display = "none";
+        </script>
         <div class="header-bottom-bar">
           <!-- Running Demos + Built by — uncomment when demo videos are ready
           <div class="demo-footer">
@@ -3022,7 +3031,7 @@
             <div class="tags">
               <span class="tag">AWS Bedrock KB</span><span class="tag">Pinecone</span><span class="tag">ReBAC</span
               ><span class="tag">JWT RS256</span><span class="tag">Python</span><span class="tag">MCP Resources</span
-              ><span class="tag">Claude Code</span><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span>
+              ><span class="tag">Redis</span><span class="tag">Terraform (IaC)</span>
               <span class="tag">AWS SQS</span><span class="tag">DynamoDB</span><span class="tag">AWS CloudWatch Logs</span><span class="tag">Amazon S3</span><span class="tag">AWS Secrets Manager</span>
             </div>
           </div>
@@ -4342,7 +4351,7 @@ Six of the seven conditions that make oversight a control are implemented and me
                 <strong class="chrome">Built Solo, AI as the Platform-Engineering Force Multiplier</strong>
               </button>
               <div class="bullet-body">
-                Designed, built, and deployed end-to-end by one engineer paired with Claude Code — the CDK stack,
+                Designed, built, and deployed end-to-end by one engineer — the CDK stack,
                 three hardened templates, the CLI, and the dashboard, in a single engagement. This is the exact
                 capability a platform team is hiring for: using AI as a force multiplier to ship a self-serve
                 internal developer platform, not just consume one someone else built.
@@ -4672,7 +4681,7 @@ Six of the seven conditions that make oversight a control are implemented and me
 
     <div class="footer-spacer"></div>
     <hr class="footer-rule" />
-    <div class="footer">&copy; 2026 PhalanxAI Security LLC — All rights reserved &nbsp;·&nbsp; Powered by <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" style="color:#79c0ff;text-decoration:none;">Claude Code</a></div>
+    <div class="footer">&copy; 2026 PhalanxAI Security LLC — All rights reserved</div>
 
     <!-- Shared Video Lightbox -->
     <div
