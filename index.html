@@ -1532,6 +1532,16 @@
           <span class="poc-tab-title">Agentic AI & RAG</span>
           <span class="poc-tab-count">4</span>
         <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agentic-rag')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agentic-rag');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agentic-rag">RAG assistants and autonomous code-review agents, run under zero trust.</span></button>
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agent-zero-trust-sso" onclick="switchPocTab('cat-agent-zero-trust-sso')" role="tab" aria-selected="false">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Agent Zero-Trust SSO</span>
+          <span class="poc-tab-count">1</span>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agent-zero-trust-sso')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agent-zero-trust-sso');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agent-zero-trust-sso">Real SSO into AI agent apps, gated by a real mTLS + Cedar security gateway — the agent can ask, only the gateway can act.</span></button>
+        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-terminal-signin" onclick="switchPocTab('cat-terminal-signin')" role="tab" aria-selected="false">
+          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
+          <span class="poc-tab-title">Shared-Terminal Sign-In</span>
+          <span class="poc-tab-count">1</span>
+        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-terminal-signin')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-terminal-signin');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-terminal-signin">Sign-in for terminals several people share: a badge you carry and a code you know. Runs entirely on your premises.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">IETF / Agent-to-Agent Trust</span>
@@ -1547,11 +1557,6 @@
           <span class="poc-tab-title">Tools</span>
           <span class="poc-tab-count">2</span>
         <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-tools')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-tools');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-tools">A drift scanner that catches an agent quietly gaining access it wasn't granted, and a self-serve template catalog gated by real IAM.</span></button>
-        <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-agent-zero-trust-sso" onclick="switchPocTab('cat-agent-zero-trust-sso')" role="tab" aria-selected="false">
-          <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
-          <span class="poc-tab-title">Agent Zero-Trust SSO</span>
-          <span class="poc-tab-count">1</span>
-        <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-agent-zero-trust-sso')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-agent-zero-trust-sso');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-agent-zero-trust-sso">Real SSO into AI agent apps, gated by a real mTLS + Cedar security gateway — the agent can ask, only the gateway can act.</span></button>
       </div>
       <div class="poc-tab-panels">
         <div class="poc-tab-panel" id="cat-payments" style="--tab-accent: #58a6ff;">
@@ -3268,6 +3273,110 @@
         </div>
       </div>
 
+        </div>
+        <div class="poc-tab-panel" id="cat-terminal-signin" style="--tab-accent: #58a6ff;">
+          <div class="card card-new" id="terminal-signin-card">
+            <div class="card-badge-new"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#c8a030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;flex:none"><circle cx="12" cy="9" r="6"/><path d="M9 14.2 7.5 22l4.5-2.5 4.5 2.5-1.5-7.8"/><path d="M9.8 9l1.5 1.5 3-3"/></svg><span>Patent Pending</span></div>
+            <div class="card-header is-collapsible" onclick="toggleCardDetails('terminal-signin-card')">
+              <div class="card-title-group">
+                <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Proximity%20Badge" title="Inquire about the Proximity Badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Proximity Badge: Sign-In for Shared Terminals</span></div>
+                <a
+                  class="card-demo-link"
+                  onclick="
+                    event.stopPropagation();
+                    openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/proximity-badge-story.mp4');
+                    return false;
+                  "
+                  href="#"
+                  >🎬 2-min video</a
+                >
+              </div>
+              <div class="card-toggle-group">
+                <img class="card-toggle-icon" src="PhalanxAI-Security-LLC.png" alt="Toggle details" title="Click to expand" />
+                <span class="card-toggle-label">Tap to expand</span>
+              </div>
+            </div>
+            <p class="card-question" onclick="toggleCardDetails('terminal-signin-card')">
+              Several people share one terminal. How does it open for exactly the right person, in seconds, without anyone typing a username?
+            </p>
+            <p class="card-desc-green card-punch" onclick="toggleCardDetails('terminal-signin-card')">
+              Something you <strong class="chrome">carry</strong>, something you <strong class="chrome">know</strong>, and a system that
+              <strong class="chrome">checks both</strong>. The terminal opens only for the right person, and locks the moment they walk away.
+            </p>
+            <div class="card-details">
+              <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">No Usernames, No Shared Passwords</strong>
+                  </button>
+                  <div class="bullet-body">Walk up, type your code, and you're in as yourself. Nobody else's session, nobody else's name on screen.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Walk Away and It Locks</strong>
+                  </button>
+                  <div class="bullet-body">Your session waits for you, and nobody else can use it.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">A Copied Badge Gets Nothing</strong>
+                  </button>
+                  <div class="bullet-body">A stolen, cloned or relayed badge doesn't open a terminal, and the help desk is told.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Every Sensitive Action Is Yours</strong>
+                  </button>
+                  <div class="bullet-body">Confirmed by you, at that terminal, recorded to you by name.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">The Help Desk Sees Every Terminal, Live</strong>
+                  </button>
+                  <div class="bullet-body">Who's signed in, what's locked, what needs attention, with controls that never throw people out mid-task.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Your Premises, Your Hardware</strong>
+                  </button>
+                  <div class="bullet-body">Runs entirely on site, with no cloud and no outside service.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">AI Built In by Design, Not Bolted On</strong>
+                  </button>
+                  <div class="bullet-body">A private assistant at every terminal and at the help desk answers from your own guides, on your site, with no cloud, and refuses what it shouldn't.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Built End to End, In-House</strong>
+                  </button>
+                  <div class="bullet-body">The badge, the terminal, the server and the on-site AI: designed, built and hardened by PhalanxAI Security LLC. One team stands behind all of it.</div>
+                </li>
+              </ul>
+              <div>
+                <div class="card-section-label">Built For</div>
+                <div class="tags">
+                  <span class="tag">Banks &amp; Financial Institutions</span><span class="tag">Security Gates &amp; Controlled Entrances</span><span class="tag">Manufacturing &amp; Factory Floors</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Deployment</div>
+                <div class="tags compliance-tags">
+                  <span class="tag">On-Premises</span><span class="tag">Your Hardware</span><span class="tag">No Cloud Dependency</span>
+                </div>
+              </div>
+              <p class="card-question" style="margin-top: 1rem">Under NDA, ask for a private briefing.</p>
+            </div>
+          </div>
         </div>
         <div class="poc-tab-panel" id="cat-ietf" style="--tab-accent: #58a6ff;">
       <!-- A2A Trust Playground — browser implementation of draft-tonyai-a2a-trust.
