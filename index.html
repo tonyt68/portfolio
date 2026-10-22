@@ -3322,9 +3322,16 @@
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                    <strong class="chrome">A Copied Badge Gets Nothing</strong>
+                    <strong class="chrome">One Person, One Session</strong>
                   </button>
-                  <div class="bullet-body">A stolen, cloned or relayed badge doesn't open a terminal, and the help desk is told.</div>
+                  <div class="bullet-body">Sign in at another terminal and your old session closes itself, so nobody is ever signed in twice.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">A Stolen Badge Gets Nothing</strong>
+                  </button>
+                  <div class="bullet-body">A stolen badge opens nothing without its owner's PIN. A replayed answer, or a relay that slows the badge's answer, is refused, and a badge seen in two places at once is shut off, with the help desk alerted.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
@@ -3336,9 +3343,30 @@
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Battery and Signal at a Glance</strong>
+                  </button>
+                  <div class="bullet-body">Each badge's battery and signal, right at the terminal, so a call to the help desk takes seconds.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">The Help Desk Sees Every Terminal, Live</strong>
                   </button>
                   <div class="bullet-body">Who's signed in, what's locked, what needs attention, with controls that never throw people out mid-task.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Pause Any Terminal Instantly</strong>
+                  </button>
+                  <div class="bullet-body">From the help desk, pause a terminal and nobody gets in, with any PIN, until it's unpaused.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">A Security Key for the Help Desk</strong>
+                  </button>
+                  <div class="bullet-body">A company-owned hardware security key, not a personal phone, signs the help desk in, and risky actions ask for the key again.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
@@ -3359,9 +3387,22 @@
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">Built End to End, In-House</strong>
                   </button>
-                  <div class="bullet-body">The badge, the terminal, the server and the on-site AI: designed, built and hardened by PhalanxAI Security LLC. One team stands behind all of it.</div>
+                  <div class="bullet-body">The badge, assembled and programmed in-house, and all the software on the terminal, the server and the on-site AI: built and hardened by PhalanxAI Security LLC. One team stands behind all of it.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Patent Pending</strong>
+                  </button>
+                  <div class="bullet-body">How badges are enrolled and protected, and how sessions and shared terminals are protected and managed.</div>
                 </li>
               </ul>
+              <div>
+                <div class="card-section-label">Core Tech</div>
+                <div class="tags">
+                  <span class="tag">Open-Standard Identity (OIDC)</span><span class="tag">Hardware Security Keys (FIDO2)</span><span class="tag">Mutual TLS</span><span class="tag">On-Premises Linux</span><span class="tag">Private On-Site AI</span>
+                </div>
+              </div>
               <div>
                 <div class="card-section-label">Built For</div>
                 <div class="tags">
@@ -3373,6 +3414,10 @@
                 <div class="tags compliance-tags">
                   <span class="tag">On-Premises</span><span class="tag">Your Hardware</span><span class="tag">No Cloud Dependency</span>
                 </div>
+              </div>
+              <div>
+                <div class="card-section-label">Standards</div>
+                <p style="margin: 0; font-size: 0.85rem; line-height: 1.4">Built to support PCI DSS and <span style="white-space: nowrap">NIST SP 800-53</span> access-control and audit requirements.</p>
               </div>
               <p class="card-question" style="margin-top: 1rem">Under NDA, ask for a private briefing.</p>
             </div>
