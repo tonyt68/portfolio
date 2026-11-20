@@ -1541,7 +1541,7 @@
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-terminal-signin" onclick="switchPocTab('cat-terminal-signin')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
           <span class="poc-tab-title">Shared-Terminal Sign-In</span>
-          <span class="poc-tab-count">1</span>
+          <span class="poc-tab-count">3</span>
         <span class="poc-tab-info" tabindex="0" role="button" aria-label="About this tab" onclick="event.stopPropagation(); toggleTabTooltip(event, 'cat-terminal-signin')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleTabTooltip(event,'cat-terminal-signin');}">i</span><span class="poc-tab-tooltip" id="tooltip-cat-terminal-signin">Sign-in for terminals several people share: a badge you carry and a code you know. Runs entirely on your premises.</span></button>
         <button type="button" class="poc-tab" style="--tab-accent: #58a6ff;" data-target="cat-ietf" onclick="switchPocTab('cat-ietf')" role="tab" aria-selected="false">
           <img class="poc-tab-shield" src="PhalanxAI-Security-LLC.png" alt="" />
@@ -3308,6 +3308,13 @@
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">People and AI Agents, Held to One Bar</strong>
+                  </button>
+                  <div class="bullet-body">One estate, two kinds of identity. People prove who they are with a badge and a PIN; AI agents with their own identity, attested by a person. Each runs from its own Command Center, each is recorded on a hash-chained, tamper-evident audit trail, and both are guarded by the same fail-closed rules. Most products do one or the other. This does both, together.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">No Usernames, No Shared Passwords</strong>
                   </button>
                   <div class="bullet-body">Walk up, type your code, and you're in as yourself. Nobody else's session, nobody else's name on screen.</div>
@@ -3331,7 +3338,7 @@
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">A Stolen Badge Gets Nothing</strong>
                   </button>
-                  <div class="bullet-body">A stolen badge opens nothing without its owner's PIN. A replayed answer, or a relay that slows the badge's answer, is refused, and a badge seen in two places at once is shut off, with the help desk alerted.</div>
+                  <div class="bullet-body">A stolen badge opens nothing without its owner's PIN. A replayed answer, or a relay that slows the badge's answer, is refused, and a badge seen in two places at once is shut off, with the Employee Command Center alerted.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
@@ -3350,7 +3357,7 @@
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                    <strong class="chrome">The Help Desk Sees Every Terminal, Live</strong>
+                    <strong class="chrome">The Employee Command Center Sees Every Terminal, Live</strong>
                   </button>
                   <div class="bullet-body">Who's signed in, what's locked, what needs attention, with controls that never throw people out mid-task.</div>
                 </li>
@@ -3359,21 +3366,21 @@
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">Pause Any Terminal Instantly</strong>
                   </button>
-                  <div class="bullet-body">From the help desk, pause a terminal and nobody gets in, with any PIN, until it's unpaused.</div>
+                  <div class="bullet-body">From the Employee Command Center, pause a terminal and nobody gets in, with any PIN, until it's unpaused.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-                    <strong class="chrome">A Security Key for the Help Desk</strong>
+                    <strong class="chrome">A Security Key for Every Operator</strong>
                   </button>
-                  <div class="bullet-body">A company-owned hardware security key, not a personal phone, signs the help desk in, and risky actions ask for the key again.</div>
+                  <div class="bullet-body">A company-owned hardware security key, not a personal phone, signs operators in, and risky actions ask for the key again.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">Your Premises, Your Hardware</strong>
                   </button>
-                  <div class="bullet-body">Runs entirely on site, with no cloud and no outside service.</div>
+                  <div class="bullet-body">Runs entirely on site, with no cloud and no outside service. Your own compute, with internal and external networks kept apart. Egress is denied by default: the estate never reaches the internet, and anything that tries is refused and raised.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
@@ -3394,7 +3401,21 @@
                     <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <strong class="chrome">AI Built In by Design, Not Bolted On</strong>
                   </button>
-                  <div class="bullet-body">A private assistant at every terminal and at the help desk answers from your own guides, on your site, with no cloud, and refuses what it shouldn't.</div>
+                  <div class="bullet-body">Private AI assistants at every terminal, at both Command Centers and beside every teller answer from your own guides and records, on your site, with no cloud, and refuse what they shouldn't.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">AI Agents, on a Short Leash</strong>
+                  </button>
+                  <div class="bullet-body">Agents that help bank staff, like Customer Assistance, are attested by a person, run only the tools and hours they're given, are verified on every call, leave every step on a hash-chained, tamper-evident audit trail, and can be stopped with one drag from the Agentic AI Command Center.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Secure by Design, Shifted Left</strong>
+                  </button>
+                  <div class="bullet-body">Fail closed everywhere, every change through automated security review before it ships, and every machine built from code with a drift check proving it still matches.</div>
                 </li>
                 <li class="bullet-item">
                   <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
@@ -3411,10 +3432,11 @@
                   <div class="bullet-body">How badges are enrolled and protected, and how sessions and shared terminals are protected and managed.</div>
                 </li>
               </ul>
+              <p style="margin: 0 0 1rem 0; font-size: 0.85rem; line-height: 1.4">Run from two Command Centers, Employee and Agentic AI. See their cards below.</p>
               <div>
                 <div class="card-section-label">Core Tech</div>
                 <div class="tags">
-                  <span class="tag">Open-Standard Identity (OIDC)</span><span class="tag">Hardware Security Keys (FIDO2)</span><span class="tag">Mutual TLS</span><span class="tag">On-Premises Linux</span><span class="tag">Private On-Site AI</span><span class="tag">Full-Disk Encryption</span>
+                  <span class="tag">Open-Standard Identity (OIDC)</span><span class="tag">Hardware Security Keys (FIDO2)</span><span class="tag">Phishing-Resistant MFA</span><span class="tag">Mutual TLS</span><span class="tag">Zero Trust</span><span class="tag">Default-Deny Egress</span><span class="tag">On-Premises Linux</span><span class="tag">Private On-Site AI</span><span class="tag">Full-Disk Encryption</span><span class="tag">Agent Identity Certificates</span><span class="tag">Hash-Chained Audit Trail</span>
                 </div>
               </div>
               <div>
@@ -3427,6 +3449,382 @@
                 <div class="card-section-label">Deployment</div>
                 <div class="tags compliance-tags">
                   <span class="tag">On-Premises</span><span class="tag">Your Hardware</span><span class="tag">No Cloud Dependency</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Standards</div>
+                <p style="margin: 0; font-size: 0.85rem; line-height: 1.4">Built to support PCI DSS and <span style="white-space: nowrap">NIST SP 800-53</span> access-control and audit requirements.</p>
+              </div>
+              <p class="card-question" style="margin-top: 1rem">Under NDA, ask for a private briefing.</p>
+            </div>
+          </div>
+          <div class="card card-new" id="employee-command-center-card">
+            <div class="card-badge-new"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#c8a030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;flex:none"><circle cx="12" cy="9" r="6"/><path d="M9 14.2 7.5 22l4.5-2.5 4.5 2.5-1.5-7.8"/><path d="M9.8 9l1.5 1.5 3-3"/></svg><span>Patent Pending</span></div>
+            <div class="card-header is-collapsible" onclick="toggleCardDetails('employee-command-center-card')">
+              <div class="card-title-group">
+                <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Employee%20Command%20Center" title="Inquire about the Employee Command Center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Proximity Badge: Employee Command Center</span></div>
+                <a
+                  class="card-demo-link"
+                  onclick="
+                    event.stopPropagation();
+                    openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/proximity-badge-command-centers-demo.mp4');
+                    return false;
+                  "
+                  href="#"
+                  >🎬 17-sec video</a
+                >
+              </div>
+              <div class="card-toggle-group">
+                <img class="card-toggle-icon" src="PhalanxAI-Security-LLC.png" alt="Toggle details" title="Click to expand" />
+                <span class="card-toggle-label">Tap to expand</span>
+              </div>
+            </div>
+            <p class="card-question" onclick="toggleCardDetails('employee-command-center-card')">
+              Your back office runs shared terminals and the people who use them. Who's here right now, who changed what, and how fast can you shut it down?
+            </p>
+            <p class="card-desc-green card-punch" onclick="toggleCardDetails('employee-command-center-card')">
+              <strong class="chrome">Watch</strong> everything. <strong class="chrome">Act</strong> with a security key. <strong class="chrome">Prove</strong> every action. One console for every badge, person and terminal in the estate.
+            </p>
+            <div class="card-details">
+              <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Every Risky Action Needs Your Key</strong>
+                  </button>
+                  <div class="bullet-body">Cut someone off, let someone in, weaken a terminal: step-up authentication with the operator's hardware security key, again, every time. Phishing-resistant, no exceptions, no "remember me".</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">The Console Can't Overrule the Estate</strong>
+                  </button>
+                  <div class="bullet-body">The Command Center only asks. The estate decides, and records the action under the operator's name before it happens. A stolen console can't hand out access.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Live at a Glance</strong>
+                  </button>
+                  <div class="bullet-body">Badges present and terminals reporting, updated in place, UP or DOWN on every panel. Pop any panel out to the wall screen.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">One Page to Act</strong>
+                  </button>
+                  <div class="bullet-body">Enroll a badge and its person in one step, revoke, pause a terminal, change a role, all on Badge Access, apart from the watching screen so nothing gets clicked by mistake.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Cut Someone Off, Fast</strong>
+                  </button>
+                  <div class="bullet-body">Deactivate a person and their badge stops at once, and every session they have open ends.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Time-Based Access: No Schedule, No Access</strong>
+                  </button>
+                  <div class="bullet-body">Access schedules and blackouts per person: outside their hours, nobody gets in. The AI assistant working for an employee works only that employee's hours.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Break-Glass, Under Control</strong>
+                  </button>
+                  <div class="bullet-body">Emergency access armed with the key and timed. While it's on, every operator sees who, where and how long is left, and ends it with one click.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">A Record Nobody Can Quietly Change</strong>
+                  </button>
+                  <div class="bullet-body">An append-only, hash-chained, tamper-evident audit trail, read-only to everyone, operators included. Every action tied to the operator who took it. A break is raised loudly, never hidden.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Incidents and Alerts at a Glance</strong>
+                  </button>
+                  <div class="bullet-body">A daily incidents chart by severity, one click to that day's record, Action required or No action required up top, the same framework as the Agentic AI Command Center. A silent terminal raises an alert by itself, and critical alerts land in operators' inboxes.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Zero Trust, All the Way Down</strong>
+                  </button>
+                  <div class="bullet-body">Secure by design means trusting nothing, not even the machines the estate runs on or the people who administer them. So every server is watched as it runs. Every administrator sign-in, every command run as administrator, and anything other than its own service opening a secret file is raised as an alert at the Command Center as it happens, and kept off the machine. A drift check proves every machine still matches its code, so a change made outside the process stands out.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Every Door Guarded, Fails Closed</strong>
+                  </button>
+                  <div class="bullet-body">Every way in validated and limited, a failing part fails fast instead of piling up, and no single runaway service can take the system down. An error means "no", never "yes".</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Your Hardware, Your Compute, Your Network</strong>
+                  </button>
+                  <div class="bullet-body">The whole estate runs on the bank's own hardware and compute, with its internal and external networks kept apart. The bank controls every way in and every way out: egress is denied by default, so the estate never reaches the internet, and anything that tries is refused and raised. Every way in is a guarded door.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Least Privilege, Down to the Database</strong>
+                  </button>
+                  <div class="bullet-body">Even the running programs can't change the record's own protections.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Secure by Design, Shifted Left</strong>
+                  </button>
+                  <div class="bullet-body">Every machine built from infrastructure as code, with a drift check proving it still matches. Every change passes automated security review, dependency CVE checks and a full test suite before it ships, not after.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">An Agentic Help Assistant</strong>
+                  </button>
+                  <div class="bullet-body">Ask how to do anything on the console. It answers from the operator guide on the estate's own private AI. No cloud.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Walk Away and It Locks</strong>
+                  </button>
+                  <div class="bullet-body">An idle console locks itself, and only the operator's security key unlocks it.</div>
+                </li>
+              </ul>
+              <div>
+                <div class="card-section-label">Core Tech</div>
+                <div class="tags">
+                  <span class="tag">Open-Standard Identity (OIDC)</span><span class="tag">Hardware Security Keys (FIDO2)</span><span class="tag">Phishing-Resistant MFA</span><span class="tag">Step-Up Authentication</span><span class="tag">Time-Based Access Policies</span><span class="tag">Mutual TLS</span><span class="tag">Zero Trust</span><span class="tag">Least Privilege</span><span class="tag">Defense in Depth</span><span class="tag">Fail-Closed Design</span><span class="tag">Break-Glass Access</span><span class="tag">Privileged Access Monitoring</span><span class="tag">Host Monitoring</span><span class="tag">Network Segmentation</span><span class="tag">Default-Deny Egress</span><span class="tag">Full-Disk Encryption</span><span class="tag">Hash-Chained Audit Trail</span><span class="tag">Static Analysis (SAST)</span><span class="tag">Dependency CVE Scanning</span><span class="tag">Infrastructure as Code</span><span class="tag">Drift Detection</span><span class="tag">Circuit Breakers &amp; Bulkheads</span><span class="tag">Shift-Left Security</span><span class="tag">On-Premises Linux</span><span class="tag">Private On-Site AI</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Built For</div>
+                <div class="tags">
+                  <span class="tag">Banks &amp; Financial Institutions</span><span class="tag">Fintech</span><span class="tag">Back-Office Operations</span><span class="tag">Regulated Shared Workspaces</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Deployment</div>
+                <div class="tags compliance-tags">
+                  <span class="tag">On-Premises</span><span class="tag">Your Hardware</span><span class="tag">Your Compute</span><span class="tag">Data Sovereignty</span><span class="tag">No Cloud Dependency</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Standards</div>
+                <p style="margin: 0; font-size: 0.85rem; line-height: 1.4">Built to support PCI DSS and <span style="white-space: nowrap">NIST SP 800-53</span> access-control and audit requirements.</p>
+              </div>
+              <p class="card-question" style="margin-top: 1rem">Under NDA, ask for a private briefing.</p>
+            </div>
+          </div>
+          <div class="card card-new" id="agentic-ai-command-center-card">
+            <div class="card-badge-new"><span>&#9733; New</span></div>
+            <div class="card-header is-collapsible" onclick="toggleCardDetails('agentic-ai-command-center-card')">
+              <div class="card-title-group">
+                <div class="card-title-row"><a class="card-inquire-icon" onclick="event.stopPropagation();" href="mailto:founder@phalanxaisec.com?subject=Inquiry%3A%20Agentic%20AI%20Command%20Center" title="Inquire about the Agentic AI Command Center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Inquire</span></a><span class="card-title">Proximity Badge: Agentic AI Command Center</span></div>
+                <a
+                  class="card-demo-link"
+                  onclick="
+                    event.stopPropagation();
+                    openVideoDemo('https://d3ps4pwww7wyqq.cloudfront.net/proximity-badge-command-centers-demo.mp4');
+                    return false;
+                  "
+                  href="#"
+                  >🎬 17-sec video</a
+                >
+              </div>
+              <div class="card-toggle-group">
+                <img class="card-toggle-icon" src="PhalanxAI-Security-LLC.png" alt="Toggle details" title="Click to expand" />
+                <span class="card-toggle-label">Tap to expand</span>
+              </div>
+            </div>
+            <p class="card-question" onclick="toggleCardDetails('agentic-ai-command-center-card')">
+              AI agents are starting to do real work at your bank. Who approved them, what are they allowed to touch, and how fast can you pull the plug?
+            </p>
+            <p class="card-desc-green card-punch" onclick="toggleCardDetails('agentic-ai-command-center-card')">
+              Every agent <strong class="chrome">attested by a person</strong>. Every tool <strong class="chrome">switched on on purpose</strong>. Every call <strong class="chrome">verified</strong>. Every big decision <strong class="chrome">made by a human</strong>. Every step <strong class="chrome">on the record</strong>. Any agent <strong class="chrome">stopped with one drag</strong>.
+            </p>
+            <div class="card-details">
+              <ul class="card-bullet-list bullet-accordion" style="margin: 0 0 1rem 0; padding: 0; font-size: 0.85rem; line-height: 1.4">
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">A Verified Identity for Every Agent, Attested by a Person</strong>
+                  </button>
+                  <div class="bullet-body">Every AI agent is a non-human identity with its own certificate, issued only after a person attests to it with a hardware security key. The attestation is a signed record the estate keeps.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Nothing On at Birth</strong>
+                  </button>
+                  <div class="bullet-body">A new agent can do nothing until an operator switches on its tools, one by one. Least privilege from day one: no schedule, no access.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Zero Trust on Every Call</strong>
+                  </button>
+                  <div class="bullet-body">Identity, tools and hours, verified again on every single call, not once at sign-in. Outside them, refused.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Contain the Blast Radius with One Drag</strong>
+                  </button>
+                  <div class="bullet-body">Drag an agent into quarantine and its calls in flight are cancelled and every new one refused. A reason and the operator's key, every time.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">We Eat Our Own Cooking</strong>
+                  </button>
+                  <div class="bullet-body">Agent identity, attestation and revocation follow our own IETF Internet-Draft for agent-to-agent trust, presented at IETF 127, with access schedules for every agent built in on top. We wrote the draft, and we build to it.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Proof the Employee Asked</strong>
+                  </button>
+                  <div class="bullet-body">An agent acting for an employee carries proof that this employee, at this terminal, on this call, asked for it. That proof can't be passed on or reused.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Agents Never Mix</strong>
+                  </button>
+                  <div class="bullet-body">An agent works for bank staff or for customers, chosen at approval and never changed. One can never act as the other.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Customer Assistance, for Tellers, Not Instead of Them</strong>
+                  </button>
+                  <div class="bullet-body">The bank's own AI assistant, beside the teller on a customer's call. Ask "Why is her deposit on hold?" and it explains in plain words, asks the teller when something's unclear, and always ends with a next step. It drafts every change; nothing happens until the teller clicks Yes, and only on a call the customer approved with their own passkey.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Agents Can't Make Up the Numbers</strong>
+                  </button>
+                  <div class="bullet-body">Anything that changes a customer's account traces back to what the employee said and the customer confirmed. A person confirms before money moves.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Maker-Checker, Built In</strong>
+                  </button>
+                  <div class="bullet-body">Early hold releases and large transfers wait in a supervisor's inbox with what they need to decide. Whoever asked can never approve it, and whoever took a call never reviews it. Segregation of duties and a human in the loop, enforced by the system, not by policy on paper.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Every Call on the Record, End to End</strong>
+                  </button>
+                  <div class="bullet-body">Every step the assistant planned, every change it proposed, every click by the teller and every decision by the supervisor, with the customer's own approval, in one append-only, hash-chained, tamper-evident audit trail. Read-only: nobody can quietly rewrite it, operators included.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">What Happened, Who Decided</strong>
+                  </button>
+                  <div class="bullet-body">Every call closes with its record: what the customer asked, what was done, what was decided and by whom. Audit-ready, without anyone writing it up after the fact.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">The Customer Hears Back, Safely</strong>
+                  </button>
+                  <div class="bullet-body">When a call closes, the customer gets a secure message in their own secure inbox, opened only with their passkey, and an email telling them it's there. No email to a customer ever carries a link, so by the bank's own rule a "bank" email with a link is a phish.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Data Loss Prevention at the Gate</strong>
+                  </button>
+                  <div class="bullet-body">Every action passes one guarded gate, and nothing reaches or leaves a customer's account unless it's allowed to.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Time-Based Policy, for Every Agent</strong>
+                  </button>
+                  <div class="bullet-body">An agent working for customers runs only on its own schedule, inside the hours set at its approval. An agent working for staff, like Customer Assistance, works only the signed-in employee's hours, so it can never work when they can't. Outside the hours, refused, checked on every call. Each API online or offline with one switch, and changes apply on the next call, no restart.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Incidents and Alerts, Across Both Command Centers</strong>
+                  </button>
+                  <div class="bullet-body">A live window of agent calls, and a daily incidents chart by severity shared with the Employee Command Center, one click to that day's record. Critical alerts are emailed to operators until someone acknowledges them.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Zero Trust, All the Way Down</strong>
+                  </button>
+                  <div class="bullet-body">Secure by design means trusting nothing, not even the machines the agents run on or the people who administer them. So every server is watched as it runs. Every administrator sign-in, every command run as administrator, and anything other than its own service opening a secret file is raised as an alert at the Command Centers as it happens, and a drift check proves every machine still matches its code.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Mistakes Put Right, Safely</strong>
+                  </button>
+                  <div class="bullet-body">An approval can be corrected until the agent's first call. An agent taken to end of life is never brought back, and its name and key are never reused.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Phishing-Resistant MFA, and Nothing Else</strong>
+                  </button>
+                  <div class="bullet-body">Operators sign in with a hardware security key, its PIN and a touch. No passwords, no phone codes, nothing to phish.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Same Guarded Doors as the People Side</strong>
+                  </button>
+                  <div class="bullet-body">Secure by design and shifted left: fail closed everywhere, every way in validated and limited, no internet, and every change through automated security review before it ships.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Your Hardware, Your Compute, Your AI</strong>
+                  </button>
+                  <div class="bullet-body">Every assistant and every AI model runs on the bank's own hardware and compute. No cloud, no outside AI service, and no customer data leaving the building. The bank controls ingress and egress: egress is denied by default, and every way in is a guarded door.</div>
+                </li>
+                <li class="bullet-item">
+                  <button class="bullet-toggle" type="button" onclick="event.stopPropagation(); toggleBulletItem(this);">
+                    <svg class="bullet-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <strong class="chrome">Same Look, Separate System</strong>
+                  </button>
+                  <div class="bullet-body">Laid out like the Employee Command Center so operators never relearn a screen, yet it runs as a separate system.</div>
+                </li>
+              </ul>
+              <div>
+                <div class="card-section-label">Core Tech</div>
+                <div class="tags">
+                  <span class="tag">Agentic AI</span><span class="tag">Model Context Protocol (MCP)</span><span class="tag">Non-Human Identity (NHI)</span><span class="tag">Agent Identity Certificates</span><span class="tag">Signed Attestations</span><span class="tag">Certificate Revocation</span><span class="tag">IETF Agent-to-Agent Trust Draft</span><span class="tag">Sender-Constrained Tokens</span><span class="tag">Time-Based Access Policies</span><span class="tag">Hardware Security Keys (FIDO2)</span><span class="tag">Passkeys</span><span class="tag">Phishing-Resistant MFA</span><span class="tag">Mutual TLS</span><span class="tag">Zero Trust</span><span class="tag">Least Privilege</span><span class="tag">Human-in-the-Loop</span><span class="tag">Maker-Checker Approvals</span><span class="tag">Segregation of Duties</span><span class="tag">Data Loss Prevention</span><span class="tag">Hash-Chained Audit Trail</span><span class="tag">Fail-Closed Design</span><span class="tag">Privileged Access Monitoring</span><span class="tag">Host Monitoring</span><span class="tag">Network Segmentation</span><span class="tag">Default-Deny Egress</span><span class="tag">Shift-Left Security</span><span class="tag">Private On-Site AI</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Built For</div>
+                <div class="tags">
+                  <span class="tag">Banks &amp; Financial Institutions</span><span class="tag">Fintech</span><span class="tag">Teams Putting AI Agents to Work</span>
+                </div>
+              </div>
+              <div>
+                <div class="card-section-label">Deployment</div>
+                <div class="tags compliance-tags">
+                  <span class="tag">On-Premises</span><span class="tag">Your Hardware</span><span class="tag">Your Compute</span><span class="tag">Data Sovereignty</span><span class="tag">No Cloud Dependency</span>
                 </div>
               </div>
               <div>
