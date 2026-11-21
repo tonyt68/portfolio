@@ -10,7 +10,7 @@
  * place default-tab selection is decided.
  */
 
-export const DEFAULT_TAB = "cat-agentops";
+export const DEFAULT_TAB = "cat-terminal-signin";
 
 export function resolveTab(search, hash, validSlugs) {
   const fromQuery = new URLSearchParams(search).get("tab");
